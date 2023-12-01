@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pySigma-validators-sigmahq"
+version = "0.1.0"
+description = "pySigma SigmaHQ validators"
+authors = ["François Hubaut <frack113@users.noreply.github.com>"]
+license = "LGPL-2.1-only"
+repository = "https://github.com/frack113/pySigma_validators_sigmaHQ"
+packages = [
+    { include = "sigma" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pysigma = "^0.10.9"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+pytest-cov = "^4.1.0"
+coverage = "^7.3.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
