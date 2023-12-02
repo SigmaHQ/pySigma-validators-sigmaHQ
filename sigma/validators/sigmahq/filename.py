@@ -124,7 +124,7 @@ class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
 
 
 class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
-    """Check rule filename match SigmaHQ prefixstandard."""
+    """Check rule filename match SigmaHQ prefix standard."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.source is not None:

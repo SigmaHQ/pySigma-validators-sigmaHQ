@@ -1,9 +1,5 @@
-import re
-from collections import Counter
-from collections import defaultdict
 from dataclasses import dataclass
-from typing import ClassVar, Dict, List, Set
-from uuid import UUID
+from typing import List
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -11,22 +7,6 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
-
-
-@dataclass
-class SigmahqTitleLengthIssue(SigmaValidationIssue):
-    description = "Rule has a title longer than 110 characters"
-    severity = SigmaValidationIssueSeverity.MEDIUM
-
-
-class SigmahqTitleLengthValidator(SigmaRuleValidator):
-    """Checks if rule has a title length longer than 110."""
-
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if len(rule.title) > 110:
-            return [SigmahqTitleLengthIssue([rule])]
-        else:
-            return []
 
 
 @dataclass
@@ -47,7 +27,7 @@ class SigmahqStatusExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusUnsupportedIssue(SigmaValidationIssue):
-    description = "Rule has UNSUPPORTED status"
+    description = "Rule has a UNSUPPORTED status"
     severity = SigmaValidationIssueSeverity.HIGH
 
 
@@ -63,7 +43,7 @@ class SigmahqStatusUnsupportedValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusDeprecatedIssue(SigmaValidationIssue):
-    description = "Rule has DEPRECATED status"
+    description = "Rule has a DEPRECATED status"
     severity = SigmaValidationIssueSeverity.HIGH
 
 

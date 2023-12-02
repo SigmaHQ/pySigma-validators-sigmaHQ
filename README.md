@@ -14,7 +14,10 @@ SigmaHq validators for pySigma
 | sigmahq_status_deprecated             | Checks if rule has a status DEPRECATED.                     |
 | sigmahq_status_existence              | Checks if rule has a status.                                |
 | sigmahq_status_unsupported            | Checks if rule has a status UNSUPPORTED.                    |
+| sigmahq_title_case                    | Checks if rule title use capitalization.                    |
+| sigmahq_title_end                     | Checks if rule end with a dot(.).                          |
 | sigmahq_title_length                  | Checks if rule has a title length longer than 110.          |
+| sigmahq_title_start                   | Checks if rule start with Detects.                          |
 
 This pipelines is currently maintained by:
 * [François Hubaut](https://github.com/frack113)
