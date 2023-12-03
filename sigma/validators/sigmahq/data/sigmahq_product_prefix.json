@@ -1,0 +1,12 @@
+{
+  "aws": "aws_",
+  "azure": "azure_",
+  "gcp": "gcp_",
+  "github": "github_",
+  "linux": "lnx_",
+  "m365": "microsoft365_",
+  "macos": "macos_",
+  "okta": "okta_",
+  "onelogin": "onelogin_",
+  "windows": "win_"
+}

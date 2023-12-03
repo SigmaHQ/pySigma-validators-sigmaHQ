@@ -1,0 +1,350 @@
+{
+    "azure_pim": {
+      "prefix": "azure_pim_",
+      "category": "",
+      "product": "azure",
+      "service": "pim"
+    },
+    "create_remote_thread_win": {
+      "prefix": "create_remote_thread_win",
+      "category": "create_remote_thread",
+      "product": "windows",
+      "service": ""
+    },
+    "create_stream_hash": {
+      "prefix": "create_stream_hash_",
+      "category": "create_stream_hash",
+      "product": "windows",
+      "service": ""
+    },
+    "dns_query_win": {
+      "prefix": "dns_query_win_",
+      "category": "dns_query",
+      "product": "windows",
+      "service": ""
+    },
+    "driver_load_win": {
+      "prefix": "driver_load_win_",
+      "category": "driver_load",
+      "product": "windows",
+      "service": ""
+    },
+    "file_access_win": {
+      "prefix": "file_access_win_",
+      "category": "file_access",
+      "product": "windows",
+      "service": ""
+    },
+    "file_change_win": {
+      "prefix": "file_change_win_",
+      "category": "file_change",
+      "product": "windows",
+      "service": ""
+    },
+    "file_delete_win": {
+      "prefix": "file_delete_win_",
+      "category": "file_delete",
+      "product": "windows",
+      "service": ""
+    },
+    "file_event_lnx": {
+      "prefix": "file_event_lnx_",
+      "category": "file_event",
+      "product": "linux",
+      "service": ""
+    },
+    "file_event_macos": {
+      "prefix": "file_event_macos_",
+      "category": "file_event",
+      "product": "macos",
+      "service": ""
+    },
+    "file_event_win": {
+      "prefix": "file_event_win_",
+      "category": "file_event",
+      "product": "windows",
+      "service": ""
+    },
+    "file_rename_win": {
+      "prefix": "file_rename_win_",
+      "category": "file_rename",
+      "product": "windows",
+      "service": ""
+    },
+    "image_load": {
+      "prefix": "image_load_",
+      "category": "image_load",
+      "product": "windows",
+      "service": ""
+    },
+    "lnx_auditd": {
+      "prefix": "lnx_auditd_",
+      "category": "",
+      "product": "linux",
+      "service": "auditd"
+    },
+    "modsec": {
+      "prefix": "modsec_",
+      "category": "",
+      "product": "linux",
+      "service": "modsecurity"
+    },
+    "net_connection_lnx": {
+      "prefix": "net_connection_lnx_",
+      "category": "network_connection",
+      "product": "linux",
+      "service": ""
+    },
+    "net_connection_macos": {
+      "prefix": "net_connection_macos_",
+      "category": "network_connection",
+      "product": "macos",
+      "service": ""
+    },
+    "net_connection_win": {
+      "prefix": "net_connection_win_",
+      "category": "network_connection",
+      "product": "windows",
+      "service": ""
+    },
+    "net_dns": {
+      "prefix": "net_dns_",
+      "category": "dns",
+      "product": "windows",
+      "service": ""
+    },
+    "net_firewall": {
+      "prefix": "net_firewall_",
+      "category": "firewall",
+      "product": "",
+      "service": ""
+    },
+    "pipe_created": {
+      "prefix": "pipe_created_",
+      "category": "pipe_created",
+      "product": "windows",
+      "service": ""
+    },
+    "posh_pc": {
+      "prefix": "posh_pc_",
+      "category": "",
+      "product": "windows",
+      "service": "powershell-classic"
+    },
+    "posh_pc_1": {
+      "prefix": "posh_pc_",
+      "category": "ps_classic_provider_start",
+      "product": "windows",
+      "service": ""
+    },
+    "posh_pc_2": {
+      "prefix": "posh_pc_",
+      "category": "ps_classic_start",
+      "product": "windows",
+      "service": ""
+    },
+    "posh_pm": {
+      "prefix": "posh_pm_",
+      "category": "ps_module",
+      "product": "windows",
+      "service": ""
+    },
+    "posh_ps": {
+      "prefix": "posh_ps_",
+      "category": "ps_script",
+      "product": "windows",
+      "service": ""
+    },
+    "proc_access_win": {
+      "prefix": "proc_access_win_",
+      "category": "process_access",
+      "product": "windows",
+      "service": ""
+    },
+    "proc_creation_lnx": {
+      "prefix": "proc_creation_lnx_",
+      "category": "process_creation",
+      "product": "linux",
+      "service": ""
+    },
+    "proc_creation_macos": {
+      "prefix": "proc_creation_macos_",
+      "category": "process_creation",
+      "product": "macos",
+      "service": ""
+    },
+    "proc_creation_win": {
+      "prefix": "proc_creation_win_",
+      "category": "process_creation",
+      "product": "windows",
+      "service": ""
+    },
+    "proc_tampering": {
+      "prefix": "proc_tampering_",
+      "category": "process_tampering",
+      "product": "windows",
+      "service": ""
+    },
+    "raw_access_thread": {
+      "prefix": "raw_access_thread_",
+      "category": "raw_access_thread",
+      "product": "windows",
+      "service": ""
+    },
+    "registry_add": {
+      "prefix": "registry_add_",
+      "category": "registry_add",
+      "product": "windows",
+      "service": ""
+    },
+    "registry_delete": {
+      "prefix": "registry_delete_",
+      "category": "registry_delete",
+      "product": "windows",
+      "service": ""
+    },
+    "registry_event": {
+      "prefix": "registry_event_",
+      "category": "registry_event",
+      "product": "windows",
+      "service": ""
+    },
+    "registry_rename": {
+      "prefix": "registry_rename_",
+      "category": "registry_rename",
+      "product": "windows",
+      "service": ""
+    },
+    "registry_set": {
+      "prefix": "registry_set_",
+      "category": "registry_set",
+      "product": "windows",
+      "service": ""
+    },
+    "sysmon": {
+      "prefix": "sysmon_",
+      "category": "",
+      "product": "windows",
+      "service": "sysmon"
+    },
+    "sysmon_1": {
+      "prefix": "sysmon_",
+      "category": "sysmon_error",
+      "product": "windows",
+      "service": ""
+    },
+    "sysmon_2": {
+      "prefix": "sysmon_",
+      "category": "sysmon_status",
+      "product": "windows",
+      "service": ""
+    },
+    "sysmon_wmi": {
+      "prefix": "sysmon_wmi_",
+      "category": "wmi_event",
+      "product": "windows",
+      "service": ""
+    },
+    "web": {
+      "prefix": "web_",
+      "category": "webserver",
+      "product": "",
+      "service": ""
+    },
+    "win_applocker": {
+      "prefix": "win_applocker_",
+      "category": "",
+      "product": "windows",
+      "service": "applocker"
+    },
+    "win_bitlocker": {
+      "prefix": "win_bitlocker_",
+      "category": "",
+      "product": "windows",
+      "service": "bitlocker"
+    },
+    "win_bits_client": {
+      "prefix": "win_bits_client_",
+      "category": "",
+      "product": "windows",
+      "service": "bits-client"
+    },
+    "win_capi2": {
+      "prefix": "win_capi2_",
+      "category": "",
+      "product": "windows",
+      "service": "capi2"
+    },
+    "win_certificateservicesclient_lifecycle_system": {
+      "prefix": "win_certificateservicesclient_lifecycle_system_",
+      "category": "",
+      "product": "windows",
+      "service": "certificateservicesclient-lifecycle-system"
+    },
+    "win_codeintegrity": {
+      "prefix": "win_codeintegrity_",
+      "category": "",
+      "product": "windows",
+      "service": "codeintegrity-operational"
+    },
+    "win_defender": {
+      "prefix": "win_defender_",
+      "category": "",
+      "product": "windows",
+      "service": "windefend"
+    },
+    "win_diagnosis_scripted": {
+      "prefix": "win_diagnosis_scripted_",
+      "category": "",
+      "product": "windows",
+      "service": "diagnosis-scripted"
+    },
+    "win_dns_analytic": {
+      "prefix": "win_dns_analytic_",
+      "category": "",
+      "product": "windows",
+      "service": "dns-server-analytic"
+    },
+    "win_exchange": {
+      "prefix": "win_exchange_",
+      "category": "",
+      "product": "windows",
+      "service": "msexchange-management"
+    },
+    "win_firewall_as": {
+      "prefix": "win_firewall_as_",
+      "category": "",
+      "product": "windows",
+      "service": "firewall-as"
+    },
+    "win_security": {
+      "prefix": "win_security_",
+      "category": "",
+      "product": "windows",
+      "service": "security"
+    },
+    "win_system": {
+      "prefix": "win_system_",
+      "category": "",
+      "product": "windows",
+      "service": "system"
+    },
+    "win_taskscheduler": {
+      "prefix": "win_taskscheduler_",
+      "category": "",
+      "product": "windows",
+      "service": "taskscheduler"
+    },
+    "win_terminalservices": {
+      "prefix": "win_terminalservices_",
+      "category": "",
+      "product": "windows",
+      "service": "terminalservices-localsessionmanager"
+    },
+    "win_wmi": {
+      "prefix": "win_wmi_",
+      "category": "",
+      "product": "windows",
+      "service": "wmi"
+    }
+  }
