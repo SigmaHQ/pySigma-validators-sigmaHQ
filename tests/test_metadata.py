@@ -1,9 +1,7 @@
 from wsgiref.validate import validator
 
 import pytest
-from sigma.rule import SigmaRule, SigmaLogSource
-from sigma.collection import SigmaCollection
-
+from sigma.rule import SigmaRule
 
 from sigma.validators.sigmahq.metadata import (
     SigmahqStatusExistenceIssue,
@@ -20,6 +18,16 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqDescriptionLengthValidator,
     SigmahqLevelExistenceIssue,
     SigmahqLevelExistenceValidator,
+    SigmahqLegalTrademarkIssue,
+    SigmahqLegalTrademarkValidator,
+    SigmahqFalsepositivesCapitalIssue,
+    SigmahqFalsepositivesCapitalValidator,
+    SigmahqFalsepositivesBannedWordIssue,
+    SigmahqFalsepositivesBannedWordValidator,
+    SigmahqFalsepositivesTypoWordIssue,
+    SigmahqFalsepositivesTypoWordValidator,
+    SigmahqLinkDescriptionIssue,
+    SigmahqLinkDescriptionValidator,
 )
 
 
@@ -54,7 +62,7 @@ def test_validator_SigmahqStatusDeprecated():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusDeprecatedIssue([rule])]
+    assert validator.validate(rule) == [SigmahqStatusDeprecatedIssue(rule)]
 
 
 def test_validator_SigmahqDateExistence():
@@ -71,7 +79,7 @@ def test_validator_SigmahqDateExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqDateExistenceIssue([rule])]
+    assert validator.validate(rule) == [SigmahqDateExistenceIssue(rule)]
 
 
 def test_validator_SigmahqStatusExistence():
@@ -87,7 +95,7 @@ def test_validator_SigmahqStatusExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusExistenceIssue([rule])]
+    assert validator.validate(rule) == [SigmahqStatusExistenceIssue(rule)]
 
 
 def test_validator_SigmahqDescriptionExistence():
@@ -103,7 +111,7 @@ def test_validator_SigmahqDescriptionExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqDescriptionExistenceIssue([rule])]
+    assert validator.validate(rule) == [SigmahqDescriptionExistenceIssue(rule)]
 
 
 def test_validator_SigmahqDescriptionLength():
@@ -120,7 +128,7 @@ def test_validator_SigmahqDescriptionLength():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqDescriptionLengthIssue([rule])]
+    assert validator.validate(rule) == [SigmahqDescriptionLengthIssue(rule)]
 
 
 def test_validator_SigmahqLevelExistence():
@@ -136,4 +144,197 @@ def test_validator_SigmahqLevelExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqLevelExistenceIssue([rule])]
+    assert validator.validate(rule) == [SigmahqLevelExistenceIssue(rule)]
+
+
+def test_validator_SigmahqLegalTrademark():
+    validator = SigmahqLegalTrademarkValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqLegalTrademarkIssue(rule, "ATT&CK")]
+
+
+def test_validator_SigmahqLegalTrademark_valid():
+    validator = SigmahqLegalTrademarkValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: this is a rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFalsepositivesCapital():
+    validator = SigmahqFalsepositivesCapitalValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - unknown
+        - possible
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFalsepositivesCapitalIssue(rule, "unknown"),
+        SigmahqFalsepositivesCapitalIssue(rule, "possible"),
+    ]
+
+
+def test_validator_SigmahqFalsepositivesCapital_valid():
+    validator = SigmahqFalsepositivesCapitalValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - Unknown
+        - Possible
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFalsepositivesBannedWord():
+    validator = SigmahqFalsepositivesBannedWordValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - Pentest tools
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFalsepositivesBannedWordIssue(rule, "Pentest")
+    ]
+
+
+def test_validator_SigmahqFalsepositivesBannedWord_valid():
+    validator = SigmahqFalsepositivesBannedWordValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - GPO tools
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFalsepositivesTypoWord():
+    validator = SigmahqFalsepositivesTypoWordValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - legitimeate AD tools
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFalsepositivesTypoWordIssue(rule, "legitimeate")
+    ]
+
+
+def test_validator_SigmahqFalsepositivesTypoWord_valid():
+    validator = SigmahqFalsepositivesTypoWordValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - legitimate AD tools
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqLinkDescription():
+    validator = SigmahqLinkDescriptionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: rule from https://somewhereundertheraimbow
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqLinkDescriptionIssue(rule)]
+
+
+def test_validator_SigmahqLinkDescription_valid():
+    validator = SigmahqLinkDescriptionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: rule from https://somewhereundertheraimbow
+    references:
+        - https://somewhereundertheraimbow
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []

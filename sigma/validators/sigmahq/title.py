@@ -1,9 +1,5 @@
-import re
-from collections import Counter
-from collections import defaultdict
 from dataclasses import dataclass
-from typing import ClassVar, Dict, List, Set
-from uuid import UUID
+from typing import List
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
