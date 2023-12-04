@@ -5,6 +5,7 @@ SigmaHq validators for pySigma
 
 | Name | Description|
 | --- | ---|
+| sigmahq_space_fieldname               | Check field name have no space.                              |
 | sigmahq_filename_prefix               | Check rule filename match SigmaHQ prefix standard.           |
 | sigmahq_filename                      | Check rule filename match SigmaHQ standard.                  |
 | sigmahq_date_existence                | Checks if rule has a data.                                   |
@@ -23,6 +24,32 @@ SigmaHq validators for pySigma
 | sigmahq_title_end                     | Checks if rule end with a dot(.).                            |
 | sigmahq_title_length                  | Checks if rule has a title length longer than 110.           |
 | sigmahq_title_start                   | Checks if rule start with Detects.                           |
+
+# sigmahq_filename_prefix
+
+The validator uses 2 json files as references.
+It is possible to use modified versions by placing them in a "tests" subdirectory of the command `sigma check.
+
+## Json example
+
+sigmahq_logsource_prefix.json
+```json
+{
+    "driver_load_win": {
+      "prefix": "driver_load_win_",
+      "category": "driver_load",
+      "product": "windows",
+      "service": ""
+    }
+}
+```
+
+sigmahq_product_prefix.json
+```json
+{
+  "windows": "win_"
+}
+```
 
 This pipelines is currently maintained by:
 * [François Hubaut](https://github.com/frack113)

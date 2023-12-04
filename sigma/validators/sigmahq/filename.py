@@ -53,9 +53,13 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
     """Check rule filename match SigmaHQ prefix standard."""
 
     def __init__(self):
-        path_json = Path(__file__).parent.resolve() / Path(
-            "data/sigmahq_logsource_prefix.json"
-        )
+        if Path("./tests/sigmahq_logsource_prefix.json").exists():
+            path_json = Path("./tests/sigmahq_logsource_prefix.json")
+        else:
+            path_json = Path(__file__).parent.resolve() / Path(
+                "data/sigmahq_logsource_prefix.json"
+            )
+
         with path_json.open("r") as file:
             logdata = json.load(file)
             for logsource in logdata.values():
@@ -68,9 +72,14 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                 sigmahq_logsource_prefix[
                     SigmaLogSource(category, product, service)
                 ] = prefix
-        path_json = Path(__file__).parent.resolve() / Path(
-            "data/sigmahq_product_prefix.json"
-        )
+
+        if Path("./tests/sigmahq_product_prefix.json").exists():
+            path_json = Path("./tests/sigmahq_product_prefix.json")
+        else:
+            path_json = Path(__file__).parent.resolve() / Path(
+                "data/sigmahq_product_prefix.json"
+            )
+
         with path_json.open("r") as file:
             logdata = json.load(file)
             for product, prefix in logdata.items():
