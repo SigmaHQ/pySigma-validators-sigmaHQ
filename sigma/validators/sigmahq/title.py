@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import ClassVar, List
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -34,8 +34,10 @@ allowed_lowercase_words = [
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
-    description = "Rule has a title longer than 110 characters"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has a title longer than 110 characters"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqTitleLengthValidator(SigmaRuleValidator):
@@ -50,8 +52,10 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleStartIssue(SigmaValidationIssue):
-    description = "Rule has a title start with Detects"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has a title start with Detects"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqTitleStartValidator(SigmaRuleValidator):
@@ -65,8 +69,10 @@ class SigmahqTitleStartValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleEndIssue(SigmaValidationIssue):
-    description = "Rule has a title that end with a dot"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has a title that end with a dot"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqTitleEndValidator(SigmaRuleValidator):
@@ -80,8 +86,10 @@ class SigmahqTitleEndValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleCaseIssue(SigmaValidationIssue):
-    description = "Rule has a title with invalid case"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has a title with invalid case"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 

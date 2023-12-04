@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import ClassVar, List
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -16,8 +16,10 @@ sigmahq_link_in_description = {"http://", "https://", "internal research"}
 
 @dataclass
 class SigmahqStatusExistenceIssue(SigmaValidationIssue):
-    description = "Rule has no status"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has no status"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqStatusExistenceValidator(SigmaRuleValidator):
@@ -32,8 +34,8 @@ class SigmahqStatusExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusUnsupportedIssue(SigmaValidationIssue):
-    description = "Rule has a UNSUPPORTED status"
-    severity = SigmaValidationIssueSeverity.HIGH
+    description: ClassVar[str] = "Rule has a UNSUPPORTED status"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
 class SigmahqStatusUnsupportedValidator(SigmaRuleValidator):
@@ -48,8 +50,8 @@ class SigmahqStatusUnsupportedValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusDeprecatedIssue(SigmaValidationIssue):
-    description = "Rule has a DEPRECATED status"
-    severity = SigmaValidationIssueSeverity.HIGH
+    description: ClassVar[str] = "Rule has a DEPRECATED status"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
 class SigmahqStatusDeprecatedValidator(SigmaRuleValidator):
@@ -64,8 +66,10 @@ class SigmahqStatusDeprecatedValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDateExistenceIssue(SigmaValidationIssue):
-    description = "Rule has no date"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has no date"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqDateExistenceValidator(SigmaRuleValidator):
@@ -80,8 +84,10 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDescriptionExistenceIssue(SigmaValidationIssue):
-    description = "Rule has no description"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has no description"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
@@ -96,8 +102,10 @@ class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDescriptionLengthIssue(SigmaValidationIssue):
-    description = "Rule has a too short description"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has a too short description"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
@@ -112,8 +120,10 @@ class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqLevelExistenceIssue(SigmaValidationIssue):
-    description = "Rule has no level"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule has no level"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqLevelExistenceValidator(SigmaRuleValidator):
@@ -128,8 +138,10 @@ class SigmahqLevelExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqLegalTrademarkIssue(SigmaValidationIssue):
-    description = "Rule contains a legal trademark"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule contains a legal trademark"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
     trademark: str
 
 
@@ -146,8 +158,10 @@ class SigmahqLegalTrademarkValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
-    description = "Rule falsepositive must start with a capital"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule falsepositive must start with a capital"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 
@@ -168,8 +182,10 @@ class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
-    description = "Rule falsepositive start with a banned word"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule falsepositive start with a banned word"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 
@@ -189,8 +205,10 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
-    description = "Rule falsepositive start with a common typo error"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule falsepositive start with a common typo error"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 
@@ -210,8 +228,10 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqLinkDescriptionIssue(SigmaValidationIssue):
-    description = "Rule description have a link with no references"
-    severity = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = "Rule description have a link with no references"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqLinkDescriptionValidator(SigmaRuleValidator):
