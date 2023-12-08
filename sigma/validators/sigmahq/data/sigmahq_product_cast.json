@@ -1,0 +1,1267 @@
+{
+  "lnx_auditd": {
+    "category": "",
+    "product": "linux",
+    "service": "auditd",
+    "field": [
+      "a0",
+      "a1",
+      "a2",
+      "a3",
+      "a4",
+      "a5",
+      "a6",
+      "a7",
+      "a8",
+      "a9",
+      "acct",
+      "acl",
+      "action",
+      "added",
+      "addr",
+      "apparmor",
+      "arch",
+      "argc",
+      "audit_backlog_limit",
+      "audit_backlog_wait_time",
+      "audit_enabled",
+      "audit_failure",
+      "auid",
+      "banners",
+      "bool",
+      "bus",
+      "cap_fe,cap_fi",
+      "cap_fp",
+      "cap_fver",
+      "cap_pa",
+      "cap_pe",
+      "cap_pi",
+      "cap_pp",
+      "capability",
+      "category",
+      "cgroup",
+      "changed",
+      "cipher",
+      "class",
+      "cmd",
+      "code",
+      "comm",
+      "compat",
+      "cwd",
+      "daddr",
+      "data",
+      "default-context",
+      "dev",
+      "dev",
+      "device",
+      "dir",
+      "direction",
+      "dmac",
+      "dport",
+      "egid",
+      "enforcing",
+      "entries",
+      "errno",
+      "euid",
+      "exe",
+      "exit",
+      "fam",
+      "family",
+      "fd",
+      "fe",
+      "feature",
+      "fi",
+      "file",
+      "flags",
+      "format",
+      "fp",
+      "fsgid",
+      "fsuid",
+      "fver",
+      "gid",
+      "grantors",
+      "grp",
+      "hook",
+      "hostname",
+      "icmp_type",
+      "id",
+      "igid",
+      "img-ctx",
+      "inif",
+      "ino",
+      "inode",
+      "inode_gid",
+      "inode_uid",
+      "invalid_context",
+      "ioctlcmd",
+      "ip",
+      "ipid",
+      "ipx-net",
+      "item",
+      "items",
+      "iuid",
+      "kernel",
+      "key",
+      "kind",
+      "ksize",
+      "laddr",
+      "len",
+      "list",
+      "lport",
+      "mac",
+      "macproto",
+      "maj",
+      "major",
+      "minor",
+      "mode",
+      "model",
+      "msg",
+      "name",
+      "nametype",
+      "nargs",
+      "net",
+      "new",
+      "new_gid",
+      "new_lock",
+      "new_pe",
+      "new_pi",
+      "new_pp",
+      "new-chardev",
+      "new-disk",
+      "new-enabled",
+      "new-fs",
+      "new-level",
+      "new-log_passwd",
+      "new-mem",
+      "new-net",
+      "new-range",
+      "new-rng",
+      "new-role",
+      "new-seuser",
+      "new-vcpu",
+      "nlnk-fam",
+      "nlnk-grp",
+      "nlnk-pid",
+      "oauid",
+      "obj",
+      "obj_gid",
+      "obj_uid",
+      "ocomm",
+      "oflag",
+      "ogid",
+      "old",
+      "old_enforcing",
+      "old_lock",
+      "old_pa",
+      "old_pe",
+      "old_pi",
+      "old_pp",
+      "old_prom",
+      "old_val",
+      "old-auid",
+      "old-chardev",
+      "old-disk",
+      "old-enabled",
+      "old-fs",
+      "old-level",
+      "old-log_passwd",
+      "old-mem",
+      "old-net",
+      "old-range",
+      "old-rng",
+      "old-role",
+      "old-ses",
+      "old-seuser",
+      "old-vcpu",
+      "op",
+      "opid",
+      "oses",
+      "ouid",
+      "outif",
+      "pa",
+      "parent",
+      "path",
+      "pe",
+      "per",
+      "perm",
+      "perm_mask",
+      "permissive",
+      "pfs",
+      "pi",
+      "pid",
+      "pp",
+      "ppid",
+      "printer",
+      "proctitle",
+      "prom",
+      "proto",
+      "qbytes",
+      "range",
+      "rdev",
+      "reason",
+      "removed",
+      "res",
+      "resrc",
+      "result",
+      "role",
+      "rport",
+      "saddr",
+      "sauid",
+      "scontext",
+      "selected-context",
+      "seperm",
+      "seperms",
+      "seqno",
+      "seresult",
+      "ses",
+      "seuser",
+      "sgid",
+      "sig",
+      "sigev_signo",
+      "smac",
+      "spid",
+      "sport",
+      "state",
+      "subj",
+      "success",
+      "suid",
+      "syscall",
+      "table",
+      "tclass",
+      "tcontext",
+      "terminal",
+      "tty",
+      "type",
+      "uid",
+      "unit",
+      "uri",
+      "user",
+      "uuid",
+      "val",
+      "val",
+      "ver",
+      "virt",
+      "vm",
+      "vm-ctx",
+      "vm-pid",
+      "watch"
+    ]
+  },
+  "lnx_file_delete": {
+    "category": "file_delete",
+    "product": "linux",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "User",
+      "Image",
+      "TargetFilename",
+      "Hashes",
+      "IsExecutable",
+      "Archived"
+    ]
+  },
+  "lnx_file_event": {
+    "category": "file_event",
+    "product": "linux",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "TargetFilename",
+      "CreationUtcTime",
+      "User"
+    ]
+  },
+  "lnx_network_connection": {
+    "category": "network_connection",
+    "product": "linux",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "User",
+      "Protocol",
+      "Initiated",
+      "SourceIsIpv6",
+      "SourceIp",
+      "SourceHostname",
+      "SourcePort",
+      "SourcePortName",
+      "DestinationIsIpv6",
+      "DestinationIp",
+      "DestinationHostname",
+      "DestinationPort",
+      "DestinationPortName"
+    ]
+  },
+  "lnx_process_creation": {
+    "category": "process_creation",
+    "product": "linux",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "FileVersion",
+      "Description",
+      "Product",
+      "Company",
+      "OriginalFileName",
+      "CommandLine",
+      "CurrentDirectory",
+      "User",
+      "LogonGuid",
+      "LogonId",
+      "TerminalSessionId",
+      "IntegrityLevel",
+      "Hashes",
+      "ParentProcessGuid",
+      "ParentProcessId",
+      "ParentImage",
+      "ParentCommandLine",
+      "ParentUser"
+    ]
+  },
+  "lnx_process_termination": {
+    "category": "process_termination",
+    "product": "linux",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "User"
+    ]
+  },
+  "lnx_raw_access_read": {
+    "category": "raw_access_read",
+    "product": "linux",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "Device",
+      "User"
+    ]
+  },
+  "lnx_sysmon_status": {
+    "category": "sysmon_status",
+    "product": "linux",
+    "service": "",
+    "field": [
+      "Configuration",
+      "ConfigurationFileHash"
+    ]
+  },
+  "macos_file_delete": {
+    "category": "file_delete",
+    "product": "macos",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "User",
+      "Image",
+      "TargetFilename",
+      "Hashes",
+      "IsExecutable",
+      "Archived"
+    ]
+  },
+  "macos_file_event": {
+    "category": "file_event",
+    "product": "macos",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "TargetFilename",
+      "CreationUtcTime",
+      "User"
+    ]
+  },
+  "macos_network_connection": {
+    "category": "network_connection",
+    "product": "macos",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "User",
+      "Protocol",
+      "Initiated",
+      "SourceIsIpv6",
+      "SourceIp",
+      "SourceHostname",
+      "SourcePort",
+      "SourcePortName",
+      "DestinationIsIpv6",
+      "DestinationIp",
+      "DestinationHostname",
+      "DestinationPort",
+      "DestinationPortName"
+    ]
+  },
+  "macos_process_creation": {
+    "category": "process_creation",
+    "product": "macos",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "FileVersion",
+      "Description",
+      "Product",
+      "Company",
+      "OriginalFileName",
+      "CommandLine",
+      "CurrentDirectory",
+      "User",
+      "LogonGuid",
+      "LogonId",
+      "TerminalSessionId",
+      "IntegrityLevel",
+      "Hashes",
+      "ParentProcessGuid",
+      "ParentProcessId",
+      "ParentImage",
+      "ParentCommandLine",
+      "ParentUser"
+    ]
+  },
+  "macos_process_termination": {
+    "category": "process_termination",
+    "product": "macos",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "User"
+    ]
+  },
+  "macos_raw_access_read": {
+    "category": "raw_access_read",
+    "product": "macos",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "Device",
+      "User"
+    ]
+  },
+  "macos_sysmon_status": {
+    "category": "sysmon_status",
+    "product": "macos",
+    "service": "",
+    "field": [
+      "Configuration",
+      "ConfigurationFileHash"
+    ]
+  },
+  "proxy": {
+    "category": "proxy",
+    "product": "",
+    "service": "",
+    "field": [
+      "c-uri",
+      "c-uri-extension",
+      "c-uri-query",
+      "c-uri-stem",
+      "c-useragent",
+      "cs-bytes",
+      "cs-cookie",
+      "cs-host",
+      "cs-method",
+      "r-dns",
+      "cs-referrer",
+      "cs-version",
+      "sc-bytes",
+      "sc-status",
+      "src_ip",
+      "dst_ip",
+      "cs-uri"
+    ]
+  },
+  "webserver": {
+    "category": "webserver",
+    "product": "",
+    "service": "",
+    "field": [
+      "date",
+      "time",
+      "c-ip",
+      "cs-username",
+      "s-sitename",
+      "s-computername",
+      "s-ip",
+      "cs-method",
+      "cs-uri-stem",
+      "cs-uri-query",
+      "s-port",
+      "cs-method",
+      "sc-status",
+      "sc-win32-status",
+      "sc-bytes",
+      "cs-bytes",
+      "time-taken",
+      "cs-version",
+      "cs-host",
+      "cs-user-agent",
+      "cs-referer",
+      "cs-cookie"
+    ]
+  },
+  "win_appmodel-runtime": {
+    "category": "",
+    "product": "windows",
+    "service": "appmodel-runtime",
+    "field": [
+      "ProcessID",
+      "PackageName",
+      "ImageName",
+      "ApplicationName",
+      "Message"
+    ]
+  },
+  "win_appxdeployment-server": {
+    "category": "",
+    "product": "windows",
+    "service": "appxdeployment-server",
+    "field": [
+      "Path",
+      "AppId",
+      "FilePath",
+      "ErrorCode",
+      "DeploymentOperation",
+      "PackageFullName",
+      "PackageSourceUri",
+      "PackageDisplayName",
+      "CallingProcess"
+    ]
+  },
+  "win_appxpackaging-om": {
+    "category": "",
+    "product": "windows",
+    "service": "appxpackaging-om",
+    "field": [
+      "subjectName"
+    ]
+  },
+  "win_bitlocker": {
+    "category": "",
+    "product": "windows",
+    "service": "bitlocker",
+    "field": [
+      "VolumeName",
+      "VolumeMountPoint",
+      "ProtectorGUID",
+      "ProtectorType"
+    ]
+  },
+  "win_bits-client": {
+    "category": "",
+    "product": "windows",
+    "service": "bits-client",
+    "field": [
+      "RemoteName",
+      "LocalName",
+      "processPath",
+      "processId"
+    ]
+  },
+  "win_clipboard_capture": {
+    "category": "clipboard_capture",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Archived",
+      "ClientInfo",
+      "Hashes",
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "Session",
+      "User"
+    ]
+  },
+  "win_codeintegrity-operational": {
+    "category": "",
+    "product": "windows",
+    "service": "codeintegrity-operational",
+    "field": [
+      "FileNameLength",
+      "FileNameBuffer",
+      "ProcessNameLength",
+      "ProcessNameBuffer",
+      "RequestedPolicy",
+      "ValidatedPolicy",
+      "Status"
+    ]
+  },
+  "win_create_remote_thread": {
+    "category": "create_remote_thread",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "NewThreadId",
+      "SourceImage",
+      "SourceProcessGuid",
+      "SourceProcessId",
+      "SourceUser",
+      "StartAddress",
+      "StartFunction",
+      "StartModule",
+      "TargetImage",
+      "TargetProcessGuid",
+      "TargetProcessId",
+      "TargetUser",
+      "SourceParentImage",
+      "User",
+      "SourceCommandLine",
+      "SourceParentProcessId",
+      "SourceParentImage",
+      "SourceParentCommandLine",
+      "TargetCommandLine",
+      "TargetParentProcessId",
+      "TargetParentImage",
+      "TargetParentCommandLine",
+      "IsInitialThread",
+      "RemoteCreation"
+    ]
+  },
+  "win_create_stream_hash": {
+    "category": "create_stream_hash",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Contents",
+      "CreationUtcTime",
+      "Hash",
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetFilename",
+      "User"
+    ]
+  },
+  "win_diagnosis-scripted": {
+    "category": "",
+    "product": "windows",
+    "service": "diagnosis-scripted",
+    "field": [
+      "PackagePath",
+      "PackageId"
+    ]
+  },
+  "win_dns-client": {
+    "category": "",
+    "product": "windows",
+    "service": "dns-client",
+    "field": [
+      "QueryName",
+      "QueryType",
+      "QueryOptions",
+      "QueryStatus",
+      "QueryResults",
+      "NetworkIndex",
+      "InterfaceIndex",
+      "Status",
+      "ClientPID",
+      "QueryBlob",
+      "DnsServerIpAddress",
+      "ResponseStatus",
+      "SendBlob",
+      "SendBlobContext",
+      "AddressLength",
+      "Address"
+    ]
+  },
+  "win_dns_query": {
+    "category": "dns_query",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "QueryName",
+      "QueryResults",
+      "QueryStatus",
+      "User"
+    ]
+  },
+  "win_driver_load": {
+    "category": "driver_load",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Hashes",
+      "ImageLoaded",
+      "Signature",
+      "SignatureStatus",
+      "Signed"
+    ]
+  },
+  "win_file_access": {
+    "category": "file_access",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Irp",
+      "FileObject",
+      "IssuingThreadId",
+      "CreateOptions",
+      "CreateAttributes",
+      "ShareAccess",
+      "FileName",
+      "Image",
+      "CommandLine",
+      "ParentImage",
+      "ParentCommandLine",
+      "User",
+      "TargetFilename"
+    ]
+  },
+  "win_file_block": {
+    "category": "file_block",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Hashes",
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetFilename",
+      "User"
+    ]
+  },
+  "win_file_change": {
+    "category": "file_change",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "CreationUtcTime",
+      "Image",
+      "PreviousCreationUtcTime",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetFilename",
+      "User"
+    ]
+  },
+  "win_file_delete": {
+    "category": "file_delete",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Archived",
+      "Hashes",
+      "Image",
+      "IsExecutable",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetFilename",
+      "User"
+    ]
+  },
+  "win_file_event": {
+    "category": "file_event",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "TargetFilename",
+      "CreationUtcTime",
+      "User",
+      "CommandLine",
+      "ParentImage",
+      "ParentCommandLine",
+      "MagicHeader"
+    ]
+  },
+  "win_file_rename": {
+    "category": "file_rename",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Irp",
+      "FileObject",
+      "FileKey",
+      "ExtraInformation",
+      "IssuingThreadId",
+      "InfoClass",
+      "FilePath",
+      "Image",
+      "CommandLine",
+      "ParentImage",
+      "ParentCommandLine",
+      "User",
+      "OriginalFileName",
+      "SourceFilename",
+      "TargetFilename",
+      "MagicHeader"
+    ]
+  },
+  "win_firewall-as": {
+    "category": "",
+    "product": "windows",
+    "service": "firewall-as",
+    "field": [
+      "Action",
+      "ApplicationPath",
+      "ModifyingApplication"
+    ]
+  },
+  "win_iis": {
+    "category": "",
+    "product": "windows",
+    "service": "iis",
+    "field": [
+      "date",
+      "time",
+      "c-ip",
+      "cs-username",
+      "s-sitename",
+      "s-computername",
+      "s-ip",
+      "cs-method",
+      "cs-uri-stem",
+      "cs-uri-query",
+      "s-port",
+      "cs-method",
+      "sc-status",
+      "sc-win32-status",
+      "sc-bytes",
+      "cs-bytes",
+      "time-taken",
+      "cs-version",
+      "cs-host",
+      "cs-user-agent",
+      "cs-referer",
+      "cs-cookie"
+    ]
+  },
+  "win_image_load": {
+    "category": "image_load",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Company",
+      "Description",
+      "FileVersion",
+      "Hashes",
+      "Image",
+      "ImageLoaded",
+      "OriginalFileName",
+      "ProcessGuid",
+      "ProcessId",
+      "Product",
+      "Signature",
+      "SignatureStatus",
+      "Signed",
+      "User",
+      "CommandLine"
+    ]
+  },
+  "win_ldap": {
+    "category": "",
+    "product": "windows",
+    "service": "ldap",
+    "field": [
+      "ScopeOfSearch",
+      "SearchFilter",
+      "DistinguishedName",
+      "AttributeList",
+      "ProcessId"
+    ]
+  },
+  "win_lsa-server": {
+    "category": "",
+    "product": "windows",
+    "service": "lsa-server",
+    "field": [
+      "TargetUserSid",
+      "TargetUserName",
+      "TargetDomainName",
+      "TargetLogonId",
+      "TargetLogonGuid",
+      "EventOrginal",
+      "EventCountTotal",
+      "SidList"
+    ]
+  },
+  "win_network_connection": {
+    "category": "network_connection",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "DestinationHostname",
+      "DestinationIp",
+      "DestinationIsIpv6",
+      "DestinationPort",
+      "DestinationPortName",
+      "Image",
+      "Initiated",
+      "ProcessGuid",
+      "ProcessId",
+      "Protocol",
+      "SourceHostname",
+      "SourceIp",
+      "SourceIsIpv6",
+      "SourcePort",
+      "SourcePortName",
+      "User",
+      "ParentImage",
+      "CommandLine",
+      "ParentImage"
+    ]
+  },
+  "win_ntlm": {
+    "category": "",
+    "product": "windows",
+    "service": "ntlm",
+    "field": [
+      "CallerPID",
+      "ClientDomainName",
+      "ClientLUID",
+      "ClientUserName",
+      "DomainName",
+      "MechanismOID",
+      "ProcessName",
+      "SChannelName",
+      "SChannelType",
+      "TargetName",
+      "UserName",
+      "WorkstationName"
+    ]
+  },
+  "win_openssh": {
+    "category": "",
+    "product": "windows",
+    "service": "openssh",
+    "field": [
+      "process",
+      "payload"
+    ]
+  },
+  "win_pipe_created": {
+    "category": "pipe_created",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "EventType",
+      "Image",
+      "PipeName",
+      "ProcessGuid",
+      "ProcessId",
+      "User"
+    ]
+  },
+  "win_proc_creation": {
+    "category": "process_creation",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "CommandLine",
+      "Company",
+      "CurrentDirectory",
+      "Description",
+      "FileVersion",
+      "Hashes",
+      "Image",
+      "IntegrityLevel",
+      "LogonGuid",
+      "LogonId",
+      "OriginalFileName",
+      "ParentCommandLine",
+      "ParentImage",
+      "ParentProcessGuid",
+      "ParentProcessId",
+      "ParentUser",
+      "ProcessGuid",
+      "ProcessId",
+      "Product",
+      "TerminalSessionId",
+      "User",
+      "GrandParentImage",
+      "GrandparentCommandLine"
+    ]
+  },
+  "win_process_access": {
+    "category": "process_access",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "CallTrace",
+      "GrantedAccess",
+      "SourceImage",
+      "SourceProcessGUID",
+      "SourceProcessId",
+      "SourceThreadId",
+      "SourceUser",
+      "TargetImage",
+      "TargetProcessGUID",
+      "TargetProcessId",
+      "TargetUser",
+      "SourceCommandLine",
+      "CallTraceExtended"
+    ]
+  },
+  "win_process_tampering": {
+    "category": "process_tampering",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "Type",
+      "User"
+    ]
+  },
+  "win_process_termination": {
+    "category": "process_termination",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "User"
+    ]
+  },
+  "win_ps_module": {
+    "category": "ps_module",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "ContextInfo",
+      "UserData",
+      "Payload"
+    ]
+  },
+  "win_ps_script": {
+    "category": "ps_script",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "MessageNumber",
+      "MessageTotal",
+      "ScriptBlockText",
+      "ScriptBlockId",
+      "Path"
+    ]
+  },
+  "win_raw_access_read": {
+    "category": "raw_access_read",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "CreationUtcTime",
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetFilename",
+      "User"
+    ]
+  },
+  "win_raw_access_thread": {
+    "category": "raw_access_thread",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Device",
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "User"
+    ]
+  },
+  "win_registry_add": {
+    "category": "registry_add",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "EventType",
+      "ProcessGuid",
+      "ProcessId",
+      "Image",
+      "TargetObject",
+      "User"
+    ]
+  },
+  "win_registry_delete": {
+    "category": "registry_delete",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Details",
+      "EventType",
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetObject",
+      "CommandLine",
+      "ParentImage",
+      "ParentCommandLine"
+    ]
+  },
+  "win_registry_event": {
+    "category": "registry_event",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Details",
+      "EventType",
+      "Image",
+      "NewName",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetObject",
+      "User"
+    ]
+  },
+  "win_registry_rename": {
+    "category": "registry_rename",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "EventType",
+      "Image",
+      "NewName",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetObject",
+      "User"
+    ]
+  },
+  "win_registry_set": {
+    "category": "registry_set",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Details",
+      "EventType",
+      "Image",
+      "ProcessGuid",
+      "ProcessId",
+      "TargetObject",
+      "User"
+    ]
+  },
+  "win_security-mitigations": {
+    "category": "",
+    "product": "windows",
+    "service": "security-mitigations",
+    "field": [
+      "ProcessPathLength",
+      "ProcessPath",
+      "ProcessCommandLineLength",
+      "ProcessCommandLine",
+      "ProcessId",
+      "ProcessCreateTime",
+      "ProcessStartKey",
+      "ProcessSignatureLevel",
+      "ProcessSectionSignatureLevel",
+      "ProcessProtection",
+      "TargetThreadId",
+      "TargetThreadCreateTime",
+      "RequiredSignatureLevel",
+      "SignatureLevel",
+      "ImageNameLength",
+      "ImageName"
+    ]
+  },
+  "win_shell-core": {
+    "category": "",
+    "product": "windows",
+    "service": "shell-core",
+    "field": [
+      "Name",
+      "AppID",
+      "Flags"
+    ]
+  },
+  "win_smbclient-security": {
+    "category": "",
+    "product": "windows",
+    "service": "smbclient-security",
+    "field": [
+      "Reason",
+      "Status",
+      "ShareNameLength",
+      "ShareName",
+      "ObjectNameLength",
+      "ObjectName",
+      "UserNameLength",
+      "UserName",
+      "ServerNameLength",
+      "ServerName"
+    ]
+  },
+  "win_sysmon_status": {
+    "category": "sysmon_status",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Configuration",
+      "ConfigurationFileHash",
+      "SchemaVersion",
+      "State",
+      "Version"
+    ]
+  },
+  "win_taskscheduler": {
+    "category": "",
+    "product": "windows",
+    "service": "taskscheduler",
+    "field": [
+      "TaskName",
+      "UserContext",
+      "Path",
+      "ProcessID",
+      "Priority",
+      "UserName"
+    ]
+  },
+  "win_terminalservices-localsessionmanager": {
+    "category": "",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "User",
+      "SessionID",
+      "Address"
+    ]
+  },
+  "win_wmi_event": {
+    "category": "wmi_event",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "Consumer",
+      "Destination",
+      "EventNamespace",
+      "EventType",
+      "Filter",
+      "Name",
+      "Operation",
+      "Query",
+      "Type",
+      "User"
+    ]
+  }
+}

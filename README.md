@@ -5,9 +5,12 @@ SigmaHq validators for pySigma
 
 | Name | Description|
 | --- | ---|
-| sigmahq_space_fieldname               | Check field name have no space.                              |
+| sigmahq_fieldname_cast                | Check field name have a cast error.                          |
+| sigmahq_invalid_fieldname             | Check field name do not exist in the logsource.              |
+| sigmahq_space_fieldname               | Check field name have a space.                               |
 | sigmahq_filename_prefix               | Check rule filename match SigmaHQ prefix standard.           |
 | sigmahq_filename                      | Check rule filename match SigmaHQ standard.                  |
+| sigmahq_logsource_valid               | Checks if rule has valid logsource.                          |
 | sigmahq_date_existence                | Checks if rule has a data.                                   |
 | sigmahq_description_existence         | Checks if rule has a description.                            |
 | sigmahq_description_length            | Checks if rule has a description.                            |
@@ -50,6 +53,46 @@ sigmahq_product_prefix.json
   "windows": "win_"
 }
 ```
+
+# sigmahq_fieldname_cast sigmahq_invalid_fieldname
+
+The validators uses a json as references.
+It is possible to use modified versions by placing it in a "tests" subdirectory of the command `sigma check.
+
+## Json example
+
+sigmahq_product_cast.json
+```json
+  "win_ps_module": {
+    "category": "ps_module",
+    "product": "windows",
+    "service": "",
+    "field": [
+      "ContextInfo",
+      "UserData",
+      "Payload"
+    ]
+  }
+```
+
+# sigmahq_logsource_valid
+
+The validator uses a json as references.
+It is possible to use modified versions by placing it in a "tests" subdirectory of the command `sigma check.
+## Json example
+
+sigmahq_logsource_valid.json
+```json
+{
+  "logsource": [
+    {"category": "process_tampering","product": "windows","service": ""},
+    {"category": "process_termination","product": "macos","service": ""},
+    {"category": "proxy","product": "","service": ""}
+  ]
+}
+```
+
+# Maintainer
 
 This pipelines is currently maintained by:
 * [François Hubaut](https://github.com/frack113)
