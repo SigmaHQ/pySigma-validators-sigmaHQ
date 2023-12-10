@@ -31,6 +31,24 @@ def test_validator_SigmahqSpaceFieldname():
     assert validator.validate(rule) == [SigmahqSpaceFieldnameIssue(rule, "space name")]
 
 
+def test_validator_SigmahqSpaceFieldname_valid():
+    validator = SigmahqSpaceFieldnameValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+            space_name: 'error'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
 def test_validator_SigmahqFieldnameCast():
     validator = SigmahqFieldnameCastValidator()
     rule = SigmaRule.from_yaml(
@@ -61,6 +79,24 @@ def test_validator_SigmahqFieldnameCast_valid():
     detection:
         sel:
             CommandLine: 'error'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFieldnameCast_valid_new_logsource():
+    validator = SigmahqFieldnameCastValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        category: process_creation
+        product: frack
+    detection:
+        sel:
+            MyCommandLine: 'error'
         condition: sel
     """
     )
@@ -99,6 +135,24 @@ def test_validator_SigmahqInvalidFieldname_valid():
         sel:
             CommandLine: 'error'
             Image: '/cmd.exe'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqInvalidFieldname_valid_new_logsource():
+    validator = SigmahqInvalidFieldnameValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        category: process_creation
+        product: frack
+    detection:
+        sel:
+            MyCommandLines: 'error' # should be MyCommandLine
         condition: sel
     """
     )

@@ -21,6 +21,13 @@ def test_validator_SigmahqFilename():
     assert validator.validate(rule) == [SigmahqFilenameIssue(rule, "Name.yml")]
 
 
+def test_validator_SigmahqFilename_valid():
+    validator = SigmahqFilenameValidator()
+    sigma_collection = SigmaCollection.load_ruleset(["tests/files/rule_filename_valid"])
+    rule = sigma_collection[0]
+    assert validator.validate(rule) == []
+
+
 def test_validator_SigmahqPrefixFilename():
     validator = SigmahqFilenamePrefixValidator()
     sigma_collection = SigmaCollection.load_ruleset(
@@ -35,6 +42,13 @@ def test_validator_SigmahqPrefixFilename():
             "proc_creation_win_",
         )
     ]
+
+
+def test_validator_SigmahqPrefixFilename_valid():
+    validator = SigmahqFilenamePrefixValidator()
+    sigma_collection = SigmaCollection.load_ruleset(["tests/files/rule_filename_valid"])
+    rule = sigma_collection[0]
+    assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqPrefixFilename_product():

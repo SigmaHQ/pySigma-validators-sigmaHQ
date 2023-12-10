@@ -97,19 +97,17 @@ class SigmahqTitleCaseValidator(SigmaRuleValidator):
     """Checks if rule title use capitalization."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.title:
-            wrong_casing = []
-            for word in rule.title.split(" "):
-                if (
-                    word.islower()
-                    and not word.lower() in allowed_lowercase_words
-                    and not "." in word
-                    and not "/" in word
-                    and not word[0].isdigit()
-                ):
-                    wrong_casing.append(word)
-            case_error = []
-            for word in wrong_casing:
-                case_error.append(SigmahqTitleCaseIssue([rule], word))
-            return case_error
-        return []
+        wrong_casing = []
+        for word in rule.title.split(" "):
+            if (
+                word.islower()
+                and not word.lower() in allowed_lowercase_words
+                and not "." in word
+                and not "/" in word
+                and not word[0].isdigit()
+            ):
+                wrong_casing.append(word)
+        case_error = []
+        for word in wrong_casing:
+            case_error.append(SigmahqTitleCaseIssue([rule], word))
+        return case_error

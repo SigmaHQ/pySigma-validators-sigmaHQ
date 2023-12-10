@@ -45,7 +45,24 @@ def test_validator_SigmahqStatusUnsupported():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusUnsupportedIssue([rule])]
+    assert validator.validate(rule) == [SigmahqStatusUnsupportedIssue(rule)]
+
+
+def test_validator_SigmahqStatusUnsupported_valid():
+    validator = SigmahqStatusUnsupportedValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: test
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqStatusDeprecated():
@@ -65,6 +82,23 @@ def test_validator_SigmahqStatusDeprecated():
     assert validator.validate(rule) == [SigmahqStatusDeprecatedIssue(rule)]
 
 
+def test_validator_SigmahqStatusDeprecated_valid():
+    validator = SigmahqStatusDeprecatedValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: test
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
 def test_validator_SigmahqDateExistence():
     validator = SigmahqDateExistenceValidator()
     rule = SigmaRule.from_yaml(
@@ -80,6 +114,24 @@ def test_validator_SigmahqDateExistence():
     """
     )
     assert validator.validate(rule) == [SigmahqDateExistenceIssue(rule)]
+
+
+def test_validator_SigmahqDateExistence_valid():
+    validator = SigmahqDateExistenceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: test
+    status: stable
+    date: 2023/12/10
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqStatusExistence():
@@ -98,6 +150,23 @@ def test_validator_SigmahqStatusExistence():
     assert validator.validate(rule) == [SigmahqStatusExistenceIssue(rule)]
 
 
+def test_validator_SigmahqStatusExistence_valid():
+    validator = SigmahqStatusExistenceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
 def test_validator_SigmahqDescriptionExistence():
     validator = SigmahqDescriptionExistenceValidator()
     rule = SigmaRule.from_yaml(
@@ -112,6 +181,23 @@ def test_validator_SigmahqDescriptionExistence():
     """
     )
     assert validator.validate(rule) == [SigmahqDescriptionExistenceIssue(rule)]
+
+
+def test_validator_SigmahqDescriptionExistence_valid():
+    validator = SigmahqDescriptionExistenceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: a simple description
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqDescriptionLength():
@@ -131,6 +217,23 @@ def test_validator_SigmahqDescriptionLength():
     assert validator.validate(rule) == [SigmahqDescriptionLengthIssue(rule)]
 
 
+def test_validator_SigmahqDescriptionLength_valid():
+    validator = SigmahqDescriptionLengthValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: a simple description to test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
 def test_validator_SigmahqLevelExistence():
     validator = SigmahqLevelExistenceValidator()
     rule = SigmaRule.from_yaml(
@@ -145,6 +248,23 @@ def test_validator_SigmahqLevelExistence():
     """
     )
     assert validator.validate(rule) == [SigmahqLevelExistenceIssue(rule)]
+
+
+def test_validator_SigmahqLevelExistence_valid():
+    validator = SigmahqLevelExistenceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    level: low
+    """
+    )
+    assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqLegalTrademark():
