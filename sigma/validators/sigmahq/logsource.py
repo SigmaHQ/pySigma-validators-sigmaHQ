@@ -12,6 +12,7 @@ from .config import ConfigHq
 
 config = ConfigHq()
 
+
 @dataclass
 class SigmahqLogsourceValidIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has an invalid logsource"

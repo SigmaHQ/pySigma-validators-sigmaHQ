@@ -14,6 +14,7 @@ from .config import ConfigHq
 
 config = ConfigHq()
 
+
 @dataclass
 class SigmahqFilenameIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule filemane doesn't match SigmaHQ standard"

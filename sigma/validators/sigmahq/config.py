@@ -5,20 +5,18 @@ import json
 from sigma.rule import SigmaLogSource
 
 
-
 class ConfigHq:
     title_lengh = 10
-    allowed_lowercase_words:List[str] = []
-    sigmahq_invalid_trademark:List[str] = []
-    sigmahq_fp_banned_word:List[str] = []
-    sigmahq_fp_typo_word:List[str] = []
-    sigmahq_link_in_description:List[str] = []
+    allowed_lowercase_words: List[str] = []
+    sigmahq_invalid_trademark: List[str] = []
+    sigmahq_fp_banned_word: List[str] = []
+    sigmahq_fp_typo_word: List[str] = []
+    sigmahq_link_in_description: List[str] = []
     sigmahq_logsource_cast: Dict[SigmaLogSource, List[str]] = {}
     sigmahq_logsource_unicast: Dict[SigmaLogSource, List[str]] = {}
     sigmahq_logsource_list: Dict[SigmaLogSource, str] = {}
     sigmahq_logsource_prefix: Dict[SigmaLogSource, str] = {}
     sigmahq_product_prefix: Dict[str, str] = {}
-
 
     def __init__(self) -> None:
         # basic parameter
@@ -47,19 +45,23 @@ class ConfigHq:
             logdata = json.load(file)
             for logsource in logdata.values():
                 field = logsource["field"]
-                category = logsource["category"] if logsource["category"] != "" else None
+                category = (
+                    logsource["category"] if logsource["category"] != "" else None
+                )
                 product = logsource["product"] if logsource["product"] != "" else None
                 service = logsource["service"] if logsource["service"] != "" else None
-                self.sigmahq_logsource_cast[SigmaLogSource(category, product, service)] = field
+                self.sigmahq_logsource_cast[
+                    SigmaLogSource(category, product, service)
+                ] = field
 
                 if "Hashes" in field or "Hash" in field:
                     field.extend(["Imphash", "md5", "sha1", "sha256"])
                 if product == "windows":
                     field.extend(["EventID", "Provider_Name"])
 
-                self.sigmahq_logsource_unicast[SigmaLogSource(category, product, service)] = [
-                    x.lower() for x in field
-                ]
+                self.sigmahq_logsource_unicast[
+                    SigmaLogSource(category, product, service)
+                ] = [x.lower() for x in field]
 
         # Valid logsource list
         if Path("./tests/sigmahq_logsource_valid.json").exists():
@@ -77,7 +79,9 @@ class ConfigHq:
                 )
                 product = logsource["product"] if logsource["product"] != "" else None
                 service = logsource["service"] if logsource["service"] != "" else None
-                self.sigmahq_logsource_list[SigmaLogSource(category, product, service)] = ""
+                self.sigmahq_logsource_list[
+                    SigmaLogSource(category, product, service)
+                ] = ""
 
         # SigmaHQ filename
         if Path("./tests/sigmahq_logsource_prefix.json").exists():
