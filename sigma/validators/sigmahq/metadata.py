@@ -7,11 +7,9 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
+from .config import ConfigHq
 
-sigmahq_invalid_trademark = {"MITRE ATT&CK", "ATT&CK"}
-sigmahq_fp_banned_word = {"none", "pentest", "penetration"}
-sigmahq_fp_typo_word = {"unkown", "ligitimate", "legitim ", "legitimeate"}
-sigmahq_link_in_description = {"http://", "https://", "internal research"}
+config = ConfigHq()
 
 
 @dataclass
@@ -150,7 +148,7 @@ class SigmahqLegalTrademarkValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         raw_rule = str(rule)
-        for trademark in sigmahq_invalid_trademark:
+        for trademark in config.sigmahq_invalid_trademark:
             if trademark in raw_rule:
                 return [SigmahqLegalTrademarkIssue([rule], trademark)]
         return []
@@ -196,7 +194,7 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
         falsepositif = []
         if rule.falsepositives:
             for fp in rule.falsepositives:
-                if fp.split(" ")[0].lower() in sigmahq_fp_banned_word:
+                if fp.split(" ")[0].lower() in config.sigmahq_fp_banned_word:
                     falsepositif.append(
                         SigmahqFalsepositivesBannedWordIssue(rule, fp.split(" ")[0])
                     )
@@ -219,7 +217,7 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
         falsepositif = []
         if rule.falsepositives:
             for fp in rule.falsepositives:
-                if fp.split(" ")[0].lower() in sigmahq_fp_typo_word:
+                if fp.split(" ")[0].lower() in config.sigmahq_fp_typo_word:
                     falsepositif.append(
                         SigmahqFalsepositivesTypoWordIssue(rule, fp.split(" ")[0])
                     )
@@ -239,7 +237,7 @@ class SigmahqLinkDescriptionValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description and rule.references == []:
-            for link in sigmahq_link_in_description:
+            for link in config.sigmahq_link_in_description:
                 if link in rule.description.lower():
                     return [SigmahqLinkDescriptionIssue(rule)]
         return []

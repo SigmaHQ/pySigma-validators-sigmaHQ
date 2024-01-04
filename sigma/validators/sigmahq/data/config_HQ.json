@@ -1,0 +1,8 @@
+{
+    "title_lengh": 110,
+    "allowed_lowercase_words": ["the","for","in","with","via","on","to","without","of","through","from","by","as","a","or","at","and","an","over","new"],
+    "sigmahq_invalid_trademark": ["MITRE ATT&CK", "ATT&CK"],
+    "sigmahq_fp_banned_word": ["none", "pentest", "penetration"],
+    "sigmahq_fp_typo_word": ["unkown", "ligitimate", "legitim ", "legitimeate"],
+    "sigmahq_link_in_description": ["http://", "https://", "internal research"]
+}

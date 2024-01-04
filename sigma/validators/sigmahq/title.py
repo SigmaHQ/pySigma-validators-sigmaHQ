@@ -7,44 +7,26 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
+from .config import ConfigHq
 
-allowed_lowercase_words = [
-    "the",
-    "for",
-    "in",
-    "with",
-    "via",
-    "on",
-    "to",
-    "without",
-    "of",
-    "through",
-    "from",
-    "by",
-    "as",
-    "a",
-    "or",
-    "at",
-    "and",
-    "an",
-    "over",
-    "new",
-]
+config = ConfigHq()
 
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a title longer than 110 characters"
+    description: ClassVar[
+        str
+    ] = f"Rule has a title longer than {config.title_lengh} characters"
     severity: ClassVar[
         SigmaValidationIssueSeverity
     ] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqTitleLengthValidator(SigmaRuleValidator):
-    """Checks if rule has a title length longer than 110."""
+    f"""Checks if rule has a title length longer than {config.title_lengh}."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if len(rule.title) > 110:
+        if len(rule.title) > config.title_lengh:
             return [SigmahqTitleLengthIssue([rule])]
         else:
             return []
@@ -101,7 +83,7 @@ class SigmahqTitleCaseValidator(SigmaRuleValidator):
         for word in rule.title.split(" "):
             if (
                 word.islower()
-                and not word.lower() in allowed_lowercase_words
+                and not word.lower() in config.allowed_lowercase_words
                 and not "." in word
                 and not "/" in word
                 and not word[0].isdigit()

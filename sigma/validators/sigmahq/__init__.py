@@ -5,6 +5,7 @@ from inspect import getmembers, isabstract, isclass
 import re
 
 from sigma.validators.base import SigmaRuleValidator
+from .config import ConfigHq
 
 validators = {
     re.sub("([A-Z]+)", "_\\1", name.replace("Validator", ""))[
