@@ -1,8 +1,9 @@
 # pySigma_validators_sigmaHQ
+<!-- Workflow needs to be updated
 ![Tests](https://github.com/frack113/pySigma_validators_sigmaHQ/actions/workflows/test.yml/badge.svg)
 ![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/frack113/13cc99342f8578eac75f46f67e5fd023/raw/frack113-validators-coverage.json)
 ![Status](https://img.shields.io/badge/Status-pre--release-orange)
-
+-->
 # Purpose
 
 Create all validators specific to the requirements of the SigmaHQ rules repository
@@ -33,6 +34,15 @@ Create all validators specific to the requirements of the SigmaHQ rules reposito
 | sigmahq_title_end                     | Checks if rule end with a dot(.).                            |
 | sigmahq_title_length                  | Checks if rule has a title length longer than 110.           |
 | sigmahq_title_start                   | Checks if rule start with Detects.                           |
+
+# config_HQ
+
+- title_lengh:  maximum length for title
+- allowed_lowercase_words: list of words authorized in lower case in the title
+- sigmahq_invalid_trademark: trademark interdit
+- sigmahq_fp_banned_word: list of forbidden word for the field `falsepositives`
+- sigmahq_fp_typo_word": list of common typographical errors in `falsepositives`
+- sigmahq_link_in_description: list of word for the `sigmahq_link_description` validator
 
 # sigmahq_filename_prefix
 
