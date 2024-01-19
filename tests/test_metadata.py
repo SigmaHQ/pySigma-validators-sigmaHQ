@@ -18,8 +18,6 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqDescriptionLengthValidator,
     SigmahqLevelExistenceIssue,
     SigmahqLevelExistenceValidator,
-    SigmahqLegalTrademarkIssue,
-    SigmahqLegalTrademarkValidator,
     SigmahqFalsepositivesCapitalIssue,
     SigmahqFalsepositivesCapitalValidator,
     SigmahqFalsepositivesBannedWordIssue,
@@ -262,40 +260,6 @@ def test_validator_SigmahqLevelExistence_valid():
             field: value
         condition: sel
     level: low
-    """
-    )
-    assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqLegalTrademark():
-    validator = SigmahqLegalTrademarkValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: Test
-    description: ATT&CK rule
-    logsource:
-        category: test
-    detection:
-        sel:
-            field: value
-        condition: sel
-    """
-    )
-    assert validator.validate(rule) == [SigmahqLegalTrademarkIssue(rule, "ATT&CK")]
-
-
-def test_validator_SigmahqLegalTrademark_valid():
-    validator = SigmahqLegalTrademarkValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: Test
-    description: this is a rule
-    logsource:
-        category: test
-    detection:
-        sel:
-            field: value
-        condition: sel
     """
     )
     assert validator.validate(rule) == []

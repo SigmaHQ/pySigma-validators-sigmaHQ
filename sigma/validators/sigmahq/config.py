@@ -1571,7 +1571,6 @@ class ConfigHq:
         "over",
         "new",
     ]
-    sigmahq_invalid_trademark = ["MITRE ATT&CK", "ATT&CK"]
     sigmahq_fp_banned_word = ["none", "pentest", "penetration"]
     sigmahq_fp_typo_word = ["unkown", "ligitimate", "legitim ", "legitimeate"]
     sigmahq_link_in_description = ["http://", "https://", "internal research"]

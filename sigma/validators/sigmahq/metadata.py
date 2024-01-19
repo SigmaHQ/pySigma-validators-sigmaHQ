@@ -135,26 +135,6 @@ class SigmahqLevelExistenceValidator(SigmaRuleValidator):
 
 
 @dataclass
-class SigmahqLegalTrademarkIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule contains a legal trademark"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
-    trademark: str
-
-
-class SigmahqLegalTrademarkValidator(SigmaRuleValidator):
-    """Checks if rule contains a legal trademark."""
-
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        raw_rule = str(rule)
-        for trademark in config.sigmahq_invalid_trademark:
-            if trademark in raw_rule:
-                return [SigmahqLegalTrademarkIssue([rule], trademark)]
-        return []
-
-
-@dataclass
 class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule falsepositive must start with a capital"
     severity: ClassVar[
