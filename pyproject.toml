@@ -12,7 +12,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pysigma = "^0.10.10"
+pysigma = "^0.10.0"
 
 [tool.poetry.dev-dependencies]
 defusedxml = "^0.7.1"
