@@ -18,9 +18,9 @@ config = ConfigHq()
 @dataclass
 class SigmahqFilenameIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule filemane doesn't match SigmaHQ standard"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
     filename: str
 
 
@@ -39,9 +39,9 @@ class SigmahqFilenameValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule filemane doesn't match SigmaHQ Prefix standard"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
     filename: str
     logsource: SigmaLogSource
     prefix: str
