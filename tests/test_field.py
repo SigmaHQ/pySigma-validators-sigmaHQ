@@ -10,6 +10,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqFieldnameCastValidator,
     SigmahqInvalidFieldnameIssue,
     SigmahqInvalidFieldnameValidator,
+    SigmahqInvalidFieldSourceIssue,
+    SigmahqInvalidFieldSourceValidator,
 )
 
 
@@ -153,6 +155,40 @@ def test_validator_SigmahqInvalidFieldname_valid_new_logsource():
     detection:
         sel:
             MyCommandLines: 'error' # should be MyCommandLine
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+def test_validator_SigmahqInvalidFieldSourceIssue():
+    validator = SigmahqInvalidFieldSourceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Use Field Source Eventlog
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            Source: 'Eventlog'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqInvalidFieldSourceIssue(rule)]
+
+def test_validator_SigmahqInvalidFieldSourceIssue_valid():
+    validator = SigmahqInvalidFieldSourceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Use Field Source Eventlog
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            Source: 'error'
         condition: sel
     """
     )
