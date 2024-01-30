@@ -93,10 +93,12 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
         else:
             return []
 
+
 @dataclass
 class SigmahqInvalidFieldSourceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Use field Source with value Eventlog"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+
 
 class SigmahqInvalidFieldSourceValidator(SigmaDetectionItemValidator):
     """Check field Source use with Eventlog."""
@@ -105,8 +107,8 @@ class SigmahqInvalidFieldSourceValidator(SigmaDetectionItemValidator):
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if (
-            detection_item.field == "Source" and 
-            SigmaString("Eventlog") in detection_item.value
+            detection_item.field == "Source"
+            and SigmaString("Eventlog") in detection_item.value
         ):
             return [SigmahqInvalidFieldSourceIssue(self.rule)]
         else:

@@ -160,6 +160,7 @@ def test_validator_SigmahqInvalidFieldname_valid_new_logsource():
     )
     assert validator.validate(rule) == []
 
+
 def test_validator_SigmahqInvalidFieldSourceIssue():
     validator = SigmahqInvalidFieldSourceValidator()
     rule = SigmaRule.from_yaml(
@@ -176,6 +177,7 @@ def test_validator_SigmahqInvalidFieldSourceIssue():
     """
     )
     assert validator.validate(rule) == [SigmahqInvalidFieldSourceIssue(rule)]
+
 
 def test_validator_SigmahqInvalidFieldSourceIssue_valid():
     validator = SigmahqInvalidFieldSourceValidator()
