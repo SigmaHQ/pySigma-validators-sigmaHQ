@@ -23,7 +23,7 @@ class SigmahqTitleLengthIssue(SigmaValidationIssue):
 
 
 class SigmahqTitleLengthValidator(SigmaRuleValidator):
-    f"""Checks if rule has a title length longer than {config.title_lengh}."""
+    """Checks if rule has a title too long."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if len(rule.title) > config.title_lengh:
@@ -41,7 +41,7 @@ class SigmahqTitleStartIssue(SigmaValidationIssue):
 
 
 class SigmahqTitleStartValidator(SigmaRuleValidator):
-    """Checks if rule start with Detects."""
+    """Checks if rule title start with Detects."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.title.startswith("Detects "):
@@ -58,7 +58,7 @@ class SigmahqTitleEndIssue(SigmaValidationIssue):
 
 
 class SigmahqTitleEndValidator(SigmaRuleValidator):
-    """Checks if rule end with a dot(.)."""
+    """Checks if rule title end with a dot(.)."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.title.endswith("."):
