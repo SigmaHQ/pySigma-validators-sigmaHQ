@@ -14,6 +14,7 @@ Create all validators specific to the requirements of the SigmaHQ rules reposito
 | --- | ---|
 | sigmahq_fieldname_cast                | Check field name have a cast error.                          |
 | sigmahq_invalid_fieldname             | Check field name do not exist in the logsource.              |
+| sigmahq_invalid_field_source          | Check field Source use with Eventlog.                        |
 | sigmahq_space_fieldname               | Check field name have a space.                               |
 | sigmahq_filename_prefix               | Check rule filename match SigmaHQ prefix standard.           |
 | sigmahq_filename                      | Check rule filename match SigmaHQ standard.                  |

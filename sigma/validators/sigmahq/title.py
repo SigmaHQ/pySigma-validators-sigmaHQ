@@ -14,16 +14,16 @@ config = ConfigHq()
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = f"Rule has a title longer than {config.title_lengh} characters"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = (
+        f"Rule has a title longer than {config.title_lengh} characters"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqTitleLengthValidator(SigmaRuleValidator):
-    f"""Checks if rule has a title length longer than {config.title_lengh}."""
+    """Checks if rule has a title too long."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if len(rule.title) > config.title_lengh:
@@ -35,13 +35,13 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqTitleStartIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a title start with Detects"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqTitleStartValidator(SigmaRuleValidator):
-    """Checks if rule start with Detects."""
+    """Checks if rule title start with Detects."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.title.startswith("Detects "):
@@ -52,13 +52,13 @@ class SigmahqTitleStartValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqTitleEndIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a title that end with a dot"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqTitleEndValidator(SigmaRuleValidator):
-    """Checks if rule end with a dot(.)."""
+    """Checks if rule title end with a dot(.)."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.title.endswith("."):
@@ -69,9 +69,9 @@ class SigmahqTitleEndValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqTitleCaseIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a title with invalid case"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
     word: str
 
 

@@ -15,9 +15,9 @@ config = ConfigHq()
 @dataclass
 class SigmahqStatusExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has no status"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqStatusExistenceValidator(SigmaRuleValidator):
@@ -65,9 +65,9 @@ class SigmahqStatusDeprecatedValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqDateExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has no date"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqDateExistenceValidator(SigmaRuleValidator):
@@ -83,9 +83,9 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqDescriptionExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has no description"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
@@ -101,9 +101,9 @@ class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqDescriptionLengthIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a too short description"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
@@ -119,9 +119,9 @@ class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqLevelExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has no level"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqLevelExistenceValidator(SigmaRuleValidator):
@@ -137,9 +137,9 @@ class SigmahqLevelExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule falsepositive must start with a capital"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
     word: str
 
 
@@ -161,9 +161,9 @@ class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule falsepositive start with a banned word"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
     word: str
 
 
@@ -184,9 +184,9 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule falsepositive start with a common typo error"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
     word: str
 
 
@@ -207,9 +207,9 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqLinkDescriptionIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule description have a link with no references"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqLinkDescriptionValidator(SigmaRuleValidator):

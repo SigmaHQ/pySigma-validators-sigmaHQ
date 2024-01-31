@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import ClassVar, Dict, List
 
 from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.types import SigmaString
 from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
@@ -89,5 +90,26 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
             and not detection_item.field.lower() in self.unifields
         ):
             return [SigmahqInvalidFieldnameIssue(self.rule, detection_item.field)]
+        else:
+            return []
+
+
+@dataclass
+class SigmahqInvalidFieldSourceIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Use field Source with value Eventlog"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+
+
+class SigmahqInvalidFieldSourceValidator(SigmaDetectionItemValidator):
+    """Check field Source use with Eventlog."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        if (
+            detection_item.field == "Source"
+            and SigmaString("Eventlog") in detection_item.value
+        ):
+            return [SigmahqInvalidFieldSourceIssue(self.rule)]
         else:
             return []
