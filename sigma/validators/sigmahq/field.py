@@ -125,6 +125,7 @@ class SigmahqInvalidFieldSourceValidator(SigmaDetectionItemValidator):
         else:
             return []
 
+
 @dataclass
 class SigmahqInvalidAllModifierIssue(SigmaValidationIssue):
     description: ClassVar[str] = "All modifier without a list of value"
@@ -146,12 +147,14 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
         else:
             return []
 
+
 @dataclass
 class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Field list value have a dulicate item"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     field: str
     value: str
+
 
 class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
     """Check uniques value in field list."""
@@ -174,8 +177,10 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
             for v in detection_item.value:
                 if v in value_see:
                     return [
-                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field,str(v))
-                    ] 
+                        SigmahqFieldDuplicateValueIssue(
+                            self.rule, detection_item.field, str(v)
+                        )
+                    ]
                 else:
                     value_see.append(v)
             return []
@@ -184,8 +189,10 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
             for v in detection_item.value:
                 if str(v).lower() in value_see:
                     return [
-                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field,str(v))
-                    ] 
+                        SigmahqFieldDuplicateValueIssue(
+                            self.rule, detection_item.field, str(v)
+                        )
+                    ]
                 else:
                     value_see.append(str(v).lower())
             return []
