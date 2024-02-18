@@ -11,6 +11,17 @@ from sigma.validators.base import (
     SigmaDetectionItem,
 )
 
+from sigma.modifiers import (
+    SigmaAllModifier,
+    SigmaBase64Modifier,
+    SigmaBase64OffsetModifier,
+    SigmaRegularExpressionDotAllFlagModifier,
+    SigmaRegularExpressionFlagModifier,
+    SigmaRegularExpressionIgnoreCaseFlagModifier,
+    SigmaRegularExpressionModifier,
+    SigmaRegularExpressionMultilineFlagModifier,
+    SigmaCaseSensitiveModifier,
+)
 from .config import ConfigHq
 
 config = ConfigHq()
@@ -113,3 +124,25 @@ class SigmahqInvalidFieldSourceValidator(SigmaDetectionItemValidator):
             return [SigmahqInvalidFieldSourceIssue(self.rule)]
         else:
             return []
+
+@dataclass
+class SigmahqInvalidAllModifierIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "All modifier without a list of value"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+
+
+class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
+    """Check All modifier used with a single value."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        if (
+            SigmaAllModifier in detection_item.modifiers
+            and len(detection_item.value) < 2
+        ):
+            return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
+        else:
+            return []
+
