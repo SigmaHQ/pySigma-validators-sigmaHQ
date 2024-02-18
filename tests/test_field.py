@@ -307,22 +307,22 @@ def test_validator_SigmahqFieldDuplicateValueIssue_re():
     assert validator.validate(rule) == []
 
 
-# def test_validator_SigmahqFieldDuplicateValueIssue_cased():
-#     validator = SigmahqFieldDuplicateValueValidator()
-#     rule = SigmaRule.from_yaml(
-#         """
-#     title: Cased Duplicate Case Sensitive
-#     status: test
-#     logsource:
-#         category: process_creation
-#         product: windows
-#     detection:
-#         sel:
-#             CommandLine|cased|contains:
-#               - ':\wIndows\'
-#               - ':\wiNdows\'
-#               - ':\winDows\'
-#         condition: sel
-#     """
-#     )
-#     assert validator.validate(rule) == []
+def test_validator_SigmahqFieldDuplicateValueIssue_cased():
+    validator = SigmahqFieldDuplicateValueValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Cased Duplicate Case Sensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|cased|contains:
+              - ':\\wIndows\\'
+              - ':\\wiNdows\\'
+              - ':\\winDows\\'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []

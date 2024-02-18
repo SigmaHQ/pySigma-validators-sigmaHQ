@@ -153,6 +153,7 @@ def test_validator_SigmahqTitleCase_valid():
     )
     assert validator.validate(rule) == []
 
+
 def test_validator_SigmahqTitleCase_specialdot_valid():
     validator = SigmahqTitleCaseValidator()
     rule = SigmaRule.from_yaml(
