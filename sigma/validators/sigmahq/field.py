@@ -146,3 +146,46 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
         else:
             return []
 
+@dataclass
+class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Field list value have a dulicate item"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+    value: str
+
+class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
+    """Check uniques value in field list."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        # Special case where value is case sensitive
+        if (
+            SigmaBase64Modifier in detection_item.modifiers
+            or SigmaBase64OffsetModifier in detection_item.modifiers
+            or SigmaRegularExpressionDotAllFlagModifier in detection_item.modifiers
+            or SigmaRegularExpressionFlagModifier in detection_item.modifiers
+            or SigmaRegularExpressionIgnoreCaseFlagModifier in detection_item.modifiers
+            or SigmaRegularExpressionModifier in detection_item.modifiers
+            or SigmaRegularExpressionMultilineFlagModifier in detection_item.modifiers
+            or SigmaCaseSensitiveModifier in detection_item.modifiers
+        ):
+            value_see = []
+            for v in detection_item.value:
+                if v in value_see:
+                    return [
+                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field,str(v))
+                    ] 
+                else:
+                    value_see.append(v)
+            return []
+        else:
+            value_see = []
+            for v in detection_item.value:
+                if str(v).lower() in value_see:
+                    return [
+                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field,str(v))
+                    ] 
+                else:
+                    value_see.append(str(v).lower())
+            return []
