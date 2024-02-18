@@ -12,6 +12,10 @@ from sigma.validators.sigmahq.field import (
     SigmahqInvalidFieldnameValidator,
     SigmahqInvalidFieldSourceIssue,
     SigmahqInvalidFieldSourceValidator,
+    SigmahqInvalidAllModifierIssue,
+    SigmahqInvalidAllModifierValidator,
+    SigmahqFieldDuplicateValueIssue,
+    SigmahqFieldDuplicateValueValidator,
 )
 
 
@@ -191,6 +195,133 @@ def test_validator_SigmahqInvalidFieldSourceIssue_valid():
     detection:
         sel:
             Source: 'error'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqInvalidAllModifierIssue():
+    validator = SigmahqInvalidAllModifierValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Use All modificator
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|all: 'one'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqInvalidAllModifierIssue(rule, "CommandLine")
+    ]
+
+
+def test_validator_SigmahqInvalidAllModifierIssue_valid():
+    validator = SigmahqInvalidAllModifierValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Use All modificator
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|all: 
+                - 'one'
+                - 'two'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFieldDuplicateValueIssue():
+    validator = SigmahqFieldDuplicateValueValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Duplicate Case InSensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|all: 
+              - 'one'
+              - 'two'
+              - 'three'
+              - 'Two'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFieldDuplicateValueIssue(rule, "CommandLine", "Two")
+    ]
+
+
+def test_validator_SigmahqFieldDuplicateValueIssue_base64():
+    validator = SigmahqFieldDuplicateValueValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Base64 Duplicate Case Sensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|base64: 
+              - 'one'
+              - 'two'
+              - 'three'
+              - 'Two'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFieldDuplicateValueIssue_re():
+    validator = SigmahqFieldDuplicateValueValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Re Duplicate Case Sensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|re: 
+              - 'test.*Test'
+              - 'test.*test'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFieldDuplicateValueIssue_cased():
+    validator = SigmahqFieldDuplicateValueValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Cased Duplicate Case Sensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|cased|contains:
+              - ':\\wIndows\\'
+              - ':\\wiNdows\\'
+              - ':\\winDows\\'
         condition: sel
     """
     )

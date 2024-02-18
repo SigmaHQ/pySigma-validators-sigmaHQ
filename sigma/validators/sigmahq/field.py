@@ -11,6 +11,17 @@ from sigma.validators.base import (
     SigmaDetectionItem,
 )
 
+from sigma.modifiers import (
+    SigmaAllModifier,
+    SigmaBase64Modifier,
+    SigmaBase64OffsetModifier,
+    SigmaRegularExpressionDotAllFlagModifier,
+    SigmaRegularExpressionFlagModifier,
+    SigmaRegularExpressionIgnoreCaseFlagModifier,
+    SigmaRegularExpressionModifier,
+    SigmaRegularExpressionMultilineFlagModifier,
+    SigmaCaseSensitiveModifier,
+)
 from .config import ConfigHq
 
 config = ConfigHq()
@@ -112,4 +123,76 @@ class SigmahqInvalidFieldSourceValidator(SigmaDetectionItemValidator):
         ):
             return [SigmahqInvalidFieldSourceIssue(self.rule)]
         else:
+            return []
+
+
+@dataclass
+class SigmahqInvalidAllModifierIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "All modifier without a list of value"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+
+
+class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
+    """Check All modifier used with a single value."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        if (
+            SigmaAllModifier in detection_item.modifiers
+            and len(detection_item.value) < 2
+        ):
+            return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
+        else:
+            return []
+
+
+@dataclass
+class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Field list value have a dulicate item"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+    value: str
+
+
+class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
+    """Check uniques value in field list."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        # Special case where value is case sensitive
+        if (
+            SigmaBase64Modifier in detection_item.modifiers
+            or SigmaBase64OffsetModifier in detection_item.modifiers
+            or SigmaRegularExpressionDotAllFlagModifier in detection_item.modifiers
+            or SigmaRegularExpressionFlagModifier in detection_item.modifiers
+            or SigmaRegularExpressionIgnoreCaseFlagModifier in detection_item.modifiers
+            or SigmaRegularExpressionModifier in detection_item.modifiers
+            or SigmaRegularExpressionMultilineFlagModifier in detection_item.modifiers
+            or SigmaCaseSensitiveModifier in detection_item.modifiers
+        ):
+            value_see = []
+            for v in detection_item.value:
+                if v in value_see:
+                    return [
+                        SigmahqFieldDuplicateValueIssue(
+                            self.rule, detection_item.field, str(v)
+                        )
+                    ]
+                else:
+                    value_see.append(v)
+            return []
+        else:
+            value_see = []
+            for v in detection_item.value:
+                if str(v).lower() in value_see:
+                    return [
+                        SigmahqFieldDuplicateValueIssue(
+                            self.rule, detection_item.field, str(v)
+                        )
+                    ]
+                else:
+                    value_see.append(str(v).lower())
             return []
