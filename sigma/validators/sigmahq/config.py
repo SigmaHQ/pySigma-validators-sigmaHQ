@@ -55,6 +55,14 @@ Data_SigmaHQ_file_prefix = {
         "prefix": "file_event_win_",
         "log": {"category": "file_event", "product": "windows", "service": None},
     },
+    "file_executable_detected": {
+        "prefix": "file_executable_detected_win_",
+        "log": {
+            "category": "file_executable_detected",
+            "product": "windows",
+            "service": None,
+        },
+    },
     "file_rename_win": {
         "prefix": "file_rename_win_",
         "log": {"category": "file_rename", "product": "windows", "service": None},
@@ -296,6 +304,7 @@ Data_SigmaHQ_logsource = [
     {"category": None, "product": "cisco", "service": "bgp"},
     {"category": None, "product": "cisco", "service": "ldp"},
     {"category": None, "product": "cisco", "service": "syslog"},
+    {"category": None, "product": "fortios", "service": "sslvpnd"},
     {"category": None, "product": "gcp", "service": "gcp.audit"},
     {"category": None, "product": "gcp", "service": "google_workspace.admin"},
     {"category": None, "product": "github", "service": "audit"},
@@ -412,6 +421,7 @@ Data_SigmaHQ_logsource = [
     {"category": "file_event", "product": "macos", "service": None},
     {"category": "file_event", "product": "macos", "service": None},
     {"category": "file_event", "product": "windows", "service": None},
+    {"category": "file_executable_detected", "product": "windows", "service": None},
     {"category": "file_rename", "product": "windows", "service": None},
     {"category": "firewall", "product": None, "service": None},
     {"category": "firewall", "product": None, "service": None},

@@ -152,3 +152,70 @@ def test_validator_SigmahqTitleCase_valid():
     """
     )
     assert validator.validate(rule) == []
+
+def test_validator_SigmahqTitleCase_specialdot_valid():
+    validator = SigmahqTitleCaseValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Case Is Needed for the Title Except test.com
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqTitleCase_dot_valid():
+    validator = SigmahqTitleCaseValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Case Is Needed for the Title Except test.com
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqTitleCase_slash_valid():
+    validator = SigmahqTitleCaseValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Case Is Needed for the Title Except test/com
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqTitleCase_underscore_valid():
+    validator = SigmahqTitleCaseValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Case Is Needed for the Title Except test_com
+    status: test
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
