@@ -1,9 +1,8 @@
 # pySigma_validators_sigmaHQ
-<!-- Workflow needs to be updated
-![Tests](https://github.com/frack113/pySigma_validators_sigmaHQ/actions/workflows/test.yml/badge.svg)
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/frack113/13cc99342f8578eac75f46f67e5fd023/raw/frack113-validators-coverage.json)
+![Tests](https://github.com/SigmaHQ/pySigma-validators-sigmaHQ/actions/workflows/test.yml/badge.svg)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/frack113/b27ee1cbe964fb1a299cc20c3403f8c8/raw/pySigma-validators-sigmaHQ.json)
 ![Status](https://img.shields.io/badge/Status-pre--release-orange)
--->
+
 # Purpose
 
 Create all validators specific to the requirements of the SigmaHQ rules repository
