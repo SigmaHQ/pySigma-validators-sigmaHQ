@@ -41,9 +41,7 @@ class SigmahqLogsourceCoherentValidator(SigmaRuleValidator):
     """Checks if rule has Coherent logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource.category and rule.logsource.service:
-            return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
-        elif rule.logsource.service and not rule.logsource.product:
+        if rule.logsource.service and not rule.logsource.product:
             return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
         else:
             return []

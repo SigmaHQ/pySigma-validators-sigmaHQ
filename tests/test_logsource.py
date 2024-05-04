@@ -50,29 +50,6 @@ def test_validator_SigmahqLogsourceKnown_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqLogsourceCoherent_category_service():
-    validator = SigmahqLogsourceCoherentValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: A Space Field Name
-    status: test
-    logsource:
-        category: test
-        service: test
-    detection:
-        sel:
-            field: path\\*something
-            space name: 'error'
-        condition: sel
-    """
-    )
-    assert validator.validate(rule) == [
-        SigmahqLogsourceCoherentIssue(
-            rule, SigmaLogSource(category="test", service="test")
-        )
-    ]
-
-
 def test_validator_SigmahqLogsourceCoherent_service_alone():
     validator = SigmahqLogsourceCoherentValidator()
     rule = SigmaRule.from_yaml(
