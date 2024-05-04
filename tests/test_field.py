@@ -2,6 +2,7 @@ from wsgiref.validate import validator
 
 import pytest
 from sigma.rule import SigmaRule
+from sigma.modifiers import SigmaRegularExpression
 
 from sigma.validators.sigmahq.field import (
     SigmahqSpaceFieldnameIssue,
@@ -322,6 +323,54 @@ def test_validator_SigmahqFieldDuplicateValueIssue_cased():
               - ':\\wIndows\\'
               - ':\\wiNdows\\'
               - ':\\winDows\\'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
+    validator = SigmahqFieldDuplicateValueValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Re Duplicate Case Sensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|re: 
+              - 'one'
+              - 'One'
+              - 'two'
+              - 'three'
+              - 'Two'
+              - 'One'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFieldDuplicateValueIssue(
+            rule, "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
+        )
+    ]
+
+
+def test_validator_SigmahqFieldDuplicateValueIssue_valid():
+    validator = SigmahqFieldDuplicateValueValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Cased Duplicate 
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            CommandLine|contains:
+              - 'azertyy'
+              - 'qwerty'
         condition: sel
     """
     )
