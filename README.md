@@ -26,7 +26,8 @@ Create all validators specific to the requirements of the SigmaHQ rules reposito
 | sigmahq_invalid_fieldname             | Check field name do not exist in the logsource.              |
 | sigmahq_level_existence               | Checks if rule has a level.                                  |
 | sigmahq_link_description              | Checks if rule description use a link instead of references. |
-| sigmahq_logsource_valid               | Checks if rule has valid logsource.                          |
+| sigmahq_logsource_coherent            | Checks if rule has Coherent logsource.                       |
+| sigmahq_logsource_known               | Checks if rule has known logsource.                          |
 | sigmahq_space_fieldname               | Check field name have a space.                               |
 | sigmahq_status_deprecated             | Checks if rule has a status DEPRECATED.                      |
 | sigmahq_status_existence              | Checks if rule has a status.                                 |

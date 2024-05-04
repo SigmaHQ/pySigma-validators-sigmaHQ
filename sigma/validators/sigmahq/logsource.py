@@ -14,17 +14,36 @@ config = ConfigHq()
 
 
 @dataclass
-class SigmahqLogsourceValidIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has an invalid logsource"
+class SigmahqLogsourceKnownIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule has an unknown logsource"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     logsource: SigmaLogSource
 
 
-class SigmahqLogsourceValidValidator(SigmaRuleValidator):
-    """Checks if rule has valid logsource."""
+class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
+    """Checks if rule has known logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource and not rule.logsource in config.sigmahq_logsource_list:
-            return [SigmahqLogsourceValidIssue(rule, rule.logsource)]
+        if not rule.logsource in config.sigmahq_logsource_list:
+            return [SigmahqLogsourceKnownIssue(rule, rule.logsource)]
+        else:
+            return []
+
+
+@dataclass
+class SigmahqLogsourceCoherentIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule has an incoherent logsource"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    logsource: SigmaLogSource
+
+
+class SigmahqLogsourceCoherentValidator(SigmaRuleValidator):
+    """Checks if rule has Coherent logsource."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if rule.logsource.category and rule.logsource.service:
+            return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
+        elif rule.logsource.service and not rule.logsource.product:
+            return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
         else:
             return []
