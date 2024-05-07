@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pySigma-validators-sigmahq"
-version = "0.5.1"
+version = "0.5.2"
 description = "pySigma SigmaHQ validators"
 authors = ["François Hubaut <frack113@users.noreply.github.com>"]
 license = "LGPL-2.1-only"

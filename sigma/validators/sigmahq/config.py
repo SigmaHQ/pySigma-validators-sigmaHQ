@@ -300,8 +300,10 @@ Data_SigmaHQ_logsource = [
     {"category": None, "product": "azure", "service": "pim"},
     {"category": None, "product": "azure", "service": "riskdetection"},
     {"category": None, "product": "azure", "service": "signinlogs"},
+    {"category": None, "product": "bitbucket", "service": "audit"},
     {"category": None, "product": "cisco", "service": "aaa"},
     {"category": None, "product": "cisco", "service": "bgp"},
+    {"category": None, "product": "cisco", "service": "duo"},
     {"category": None, "product": "cisco", "service": "ldp"},
     {"category": None, "product": "cisco", "service": "syslog"},
     {"category": None, "product": "fortios", "service": "sslvpnd"},
@@ -395,11 +397,14 @@ Data_SigmaHQ_logsource = [
     {"category": None, "product": "zeek", "service": "smb_files"},
     {"category": None, "product": "zeek", "service": "x509"},
     {"category": "antivirus", "product": None, "service": None},
+    {"category": "appliance", "product": "paloalto", "service": "globalprotect"},
     {"category": "application", "product": "django", "service": None},
     {"category": "application", "product": "jvm", "service": None},
+    {"category": "application", "product": "kubernetes", "service": "audit"},
     {"category": "application", "product": "modsecurity", "service": None},
     {"category": "application", "product": "nodejs", "service": None},
     {"category": "application", "product": "python", "service": None},
+    {"category": "application", "product": "opencanary", "service": None},
     {"category": "application", "product": "qualys", "service": None},
     {"category": "application", "product": "rpc_firewall", "service": None},
     {"category": "application", "product": "ruby_on_rails", "service": None},
@@ -420,6 +425,7 @@ Data_SigmaHQ_logsource = [
     {"category": "file_event", "product": "linux", "service": None},
     {"category": "file_event", "product": "macos", "service": None},
     {"category": "file_event", "product": "macos", "service": None},
+    {"category": "file_event", "product": "paloalto", "service": "globalprotect"},
     {"category": "file_event", "product": "windows", "service": None},
     {"category": "file_executable_detected", "product": "windows", "service": None},
     {"category": "file_rename", "product": "windows", "service": None},
@@ -1600,7 +1606,15 @@ class ConfigHq:
                 field.extend(["Imphash", "md5", "sha1", "sha256"])
 
             if v["log"]["product"] == "windows":
-                field.extend(["EventID", "Provider_Name"])
+                field.extend(
+                    [
+                        "EventID",
+                        "Provider_Name",
+                        "Channel",
+                        "Computer",
+                        "Security_UserID",
+                    ]
+                )
 
             self.sigmahq_logsource_unicast[SigmaLogSource.from_dict(v["log"])] = [
                 x.lower() for x in field
