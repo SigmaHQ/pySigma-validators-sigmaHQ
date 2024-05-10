@@ -234,7 +234,7 @@ class SigmahqFieldWithSpaceValidator(SigmaDetectionItemValidator):
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         # Special case where value is case sensitive
-        if detection_item.field and  " " in detection_item.field:
+        if detection_item.field and " " in detection_item.field:
             return [SigmahqFieldWithSpaceIssue(self.rule, detection_item.field)]
         else:
             return []

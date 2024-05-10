@@ -3,6 +3,8 @@ from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.condition import (
     SigmahqOfthemConditionIssue,
     SigmahqOfthemConditionValidator,
+    SigmahqOfselectionConditionIssue,
+    SigmahqOfselectionConditionValidator,
 )
 
 
@@ -41,7 +43,7 @@ def test_validator_SigmahqOfthemConditionValidator_all():
 
 
 def test_validator_SigmahqOfthemConditionValidator_valid():
-    validator = SigmahqOfthemConditionValidator()
+    validator = SigmahqOfselectionConditionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -57,3 +59,26 @@ def test_validator_SigmahqOfthemConditionValidator_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqOfselectionConditionValidator():
+    validator = SigmahqOfselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        selection_sub_1:
+            field1: val1   
+        condition: 1 of selection_part* and 1 of selection_sub_*
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqOfselectionConditionIssue(rule, "selection_sub_*")
+    ]
