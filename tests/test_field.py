@@ -17,6 +17,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqInvalidAllModifierValidator,
     SigmahqFieldDuplicateValueIssue,
     SigmahqFieldDuplicateValueValidator,
+    SigmahqFieldWithSpaceIssue,
+    SigmahqFieldWithSpaceValidator,
 )
 
 
@@ -371,6 +373,46 @@ def test_validator_SigmahqFieldDuplicateValueIssue_valid():
             CommandLine|contains:
               - 'azertyy'
               - 'qwerty'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFieldWithSpaceValidator():
+    validator = SigmahqFieldWithSpaceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Duplicate Case InSensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            Command Line: 'invalid'
+            CommandLine: 'valid'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFieldWithSpaceIssue(rule, "Command Line")
+    ]
+
+
+def test_validator_SigmahqFieldWithSpaceValidator_valid():
+    validator = SigmahqFieldWithSpaceValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Duplicate Case InSensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            Command_Line: 'valid'
+            CommandLine: 'valid'
         condition: sel
     """
     )
