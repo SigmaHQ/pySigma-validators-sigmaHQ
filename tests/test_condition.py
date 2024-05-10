@@ -5,6 +5,8 @@ from sigma.validators.sigmahq.condition import (
     SigmahqOfthemConditionValidator,
     SigmahqOfselectionConditionIssue,
     SigmahqOfselectionConditionValidator,
+    SigmahqNoasterixofselectionConditionIssue,
+    SigmahqNoasterixofselectionConditionValidator,
 )
 
 
@@ -82,3 +84,68 @@ def test_validator_SigmahqOfselectionConditionValidator():
     assert validator.validate(rule) == [
         SigmahqOfselectionConditionIssue(rule, "selection_sub_*")
     ]
+
+
+def test_validator_SigmahqOfselectionConditionValidator_valid():
+    validator = SigmahqOfselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        selection_sub_1:
+            field1: val1   
+        condition: 1 of selection_part* and selection_sub_1
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqNoasterixofselectionConditionValidator():
+    validator = SigmahqNoasterixofselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        selection_sub:
+            field1: val1   
+        condition: 1 of selection_part* and 1 of selection_sub
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqNoasterixofselectionConditionIssue(rule, "selection_sub")
+    ]
+
+
+def test_validator_SigmahqNoasterixofselectionConditionValidator_valid():
+    validator = SigmahqNoasterixofselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        selection_sub:
+            field1: val1   
+        condition: 1 of selection_part* and selection_sub
+    """
+    )
+    assert validator.validate(rule) == []

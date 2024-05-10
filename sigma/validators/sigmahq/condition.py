@@ -65,11 +65,40 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
                     if name.startswith("filter_"):
                         continue
 
-                    if name[-1] == "*":
+                    if name.endswith("*"):
                         selection_count = 0
                         for selection_name in rule.detection.detections:
                             if re.match(name, selection_name):
                                 selection_count += 1
                         if selection_count < 2:
                             return [SigmahqOfselectionConditionIssue(rule, name)]
+        return []
+
+
+@dataclass
+class SigmahqNoasterixofselectionConditionIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule contains '1/all of ' without asterix"
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
+    selection: str
+
+
+class SigmahqNoasterixofselectionConditionValidator(SigmaRuleValidator):
+    """Check use '1/all of ' without asterix"""
+
+    re_x_of_them: ClassVar[Pattern] = re.compile("\\s+of\\s+([^\\s\\)]+)")
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []  # Correlation rules do not have detections
+
+        for condition in rule.detection.condition:
+            if self.re_x_of_them.search(condition):
+                all_name = self.re_x_of_them.findall(condition)
+                for name in all_name:
+                    if name == "them":
+                        continue
+                    if not name.endswith("*"):
+                        return [SigmahqNoasterixofselectionConditionIssue(rule, name)]
         return []
