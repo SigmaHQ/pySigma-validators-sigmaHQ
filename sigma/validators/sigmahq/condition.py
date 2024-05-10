@@ -11,15 +11,14 @@ from sigma.validators.base import (
     SigmaRuleValidator,
 )
 
+
 @dataclass
-class OfthemConditionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule contains ' of them' with only 1 selection"
-    )
+class SigmahqOfthemConditionIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule contains ' of them' with only 1 selection"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
 
 
-class OfthemConditionValidator(SigmaRuleValidator):
+class SigmahqOfthemConditionValidator(SigmaRuleValidator):
     """Check use ' of them' with only one selection"""
 
     re_all_of_them: ClassVar[Pattern] = re.compile("\\s+of\\s+them")
@@ -28,7 +27,15 @@ class OfthemConditionValidator(SigmaRuleValidator):
         if isinstance(rule, SigmaCorrelationRule):
             return []  # Correlation rules do not have detections
 
-        if any([self.re_all_of_them.search(condition) for condition in rule.detection.condition]):
-            return [OfthemConditionIssue([rule])]
+        if (
+            any(
+                [
+                    self.re_all_of_them.search(condition)
+                    for condition in rule.detection.condition
+                ]
+            )
+            and len(rule.detection.detections) == 1
+        ):
+            return [SigmahqOfthemConditionIssue([rule])]
         else:
             return []

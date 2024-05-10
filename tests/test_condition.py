@@ -1,14 +1,13 @@
 import pytest
 from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.condition import (
-    OfthemConditionIssue,
-    OfthemConditionValidator,
+    SigmahqOfthemConditionIssue,
+    SigmahqOfthemConditionValidator,
 )
 
 
-
-def test_validator_OfthemConditionValidator_1():
-    validator = OfthemConditionValidator()
+def test_validator_SigmahqOfthemConditionValidator_1():
+    validator = SigmahqOfthemConditionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -21,10 +20,11 @@ def test_validator_OfthemConditionValidator_1():
         condition: 1 of them
     """
     )
-    assert validator.validate(rule) == [OfthemConditionIssue([rule])]
+    assert validator.validate(rule) == [SigmahqOfthemConditionIssue([rule])]
 
-def test_validator_OfthemConditionValidator_all():
-    validator = OfthemConditionValidator()
+
+def test_validator_SigmahqOfthemConditionValidator_all():
+    validator = SigmahqOfthemConditionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -37,10 +37,11 @@ def test_validator_OfthemConditionValidator_all():
         condition: all of them
     """
     )
-    assert validator.validate(rule) == [OfthemConditionIssue([rule])]
+    assert validator.validate(rule) == [SigmahqOfthemConditionIssue([rule])]
 
-def test_validator_OfthemConditionValidator_valid():
-    validator = OfthemConditionValidator()
+
+def test_validator_SigmahqOfthemConditionValidator_valid():
+    validator = SigmahqOfthemConditionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -55,4 +56,4 @@ def test_validator_OfthemConditionValidator_valid():
         condition: all of them
     """
     )
-    assert validator.validate(rule) == [OfthemConditionIssue([rule])]
+    assert validator.validate(rule) == []
