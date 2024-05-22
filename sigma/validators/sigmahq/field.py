@@ -196,3 +196,45 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
                 else:
                     value_see.append(str(v).lower())
             return []
+
+
+@dataclass
+class SigmahqInvalidAllModifierIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "All modifier without a list of value"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+
+
+class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
+    """Check All modifier used with a single value."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        if (
+            SigmaAllModifier in detection_item.modifiers
+            and len(detection_item.value) < 2
+        ):
+            return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
+        else:
+            return []
+
+
+@dataclass
+class SigmahqFieldWithSpaceIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Field has a space instead of an underscore"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+
+
+class SigmahqFieldWithSpaceValidator(SigmaDetectionItemValidator):
+    """Check field do not have a space."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        # Special case where value is case sensitive
+        if detection_item.field and " " in detection_item.field:
+            return [SigmahqFieldWithSpaceIssue(self.rule, detection_item.field)]
+        else:
+            return []
