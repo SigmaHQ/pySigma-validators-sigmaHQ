@@ -16,14 +16,16 @@ config = ConfigHq()
 
 @dataclass
 class SigmahqCategorieEventidIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule use a windows categorie that don't need Eventid "
+    description: ClassVar[str] = (
+        "Rule use a windows categorie that don't need EventId or Provider_Name"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqCategorieEventidValidator(SigmaDetectionItemValidator):
-    """Checks if rule use Eventid with a windows category that allready include Eventid."""
+    """Checks if rule use Eventid with a windows category that allready include EventId or Provider_Name."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if (
@@ -37,10 +39,10 @@ class SigmahqCategorieEventidValidator(SigmaDetectionItemValidator):
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
-        if (
-            detection_item.field is not None
-            and detection_item.field.lower() == "eventid"
-        ):
+        if detection_item.field is not None and detection_item.field in [
+            "EventID",
+            "Provider_Name",
+        ]:
             return [SigmahqCategorieEventidIssue(self.rule)]
         else:
             return []

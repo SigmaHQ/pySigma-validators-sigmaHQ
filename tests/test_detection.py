@@ -30,6 +30,25 @@ def test_validator_SigmahqSpaceFieldname():
     assert validator.validate(rule) == [SigmahqCategorieEventidIssue(rule)]
 
 
+def test_validator_SigmahqSpaceFieldname_provider():
+    validator = SigmahqCategorieEventidValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field: path\\*something
+            Provider_Name: Microsoft-Windows-Sysmon
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqCategorieEventidIssue(rule)]
+
+
 def test_validator_SigmahqSpaceFieldname_valid():
     validator = SigmahqCategorieEventidValidator()
     rule = SigmaRule.from_yaml(
