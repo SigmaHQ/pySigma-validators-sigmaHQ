@@ -19,6 +19,7 @@ Create all validators specific to the requirements of the SigmaHQ rules reposito
 | sigmahq_falsepositives_capital         | Checks if rule falsepositive start with a capital.           |
 | sigmahq_falsepositives_typo_word       | Checks if rule falsepositive start with a common typo error. |
 | sigmahq_field_duplicate_value          | Check uniques value in field list.                           |
+| sigmahq_field_user                     | Check a User field use a localized name.                     |
 | sigmahq_field_with_space               | Check field do not have a space.                             |
 | sigmahq_fieldname_cast                 | Check field name have a cast error.                          |
 | sigmahq_filename                       | Check rule filename match SigmaHQ standard.                  |
