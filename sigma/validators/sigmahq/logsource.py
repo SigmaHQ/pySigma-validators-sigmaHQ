@@ -29,32 +29,32 @@ class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
         else:
             return []
 
+# Useless with Specification V2 
+# @dataclass
+# class SigmahqLogsourceCoherentIssue(SigmaValidationIssue):
+#     description: ClassVar[str] = "Rule has an incoherent logsource"
+#     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+#     logsource: SigmaLogSource
 
-@dataclass
-class SigmahqLogsourceCoherentIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has an incoherent logsource"
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-    logsource: SigmaLogSource
 
+# class SigmahqLogsourceCoherentValidator(SigmaRuleValidator):
+#     """Checks if rule has Coherent logsource."""
 
-class SigmahqLogsourceCoherentValidator(SigmaRuleValidator):
-    """Checks if rule has Coherent logsource."""
-
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource.service and not rule.logsource.product:
-            return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
-        else:
-            return []
+#     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+#         if rule.logsource.service and not rule.logsource.product:
+#             return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
+#         else:
+#             return []
 
 @dataclass
 class SigmahqLogsourceInvalidFieldIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has an incoherent logsource"
+    description: ClassVar[str] = "Rule has an invalid logsource field name"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     logsource: SigmaLogSource
 
 
 class SigmahqLogsourceInvalidFielValidator(SigmaRuleValidator):
-    """Checks if rule has Coherent logsource."""
+    """Checks if rule has an invalid logsource field name."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.logsource.custom_attributes:
