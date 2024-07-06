@@ -8,6 +8,8 @@ from sigma.validators.sigmahq.logsource import (
     SigmahqLogsourceKnownValidator,
     SigmahqLogsourceCoherentIssue,
     SigmahqLogsourceCoherentValidator,
+    SigmahqLogsourceInvalidFieldIssue,
+    SigmahqLogsourceInvalidFielValidator,
 )
 
 
@@ -79,6 +81,47 @@ def test_validator_SigmahqLogsourceCoherent_valid():
     logsource:
         product: test
         service: test
+    detection:
+        sel:
+            field: path\\*something
+            space name: 'error'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+def test_validator_SigmahqLogsourceKnown():
+    validator = SigmahqLogsourceInvalidFielValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        category: test
+        myfield: because I want
+        morefield: too
+        definition: A bad logsource
+    detection:
+        sel:
+            field: path\\*something
+            space name: 'error'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqLogsourceInvalidFieldIssue(rule, "myfield"),
+        SigmahqLogsourceInvalidFieldIssue(rule, "morefield"),
+    ]
+
+def test_validator_SigmahqLogsourceKnown_valid():
+    validator = SigmahqLogsourceInvalidFielValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        category: test
+        definition: A valid logsource
     detection:
         sel:
             field: path\\*something

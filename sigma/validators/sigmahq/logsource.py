@@ -45,3 +45,19 @@ class SigmahqLogsourceCoherentValidator(SigmaRuleValidator):
             return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
         else:
             return []
+
+@dataclass
+class SigmahqLogsourceInvalidFieldIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule has an incoherent logsource"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    logsource: SigmaLogSource
+
+
+class SigmahqLogsourceInvalidFielValidator(SigmaRuleValidator):
+    """Checks if rule has Coherent logsource."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if rule.logsource.custom_attributes:
+            return [SigmahqLogsourceInvalidFieldIssue(rule, k ) for k in rule.logsource.custom_attributes.keys() if not k == "definition"]
+        else:
+            return []
