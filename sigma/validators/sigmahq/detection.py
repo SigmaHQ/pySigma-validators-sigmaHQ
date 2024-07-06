@@ -3,7 +3,6 @@ from typing import ClassVar, List
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
-    SigmaRuleValidator,
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
     SigmaDetectionItemValidator,
