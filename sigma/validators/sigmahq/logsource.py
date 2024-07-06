@@ -29,7 +29,8 @@ class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
         else:
             return []
 
-# Useless with Specification V2 
+
+# Useless with Specification V2
 # @dataclass
 # class SigmahqLogsourceCoherentIssue(SigmaValidationIssue):
 #     description: ClassVar[str] = "Rule has an incoherent logsource"
@@ -46,6 +47,7 @@ class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
 #         else:
 #             return []
 
+
 @dataclass
 class SigmahqLogsourceInvalidFieldIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has an invalid logsource field name"
@@ -58,6 +60,10 @@ class SigmahqLogsourceInvalidFielValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.logsource.custom_attributes:
-            return [SigmahqLogsourceInvalidFieldIssue(rule, k ) for k in rule.logsource.custom_attributes.keys() if not k == "definition"]
+            return [
+                SigmahqLogsourceInvalidFieldIssue(rule, k)
+                for k in rule.logsource.custom_attributes.keys()
+                if not k == "definition"
+            ]
         else:
             return []

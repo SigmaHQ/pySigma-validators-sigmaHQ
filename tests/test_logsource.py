@@ -73,6 +73,7 @@ def test_validator_SigmahqLogsourceKnown():
         SigmahqLogsourceInvalidFieldIssue(rule, "morefield"),
     ]
 
+
 def test_validator_SigmahqLogsourceKnown_valid():
     validator = SigmahqLogsourceInvalidFielValidator()
     rule = SigmaRule.from_yaml(
