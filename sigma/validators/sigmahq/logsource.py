@@ -29,20 +29,3 @@ class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
         else:
             return []
 
-
-# Useless with Specification V2
-# @dataclass
-# class SigmahqLogsourceCoherentIssue(SigmaValidationIssue):
-#     description: ClassVar[str] = "Rule has an incoherent logsource"
-#     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-#     logsource: SigmaLogSource
-
-
-# class SigmahqLogsourceCoherentValidator(SigmaRuleValidator):
-#     """Checks if rule has Coherent logsource."""
-
-#     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-#         if rule.logsource.service and not rule.logsource.product:
-#             return [SigmahqLogsourceCoherentIssue(rule, rule.logsource)]
-#         else:
-#             return []
