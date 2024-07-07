@@ -28,4 +28,3 @@ class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
             return [SigmahqLogsourceKnownIssue(rule, rule.logsource)]
         else:
             return []
-
