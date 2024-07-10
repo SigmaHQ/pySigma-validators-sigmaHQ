@@ -238,3 +238,32 @@ class SigmahqFieldWithSpaceValidator(SigmaDetectionItemValidator):
             return [SigmahqFieldWithSpaceIssue(self.rule, detection_item.field)]
         else:
             return []
+
+
+@dataclass
+class SigmahqFieldUserIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "User Field has a Localized name"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+    user: str
+
+
+class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
+    """Check a User field use a localized name."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        # Special case where value is case sensitive
+        if (
+            detection_item.field
+            and "user" in detection_item.field.lower()
+            and len(detection_item.value) == 1
+        ):
+            user = str(detection_item.value[0])
+            if "AUTORI" in user or "AUTHORI" in user:
+                return [SigmahqFieldUserIssue(self.rule, detection_item.field, user)]
+            else:
+                return []
+        else:
+            return []

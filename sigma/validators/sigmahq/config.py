@@ -1595,6 +1595,38 @@ class ConfigHq:
     sigmahq_logsource_list: Dict[SigmaLogSource, str] = {}
     sigmahq_logsource_prefix: Dict[SigmaLogSource, str] = {}
     sigmahq_product_prefix: Dict[str, str] = {}
+    windows_categorie_no_eventid = [
+        "clipboard_capture",
+        "create_remote_thread",
+        "create_stream_hash",
+        "dns_query",
+        "driver_load",
+        "file_access",
+        "file_change",
+        "file_delete",
+        "file_event",
+        "image_load",
+        "network_connection",
+        "pipe_created",
+        "process_access",
+        "process_creation",
+        "process_tampering",
+        "process_termination",
+        "ps_classic_provider_start",
+        "ps_classic_script",
+        "ps_classic_start",
+        "ps_module",
+        "ps_script",
+        "raw_access_thread",
+        "registry_add",
+        "registry_delete",
+        "registry_event",
+        "registry_rename",
+        "registry_set",
+        "sysmon_error",
+        "sysmon_status",
+        "wmi_event",
+    ]
 
     def __init__(self) -> None:
         # Field name cast by logsource

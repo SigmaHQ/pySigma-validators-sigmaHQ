@@ -19,6 +19,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqFieldDuplicateValueValidator,
     SigmahqFieldWithSpaceIssue,
     SigmahqFieldWithSpaceValidator,
+    SigmahqFieldUserIssue,
+    SigmahqFieldUserValidator,
 )
 
 
@@ -417,3 +419,23 @@ def test_validator_SigmahqFieldWithSpaceValidator_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqFieldUserValidator():
+    validator = SigmahqFieldUserValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Duplicate Case InSensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        sel:
+            UserName: 'AUTORITE NT'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFieldUserIssue(rule, "UserName", "AUTORITE NT")
+    ]
