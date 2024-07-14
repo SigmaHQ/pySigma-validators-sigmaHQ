@@ -8,10 +8,12 @@ from sigma.validators.sigmahq.detection import (
     SigmahqCategorieEventidValidator,
     SigmahqSigmacIssue,
     SigmahqSigmacValidator,
+    SigmahqCategoriProvidernameIssue,
+    SigmahqCategoriProvidernameValidator,
 )
 
 
-def test_validator_SigmahqSpaceFieldname():
+def test_validator_SigmahqCategorieEventid():
     validator = SigmahqCategorieEventidValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -30,8 +32,26 @@ def test_validator_SigmahqSpaceFieldname():
     assert validator.validate(rule) == [SigmahqCategorieEventidIssue(rule)]
 
 
-def test_validator_SigmahqSpaceFieldname_provider():
+def test_validator_SigmahqCategorieEventid_valid():
     validator = SigmahqCategorieEventidValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: ps_module
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqCategoriProvidername():
+    validator = SigmahqCategoriProvidernameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
@@ -46,18 +66,18 @@ def test_validator_SigmahqSpaceFieldname_provider():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqCategorieEventidIssue(rule)]
+    assert validator.validate(rule) == [SigmahqCategoriProvidernameIssue(rule)]
 
 
-def test_validator_SigmahqSpaceFieldname_valid():
-    validator = SigmahqCategorieEventidValidator()
+def test_validator_SigmahqCategoriProvidername_valid():
+    validator = SigmahqCategoriProvidernameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
     status: test
     logsource:
         product: windows
-        category: ps_module
+        category: process_creation
     detection:
         sel:
             field: path\\*something
