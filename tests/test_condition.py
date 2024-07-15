@@ -76,14 +76,12 @@ def test_validator_SigmahqOfselectionConditionValidator():
             field1: val1
         selection_part_2:
             field1: val1
-        selection_sub_1:
+        sub_1:
             field1: val1   
-        condition: 1 of selection_part* and 1 of selection_sub_*
+        condition: 1 of selection_part* and 1 of sub_*
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqOfselectionConditionIssue(rule, "selection_sub_*")
-    ]
+    assert validator.validate(rule) == [SigmahqOfselectionConditionIssue(rule, "sub_*")]
 
 
 def test_validator_SigmahqOfselectionConditionValidator_valid():
