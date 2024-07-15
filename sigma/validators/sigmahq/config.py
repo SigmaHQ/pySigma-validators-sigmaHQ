@@ -1620,12 +1620,10 @@ class ConfigHq:
         "raw_access_thread",
         "registry_add",
         "registry_delete",
-        "registry_event",
         "registry_rename",
         "registry_set",
         "sysmon_error",
         "sysmon_status",
-        "wmi_event",
     ]
     windows_categorie_provider_name = {
         "clipboard_capture": ["Microsoft-Windows-Sysmon"],
