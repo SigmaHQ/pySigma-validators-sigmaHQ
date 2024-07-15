@@ -1636,12 +1636,20 @@ class ConfigHq:
         "file_delete": ["Microsoft-Windows-Sysmon"],
         "file_event": ["Microsoft-Windows-Sysmon"],
         "image_load": ["Microsoft-Windows-Sysmon"],
-        "network_connection": ["Microsoft-Windows-Sysmon"],
+        "network_connection": [
+            "Microsoft-Windows-Sysmon",
+            "Microsoft-Windows-TCPIP",
+        ],
         "pipe_created": ["Microsoft-Windows-Sysmon"],
-        "process_access": ["Microsoft-Windows-Sysmon"],
+        "process_access": [
+            "Microsoft-Windows-Sysmon",
+            "Microsoft-Windows-Kernel-Audit-API-Calls",
+        ],
         "process_creation": [
             "Microsoft-Windows-Sysmon",
             "Microsoft-Windows-Security-Auditing",
+            "Microsoft-Windows-Kernel-Process",
+            "SystemTraceProvider-Process",
         ],
         "process_tampering": ["Microsoft-Windows-Sysmon"],
         "process_termination": ["Microsoft-Windows-Sysmon"],
