@@ -28,3 +28,27 @@ class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
             return [SigmahqLogsourceKnownIssue(rule, rule.logsource)]
         else:
             return []
+
+
+@dataclass
+class SigmahqSysmonMissingEventidIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule use windows sysmon service without EventID"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+
+
+class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
+    """Checks if rule use windows sysmon service without EventID."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if rule.logsource.service == "sysmon":
+            find = False
+            for selection in rule.detection.detections.values():
+                for item in selection.detection_items:
+                    if item.field == "EventID":
+                        find = True
+            if find:
+                return []
+            else:
+                return [SigmahqSysmonMissingEventidIssue(rule)]
+        else:
+            return []
