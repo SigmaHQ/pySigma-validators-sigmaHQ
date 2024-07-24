@@ -14,14 +14,14 @@ config = ConfigHq()
 
 @dataclass
 class SigmahqStatusExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no status"
+    description: ClassVar[str] = "Rule has no status field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqStatusExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a status."""
+    """Checks if a rule is missing the status field."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.status is None:
@@ -32,12 +32,12 @@ class SigmahqStatusExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusUnsupportedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a UNSUPPORTED status"
+    description: ClassVar[str] = "Rule uses the Unsupported status field"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
 class SigmahqStatusUnsupportedValidator(SigmaRuleValidator):
-    """Checks if rule has a status UNSUPPORTED."""
+    """Checks if rule has a status field with the value Unsupported."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.status and rule.status.name == "UNSUPPORTED":
@@ -48,12 +48,12 @@ class SigmahqStatusUnsupportedValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusDeprecatedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a DEPRECATED status"
+    description: ClassVar[str] = "Rule uses the Deprecated status field"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
 class SigmahqStatusDeprecatedValidator(SigmaRuleValidator):
-    """Checks if rule has a status DEPRECATED."""
+    """Checks if rule has a status field with the value Deprecated."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.status and rule.status.name == "DEPRECATED":
@@ -64,14 +64,14 @@ class SigmahqStatusDeprecatedValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDateExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no date"
+    description: ClassVar[str] = "Rule has no date field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqDateExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a data."""
+    """Checks if rule has a data field."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.date is None:
@@ -82,14 +82,14 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDescriptionExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no description"
+    description: ClassVar[str] = "Rule has no description field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a description."""
+    """Checks if rule has a description field."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description is None:
@@ -100,14 +100,14 @@ class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDescriptionLengthIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a too short description"
+    description: ClassVar[str] = "Rule has an overly brief description."
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
-    """Checks if rule has a description."""
+    """Checks if a rule has a has an overly brief description."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description is not None and len(rule.description) < 16:
@@ -118,14 +118,14 @@ class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqLevelExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no level"
+    description: ClassVar[str] = "Rule has no level field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqLevelExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a level."""
+    """Checks if rule has a level field."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.level is None:
