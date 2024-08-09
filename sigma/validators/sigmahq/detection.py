@@ -79,4 +79,3 @@ class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
                     return [SigmahqCategoriProvidernameIssue(self.rule)]
 
         return []
-

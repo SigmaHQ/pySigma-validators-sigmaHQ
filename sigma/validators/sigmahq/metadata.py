@@ -31,33 +31,17 @@ class SigmahqStatusExistenceValidator(SigmaRuleValidator):
 
 
 @dataclass
-class SigmahqStatusUnsupportedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a UNSUPPORTED status"
+class SigmahqStatusIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule has a status DEPRECATED or UNSUPPORTED"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
-class SigmahqStatusUnsupportedValidator(SigmaRuleValidator):
-    """Checks if rule has a status UNSUPPORTED."""
+class SigmahqStatusValidator(SigmaRuleValidator):
+    """Checks if rule has a status DEPRECATED or UNSUPPORTED."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.status and rule.status.name == "UNSUPPORTED":
-            return [SigmahqStatusUnsupportedIssue(rule)]
-        else:
-            return []
-
-
-@dataclass
-class SigmahqStatusDeprecatedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a DEPRECATED status"
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-
-
-class SigmahqStatusDeprecatedValidator(SigmaRuleValidator):
-    """Checks if rule has a status DEPRECATED."""
-
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.status and rule.status.name == "DEPRECATED":
-            return [SigmahqStatusDeprecatedIssue(rule)]
+        if rule.status and rule.status.name in ["DEPRECATED", "UNSUPPORTED"]:
+            return [SigmahqStatusIssue(rule)]
         else:
             return []
 

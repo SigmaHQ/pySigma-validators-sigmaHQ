@@ -6,10 +6,8 @@ from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.metadata import (
     SigmahqStatusExistenceIssue,
     SigmahqStatusExistenceValidator,
-    SigmahqStatusUnsupportedIssue,
-    SigmahqStatusUnsupportedValidator,
-    SigmahqStatusDeprecatedIssue,
-    SigmahqStatusDeprecatedValidator,
+    SigmahqStatusIssue,
+    SigmahqStatusValidator,
     SigmahqDateExistenceIssue,
     SigmahqDateExistenceValidator,
     SigmahqDescriptionExistenceIssue,
@@ -29,8 +27,8 @@ from sigma.validators.sigmahq.metadata import (
 )
 
 
-def test_validator_SigmahqStatusUnsupported():
-    validator = SigmahqStatusUnsupportedValidator()
+def test_validator_SigmahqStatus_Unsupported():
+    validator = SigmahqStatusValidator()
     rule = SigmaRule.from_yaml(
         """
     title: test
@@ -43,28 +41,11 @@ def test_validator_SigmahqStatusUnsupported():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusUnsupportedIssue(rule)]
+    assert validator.validate(rule) == [SigmahqStatusIssue(rule)]
 
 
-def test_validator_SigmahqStatusUnsupported_valid():
-    validator = SigmahqStatusUnsupportedValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: test
-    status: test
-    logsource:
-        category: test
-    detection:
-        sel:
-            field: path\\*something
-        condition: sel
-    """
-    )
-    assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqStatusDeprecated():
-    validator = SigmahqStatusDeprecatedValidator()
+def test_validator_SigmahqStatus_Deprecated():
+    validator = SigmahqStatusValidator()
     rule = SigmaRule.from_yaml(
         """
     title: test
@@ -77,11 +58,11 @@ def test_validator_SigmahqStatusDeprecated():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusDeprecatedIssue(rule)]
+    assert validator.validate(rule) == [SigmahqStatusIssue(rule)]
 
 
-def test_validator_SigmahqStatusDeprecated_valid():
-    validator = SigmahqStatusDeprecatedValidator()
+def test_validator_SigmahqStatus_valid():
+    validator = SigmahqStatusValidator()
     rule = SigmaRule.from_yaml(
         """
     title: test
