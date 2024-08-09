@@ -5,8 +5,8 @@ from sigma.rule import SigmaRule
 from sigma.modifiers import SigmaRegularExpression
 
 from sigma.validators.sigmahq.field import (
-    SigmahqSpaceFieldnameIssue,
-    SigmahqSpaceFieldnameValidator,
+    SigmahqSpaceFieldNameIssue,
+    SigmahqSpaceFieldNameValidator,
     SigmahqFieldnameCastIssue,
     SigmahqFieldnameCastValidator,
     SigmahqInvalidFieldnameIssue,
@@ -25,7 +25,7 @@ from sigma.validators.sigmahq.field import (
 
 
 def test_validator_SigmahqSpaceFieldname():
-    validator = SigmahqSpaceFieldnameValidator()
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
@@ -39,11 +39,11 @@ def test_validator_SigmahqSpaceFieldname():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqSpaceFieldnameIssue(rule, "space name")]
+    assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue(rule, "space name")]
 
 
 def test_validator_SigmahqSpaceFieldname_valid():
-    validator = SigmahqSpaceFieldnameValidator()
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name

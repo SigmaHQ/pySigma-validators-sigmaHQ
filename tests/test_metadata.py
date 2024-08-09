@@ -22,8 +22,8 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqFalsepositivesBannedWordValidator,
     SigmahqFalsepositivesTypoWordIssue,
     SigmahqFalsepositivesTypoWordValidator,
-    SigmahqLinkDescriptionIssue,
-    SigmahqLinkDescriptionValidator,
+    SigmahqLinkInDescriptionIssue,
+    SigmahqLinkInDescriptionValidator,
     SigmahqUnknownFieldIssue,
     SigmahqUnknownFieldValidator,
 )
@@ -372,7 +372,7 @@ def test_validator_SigmahqFalsepositivesTypoWord_valid():
 
 
 def test_validator_SigmahqLinkDescription():
-    validator = SigmahqLinkDescriptionValidator()
+    validator = SigmahqLinkInDescriptionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -385,11 +385,11 @@ def test_validator_SigmahqLinkDescription():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqLinkDescriptionIssue(rule)]
+    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule)]
 
 
 def test_validator_SigmahqLinkDescription_valid():
-    validator = SigmahqLinkDescriptionValidator()
+    validator = SigmahqLinkInDescriptionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test

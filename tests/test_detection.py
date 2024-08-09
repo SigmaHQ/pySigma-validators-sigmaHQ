@@ -4,15 +4,15 @@ import pytest
 from sigma.rule import SigmaRule
 
 from sigma.validators.sigmahq.detection import (
-    SigmahqCategorieEventidIssue,
-    SigmahqCategorieEventidValidator,
+    SigmahqCategoryEventIdIssue,
+    SigmahqCategoryEventIdValidator,
     SigmahqCategoriProvidernameIssue,
     SigmahqCategoriProvidernameValidator,
 )
 
 
 def test_validator_SigmahqCategorieEventid():
-    validator = SigmahqCategorieEventidValidator()
+    validator = SigmahqCategoryEventIdValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
@@ -27,11 +27,11 @@ def test_validator_SigmahqCategorieEventid():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqCategorieEventidIssue(rule)]
+    assert validator.validate(rule) == [SigmahqCategoryEventIdIssue(rule)]
 
 
 def test_validator_SigmahqCategorieEventid_valid():
-    validator = SigmahqCategorieEventidValidator()
+    validator = SigmahqCategoryEventIdValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name

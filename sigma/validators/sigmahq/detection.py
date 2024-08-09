@@ -9,26 +9,28 @@ from sigma.validators.base import (
     SigmaDetectionItemValidator,
     SigmaDetectionItem,
 )
-from .config import ConfigHq
+from .config import ConfigHQ
 
-config = ConfigHq()
+config = ConfigHQ()
 
 
 @dataclass
-class SigmahqCategorieEventidIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule uses a windows categorie that don't need EventId"
+class SigmahqCategoryEventIdIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule uses a windows logsource category that doesn't require the use of an EventID field"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
-class SigmahqCategorieEventidValidator(SigmaDetectionItemValidator):
-    """Checks if a rule uses an EventID field with a windows category logsource that is already included."""
+class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
+    """Checks if a rule uses an EventID field with a windows category logsource that doesn't require it."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if (
             rule.logsource.product == "windows"
-            and rule.logsource.category in ConfigHq.windows_categorie_no_eventid
+            and rule.logsource.category in ConfigHQ.windows_category_no_eventid
         ):
             return super().validate(rule)
         else:
@@ -38,7 +40,7 @@ class SigmahqCategorieEventidValidator(SigmaDetectionItemValidator):
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if detection_item.field is not None and detection_item.field == "EventID":
-            return [SigmahqCategorieEventidIssue(self.rule)]
+            return [SigmahqCategoryEventIdIssue(self.rule)]
         else:
             return []
 
@@ -46,7 +48,7 @@ class SigmahqCategorieEventidValidator(SigmaDetectionItemValidator):
 @dataclass
 class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule uses a windows category logsource that doesn't need a Provider_Name field"
+        "Rule uses a windows logsource category that doesn't require the use of the Provider_Name field"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
@@ -54,12 +56,12 @@ class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
 
 
 class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
-    """Checks if a rule uses a Provider_Name field with a windows category logsource that is already included."""
+    """Checks if a rule uses a Provider_Name field with a windows category logsource that doesn't require it."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if (
             rule.logsource.product == "windows"
-            and rule.logsource.category in ConfigHq.windows_categorie_provider_name
+            and rule.logsource.category in ConfigHQ.windows_category_provider_name
         ):
             return super().validate(rule)
         else:
@@ -72,7 +74,7 @@ class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
             for v in detection_item.value:
                 if (
                     v
-                    in ConfigHq.windows_categorie_provider_name[
+                    in ConfigHQ.windows_category_provider_name[
                         self.rule.logsource.category
                     ]
                 ):

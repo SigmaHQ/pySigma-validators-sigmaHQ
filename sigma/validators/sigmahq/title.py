@@ -7,15 +7,15 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
-from .config import ConfigHq
+from .config import ConfigHQ
 
-config = ConfigHq()
+config = ConfigHQ()
 
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        f"Rule has a title longer than {config.title_lengh} characters"
+        f"Rule has a title longer than {config.title_max_length} characters."
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
@@ -26,7 +26,7 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
     """Checks if a rule has an excessively long title."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if len(rule.title) > config.title_lengh:
+        if len(rule.title) > config.title_max_length:
             return [SigmahqTitleLengthIssue([rule])]
         else:
             return []
@@ -35,7 +35,7 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqTitleStartIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule has a title that starts with the word 'Detect' or 'Detects'"
+        "Rule has a title that starts with the word 'Detect' or 'Detects'."
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM

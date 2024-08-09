@@ -8,9 +8,9 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
-from .config import ConfigHq
+from .config import ConfigHQ
 
-config = ConfigHq()
+config = ConfigHQ()
 
 
 @dataclass
@@ -32,12 +32,14 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqSysmonMissingEventidIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule uses windows sysmon service without EventID"
+    description: ClassVar[str] = (
+        "Rule uses the windows sysmon service logsource without the EventID field"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
 class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
-    """Checks if rule uses windows sysmon service without EventID."""
+    """Checks if a rule uses the windows sysmon service logsource without the EventID field."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.logsource.service == "sysmon":

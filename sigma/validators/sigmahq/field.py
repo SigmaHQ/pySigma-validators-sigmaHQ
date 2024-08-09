@@ -22,26 +22,28 @@ from sigma.modifiers import (
     SigmaRegularExpressionMultilineFlagModifier,
     SigmaCaseSensitiveModifier,
 )
-from .config import ConfigHq
+from .config import ConfigHQ
 
-config = ConfigHq()
+config = ConfigHQ()
 
 
 @dataclass
-class SigmahqSpaceFieldnameIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "A field name have a space"
+class SigmahqSpaceFieldNameIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule uses a field name with a space instead of a underscore."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     field: str
 
 
-class SigmahqSpaceFieldnameValidator(SigmaDetectionItemValidator):
-    """Check field name have a space."""
+class SigmahqSpaceFieldNameValidator(SigmaDetectionItemValidator):
+    """Check if rules uses a field name that contains a space instead of an underscore."""
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if detection_item.field and " " in detection_item.field:
-            return [SigmahqSpaceFieldnameIssue(self.rule, detection_item.field)]
+            return [SigmahqSpaceFieldNameIssue(self.rule, detection_item.field)]
         else:
             return []
 
@@ -216,26 +218,6 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
             and len(detection_item.value) < 2
         ):
             return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
-        else:
-            return []
-
-
-@dataclass
-class SigmahqFieldWithSpaceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Field has a space instead of an underscore"
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-    field: str
-
-
-class SigmahqFieldWithSpaceValidator(SigmaDetectionItemValidator):
-    """Check field do not have a space."""
-
-    def validate_detection_item(
-        self, detection_item: SigmaDetectionItem
-    ) -> List[SigmaValidationIssue]:
-        # Special case where value is case sensitive
-        if detection_item.field and " " in detection_item.field:
-            return [SigmahqFieldWithSpaceIssue(self.rule, detection_item.field)]
         else:
             return []
 

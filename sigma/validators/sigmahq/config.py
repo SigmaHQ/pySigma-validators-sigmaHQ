@@ -1565,8 +1565,8 @@ Data_SigmaHQ_field_cast = {
 }
 
 
-class ConfigHq:
-    title_lengh = 120
+class ConfigHQ:
+    title_max_length = 120
     allowed_lowercase_words = [
         "a",
         "an",
@@ -1597,13 +1597,13 @@ class ConfigHq:
         "legitimeate",
         "legitimat",
     ]
-    sigmahq_link_in_description = ["http://", "https://", "internal research"]
+    sigmahq_link_in_description = ["http://", "https://"]
     sigmahq_logsource_cast: Dict[SigmaLogSource, List[str]] = {}
     sigmahq_logsource_unicast: Dict[SigmaLogSource, List[str]] = {}
     sigmahq_logsource_list: Dict[SigmaLogSource, str] = {}
     sigmahq_logsource_prefix: Dict[SigmaLogSource, str] = {}
     sigmahq_product_prefix: Dict[str, str] = {}
-    windows_categorie_no_eventid = [
+    windows_category_no_eventid = [
         "clipboard_capture",
         "create_remote_thread",
         "create_stream_hash",
@@ -1633,7 +1633,7 @@ class ConfigHq:
         "sysmon_error",
         "sysmon_status",
     ]
-    windows_categorie_provider_name = {
+    windows_category_provider_name = {
         "clipboard_capture": ["Microsoft-Windows-Sysmon"],
         "create_remote_thread": ["Microsoft-Windows-Sysmon"],
         "create_stream_hash": ["Microsoft-Windows-Sysmon"],
