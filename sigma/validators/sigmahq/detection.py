@@ -16,7 +16,7 @@ config = ConfigHq()
 
 @dataclass
 class SigmahqCategorieEventidIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule use a windows categorie that don't need EventId"
+    description: ClassVar[str] = "Rule uses a windows categorie that don't need EventId"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -46,7 +46,7 @@ class SigmahqCategorieEventidValidator(SigmaDetectionItemValidator):
 @dataclass
 class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule use a windows category logsource that doesn't need a Provider_Name field"
+        "Rule uses a windows category logsource that doesn't need a Provider_Name field"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
@@ -78,23 +78,4 @@ class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
                 ):
                     return [SigmahqCategoriProvidernameIssue(self.rule)]
 
-        return []
-
-
-@dataclass
-class SigmahqSigmacIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule use a selection name that break sigmac"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
-    selection: str
-
-
-class SigmahqSigmacValidator(SigmaRuleValidator):
-    """Checks if rule use a selection name that break sigmac."""
-
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        for k in rule.detection.detections.keys():
-            if k.startswith("or") or k.startswith("and") or k.startswith("not"):
-                return [SigmahqSigmacIssue(rule, k)]
         return []
