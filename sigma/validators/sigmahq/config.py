@@ -1145,6 +1145,7 @@ Data_SigmaHQ_field_cast = {
             "ProcessId",
             "TargetFilename",
             "User",
+            "UtcTime",
         ],
     },
     "win_file_delete": {
@@ -1331,6 +1332,8 @@ Data_SigmaHQ_field_cast = {
             "CurrentDirectory",
             "Description",
             "FileVersion",
+            "GrandparentCommandLine",
+            "GrandParentImage",
             "Hashes",
             "Image",
             "IntegrityLevel",
@@ -1347,8 +1350,7 @@ Data_SigmaHQ_field_cast = {
             "Product",
             "TerminalSessionId",
             "User",
-            "GrandParentImage",
-            "GrandparentCommandLine",
+            "UtcTime",
         ],
     },
     "win_process_access": {
@@ -1564,31 +1566,37 @@ Data_SigmaHQ_field_cast = {
 
 
 class ConfigHq:
-    title_lengh = 110
+    title_lengh = 120
     allowed_lowercase_words = [
-        "the",
-        "for",
-        "in",
-        "with",
-        "via",
-        "on",
-        "to",
-        "without",
-        "of",
-        "through",
-        "from",
-        "by",
-        "as",
         "a",
-        "or",
-        "at",
-        "and",
         "an",
-        "over",
+        "and",
+        "as",
+        "at",
+        "by",
+        "for",
+        "from",
+        "in",
         "new",
+        "of",
+        "on",
+        "or",
+        "over",
+        "the",
+        "through",
+        "to",
+        "via",
+        "with",
+        "without",
     ]
-    sigmahq_fp_banned_word = ["none", "pentest", "penetration"]
-    sigmahq_fp_typo_word = ["unkown", "ligitimate", "legitim ", "legitimeate"]
+    sigmahq_fp_banned_word = ["none", "pentest", "penetration", "red team"]
+    sigmahq_fp_typo_word = [
+        "unkown",
+        "ligitimate",
+        "legitim ",
+        "legitimeate",
+        "legitimat",
+    ]
     sigmahq_link_in_description = ["http://", "https://", "internal research"]
     sigmahq_logsource_cast: Dict[SigmaLogSource, List[str]] = {}
     sigmahq_logsource_unicast: Dict[SigmaLogSource, List[str]] = {}
@@ -1642,13 +1650,13 @@ class ConfigHq:
         ],
         "pipe_created": ["Microsoft-Windows-Sysmon"],
         "process_access": [
-            "Microsoft-Windows-Sysmon",
             "Microsoft-Windows-Kernel-Audit-API-Calls",
+            "Microsoft-Windows-Sysmon",
         ],
         "process_creation": [
-            "Microsoft-Windows-Sysmon",
-            "Microsoft-Windows-Security-Auditing",
             "Microsoft-Windows-Kernel-Process",
+            "Microsoft-Windows-Security-Auditing",
+            "Microsoft-Windows-Sysmon",
             "SystemTraceProvider-Process",
         ],
         "process_tampering": ["Microsoft-Windows-Sysmon"],
@@ -1681,10 +1689,10 @@ class ConfigHq:
             if v["log"]["product"] == "windows":
                 field.extend(
                     [
-                        "EventID",
-                        "Provider_Name",
                         "Channel",
                         "Computer",
+                        "EventID",
+                        "Provider_Name",
                         "Security_UserID",
                     ]
                 )

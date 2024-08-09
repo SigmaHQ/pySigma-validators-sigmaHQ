@@ -14,18 +14,18 @@ config = ConfigHq()
 
 
 @dataclass
-class SigmahqLogsourceKnownIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has an unknown logsource"
+class SigmahqLogsourceUnknownIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule uses an unknown logsource"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     logsource: SigmaLogSource
 
 
-class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
-    """Checks if rule has known logsource."""
+class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
+    """Checks if a rule uses an unknown logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if not rule.logsource in config.sigmahq_logsource_list:
-            return [SigmahqLogsourceKnownIssue(rule, rule.logsource)]
+            return [SigmahqLogsourceUnknownIssue(rule, rule.logsource)]
         else:
             return []
 

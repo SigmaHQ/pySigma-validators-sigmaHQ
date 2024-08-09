@@ -4,15 +4,15 @@ import pytest
 from sigma.rule import SigmaRule, SigmaLogSource
 
 from sigma.validators.sigmahq.logsource import (
-    SigmahqLogsourceKnownIssue,
-    SigmahqLogsourceKnownValidator,
+    SigmahqLogsourceUnknownIssue,
+    SigmahqLogsourceUnknownValidator,
     SigmahqSysmonMissingEventidIssue,
     SigmahqSysmonMissingEventidValidator,
 )
 
 
 def test_validator_SigmahqLogsourceKnown():
-    validator = SigmahqLogsourceKnownValidator()
+    validator = SigmahqLogsourceUnknownValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
@@ -27,12 +27,12 @@ def test_validator_SigmahqLogsourceKnown():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqLogsourceKnownIssue(rule, SigmaLogSource(category="test"))
+        SigmahqLogsourceUnknownIssue(rule, SigmaLogSource(category="test"))
     ]
 
 
 def test_validator_SigmahqLogsourceKnown_valid():
-    validator = SigmahqLogsourceKnownValidator()
+    validator = SigmahqLogsourceUnknownValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name

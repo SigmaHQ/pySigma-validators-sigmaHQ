@@ -23,7 +23,7 @@ class SigmahqTitleLengthIssue(SigmaValidationIssue):
 
 
 class SigmahqTitleLengthValidator(SigmaRuleValidator):
-    """Checks if rule has a title too long."""
+    """Checks if a rule has an excessively long title."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if len(rule.title) > config.title_lengh:
@@ -34,14 +34,14 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleStartIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a title start with Detects"
+    description: ClassVar[str] = "Rule has a title that starts with the word 'Detect' or 'Detects'"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqTitleStartValidator(SigmaRuleValidator):
-    """Checks if rule title start with Detects."""
+    """Checks if a rule title starts with the word 'Detect' or 'Detects'."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.title.startswith("Detects "):
@@ -51,14 +51,14 @@ class SigmahqTitleStartValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleEndIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a title that end with a dot"
+    description: ClassVar[str] = "Rule has a title that ends with a dot(.)"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqTitleEndValidator(SigmaRuleValidator):
-    """Checks if rule title end with a dot(.)."""
+    """Checks if a rule has title that ends with a dot(.)."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.title.endswith("."):
@@ -68,7 +68,7 @@ class SigmahqTitleEndValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleCaseIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a title with invalid case"
+    description: ClassVar[str] = "Rule has a title with invalid casing"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -76,7 +76,7 @@ class SigmahqTitleCaseIssue(SigmaValidationIssue):
 
 
 class SigmahqTitleCaseValidator(SigmaRuleValidator):
-    """Checks if rule title use capitalization."""
+    """Checks if a rule has a title with invalid casing."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         wrong_casing = []
