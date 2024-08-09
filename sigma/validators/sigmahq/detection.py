@@ -16,7 +16,7 @@ config = ConfigHq()
 
 @dataclass
 class SigmahqCategorieEventidIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule use a windows categorie that don't need EventId"
+    description: ClassVar[str] = "Rule uses a windows categorie that don't need EventId"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -46,7 +46,7 @@ class SigmahqCategorieEventidValidator(SigmaDetectionItemValidator):
 @dataclass
 class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule use a windows category logsource that doesn't need a Provider_Name field"
+        "Rule uses a windows category logsource that doesn't need a Provider_Name field"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM

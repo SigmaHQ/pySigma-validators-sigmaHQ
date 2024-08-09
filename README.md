@@ -37,7 +37,7 @@ Create all validators specific to the requirements of the SigmaHQ rules reposito
 | sigmahq_space_fieldname                | Check field name have a space.                                               | high   |
 | sigmahq_status                         | Checks if rule has a status field with the value Deprecated or Unsupported.  | medium |
 | sigmahq_status_existence               | Checks if a rule is missing the status field.                                | high   |
-| sigmahq_sysmon_missing_eventid         | Checks if rule use windows sysmon service without EventID.                   | high   |
+| sigmahq_sysmon_missing_eventid         | Checks if rule uses windows sysmon service without EventID.                  | high   |
 | sigmahq_title_case                     | Checks if a rule has a title with invalid casing.                            | medium |
 | sigmahq_title_end                      | Checks if a rule has title that ends with a dot(.).                          | medium |
 | sigmahq_title_length                   | Checks if a rule has an excessively long title.                              | medium |

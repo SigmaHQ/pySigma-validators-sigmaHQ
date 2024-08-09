@@ -34,7 +34,9 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleStartIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a title that starts with the word 'Detect' or 'Detects'"
+    description: ClassVar[str] = (
+        "Rule has a title that starts with the word 'Detect' or 'Detects'"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
