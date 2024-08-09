@@ -381,8 +381,8 @@ def test_validator_SigmahqFieldDuplicateValueIssue_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqFieldWithSpaceValidator():
-    validator = SigmahqFieldWithSpaceValidator()
+def test_validator_SigmahqSpaceFieldNameValidator():
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Duplicate Case InSensitive
@@ -398,12 +398,12 @@ def test_validator_SigmahqFieldWithSpaceValidator():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqFieldWithSpaceIssue(rule, "Command Line")
+        SigmahqSpaceFieldNameIssue(rule, "Command Line")
     ]
 
 
-def test_validator_SigmahqFieldWithSpaceValidator_valid():
-    validator = SigmahqFieldWithSpaceValidator()
+def test_validator_SigmahqSpaceFieldNameValidator_valid():
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Duplicate Case InSensitive
