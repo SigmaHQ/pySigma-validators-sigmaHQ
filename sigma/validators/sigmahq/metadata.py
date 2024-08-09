@@ -205,3 +205,22 @@ class SigmahqLinkDescriptionValidator(SigmaRuleValidator):
                 if link in rule.description.lower():
                     return [SigmahqLinkDescriptionIssue(rule)]
         return []
+
+
+@dataclass
+class SigmahqUnknownFieldIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule uses an unknown field"
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
+    fieldname: List[str]
+
+
+class SigmahqUnknownFieldValidator(SigmaRuleValidator):
+    """Checks if a rule uses an unknown field."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if len(rule.custom_attributes) > 0:
+            return [SigmahqUnknownFieldIssue(rule, list(rule.custom_attributes.keys()))]
+        else:
+            return []

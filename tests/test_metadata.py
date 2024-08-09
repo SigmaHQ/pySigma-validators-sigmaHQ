@@ -24,6 +24,8 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqFalsepositivesTypoWordValidator,
     SigmahqLinkDescriptionIssue,
     SigmahqLinkDescriptionValidator,
+    SigmahqUnknownFieldIssue,
+    SigmahqUnknownFieldValidator,
 )
 
 
@@ -396,6 +398,42 @@ def test_validator_SigmahqLinkDescription_valid():
         - https://somewhereundertheraimbow
     logsource:
         category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqUnknownField():
+    validator = SigmahqUnknownFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    logsource:
+        category: test
+    created: 2024-08-09
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqUnknownFieldIssue(rule, ["created"])]
+
+
+def test_validator_SigmahqUnknownField_valid():
+    validator = SigmahqUnknownFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    logsource:
+        category: test
+    date: 2024-08-09
     detection:
         sel:
             field: value

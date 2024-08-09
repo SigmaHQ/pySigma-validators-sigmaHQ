@@ -42,7 +42,7 @@ Create all validators specific to the requirements of the SigmaHQ rules reposito
 | sigmahq_title_end                      | Checks if a rule has title that ends with a dot(.).                          | medium |
 | sigmahq_title_length                   | Checks if a rule has an excessively long title.                              | medium |
 | sigmahq_title_start                    | Checks if a rule title starts with the word 'Detect' or 'Detects'.           | medium |
-
+| sigmahq_unknown_field                  | Checks if a rule uses an unknown field.                                      | medium |
 
 # 🧬 Data
 
