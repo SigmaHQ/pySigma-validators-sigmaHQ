@@ -17,8 +17,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqInvalidAllModifierValidator,
     SigmahqFieldDuplicateValueIssue,
     SigmahqFieldDuplicateValueValidator,
-    SigmahqFieldWithSpaceIssue,
-    SigmahqFieldWithSpaceValidator,
+    SigmahqSpaceFieldNameIssue,
+    SigmahqSpaceFieldNameValidator,
     SigmahqFieldUserIssue,
     SigmahqFieldUserValidator,
 )
