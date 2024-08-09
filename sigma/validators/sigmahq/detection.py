@@ -80,21 +80,3 @@ class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
 
         return []
 
-
-@dataclass
-class SigmahqSigmacIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule use a selection name that break sigmac"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
-    selection: str
-
-
-class SigmahqSigmacValidator(SigmaRuleValidator):
-    """Checks if rule use a selection name that break sigmac."""
-
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        for k in rule.detection.detections.keys():
-            if k.startswith("or") or k.startswith("and") or k.startswith("not"):
-                return [SigmahqSigmacIssue(rule, k)]
-        return []
