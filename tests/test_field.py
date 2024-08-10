@@ -5,27 +5,25 @@ from sigma.rule import SigmaRule
 from sigma.modifiers import SigmaRegularExpression
 
 from sigma.validators.sigmahq.field import (
-    SigmahqSpaceFieldnameIssue,
-    SigmahqSpaceFieldnameValidator,
+    SigmahqSpaceFieldNameIssue,
+    SigmahqSpaceFieldNameValidator,
     SigmahqFieldnameCastIssue,
     SigmahqFieldnameCastValidator,
     SigmahqInvalidFieldnameIssue,
     SigmahqInvalidFieldnameValidator,
-    SigmahqInvalidFieldSourceIssue,
-    SigmahqInvalidFieldSourceValidator,
     SigmahqInvalidAllModifierIssue,
     SigmahqInvalidAllModifierValidator,
     SigmahqFieldDuplicateValueIssue,
     SigmahqFieldDuplicateValueValidator,
-    SigmahqFieldWithSpaceIssue,
-    SigmahqFieldWithSpaceValidator,
+    SigmahqSpaceFieldNameIssue,
+    SigmahqSpaceFieldNameValidator,
     SigmahqFieldUserIssue,
     SigmahqFieldUserValidator,
 )
 
 
 def test_validator_SigmahqSpaceFieldname():
-    validator = SigmahqSpaceFieldnameValidator()
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
@@ -39,11 +37,11 @@ def test_validator_SigmahqSpaceFieldname():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqSpaceFieldnameIssue(rule, "space name")]
+    assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue(rule, "space name")]
 
 
 def test_validator_SigmahqSpaceFieldname_valid():
-    validator = SigmahqSpaceFieldnameValidator()
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
@@ -164,42 +162,6 @@ def test_validator_SigmahqInvalidFieldname_valid_new_logsource():
     detection:
         sel:
             MyCommandLines: 'error' # should be MyCommandLine
-        condition: sel
-    """
-    )
-    assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqInvalidFieldSourceIssue():
-    validator = SigmahqInvalidFieldSourceValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: Use Field Source Eventlog
-    status: test
-    logsource:
-        category: process_creation
-        product: windows
-    detection:
-        sel:
-            Source: 'Eventlog'
-        condition: sel
-    """
-    )
-    assert validator.validate(rule) == [SigmahqInvalidFieldSourceIssue(rule)]
-
-
-def test_validator_SigmahqInvalidFieldSourceIssue_valid():
-    validator = SigmahqInvalidFieldSourceValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: Use Field Source Eventlog
-    status: test
-    logsource:
-        category: process_creation
-        product: windows
-    detection:
-        sel:
-            Source: 'error'
         condition: sel
     """
     )
@@ -381,8 +343,8 @@ def test_validator_SigmahqFieldDuplicateValueIssue_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqFieldWithSpaceValidator():
-    validator = SigmahqFieldWithSpaceValidator()
+def test_validator_SigmahqSpaceFieldNameValidator():
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Duplicate Case InSensitive
@@ -398,12 +360,12 @@ def test_validator_SigmahqFieldWithSpaceValidator():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqFieldWithSpaceIssue(rule, "Command Line")
+        SigmahqSpaceFieldNameIssue(rule, "Command Line")
     ]
 
 
-def test_validator_SigmahqFieldWithSpaceValidator_valid():
-    validator = SigmahqFieldWithSpaceValidator()
+def test_validator_SigmahqSpaceFieldNameValidator_valid():
+    validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Duplicate Case InSensitive

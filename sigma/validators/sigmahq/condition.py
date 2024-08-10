@@ -14,12 +14,14 @@ from sigma.validators.base import (
 
 @dataclass
 class SigmahqOfthemConditionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule contains ' of them' with only 1 selection"
+    description: ClassVar[str] = (
+        "Rule uses the ' of them' keyword in the condition with only one selection in the detection section"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
 
 
 class SigmahqOfthemConditionValidator(SigmaRuleValidator):
-    """Check use ' of them' with only one selection"""
+    """Check use of the ' of them' keyword with only a single selection in the detection section"""
 
     re_all_of_them: ClassVar[Pattern] = re.compile("\\s+of\\s+them")
 
@@ -43,13 +45,15 @@ class SigmahqOfthemConditionValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqOfselectionConditionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule contains 'All/X of ' with only 1 selection"
+    description: ClassVar[str] = (
+        "Rule uses the 'All/X of ' format in the condition with only one selection in the detection section"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
     selection: str
 
 
 class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
-    """Check use 'All/X of ' with only one selection"""
+    """Check use of the 'All/X of ' format with only one selection in the detection section"""
 
     re_x_of_them: ClassVar[Pattern] = re.compile("[\\d+|all]\\s+of\\s+([^\\s]+)")
 
@@ -79,16 +83,18 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
 
 
 @dataclass
-class SigmahqNoasterixofselectionConditionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule contains '1/all of ' without asterix"
+class SigmahqMissingAsteriskConditionIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule uses a '1/all of ' keyword in the condition without an asterisk"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
     selection: str
 
 
-class SigmahqNoasterixofselectionConditionValidator(SigmaRuleValidator):
-    """Check use '1/all of ' without asterix"""
+class SigmahqMissingAsteriskConditionValidator(SigmaRuleValidator):
+    """Check the use of the '1/all of ' keyword without an asterisk in the condition"""
 
     re_x_of_them: ClassVar[Pattern] = re.compile("\\s+of\\s+([^\\s\\)]+)")
 
@@ -103,5 +109,5 @@ class SigmahqNoasterixofselectionConditionValidator(SigmaRuleValidator):
                     if name == "them":
                         continue
                     if not name.endswith("*"):
-                        return [SigmahqNoasterixofselectionConditionIssue(rule, name)]
+                        return [SigmahqMissingAsteriskConditionIssue(rule, name)]
         return []

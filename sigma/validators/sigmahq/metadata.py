@@ -7,21 +7,21 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
-from .config import ConfigHq
+from .config import ConfigHQ
 
-config = ConfigHq()
+config = ConfigHQ()
 
 
 @dataclass
 class SigmahqStatusExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no status"
+    description: ClassVar[str] = "Rule is missing the status field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqStatusExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a status."""
+    """Checks if a rule is missing the status field."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.status is None:
@@ -31,47 +31,33 @@ class SigmahqStatusExistenceValidator(SigmaRuleValidator):
 
 
 @dataclass
-class SigmahqStatusUnsupportedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a UNSUPPORTED status"
+class SigmahqStatusIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule uses a status field with either Deprecated or Unsupported values, and it is not located in the appropriate folder."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
-class SigmahqStatusUnsupportedValidator(SigmaRuleValidator):
-    """Checks if rule has a status UNSUPPORTED."""
+class SigmahqStatusValidator(SigmaRuleValidator):
+    """Checks if a rule uses a status field with the value Deprecated or Unsupported, and its not located in the appropriate folder."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.status and rule.status.name == "UNSUPPORTED":
-            return [SigmahqStatusUnsupportedIssue(rule)]
-        else:
-            return []
-
-
-@dataclass
-class SigmahqStatusDeprecatedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a DEPRECATED status"
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-
-
-class SigmahqStatusDeprecatedValidator(SigmaRuleValidator):
-    """Checks if rule has a status DEPRECATED."""
-
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.status and rule.status.name == "DEPRECATED":
-            return [SigmahqStatusDeprecatedIssue(rule)]
+        if rule.status and rule.status.name in ["DEPRECATED", "UNSUPPORTED"]:
+            return [SigmahqStatusIssue(rule)]
         else:
             return []
 
 
 @dataclass
 class SigmahqDateExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no date"
+    description: ClassVar[str] = "Rule is missing the date field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqDateExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a data."""
+    """Checks if a rule is missing the date field."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.date is None:
@@ -82,14 +68,14 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDescriptionExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no description"
+    description: ClassVar[str] = "Rule is missing the description field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a description."""
+    """Checks if a rule is missing the description field"""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description is None:
@@ -100,14 +86,14 @@ class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqDescriptionLengthIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a too short description"
+    description: ClassVar[str] = "Rule has an overly brief description."
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
-    """Checks if rule has a description."""
+    """Checks if a rule has an overly brief description."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description is not None and len(rule.description) < 16:
@@ -118,14 +104,14 @@ class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqLevelExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has no level"
+    description: ClassVar[str] = "Rule is missing the level field"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
 class SigmahqLevelExistenceValidator(SigmaRuleValidator):
-    """Checks if rule has a level."""
+    """Checks if a rule is missing the level field"""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.level is None:
@@ -136,7 +122,9 @@ class SigmahqLevelExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule falsepositive must start with a capital"
+    description: ClassVar[str] = (
+        "Rule contains a falsepositive entry that doesn't start with a capital letter"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -144,23 +132,25 @@ class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
 
 
 class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
-    """Checks if rule falsepositive start with a capital."""
+    """Checks if a rule falsepositive entry starts with a capital letter."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        falsepositif = []
+        false_positive = []
         if rule.falsepositives:
             for fp in rule.falsepositives:
                 if fp[0].upper() != fp[0]:
-                    # return only fisrt word
-                    falsepositif.append(
+                    # return only the first word
+                    false_positive.append(
                         SigmahqFalsepositivesCapitalIssue(rule, fp.split(" ")[0])
                     )
-        return falsepositif
+        return false_positive
 
 
 @dataclass
 class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule falsepositive start with a banned word"
+    description: ClassVar[str] = (
+        "Rule defines a falsepositive entry that is part of the banned words list"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -168,22 +158,26 @@ class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
 
 
 class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
-    """Checks if rule falsepositive start with a banned word."""
+    """Checks if a rule contains a falsepositive entry that is part of the banned word list."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        falsepositif = []
+        banned_words = []
         if rule.falsepositives:
-            for fp in rule.falsepositives:
-                if fp.split(" ")[0].lower() in config.sigmahq_fp_banned_word:
-                    falsepositif.append(
-                        SigmahqFalsepositivesBannedWordIssue(rule, fp.split(" ")[0])
-                    )
-        return falsepositif
+            for fp_entry in rule.falsepositives:
+                for fp in fp_entry.split(" "):
+                    for banned_word in config.sigmahq_fp_banned_word:
+                        if fp.lower().strip() == banned_word:
+                            banned_words.append(
+                                SigmahqFalsepositivesBannedWordIssue(rule, fp)
+                            )
+        return banned_words
 
 
 @dataclass
 class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule falsepositive start with a common typo error"
+    description: ClassVar[str] = (
+        "Rule contains a falsepositive entry with a common typo."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -191,33 +185,54 @@ class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
 
 
 class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
-    """Checks if rule falsepositive start with a common typo error."""
+    """Checks if a rule falsepositive entry contains a common typo."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        falsepositif = []
+        typos = []
         if rule.falsepositives:
-            for fp in rule.falsepositives:
-                if fp.split(" ")[0].lower() in config.sigmahq_fp_typo_word:
-                    falsepositif.append(
-                        SigmahqFalsepositivesTypoWordIssue(rule, fp.split(" ")[0])
-                    )
-        return falsepositif
+            for fp_entry in rule.falsepositives:
+                for fp in fp_entry.split(" "):
+                    for typo in config.sigmahq_fp_typo_word:
+                        if fp.lower().strip() in typo:
+                            typos.append(SigmahqFalsepositivesTypoWordIssue(rule, fp))
+        return typos
 
 
 @dataclass
-class SigmahqLinkDescriptionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule description have a link with no references"
+class SigmahqLinkInDescriptionIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule has a description field that contains a reference to a hyperlink. All hyperlinks are reserved for the references field"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
-class SigmahqLinkDescriptionValidator(SigmaRuleValidator):
-    """Checks if rule description use a link instead of references."""
+class SigmahqLinkInDescriptionValidator(SigmaRuleValidator):
+    """Checks if a rule has a description field that contains a reference to a hyperlink."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description and rule.references == []:
             for link in config.sigmahq_link_in_description:
                 if link in rule.description.lower():
-                    return [SigmahqLinkDescriptionIssue(rule)]
+                    return [SigmahqLinkInDescriptionIssue(rule)]
         return []
+
+
+@dataclass
+class SigmahqUnknownFieldIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule uses an unknown field"
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
+    fieldname: List[str]
+
+
+class SigmahqUnknownFieldValidator(SigmaRuleValidator):
+    """Checks if a rule uses an unknown field."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if len(rule.custom_attributes) > 0:
+            return [SigmahqUnknownFieldIssue(rule, list(rule.custom_attributes.keys()))]
+        else:
+            return []

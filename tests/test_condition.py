@@ -5,8 +5,8 @@ from sigma.validators.sigmahq.condition import (
     SigmahqOfthemConditionValidator,
     SigmahqOfselectionConditionIssue,
     SigmahqOfselectionConditionValidator,
-    SigmahqNoasterixofselectionConditionIssue,
-    SigmahqNoasterixofselectionConditionValidator,
+    SigmahqMissingAsteriskConditionIssue,
+    SigmahqMissingAsteriskConditionValidator,
 )
 
 
@@ -105,8 +105,8 @@ def test_validator_SigmahqOfselectionConditionValidator_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqNoasterixofselectionConditionValidator():
-    validator = SigmahqNoasterixofselectionConditionValidator()
+def test_validator_SigmahqMissingAsteriskConditionValidator():
+    validator = SigmahqMissingAsteriskConditionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -124,12 +124,12 @@ def test_validator_SigmahqNoasterixofselectionConditionValidator():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqNoasterixofselectionConditionIssue(rule, "selection_sub")
+        SigmahqMissingAsteriskConditionIssue(rule, "selection_sub")
     ]
 
 
-def test_validator_SigmahqNoasterixofselectionConditionValidator_valid():
-    validator = SigmahqNoasterixofselectionConditionValidator()
+def test_validator_SigmahqMissingAsteriskConditionValidator_valid():
+    validator = SigmahqMissingAsteriskConditionValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test

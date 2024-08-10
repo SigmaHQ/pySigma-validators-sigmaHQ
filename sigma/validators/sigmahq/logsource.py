@@ -8,23 +8,49 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
-from .config import ConfigHq
+from .config import ConfigHQ
 
-config = ConfigHq()
+config = ConfigHQ()
 
 
 @dataclass
-class SigmahqLogsourceKnownIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has an unknown logsource"
+class SigmahqLogsourceUnknownIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule uses an unknown logsource"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     logsource: SigmaLogSource
 
 
-class SigmahqLogsourceKnownValidator(SigmaRuleValidator):
-    """Checks if rule has known logsource."""
+class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
+    """Checks if a rule uses an unknown logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if not rule.logsource in config.sigmahq_logsource_list:
-            return [SigmahqLogsourceKnownIssue(rule, rule.logsource)]
+            return [SigmahqLogsourceUnknownIssue(rule, rule.logsource)]
+        else:
+            return []
+
+
+@dataclass
+class SigmahqSysmonMissingEventidIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule uses the windows sysmon service logsource without the EventID field"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+
+
+class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
+    """Checks if a rule uses the windows sysmon service logsource without the EventID field."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if rule.logsource.service == "sysmon":
+            find = False
+            for selection in rule.detection.detections.values():
+                for item in selection.detection_items:
+                    if item.field == "EventID":
+                        find = True
+            if find:
+                return []
+            else:
+                return [SigmahqSysmonMissingEventidIssue(rule)]
         else:
             return []

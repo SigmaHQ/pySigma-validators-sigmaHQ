@@ -10,35 +10,37 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
-from .config import ConfigHq
+from .config import ConfigHQ
 
-config = ConfigHq()
+config = ConfigHQ()
 
 
 @dataclass
-class SigmahqFilenameIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule filemane doesn't match SigmaHQ standard"
+class SigmahqFilenameConventionIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "The rule filename doesn't match SigmaHQ convention"
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
     filename: str
 
 
-class SigmahqFilenameValidator(SigmaRuleValidator):
-    """Check rule filename match SigmaHQ standard."""
+class SigmahqFilenameConventionValidator(SigmaRuleValidator):
+    """Check a rule filename against SigmaHQ filename convention."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         filename_pattern = re.compile(r"[a-z0-9_]{10,90}\.yml")
         if rule.source is not None:
             filename = rule.source.path.name
             if filename_pattern.match(filename) is None or not "_" in filename:
-                return [SigmahqFilenameIssue(rule, filename)]
+                return [SigmahqFilenameConventionIssue(rule, filename)]
         return []
 
 
 @dataclass
 class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule filemane doesn't match SigmaHQ Prefix standard"
+    description: ClassVar[str] = (
+        "The rule filename prefix doesn't match the SigmaHQ convention"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -48,7 +50,7 @@ class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
 
 
 class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
-    """Check rule filename match SigmaHQ prefix standard."""
+    """Check a rule filename against SigmaHQ filename prefix convention."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.source is not None:
