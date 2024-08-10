@@ -308,7 +308,7 @@ def test_validator_SigmahqFalsepositivesBannedWord():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqFalsepositivesBannedWordIssue(rule, "Pentest")
+        SigmahqFalsepositivesBannedWordIssue(rule, "pentest")
     ]
 
 

@@ -139,7 +139,7 @@ class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
         if rule.falsepositives:
             for fp in rule.falsepositives:
                 if fp[0].upper() != fp[0]:
-                    # return only fisrt word
+                    # return only the first word
                     false_positive.append(
                         SigmahqFalsepositivesCapitalIssue(rule, fp.split(" ")[0])
                     )
@@ -163,12 +163,13 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         banned_words = []
         if rule.falsepositives:
-            for fp in rule.falsepositives:
-                for banned_word in config.sigmahq_fp_banned_word:
-                    if banned_word in fp.lower():
-                        banned_words.append(
-                            SigmahqFalsepositivesBannedWordIssue(rule, banned_word)
-                        )
+            for fp_entry in rule.falsepositives:
+                for fp in fp_entry.split(" "):
+                    for banned_word in config.sigmahq_fp_banned_word:
+                        if fp.lower().strip() == banned_word:
+                            banned_words.append(
+                                SigmahqFalsepositivesBannedWordIssue(rule, fp)
+                            )
         return banned_words
 
 
@@ -189,10 +190,11 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         typos = []
         if rule.falsepositives:
-            for fp in rule.falsepositives:
-                for typo in config.sigmahq_fp_typo_word:
-                    if typo in fp.lower():
-                        typos.append(SigmahqFalsepositivesTypoWordIssue(rule, typo))
+            for fp_entry in rule.falsepositives:
+                for fp in fp_entry.split(" "):
+                    for typo in config.sigmahq_fp_typo_word:
+                        if fp.lower().strip() in typo:
+                            typos.append(SigmahqFalsepositivesTypoWordIssue(rule, fp))
         return typos
 
 
