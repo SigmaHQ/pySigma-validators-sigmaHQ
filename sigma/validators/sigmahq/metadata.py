@@ -165,7 +165,7 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
         if rule.falsepositives:
             for fp in rule.falsepositives:
                 for banned_word in config.sigmahq_fp_banned_word:
-                    if banned_word in fp:
+                    if banned_word in fp.lower():
                         banned_words.append(
                             SigmahqFalsepositivesBannedWordIssue(rule, banned_word)
                         )
@@ -191,7 +191,7 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
         if rule.falsepositives:
             for fp in rule.falsepositives:
                 for typo in config.sigmahq_fp_typo_word:
-                    if typo in fp:
+                    if typo in fp.lower():
                         typos.append(SigmahqFalsepositivesTypoWordIssue(rule, typo))
         return typos
 
