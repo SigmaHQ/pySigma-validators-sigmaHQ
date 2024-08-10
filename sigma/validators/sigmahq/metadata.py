@@ -123,7 +123,7 @@ class SigmahqLevelExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule falsepositive values must start with a capital letter"
+        "Rule contains a falsepositive entry that doesn't start with a capital letter"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
@@ -132,7 +132,7 @@ class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
 
 
 class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
-    """Checks if a rule falsepositive value starts with a capital letter."""
+    """Checks if a rule falsepositive entry starts with a capital letter."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         false_positive = []
@@ -148,7 +148,9 @@ class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule falsepositive start with a banned word"
+    description: ClassVar[str] = (
+        "Rule defines a falsepositive entry that is part of the banned words list"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
@@ -156,17 +158,18 @@ class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
 
 
 class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
-    """Checks if rule falsepositive start with a banned word."""
+    """Checks if a rule contains a falsepositive entry that is part of the banned word list."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        false_positive = []
+        banned_words = []
         if rule.falsepositives:
             for fp in rule.falsepositives:
-                if fp.split(" ")[0].lower() in config.sigmahq_fp_banned_word:
-                    false_positive.append(
-                        SigmahqFalsepositivesBannedWordIssue(rule, fp.split(" ")[0])
-                    )
-        return false_positive
+                for banned_word in config.sigmahq_fp_banned_word:
+                    if banned_word in fp:
+                        banned_words.append(
+                            SigmahqFalsepositivesBannedWordIssue(rule, banned_word)
+                        )
+        return banned_words
 
 
 @dataclass
@@ -181,23 +184,22 @@ class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
 
 
 class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
-    """Checks if rule falsepositive start with a common typo error."""
+    """Checks if a rule falsepositive entry contains a common typo."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        false_positive = []
+        typos = []
         if rule.falsepositives:
             for fp in rule.falsepositives:
-                if fp.split(" ")[0].lower() in config.sigmahq_fp_typo_word:
-                    false_positive.append(
-                        SigmahqFalsepositivesTypoWordIssue(rule, fp.split(" ")[0])
-                    )
-        return false_positive
+                for typo in config.sigmahq_fp_typo_word:
+                    if typo in fp:
+                        typos.append(SigmahqFalsepositivesTypoWordIssue(rule, typo))
+        return typos
 
 
 @dataclass
 class SigmahqLinkInDescriptionIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule description field contains a reference to a hyperlink."
+        "Rule has a description field that contains a reference to a hyperlink. All hyperlinks are reserved for the references field"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
@@ -205,7 +207,7 @@ class SigmahqLinkInDescriptionIssue(SigmaValidationIssue):
 
 
 class SigmahqLinkInDescriptionValidator(SigmaRuleValidator):
-    """Checks if a rule description field contains a reference to a hyperlink."""
+    """Checks if a rule has a description field that contains a reference to a hyperlink."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description and rule.references == []:

@@ -1589,7 +1589,13 @@ class ConfigHQ:
         "with",
         "without",
     ]
-    sigmahq_fp_banned_word = ["none", "pentest", "penetration", "red team"]
+    sigmahq_fp_banned_word = [
+        "none",
+        "pentest",
+        "penetration test",
+        "red team",
+        "offensive security tool",
+    ]
     sigmahq_fp_typo_word = [
         "unkown",
         "ligitimate",
