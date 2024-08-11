@@ -427,12 +427,12 @@ def test_validator_SigmahqLinkDescription():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule)]
+    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule, "https://")]
 
 
 def test_validator_SigmahqLinkDescription():
     validator = SigmahqLinkInDescriptionValidator(
-        word_list=["http://", "https://", "ftp:"]
+        word_list=("http://", "https://", "ftp:")
     )
     rule = SigmaRule.from_yaml(
         """
@@ -446,7 +446,7 @@ def test_validator_SigmahqLinkDescription():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule)]
+    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule, "ftp:")]
 
 
 def test_validator_SigmahqLinkDescription_valid():

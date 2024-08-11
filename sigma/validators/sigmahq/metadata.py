@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import ClassVar, List,Set
+from typing import ClassVar, List, Tuple
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -158,7 +158,7 @@ class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
 class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
     """Checks if a rule contains a falsepositive entry that is part of the banned word list."""
 
-    word_list: Set[str]= ("none", "pentest", "penetration")
+    word_list: Tuple[str] = ("none", "pentest", "penetration")
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         banned_words = []
@@ -188,7 +188,7 @@ class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
 class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
     """Checks if a rule falsepositive entry contains a common typo."""
 
-    word_list: Set[str]= ("unkown", "ligitimate", "legitim ", "legitimeate")
+    word_list: Tuple[str] = ("unkown", "ligitimate", "legitim ", "legitimeate")
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         typos = []
@@ -209,19 +209,20 @@ class SigmahqLinkInDescriptionIssue(SigmaValidationIssue):
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
+    word: str
 
 
 @dataclass(frozen=True)
 class SigmahqLinkInDescriptionValidator(SigmaRuleValidator):
     """Checks if a rule has a description field that contains a reference to a hyperlink."""
 
-    word_list: Set[str] = ("http://", "https://", "internal research")
+    word_list: Tuple[str] = ("http://", "https://", "internal research")
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description and rule.references == []:
-            for link in self.word_list:
-                if link in rule.description.lower():
-                    return [SigmahqLinkInDescriptionIssue(rule)]
+            for word in self.word_list:
+                if word in rule.description.lower():
+                    return [SigmahqLinkInDescriptionIssue(rule, word)]
         return []
 
 

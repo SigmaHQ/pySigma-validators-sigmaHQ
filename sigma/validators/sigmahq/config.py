@@ -75,7 +75,9 @@ def load_windows_json(json_name):
     json_dict = load_remote_json("github", json_name)
     data = dict()
     for category in json_dict["category_provider_name"]:
-       data[ SigmaLogSource(product="windows", category=category,service=None)] = json_dict["category_provider_name"][category]
+        data[SigmaLogSource(product="windows", category=category, service=None)] = (
+            json_dict["category_provider_name"][category]
+        )
     return json_dict["category_no_eventid"], data
 
 
@@ -98,4 +100,6 @@ class ConfigHQ:
         self.sigmahq_logsource_filepattern, self.sigmahq_product_prefix = (
             load_filepattern_json("sigmahq_filepattern.json")
         )
-        self.windows_no_eventid, self.windows_provider_name = load_windows_json("sigmahq_windows_validator.json")
+        self.windows_no_eventid, self.windows_provider_name = load_windows_json(
+            "sigmahq_windows_validator.json"
+        )
