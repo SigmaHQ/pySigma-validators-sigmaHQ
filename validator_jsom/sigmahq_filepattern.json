@@ -1,0 +1,372 @@
+{
+  "title": "SigmaHQ rule filename pattern",
+  "version": "20240809",
+  "logsource": {
+    "azure_pim": {
+      "category": null,
+      "product": "azure",
+      "service": "pim",
+      "prefix": "azure_pim_"
+    },
+    "create_remote_thread_win": {
+      "prefix": "create_remote_thread_win",
+      "category": "create_remote_thread",
+      "product": "windows",
+      "service": null
+    },
+    "create_stream_hash": {
+      "prefix": "create_stream_hash_",
+      "category": "create_stream_hash",
+      "product": "windows",
+      "service": null
+    },
+    "dns_query_win": {
+      "prefix": "dns_query_win_",
+      "category": "dns_query",
+      "product": "windows",
+      "service": null
+    },
+    "driver_load_win": {
+      "prefix": "driver_load_win_",
+      "category": "driver_load",
+      "product": "windows",
+      "service": null
+    },
+    "file_access_win": {
+      "prefix": "file_access_win_",
+      "category": "file_access",
+      "product": "windows",
+      "service": null
+    },
+    "file_change_win": {
+      "prefix": "file_change_win_",
+      "category": "file_change",
+      "product": "windows",
+      "service": null
+    },
+    "file_delete_win": {
+      "prefix": "file_delete_win_",
+      "category": "file_delete",
+      "product": "windows",
+      "service": null
+    },
+    "file_event_lnx": {
+      "prefix": "file_event_lnx_",
+      "category": "file_event",
+      "product": "linux",
+      "service": null
+    },
+    "file_event_macos": {
+      "prefix": "file_event_macos_",
+      "category": "file_event",
+      "product": "macos",
+      "service": null
+    },
+    "file_event_win": {
+      "prefix": "file_event_win_",
+      "category": "file_event",
+      "product": "windows",
+      "service": null
+    },
+    "file_executable_detected": {
+      "prefix": "file_executable_detected_win_",
+      "category": "file_executable_detected",
+      "product": "windows",
+      "service": null
+    },
+    "file_rename_win": {
+      "prefix": "file_rename_win_",
+      "category": "file_rename",
+      "product": "windows",
+      "service": null
+    },
+    "image_load": {
+      "prefix": "image_load_",
+      "category": "image_load",
+      "product": "windows",
+      "service": null
+    },
+    "lnx_auditd": {
+      "prefix": "lnx_auditd_",
+      "category": null,
+      "product": "linux",
+      "service": "auditd"
+    },
+    "modsec": {
+      "prefix": "modsec_",
+      "category": null,
+      "product": "linux",
+      "service": "modsecurity"
+    },
+    "net_connection_lnx": {
+      "prefix": "net_connection_lnx_",
+      "category": "network_connection",
+      "product": "linux",
+      "service": null
+    },
+    "net_connection_macos": {
+      "prefix": "net_connection_macos_",
+      "category": "network_connection",
+      "product": "macos",
+      "service": null
+    },
+    "net_connection_win": {
+      "prefix": "net_connection_win_",
+      "category": "network_connection",
+      "product": "windows",
+      "service": null
+    },
+    "net_dns": {
+      "prefix": "net_dns_",
+      "category": "dns",
+      "product": "windows",
+      "service": null
+    },
+    "net_firewall": {
+      "prefix": "net_firewall_",
+      "category": "firewall",
+      "product": null,
+      "service": null
+    },
+    "pipe_created": {
+      "prefix": "pipe_created_",
+      "category": "pipe_created",
+      "product": "windows",
+      "service": null
+    },
+    "posh_pc": {
+      "prefix": "posh_pc_",
+      "category": null,
+      "product": "windows",
+      "service": "powershell-classic"
+    },
+    "posh_pc_1": {
+      "prefix": "posh_pc_",
+      "category": "ps_classic_provider_start",
+      "product": "windows",
+      "service": null
+    },
+    "posh_pc_2": {
+      "prefix": "posh_pc_",
+      "category": "ps_classic_start",
+      "product": "windows",
+      "service": null
+    },
+    "posh_pm": {
+      "prefix": "posh_pm_",
+      "category": "ps_module",
+      "product": "windows",
+      "service": null
+    },
+    "posh_ps": {
+      "prefix": "posh_ps_",
+      "category": "ps_script",
+      "product": "windows",
+      "service": null
+    },
+    "proc_access_win": {
+      "prefix": "proc_access_win_",
+      "category": "process_access",
+      "product": "windows",
+      "service": null
+    },
+    "proc_creation_lnx": {
+      "prefix": "proc_creation_lnx_",
+      "category": "process_creation",
+      "product": "linux",
+      "service": null
+    },
+    "proc_creation_macos": {
+      "prefix": "proc_creation_macos_",
+      "category": "process_creation",
+      "product": "macos",
+      "service": null
+    },
+    "proc_creation_win": {
+      "prefix": "proc_creation_win_",
+      "category": "process_creation",
+      "product": "windows",
+      "service": null
+    },
+    "proc_tampering": {
+      "prefix": "proc_tampering_",
+      "category": "process_tampering",
+      "product": "windows",
+      "service": null
+    },
+    "raw_access_thread": {
+      "prefix": "raw_access_thread_",
+      "category": "raw_access_thread",
+      "product": "windows",
+      "service": null
+    },
+    "registry_add": {
+      "prefix": "registry_add_",
+      "category": "registry_add",
+      "product": "windows",
+      "service": null
+    },
+    "registry_delete": {
+      "prefix": "registry_delete_",
+      "category": "registry_delete",
+      "product": "windows",
+      "service": null
+    },
+    "registry_event": {
+      "prefix": "registry_event_",
+      "category": "registry_event",
+      "product": "windows",
+      "service": null
+    },
+    "registry_rename": {
+      "prefix": "registry_rename_",
+      "category": "registry_rename",
+      "product": "windows",
+      "service": null
+    },
+    "registry_set": {
+      "prefix": "registry_set_",
+      "category": "registry_set",
+      "product": "windows",
+      "service": null
+    },
+    "sysmon": {
+      "prefix": "sysmon_",
+      "category": null,
+      "product": "windows",
+      "service": "sysmon"
+    },
+    "sysmon_1": {
+      "prefix": "sysmon_",
+      "category": "sysmon_error",
+      "product": "windows",
+      "service": null
+    },
+    "sysmon_2": {
+      "prefix": "sysmon_",
+      "category": "sysmon_status",
+      "product": "windows",
+      "service": null
+    },
+    "sysmon_wmi": {
+      "prefix": "sysmon_wmi_",
+      "category": "wmi_event",
+      "product": "windows",
+      "service": null
+    },
+    "web": {
+      "prefix": "web_",
+      "category": "webserver",
+      "product": null,
+      "service": null
+    },
+    "win_applocker": {
+      "prefix": "win_applocker_",
+      "category": null,
+      "product": "windows",
+      "service": "applocker"
+    },
+    "win_bitlocker": {
+      "prefix": "win_bitlocker_",
+      "category": null,
+      "product": "windows",
+      "service": "bitlocker"
+    },
+    "win_bits_client": {
+      "prefix": "win_bits_client_",
+      "category": null,
+      "product": "windows",
+      "service": "bits-client"
+    },
+    "win_capi2": {
+      "prefix": "win_capi2_",
+      "category": null,
+      "product": "windows",
+      "service": "capi2"
+    },
+    "win_certificateservicesclient_lifecycle_system": {
+      "prefix": "win_certificateservicesclient_lifecycle_system_",
+      "category": null,
+      "product": "windows",
+      "service": "certificateservicesclient-lifecycle-system"
+    },
+    "win_codeintegrity": {
+      "prefix": "win_codeintegrity_",
+      "category": null,
+      "product": "windows",
+      "service": "codeintegrity-operational"
+    },
+    "win_defender": {
+      "prefix": "win_defender_",
+      "category": null,
+      "product": "windows",
+      "service": "windefend"
+    },
+    "win_diagnosis_scripted": {
+      "prefix": "win_diagnosis_scripted_",
+      "category": null,
+      "product": "windows",
+      "service": "diagnosis-scripted"
+    },
+    "win_dns_analytic": {
+      "prefix": "win_dns_analytic_",
+      "category": null,
+      "product": "windows",
+      "service": "dns-server-analytic"
+    },
+    "win_exchange": {
+      "prefix": "win_exchange_",
+      "category": null,
+      "product": "windows",
+      "service": "msexchange-management"
+    },
+    "win_firewall_as": {
+      "prefix": "win_firewall_as_",
+      "category": null,
+      "product": "windows",
+      "service": "firewall-as"
+    },
+    "win_security": {
+      "prefix": "win_security_",
+      "category": null,
+      "product": "windows",
+      "service": "security"
+    },
+    "win_system": {
+      "prefix": "win_system_",
+      "category": null,
+      "product": "windows",
+      "service": "system"
+    },
+    "win_taskscheduler": {
+      "prefix": "win_taskscheduler_",
+      "category": null,
+      "product": "windows",
+      "service": "taskscheduler"
+    },
+    "win_terminalservices": {
+      "prefix": "win_terminalservices_",
+      "category": null,
+      "product": "windows",
+      "service": "terminalservices-localsessionmanager"
+    },
+    "win_wmi": {
+      "prefix": "win_wmi_",
+      "category": null,
+      "product": "windows",
+      "service": "wmi"
+    }
+  },
+  "product":{
+    "aws": "aws_",
+    "azure": "azure_",
+    "gcp": "gcp_",
+    "github": "github_",
+    "linux": "lnx_",
+    "m365": "microsoft365_",
+    "macos": "macos_",
+    "okta": "okta_",
+    "onelogin": "onelogin_",
+    "windows": "win_"
+  }
+}
