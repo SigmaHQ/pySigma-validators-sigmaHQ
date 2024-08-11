@@ -8,7 +8,7 @@ import json
 def load_remote_json(url: str, filename: str) -> dict:
     # url to check
     # else
-    full_name = "validator_jsom/" + filename
+    full_name = "validator_json/" + filename
     with open(full_name, "r", encoding="UTF-8") as file:
         json_dict = json.load(file)
     return json_dict

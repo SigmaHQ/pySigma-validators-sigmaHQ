@@ -270,12 +270,6 @@
       "service": null,
       "data": []
     },
-    "kubernetes_application": {
-      "product": "kubernetes",
-      "category": "application",
-      "service": null,
-      "data": []
-    },
     "kubernetes_application_audit": {
       "product": "kubernetes",
       "category": "application",
@@ -560,21 +554,6 @@
       "service": "cron",
       "data": []
     },
-    "lnx_file_delete": {
-      "product": "linux",
-      "category": "file_delete",
-      "service": null,
-      "data": [
-        "Archived",
-        "Hashes",
-        "Image",
-        "IsExecutable",
-        "ProcessGuid",
-        "ProcessId",
-        "TargetFilename",
-        "User"
-      ]
-    },
     "lnx_file_event": {
       "product": "linux",
       "category": "file_event",
@@ -592,12 +571,6 @@
       "product": "linux",
       "category": null,
       "service": "guacamole",
-      "data": []
-    },
-    "lnx_modsecurity": {
-      "product": "linux",
-      "category": null,
-      "service": "modsecurity",
       "data": []
     },
     "lnx_network_connection": {
@@ -651,29 +624,6 @@
         "User"
       ]
     },
-    "lnx_process_termination": {
-      "product": "linux",
-      "category": "process_termination",
-      "service": null,
-      "data": [
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "User"
-      ]
-    },
-    "lnx_raw_access_read": {
-      "product": "linux",
-      "category": "raw_access_read",
-      "service": null,
-      "data": [
-        "Device",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "User"
-      ]
-    },
     "lnx_sshd": {
       "product": "linux",
       "category": null,
@@ -691,15 +641,6 @@
       "category": null,
       "service": "syslog",
       "data": []
-    },
-    "lnx_sysmon_status": {
-      "product": "linux",
-      "category": "sysmon_status",
-      "service": null,
-      "data": [
-        "Configuration",
-        "ConfigurationFileHash"
-      ]
     },
     "lnx_vsftpd": {
       "product": "linux",
@@ -731,21 +672,6 @@
       "service": "threat_management",
       "data": []
     },
-    "macos_file_delete": {
-      "product": "macos",
-      "category": "file_delete",
-      "service": null,
-      "data": [
-        "Archived",
-        "Hashes",
-        "Image",
-        "IsExecutable",
-        "ProcessGuid",
-        "ProcessId",
-        "TargetFilename",
-        "User"
-      ]
-    },
     "macos_file_event": {
       "product": "macos",
       "category": "file_event",
@@ -756,29 +682,6 @@
         "ProcessGuid",
         "ProcessId",
         "TargetFilename",
-        "User"
-      ]
-    },
-    "macos_network_connection": {
-      "product": "macos",
-      "category": "network_connection",
-      "service": null,
-      "data": [
-        "DestinationHostname",
-        "DestinationIp",
-        "DestinationIsIpv6",
-        "DestinationPort",
-        "DestinationPortName",
-        "Image",
-        "Initiated",
-        "ProcessGuid",
-        "ProcessId",
-        "Protocol",
-        "SourceHostname",
-        "SourceIp",
-        "SourceIsIpv6",
-        "SourcePort",
-        "SourcePortName",
         "User"
       ]
     },
@@ -808,38 +711,6 @@
         "Product",
         "TerminalSessionId",
         "User"
-      ]
-    },
-    "macos_process_termination": {
-      "product": "macos",
-      "category": "process_termination",
-      "service": null,
-      "data": [
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "User"
-      ]
-    },
-    "macos_raw_access_read": {
-      "product": "macos",
-      "category": "raw_access_read",
-      "service": null,
-      "data": [
-        "Device",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "User"
-      ]
-    },
-    "macos_sysmon_status": {
-      "product": "macos",
-      "category": "sysmon_status",
-      "service": null,
-      "data": [
-        "Configuration",
-        "ConfigurationFileHash"
       ]
     },
     "netflow": {
@@ -884,21 +755,9 @@
       "service": "globalprotect",
       "data": []
     },
-    "paloalto_file_event": {
-      "product": "paloalto",
-      "category": "file_event",
-      "service": null,
-      "data": []
-    },
     "paloalto_file_event_globalprotect": {
       "product": "paloalto",
       "category": "file_event",
-      "service": "globalprotect",
-      "data": []
-    },
-    "paloalto_globalprotect": {
-      "product": "paloalto",
-      "category": null,
       "service": "globalprotect",
       "data": []
     },
@@ -935,12 +794,6 @@
     "qualys": {
       "product": "qualys",
       "category": null,
-      "service": null,
-      "data": []
-    },
-    "qualys_application": {
-      "product": "qualys",
-      "category": "application",
       "service": null,
       "data": []
     },
@@ -1051,17 +904,6 @@
         "subjectName"
       ]
     },
-    "win_bitlocker": {
-      "product": "windows",
-      "category": null,
-      "service": "bitlocker",
-      "data": [
-        "ProtectorGUID",
-        "ProtectorType",
-        "VolumeMountPoint",
-        "VolumeName"
-      ]
-    },
     "win_bits-client": {
       "product": "windows",
       "category": null,
@@ -1084,21 +926,6 @@
       "category": null,
       "service": "certificateservicesclient-lifecycle-system",
       "data": []
-    },
-    "win_clipboard_capture": {
-      "product": "windows",
-      "category": "clipboard_capture",
-      "service": null,
-      "data": [
-        "Archived",
-        "ClientInfo",
-        "Hashes",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "Session",
-        "User"
-      ]
     },
     "win_codeintegrity-operational": {
       "product": "windows",
@@ -1238,19 +1065,6 @@
         "ShareAccess"
       ]
     },
-    "win_file_block": {
-      "product": "windows",
-      "category": "file_block",
-      "service": null,
-      "data": [
-        "Hashes",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "TargetFilename",
-        "User"
-      ]
-    },
     "win_file_change": {
       "product": "windows",
       "category": "file_change",
@@ -1328,35 +1142,6 @@
         "Action",
         "ApplicationPath",
         "ModifyingApplication"
-      ]
-    },
-    "win_iis": {
-      "product": "windows",
-      "category": null,
-      "service": "iis",
-      "data": [
-        "c-ip",
-        "cs-bytes",
-        "cs-cookie",
-        "cs-host",
-        "cs-method",
-        "cs-method",
-        "cs-referer",
-        "cs-uri-query",
-        "cs-uri-stem",
-        "cs-user-agent",
-        "cs-username",
-        "cs-version",
-        "date",
-        "s-computername",
-        "s-ip",
-        "s-port",
-        "s-sitename",
-        "sc-bytes",
-        "sc-status",
-        "sc-win32-status",
-        "time",
-        "time-taken"
       ]
     },
     "win_image_load": {
@@ -1484,12 +1269,6 @@
         "User"
       ]
     },
-    "win_powershell": {
-      "product": "windows",
-      "category": null,
-      "service": "powershell",
-      "data": []
-    },
     "win_powershell-classic": {
       "product": "windows",
       "category": null,
@@ -1567,17 +1346,6 @@
         "User"
       ]
     },
-    "win_process_termination": {
-      "product": "windows",
-      "category": "process_termination",
-      "service": null,
-      "data": [
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "User"
-      ]
-    },
     "win_ps_classic_provider_start": {
       "product": "windows",
       "category": "ps_classic_provider_start",
@@ -1610,19 +1378,6 @@
         "Path",
         "ScriptBlockId",
         "ScriptBlockText"
-      ]
-    },
-    "win_raw_access_read": {
-      "product": "windows",
-      "category": "raw_access_read",
-      "service": null,
-      "data": [
-        "CreationUtcTime",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "TargetFilename",
-        "User"
       ]
     },
     "win_raw_access_thread": {
@@ -1669,20 +1424,6 @@
       "service": null,
       "data": [
         "Details",
-        "EventType",
-        "Image",
-        "NewName",
-        "ProcessGuid",
-        "ProcessId",
-        "TargetObject",
-        "User"
-      ]
-    },
-    "win_registry_rename": {
-      "product": "windows",
-      "category": "registry_rename",
-      "service": null,
-      "data": [
         "EventType",
         "Image",
         "NewName",
@@ -1820,12 +1561,6 @@
         "SessionID",
         "User"
       ]
-    },
-    "win_vhdmp": {
-      "product": "windows",
-      "category": null,
-      "service": "vhdmp",
-      "data": []
     },
     "win_windefend": {
       "product": "windows",
