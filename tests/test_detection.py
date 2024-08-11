@@ -118,7 +118,7 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct_valid():
         category: process_creation
     detection:
         sel:
-            field|re: 'a\w+b'
+            field|re: "a\w+b"
         condition: sel
     """
     )
