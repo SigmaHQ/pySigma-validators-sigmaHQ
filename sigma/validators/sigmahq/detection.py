@@ -99,7 +99,7 @@ class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
     unsupported_regexp: str
 
 
-class SigmahqUnsupportedRegexValidator(SigmaDetectionItemValidator):
+class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a an unsupported regular expression group constructs."""
 
     def validate_detection_item(
