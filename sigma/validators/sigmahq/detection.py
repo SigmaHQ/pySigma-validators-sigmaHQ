@@ -1,7 +1,11 @@
 from dataclasses import dataclass
-from typing import ClassVar, List
+from typing import ClassVar, List, Set
 
-from sigma.rule import SigmaRule
+from sigma.rule import (
+    SigmaRule,
+    SigmaDetectionItem,
+)
+
 from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaRuleValidator,
@@ -9,6 +13,9 @@ from sigma.validators.base import (
     SigmaDetectionItemValidator,
     SigmaDetectionItem,
 )
+
+from sigma.modifiers import SigmaRegularExpressionModifier
+
 from .config import ConfigHQ
 
 config = ConfigHQ()
@@ -46,7 +53,7 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
 
 
 @dataclass
-class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
+class SigmahqCategoryWindowsProviderNameIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule uses a windows logsource category that doesn't require the use of the Provider_Name field"
     )
@@ -55,7 +62,7 @@ class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
     )
 
 
-class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
+class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a Provider_Name field with a windows category logsource that doesn't require it."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
@@ -78,6 +85,38 @@ class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
                         self.rule.logsource.category
                     ]
                 ):
-                    return [SigmahqCategoriProvidernameIssue(self.rule)]
+                    return [SigmahqCategoryWindowsProviderNameIssue(self.rule)]
 
         return []
+
+
+@dataclass
+class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule uses an unsupported regular expression group construct. Construct such as positive and negative lookahead, positive and negative lookbehind as well as atomic groups are currently unsupported."
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    unsupported_regexp: str
+
+
+class SigmahqUnsupportedRegexValidator(SigmaDetectionItemValidator):
+    """Checks if a rule uses a an unsupported regular expression group constructs."""
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+
+        unsupported_regexps: Set[str] = set()
+
+        if SigmaRegularExpressionModifier in detection_item.modifiers:
+            for value in detection_item.value:
+                for (
+                    unsupported_group_construct
+                ) in ConfigHQ.sigmahq_unsupported_regex_group_constructs:
+                    if unsupported_group_construct in value.regexp:
+                        unsupported_regexps.add(value.regexp)
+
+        return [
+            SigmahqUnsupportedRegexGroupConstructIssue([self.rule], regexp)
+            for regexp in unsupported_regexps
+        ]

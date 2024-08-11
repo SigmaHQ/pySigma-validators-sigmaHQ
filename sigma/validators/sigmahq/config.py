@@ -1603,6 +1603,7 @@ class ConfigHQ:
         "legitimeate",
         "legitimat",
     ]
+    sigmahq_unsupported_regex_group_constructs = ["(?=", "(?!", "(?<=", "(?<!", "(?>"]
     sigmahq_link_in_description = ["http://", "https://"]
     sigmahq_logsource_cast: Dict[SigmaLogSource, List[str]] = {}
     sigmahq_logsource_unicast: Dict[SigmaLogSource, List[str]] = {}
