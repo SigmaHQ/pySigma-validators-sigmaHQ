@@ -57,14 +57,16 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
             filename = rule.source.path.name
             logsource = rule.logsource
 
-            if logsource in config.sigmahq_logsource_prefix:
-                if not filename.startswith(config.sigmahq_logsource_prefix[logsource]):
+            if logsource in config.sigmahq_logsource_filepattern:
+                if not filename.startswith(
+                    config.sigmahq_logsource_filepattern[logsource]
+                ):
                     return [
                         SigmahqFilenamePrefixIssue(
                             rule,
                             filename,
                             logsource,
-                            config.sigmahq_logsource_prefix[logsource],
+                            config.sigmahq_logsource_filepattern[logsource],
                         )
                     ]
             else:

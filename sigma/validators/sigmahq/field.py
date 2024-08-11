@@ -59,9 +59,12 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource in config.sigmahq_logsource_cast:
-            self.fields = config.sigmahq_logsource_cast[rule.logsource]
-            self.unifields = config.sigmahq_logsource_unicast[rule.logsource]
+        if (
+            rule.logsource in config.sigma_taxonomy
+            and len(config.sigma_taxonomy[rule.logsource]) > 0
+        ):
+            self.fields = config.sigma_taxonomy[rule.logsource]
+            self.unifields = config.sigma_taxonomy_unicast[rule.logsource]
             return super().validate(rule)
         return []
 
@@ -89,9 +92,12 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource in config.sigmahq_logsource_cast:
-            self.fields = config.sigmahq_logsource_cast[rule.logsource]
-            self.unifields = config.sigmahq_logsource_unicast[rule.logsource]
+        if (
+            rule.logsource in config.sigma_taxonomy
+            and len(config.sigma_taxonomy[rule.logsource]) > 0
+        ):
+            self.fields = config.sigma_taxonomy[rule.logsource]
+            self.unifields = config.sigma_taxonomy_unicast[rule.logsource]
             return super().validate(rule)
         return []
 

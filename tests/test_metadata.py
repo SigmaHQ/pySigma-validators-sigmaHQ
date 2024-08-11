@@ -312,6 +312,27 @@ def test_validator_SigmahqFalsepositivesBannedWord():
     ]
 
 
+def test_validator_SigmahqFalsepositivesBannedWord_custom():
+    validator = SigmahqFalsepositivesBannedWordValidator(word_list=["maybe"])
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - Maybe
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFalsepositivesBannedWordIssue(rule, "Maybe")
+    ]
+
+
 def test_validator_SigmahqFalsepositivesBannedWord_valid():
     validator = SigmahqFalsepositivesBannedWordValidator()
     rule = SigmaRule.from_yaml(
@@ -352,6 +373,27 @@ def test_validator_SigmahqFalsepositivesTypoWord():
     ]
 
 
+def test_validator_SigmahqFalsepositivesTypoWord_custom():
+    validator = SigmahqFalsepositivesTypoWordValidator(word_list=["unkwon"])
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: ATT&CK rule
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    falsepositives:
+        - Unkwon AD tools
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqFalsepositivesTypoWordIssue(rule, "Unkwon")
+    ]
+
+
 def test_validator_SigmahqFalsepositivesTypoWord_valid():
     validator = SigmahqFalsepositivesTypoWordValidator()
     rule = SigmaRule.from_yaml(
@@ -377,6 +419,25 @@ def test_validator_SigmahqLinkDescription():
         """
     title: Test
     description: rule from https://somewhereundertheraimbow
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule)]
+
+
+def test_validator_SigmahqLinkDescription():
+    validator = SigmahqLinkInDescriptionValidator(
+        word_list=["http://", "https://", "ftp:"]
+    )
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: pdf found here ftp://somewhereundertheraimbow
     logsource:
         category: test
     detection:

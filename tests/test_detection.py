@@ -6,8 +6,8 @@ from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.detection import (
     SigmahqCategoryEventIdIssue,
     SigmahqCategoryEventIdValidator,
-    SigmahqCategoriProvidernameIssue,
-    SigmahqCategoriProvidernameValidator,
+    SigmahqCategoryProvidernameIssue,
+    SigmahqCategoryProvidernameValidator,
 )
 
 
@@ -48,8 +48,8 @@ def test_validator_SigmahqCategorieEventid_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqCategoriProvidername():
-    validator = SigmahqCategoriProvidernameValidator()
+def test_validator_SigmahqCategoryProvidername():
+    validator = SigmahqCategoryProvidernameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name
@@ -64,11 +64,11 @@ def test_validator_SigmahqCategoriProvidername():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqCategoriProvidernameIssue(rule)]
+    assert validator.validate(rule) == [SigmahqCategoryProvidernameIssue(rule)]
 
 
-def test_validator_SigmahqCategoriProvidername_valid():
-    validator = SigmahqCategoriProvidernameValidator()
+def test_validator_SigmahqCategoryProvidername_valid():
+    validator = SigmahqCategoryProvidernameValidator()
     rule = SigmaRule.from_yaml(
         """
     title: A Space Field Name

@@ -24,7 +24,7 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
     """Checks if a rule uses an unknown logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if not rule.logsource in config.sigmahq_logsource_list:
+        if not rule.logsource in config.sigma_taxonomy:
             return [SigmahqLogsourceUnknownIssue(rule, rule.logsource)]
         else:
             return []

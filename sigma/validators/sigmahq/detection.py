@@ -30,7 +30,7 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if (
             rule.logsource.product == "windows"
-            and rule.logsource.category in ConfigHQ.windows_category_no_eventid
+            and rule.logsource.category in config.windows_no_eventid
         ):
             return super().validate(rule)
         else:
@@ -46,7 +46,7 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
 
 
 @dataclass
-class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
+class SigmahqCategoryProvidernameIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule uses a windows logsource category that doesn't require the use of the Provider_Name field"
     )
@@ -55,14 +55,12 @@ class SigmahqCategoriProvidernameIssue(SigmaValidationIssue):
     )
 
 
-class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
+class SigmahqCategoryProvidernameValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a Provider_Name field with a windows category logsource that doesn't require it."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if (
-            rule.logsource.product == "windows"
-            and rule.logsource.category in ConfigHQ.windows_category_provider_name
-        ):
+        if rule.logsource in config.windows_provider_name:
+            self.list_provider = config.windows_provider_name[rule.logsource]
             return super().validate(rule)
         else:
             return []
@@ -72,12 +70,7 @@ class SigmahqCategoriProvidernameValidator(SigmaDetectionItemValidator):
     ) -> List[SigmaValidationIssue]:
         if detection_item.field is not None and detection_item.field == "Provider_Name":
             for v in detection_item.value:
-                if (
-                    v
-                    in ConfigHQ.windows_category_provider_name[
-                        self.rule.logsource.category
-                    ]
-                ):
-                    return [SigmahqCategoriProvidernameIssue(self.rule)]
+                if v in self.list_provider:
+                    return [SigmahqCategoryProvidernameIssue(self.rule)]
 
         return []
