@@ -32,9 +32,9 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqSysmonMissingEventidIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = "Rule uses the windows sysmon service logsource without the EventID field"
+    description: ClassVar[str] = (
+        "Rule uses the windows sysmon service logsource without the EventID field"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 

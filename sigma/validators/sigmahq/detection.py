@@ -23,12 +23,12 @@ config = ConfigHQ()
 
 @dataclass
 class SigmahqCategoryEventIdIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = "Rule uses a windows logsource category that doesn't require the use of an EventID field"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = (
+        "Rule uses a windows logsource category that doesn't require the use of an EventID field"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
@@ -54,12 +54,12 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
 
 @dataclass
 class SigmahqCategoryWindowsProviderNameIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = "Rule uses a windows logsource category that doesn't require the use of the Provider_Name field"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = (
+        "Rule uses a windows logsource category that doesn't require the use of the Provider_Name field"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
@@ -85,18 +85,18 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
 
 @dataclass
 class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = "Rule uses an unsupported regular expression group construct. Construct such as positive and negative lookahead, positive and negative lookbehind as well as atomic groups are currently unsupported."
+    description: ClassVar[str] = (
+        "Rule uses an unsupported regular expression group construct. Construct such as positive and negative lookahead, positive and negative lookbehind as well as atomic groups are currently unsupported."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     unsupported_regexp: str
 
 
 @dataclass
 class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = "Rule uses an unsupported regular expression group construct. Construct such as positive and negative lookahead, positive and negative lookbehind as well as atomic groups are currently unsupported."
+    description: ClassVar[str] = (
+        "Rule uses an unsupported regular expression group construct. Construct such as positive and negative lookahead, positive and negative lookbehind as well as atomic groups are currently unsupported."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     unsupported_regexp: str
 

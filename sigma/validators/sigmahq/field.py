@@ -29,9 +29,9 @@ config = ConfigHQ()
 
 @dataclass
 class SigmahqSpaceFieldNameIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = "Rule uses a field name with a space instead of a underscore."
+    description: ClassVar[str] = (
+        "Rule uses a field name with a space instead of a underscore."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     field: str
 

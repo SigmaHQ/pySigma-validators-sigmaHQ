@@ -75,9 +75,9 @@ def load_windows_json(json_name):
     json_dict = load_remote_json("github", json_name)
     data = dict()
     for category in json_dict["category_provider_name"]:
-        data[
-            SigmaLogSource(product="windows", category=category, service=None)
-        ] = json_dict["category_provider_name"][category]
+        data[SigmaLogSource(product="windows", category=category, service=None)] = (
+            json_dict["category_provider_name"][category]
+        )
     return json_dict["category_no_eventid"], data
 
 

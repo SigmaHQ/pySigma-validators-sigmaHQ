@@ -14,12 +14,12 @@ config = ConfigHQ()
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = f"Rule has a title longer than {config.title_max_length} characters."
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = (
+        f"Rule has a title longer than {config.title_max_length} characters."
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqTitleLengthValidator(SigmaRuleValidator):
@@ -34,12 +34,12 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTitleStartIssue(SigmaValidationIssue):
-    description: ClassVar[
-        str
-    ] = "Rule has a title that starts with the word 'Detect' or 'Detects'."
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    description: ClassVar[str] = (
+        "Rule has a title that starts with the word 'Detect' or 'Detects'."
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqTitleStartValidator(SigmaRuleValidator):
@@ -54,9 +54,9 @@ class SigmahqTitleStartValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqTitleEndIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a title that ends with a dot(.)"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
 
 
 class SigmahqTitleEndValidator(SigmaRuleValidator):
@@ -71,9 +71,9 @@ class SigmahqTitleEndValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqTitleCaseIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a title with invalid casing"
-    severity: ClassVar[
-        SigmaValidationIssueSeverity
-    ] = SigmaValidationIssueSeverity.MEDIUM
+    severity: ClassVar[SigmaValidationIssueSeverity] = (
+        SigmaValidationIssueSeverity.MEDIUM
+    )
     word: str
 
 
