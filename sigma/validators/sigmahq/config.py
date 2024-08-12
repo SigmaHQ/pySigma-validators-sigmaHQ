@@ -75,31 +75,36 @@ def load_windows_json(json_name):
     json_dict = load_remote_json("github", json_name)
     data = dict()
     for category in json_dict["category_provider_name"]:
-        data[SigmaLogSource(product="windows", category=category, service=None)] = (
-            json_dict["category_provider_name"][category]
-        )
+        data[
+            SigmaLogSource(product="windows", category=category, service=None)
+        ] = json_dict["category_provider_name"][category]
     return json_dict["category_no_eventid"], data
 
 
 class ConfigHQ:
+    title_max_length = 120
+
     sigma_taxonomy: Dict[SigmaLogSource, List[str]] = {}
     sigma_taxonomy_unicast: Dict[SigmaLogSource, List[str]] = {}
-    title_max_length = 110
+
     sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {}
     sigmahq_product_prefix: Dict[str, str] = {}
+
     windows_no_eventid: List[str] = []
     windows_provider_name: Dict[SigmaLogSource, List[str]] = {}
 
-    def __init__(self) -> None:
+    sigmahq_unsupported_regex_group_constructs = ["(?=", "(?!", "(?<=", "(?<!", "(?>"]
 
+    def __init__(self) -> None:
         self.sigma_taxonomy = load_taxonomy_json("sigma_taxonomy.json")
         self.sigma_taxonomy_unicast = {
             k: [v.lower() for v in l] for k, l in self.sigma_taxonomy.items()
         }
 
-        self.sigmahq_logsource_filepattern, self.sigmahq_product_prefix = (
-            load_filepattern_json("sigmahq_filepattern.json")
-        )
+        (
+            self.sigmahq_logsource_filepattern,
+            self.sigmahq_product_prefix,
+        ) = load_filepattern_json("sigmahq_filepattern.json")
         self.windows_no_eventid, self.windows_provider_name = load_windows_json(
             "sigmahq_windows_validator.json"
         )

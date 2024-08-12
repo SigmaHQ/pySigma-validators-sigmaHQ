@@ -14,9 +14,9 @@ from sigma.validators.base import (
 
 @dataclass
 class SigmahqOfthemConditionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule uses the ' of them' keyword in the condition with only one selection in the detection section"
-    )
+    description: ClassVar[
+        str
+    ] = "Rule uses the ' of them' keyword in the condition with only one selection in the detection section"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
 
 
@@ -45,9 +45,9 @@ class SigmahqOfthemConditionValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqOfselectionConditionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule uses the 'All/X of ' format in the condition with only one selection in the detection section"
-    )
+    description: ClassVar[
+        str
+    ] = "Rule uses the 'All/X of ' format in the condition with only one selection in the detection section"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
     selection: str
 
@@ -65,7 +65,6 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
             if self.re_x_of_them.search(condition):
                 all_name = self.re_x_of_them.findall(condition)
                 for name in all_name:
-
                     if name.startswith("filter_") and name.endswith("_*"):
                         continue
 
@@ -84,12 +83,12 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqMissingAsteriskConditionIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule uses a '1/all of ' keyword in the condition without an asterisk"
-    )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    description: ClassVar[
+        str
+    ] = "Rule uses a '1/all of ' keyword in the condition without an asterisk"
+    severity: ClassVar[
+        SigmaValidationIssueSeverity
+    ] = SigmaValidationIssueSeverity.MEDIUM
     selection: str
 
 
