@@ -55,7 +55,9 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.source is not None:
             filename = rule.source.path.name
-            logsource = rule.logsource
+            logsource = SigmaLogSource(
+                rule.logsource.category, rule.logsource.product, rule.logsource.service
+            )
 
             if logsource in config.sigmahq_logsource_filepattern:
                 if not filename.startswith(
@@ -65,23 +67,26 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                         SigmahqFilenamePrefixIssue(
                             rule,
                             filename,
-                            logsource,
+                            rule.logsource,
                             config.sigmahq_logsource_filepattern[logsource],
                         )
                     ]
             else:
-                if (
-                    logsource.product in config.sigmahq_product_prefix
-                    and not filename.startswith(
-                        config.sigmahq_product_prefix[logsource.product]
-                    )
-                ):
-                    return [
-                        SigmahqFilenamePrefixIssue(
-                            rule,
-                            filename,
-                            logsource,
-                            config.sigmahq_product_prefix[logsource.product],
+                # check only product but must exist
+                if rule.logsource.product:
+                    logsource = SigmaLogSource(None, rule.logsource.product, None)
+                    if (
+                        logsource in config.sigmahq_logsource_filepattern
+                        and not filename.startswith(
+                            config.sigmahq_logsource_filepattern[logsource]
                         )
-                    ]
+                    ):
+                        return [
+                            SigmahqFilenamePrefixIssue(
+                                rule,
+                                filename,
+                                rule.logsource,
+                                config.sigmahq_logsource_filepattern[logsource],
+                            )
+                        ]
         return []
