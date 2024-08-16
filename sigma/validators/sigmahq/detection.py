@@ -101,11 +101,8 @@ class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
     unsupported_regexp: str
 
 
-@dataclass
 class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a an unsupported regular expression group constructs."""
-
-    regex_list: Tuple[str] = ("(?=", "(?!", "(?<=", "(?<!", "(?>")
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -116,9 +113,7 @@ class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator
             for value in detection_item.value:
                 for (
                     unsupported_group_construct
-                ) in (
-                    self.regex_list
-                ):  # config.sigmahq_unsupported_regex_group_constructs
+                ) in config.sigmahq_unsupported_regex_group_constructs:
                     if unsupported_group_construct in value.regexp:
                         unsupported_regexps.add(value.regexp)
 

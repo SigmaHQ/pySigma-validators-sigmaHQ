@@ -1,14 +1,15 @@
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from sigma.rule import SigmaLogSource
 import json
+import os
 
 
 def load_remote_json(url: str, filename: str) -> dict:
     # url to check
     # else
-    full_name = "validator_json/" + filename
+    full_name = os.getcwd() + "/validator_json/" + filename
     with open(full_name, "r", encoding="UTF-8") as file:
         json_dict = json.load(file)
     return json_dict
@@ -93,7 +94,13 @@ class ConfigHQ:
     windows_no_eventid: List[str] = []
     windows_provider_name: Dict[SigmaLogSource, List[str]] = {}
 
-    sigmahq_unsupported_regex_group_constructs = ["(?=", "(?!", "(?<=", "(?<!", "(?>"]
+    sigmahq_unsupported_regex_group_constructs: Tuple[str] = (
+        "(?=",
+        "(?!",
+        "(?<=",
+        "(?<!",
+        "(?>",
+    )
 
     def __init__(self) -> None:
         self.sigma_taxonomy = load_taxonomy_json("sigma_taxonomy.json")
