@@ -1443,6 +1443,7 @@ Data_SigmaHQ_field_cast = {
             "Details",
             "EventType",
             "Image",
+            "ParentImage",
             "NewName",
             "ProcessGuid",
             "ProcessId",
