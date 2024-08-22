@@ -10,7 +10,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "azure_none_activitylogs": {
       "logsource": {
@@ -20,7 +23,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "azure_none_auditlogs": {
       "logsource": {
@@ -30,7 +36,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "azure_none_pim": {
       "logsource": {
@@ -40,7 +49,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "azure_none_riskdetection": {
       "logsource": {
@@ -50,7 +62,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "azure_none_signinlogs": {
       "logsource": {
@@ -60,7 +75,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "bitbucket_none_audit": {
       "logsource": {
@@ -70,7 +88,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "cisco_none_aaa": {
       "logsource": {
@@ -80,7 +101,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "cisco_none_bgp": {
       "logsource": {
@@ -90,7 +114,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "cisco_none_duo": {
       "logsource": {
@@ -100,7 +127,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "cisco_none_ldp": {
       "logsource": {
@@ -110,7 +140,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "cisco_none_syslog": {
       "logsource": {
@@ -120,7 +153,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "django_application_none": {
       "logsource": {
@@ -130,7 +166,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "fortios_none_sslvpnd": {
       "logsource": {
@@ -140,7 +179,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "gcp_none_gcp.audit": {
       "logsource": {
@@ -150,7 +192,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "gcp_none_google_workspace.admin": {
       "logsource": {
@@ -160,7 +205,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "github_none_audit": {
       "logsource": {
@@ -170,7 +218,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "huawei_none_bgp": {
       "logsource": {
@@ -180,7 +231,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "juniper_none_bgp": {
       "logsource": {
@@ -190,7 +244,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "jvm_application_none": {
       "logsource": {
@@ -200,7 +257,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "kubernetes_application_audit": {
       "logsource": {
@@ -210,7 +270,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "kubernetes_none_audit": {
       "logsource": {
@@ -220,7 +283,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_file_event_none": {
       "logsource": {
@@ -230,14 +296,17 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "CreationUtcTime",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "TargetFilename",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "CreationUtcTime",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "TargetFilename",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "linux_network_connection_none": {
       "logsource": {
@@ -247,24 +316,27 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "DestinationHostname",
-        "DestinationIp",
-        "DestinationIsIpv6",
-        "DestinationPort",
-        "DestinationPortName",
-        "Image",
-        "Initiated",
-        "ProcessGuid",
-        "ProcessId",
-        "Protocol",
-        "SourceHostname",
-        "SourceIp",
-        "SourceIsIpv6",
-        "SourcePort",
-        "SourcePortName",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "DestinationHostname",
+          "DestinationIp",
+          "DestinationIsIpv6",
+          "DestinationPort",
+          "DestinationPortName",
+          "Image",
+          "Initiated",
+          "ProcessGuid",
+          "ProcessId",
+          "Protocol",
+          "SourceHostname",
+          "SourceIp",
+          "SourceIsIpv6",
+          "SourcePort",
+          "SourcePortName",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "linux_none_auditd": {
       "logsource": {
@@ -274,249 +346,252 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "a0",
-        "a1",
-        "a2",
-        "a3",
-        "a4",
-        "a5",
-        "a6",
-        "a7",
-        "a8",
-        "a9",
-        "acct",
-        "acl",
-        "action",
-        "added",
-        "addr",
-        "apparmor",
-        "arch",
-        "argc",
-        "audit_backlog_limit",
-        "audit_backlog_wait_time",
-        "audit_enabled",
-        "audit_failure",
-        "auid",
-        "banners",
-        "bool",
-        "bus",
-        "cap_fe,cap_fi",
-        "cap_fp",
-        "cap_fver",
-        "cap_pa",
-        "cap_pe",
-        "cap_pi",
-        "cap_pp",
-        "capability",
-        "category",
-        "cgroup",
-        "changed",
-        "cipher",
-        "class",
-        "cmd",
-        "code",
-        "comm",
-        "compat",
-        "cwd",
-        "daddr",
-        "data",
-        "default-context",
-        "dev",
-        "dev",
-        "device",
-        "dir",
-        "direction",
-        "dmac",
-        "dport",
-        "egid",
-        "enforcing",
-        "entries",
-        "errno",
-        "euid",
-        "exe",
-        "exit",
-        "fam",
-        "family",
-        "fd",
-        "fe",
-        "feature",
-        "fi",
-        "file",
-        "flags",
-        "format",
-        "fp",
-        "fsgid",
-        "fsuid",
-        "fver",
-        "gid",
-        "grantors",
-        "grp",
-        "hook",
-        "hostname",
-        "icmp_type",
-        "id",
-        "igid",
-        "img-ctx",
-        "inif",
-        "ino",
-        "inode",
-        "inode_gid",
-        "inode_uid",
-        "invalid_context",
-        "ioctlcmd",
-        "ip",
-        "ipid",
-        "ipx-net",
-        "item",
-        "items",
-        "iuid",
-        "kernel",
-        "key",
-        "kind",
-        "ksize",
-        "laddr",
-        "len",
-        "list",
-        "lport",
-        "mac",
-        "macproto",
-        "maj",
-        "major",
-        "minor",
-        "mode",
-        "model",
-        "msg",
-        "name",
-        "nametype",
-        "nargs",
-        "net",
-        "new",
-        "new-chardev",
-        "new-disk",
-        "new-enabled",
-        "new-fs",
-        "new-level",
-        "new-log_passwd",
-        "new-mem",
-        "new-net",
-        "new-range",
-        "new-rng",
-        "new-role",
-        "new-seuser",
-        "new-vcpu",
-        "new_gid",
-        "new_lock",
-        "new_pe",
-        "new_pi",
-        "new_pp",
-        "nlnk-fam",
-        "nlnk-grp",
-        "nlnk-pid",
-        "oauid",
-        "obj",
-        "obj_gid",
-        "obj_uid",
-        "ocomm",
-        "oflag",
-        "ogid",
-        "old",
-        "old-auid",
-        "old-chardev",
-        "old-disk",
-        "old-enabled",
-        "old-fs",
-        "old-level",
-        "old-log_passwd",
-        "old-mem",
-        "old-net",
-        "old-range",
-        "old-rng",
-        "old-role",
-        "old-ses",
-        "old-seuser",
-        "old-vcpu",
-        "old_enforcing",
-        "old_lock",
-        "old_pa",
-        "old_pe",
-        "old_pi",
-        "old_pp",
-        "old_prom",
-        "old_val",
-        "op",
-        "opid",
-        "oses",
-        "ouid",
-        "outif",
-        "pa",
-        "parent",
-        "path",
-        "pe",
-        "per",
-        "perm",
-        "perm_mask",
-        "permissive",
-        "pfs",
-        "pi",
-        "pid",
-        "pp",
-        "ppid",
-        "printer",
-        "proctitle",
-        "prom",
-        "proto",
-        "qbytes",
-        "range",
-        "rdev",
-        "reason",
-        "removed",
-        "res",
-        "resrc",
-        "result",
-        "role",
-        "rport",
-        "saddr",
-        "sauid",
-        "scontext",
-        "selected-context",
-        "seperm",
-        "seperms",
-        "seqno",
-        "seresult",
-        "ses",
-        "seuser",
-        "sgid",
-        "sig",
-        "sigev_signo",
-        "smac",
-        "spid",
-        "sport",
-        "state",
-        "subj",
-        "success",
-        "suid",
-        "syscall",
-        "table",
-        "tclass",
-        "tcontext",
-        "terminal",
-        "tty",
-        "type",
-        "uid",
-        "unit",
-        "uri",
-        "user",
-        "uuid",
-        "val",
-        "val",
-        "ver",
-        "virt",
-        "vm",
-        "vm-ctx",
-        "vm-pid",
-        "watch"
-      ]
+      "field": {
+        "natif": [
+          "a0",
+          "a1",
+          "a2",
+          "a3",
+          "a4",
+          "a5",
+          "a6",
+          "a7",
+          "a8",
+          "a9",
+          "acct",
+          "acl",
+          "action",
+          "added",
+          "addr",
+          "apparmor",
+          "arch",
+          "argc",
+          "audit_backlog_limit",
+          "audit_backlog_wait_time",
+          "audit_enabled",
+          "audit_failure",
+          "auid",
+          "banners",
+          "bool",
+          "bus",
+          "cap_fe,cap_fi",
+          "cap_fp",
+          "cap_fver",
+          "cap_pa",
+          "cap_pe",
+          "cap_pi",
+          "cap_pp",
+          "capability",
+          "category",
+          "cgroup",
+          "changed",
+          "cipher",
+          "class",
+          "cmd",
+          "code",
+          "comm",
+          "compat",
+          "cwd",
+          "daddr",
+          "data",
+          "default-context",
+          "dev",
+          "dev",
+          "device",
+          "dir",
+          "direction",
+          "dmac",
+          "dport",
+          "egid",
+          "enforcing",
+          "entries",
+          "errno",
+          "euid",
+          "exe",
+          "exit",
+          "fam",
+          "family",
+          "fd",
+          "fe",
+          "feature",
+          "fi",
+          "file",
+          "flags",
+          "format",
+          "fp",
+          "fsgid",
+          "fsuid",
+          "fver",
+          "gid",
+          "grantors",
+          "grp",
+          "hook",
+          "hostname",
+          "icmp_type",
+          "id",
+          "igid",
+          "img-ctx",
+          "inif",
+          "ino",
+          "inode",
+          "inode_gid",
+          "inode_uid",
+          "invalid_context",
+          "ioctlcmd",
+          "ip",
+          "ipid",
+          "ipx-net",
+          "item",
+          "items",
+          "iuid",
+          "kernel",
+          "key",
+          "kind",
+          "ksize",
+          "laddr",
+          "len",
+          "list",
+          "lport",
+          "mac",
+          "macproto",
+          "maj",
+          "major",
+          "minor",
+          "mode",
+          "model",
+          "msg",
+          "name",
+          "nametype",
+          "nargs",
+          "net",
+          "new",
+          "new-chardev",
+          "new-disk",
+          "new-enabled",
+          "new-fs",
+          "new-level",
+          "new-log_passwd",
+          "new-mem",
+          "new-net",
+          "new-range",
+          "new-rng",
+          "new-role",
+          "new-seuser",
+          "new-vcpu",
+          "new_gid",
+          "new_lock",
+          "new_pe",
+          "new_pi",
+          "new_pp",
+          "nlnk-fam",
+          "nlnk-grp",
+          "nlnk-pid",
+          "oauid",
+          "obj",
+          "obj_gid",
+          "obj_uid",
+          "ocomm",
+          "oflag",
+          "ogid",
+          "old",
+          "old-auid",
+          "old-chardev",
+          "old-disk",
+          "old-enabled",
+          "old-fs",
+          "old-level",
+          "old-log_passwd",
+          "old-mem",
+          "old-net",
+          "old-range",
+          "old-rng",
+          "old-role",
+          "old-ses",
+          "old-seuser",
+          "old-vcpu",
+          "old_enforcing",
+          "old_lock",
+          "old_pa",
+          "old_pe",
+          "old_pi",
+          "old_pp",
+          "old_prom",
+          "old_val",
+          "op",
+          "opid",
+          "oses",
+          "ouid",
+          "outif",
+          "pa",
+          "parent",
+          "path",
+          "pe",
+          "per",
+          "perm",
+          "perm_mask",
+          "permissive",
+          "pfs",
+          "pi",
+          "pid",
+          "pp",
+          "ppid",
+          "printer",
+          "proctitle",
+          "prom",
+          "proto",
+          "qbytes",
+          "range",
+          "rdev",
+          "reason",
+          "removed",
+          "res",
+          "resrc",
+          "result",
+          "role",
+          "rport",
+          "saddr",
+          "sauid",
+          "scontext",
+          "selected-context",
+          "seperm",
+          "seperms",
+          "seqno",
+          "seresult",
+          "ses",
+          "seuser",
+          "sgid",
+          "sig",
+          "sigev_signo",
+          "smac",
+          "spid",
+          "sport",
+          "state",
+          "subj",
+          "success",
+          "suid",
+          "syscall",
+          "table",
+          "tclass",
+          "tcontext",
+          "terminal",
+          "tty",
+          "type",
+          "uid",
+          "unit",
+          "uri",
+          "user",
+          "uuid",
+          "val",
+          "val",
+          "ver",
+          "virt",
+          "vm",
+          "vm-ctx",
+          "vm-pid",
+          "watch"
+        ],
+        "custom": []
+      }
     },
     "linux_none_auth": {
       "logsource": {
@@ -526,7 +601,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_clamav": {
       "logsource": {
@@ -536,7 +614,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_cron": {
       "logsource": {
@@ -546,7 +627,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_guacamole": {
       "logsource": {
@@ -556,7 +640,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_none": {
       "logsource": {
@@ -566,7 +653,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_sshd": {
       "logsource": {
@@ -576,7 +666,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_sudo": {
       "logsource": {
@@ -586,7 +679,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_syslog": {
       "logsource": {
@@ -596,7 +692,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_none_vsftpd": {
       "logsource": {
@@ -606,7 +705,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "linux_process_creation_none": {
       "logsource": {
@@ -616,33 +718,37 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "CommandLine",
-        "Company",
-        "CurrentDirectory",
-        "Description",
-        "FileVersion",
-        "Hashes",
-        "Image",
-        "Imphash",
-        "IntegrityLevel",
-        "LogonGuid",
-        "LogonId",
-        "OriginalFileName",
-        "ParentCommandLine",
-        "ParentImage",
-        "ParentProcessGuid",
-        "ParentProcessId",
-        "ParentUser",
-        "ProcessGuid",
-        "ProcessId",
-        "Product",
-        "TerminalSessionId",
-        "User",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "CommandLine",
+          "Company",
+          "CurrentDirectory",
+          "Description",
+          "FileVersion",
+          "Hashes",
+          "Image",
+          "IntegrityLevel",
+          "LogonGuid",
+          "LogonId",
+          "OriginalFileName",
+          "ParentCommandLine",
+          "ParentImage",
+          "ParentProcessGuid",
+          "ParentProcessId",
+          "ParentUser",
+          "ProcessGuid",
+          "ProcessId",
+          "Product",
+          "TerminalSessionId",
+          "User"
+        ],
+        "custom": [
+          "Imphash",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "m365_none_audit": {
       "logsource": {
@@ -652,7 +758,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "m365_none_exchange": {
       "logsource": {
@@ -662,7 +771,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "m365_none_threat_detection": {
       "logsource": {
@@ -672,7 +784,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "m365_none_threat_management": {
       "logsource": {
@@ -682,7 +797,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "macos_file_event_none": {
       "logsource": {
@@ -692,14 +810,17 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "CreationUtcTime",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "TargetFilename",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "CreationUtcTime",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "TargetFilename",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "macos_process_creation_none": {
       "logsource": {
@@ -709,33 +830,37 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "CommandLine",
-        "Company",
-        "CurrentDirectory",
-        "Description",
-        "FileVersion",
-        "Hashes",
-        "Image",
-        "Imphash",
-        "IntegrityLevel",
-        "LogonGuid",
-        "LogonId",
-        "OriginalFileName",
-        "ParentCommandLine",
-        "ParentImage",
-        "ParentProcessGuid",
-        "ParentProcessId",
-        "ParentUser",
-        "ProcessGuid",
-        "ProcessId",
-        "Product",
-        "TerminalSessionId",
-        "User",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "CommandLine",
+          "Company",
+          "CurrentDirectory",
+          "Description",
+          "FileVersion",
+          "Hashes",
+          "Image",
+          "IntegrityLevel",
+          "LogonGuid",
+          "LogonId",
+          "OriginalFileName",
+          "ParentCommandLine",
+          "ParentImage",
+          "ParentProcessGuid",
+          "ParentProcessId",
+          "ParentUser",
+          "ProcessGuid",
+          "ProcessId",
+          "Product",
+          "TerminalSessionId",
+          "User"
+        ],
+        "custom": [
+          "Imphash",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "nodejs_application_none": {
       "logsource": {
@@ -745,7 +870,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_antivirus_none": {
       "logsource": {
@@ -755,7 +883,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_database_none": {
       "logsource": {
@@ -765,7 +896,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_dns_none": {
       "logsource": {
@@ -775,7 +909,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_firewall_none": {
       "logsource": {
@@ -785,7 +922,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_none_apache": {
       "logsource": {
@@ -795,7 +935,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_none_netflow": {
       "logsource": {
@@ -805,7 +948,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_none_nginx": {
       "logsource": {
@@ -815,7 +961,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "none_proxy_none": {
       "logsource": {
@@ -825,25 +974,28 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "c-uri",
-        "c-uri-extension",
-        "c-uri-query",
-        "c-uri-stem",
-        "c-useragent",
-        "cs-bytes",
-        "cs-cookie",
-        "cs-host",
-        "cs-method",
-        "cs-referrer",
-        "cs-uri",
-        "cs-version",
-        "dst_ip",
-        "r-dns",
-        "sc-bytes",
-        "sc-status",
-        "src_ip"
-      ]
+      "field": {
+        "natif": [
+          "c-uri",
+          "c-uri-extension",
+          "c-uri-query",
+          "c-uri-stem",
+          "c-useragent",
+          "cs-bytes",
+          "cs-cookie",
+          "cs-host",
+          "cs-method",
+          "cs-referrer",
+          "cs-uri",
+          "cs-version",
+          "dst_ip",
+          "r-dns",
+          "sc-bytes",
+          "sc-status",
+          "src_ip"
+        ],
+        "custom": []
+      }
     },
     "none_webserver_none": {
       "logsource": {
@@ -853,30 +1005,33 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "c-ip",
-        "cs-bytes",
-        "cs-cookie",
-        "cs-host",
-        "cs-method",
-        "cs-method",
-        "cs-referer",
-        "cs-uri-query",
-        "cs-uri-stem",
-        "cs-user-agent",
-        "cs-username",
-        "cs-version",
-        "date",
-        "s-computername",
-        "s-ip",
-        "s-port",
-        "s-sitename",
-        "sc-bytes",
-        "sc-status",
-        "sc-win32-status",
-        "time",
-        "time-taken"
-      ]
+      "field": {
+        "natif": [
+          "c-ip",
+          "cs-bytes",
+          "cs-cookie",
+          "cs-host",
+          "cs-method",
+          "cs-method",
+          "cs-referer",
+          "cs-uri-query",
+          "cs-uri-stem",
+          "cs-user-agent",
+          "cs-username",
+          "cs-version",
+          "date",
+          "s-computername",
+          "s-ip",
+          "s-port",
+          "s-sitename",
+          "sc-bytes",
+          "sc-status",
+          "sc-win32-status",
+          "time",
+          "time-taken"
+        ],
+        "custom": []
+      }
     },
     "okta_none_okta": {
       "logsource": {
@@ -886,7 +1041,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "onelogin_none_onelogin.events": {
       "logsource": {
@@ -896,7 +1054,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "opencanary_application_none": {
       "logsource": {
@@ -906,7 +1067,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "paloalto_appliance_globalprotect": {
       "logsource": {
@@ -916,7 +1080,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "paloalto_file_event_globalprotect": {
       "logsource": {
@@ -926,7 +1093,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "python_application_none": {
       "logsource": {
@@ -936,7 +1106,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "qualys_none_none": {
       "logsource": {
@@ -946,7 +1119,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "rpc_firewall_application_none": {
       "logsource": {
@@ -956,7 +1132,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "ruby_on_rails_application_none": {
       "logsource": {
@@ -966,7 +1145,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "spring_application_none": {
       "logsource": {
@@ -976,7 +1158,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "sql_application_none": {
       "logsource": {
@@ -986,7 +1171,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "velocity_application_none": {
       "logsource": {
@@ -996,7 +1184,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_create_remote_thread_none": {
       "logsource": {
@@ -1006,36 +1197,40 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "IsInitialThread",
-        "NewThreadId",
-        "Provider_Name",
-        "RemoteCreation",
-        "Security_UserID",
-        "SourceCommandLine",
-        "SourceImage",
-        "SourceParentCommandLine",
-        "SourceParentImage",
-        "SourceParentProcessId",
-        "SourceProcessGuid",
-        "SourceProcessId",
-        "SourceUser",
-        "StartAddress",
-        "StartFunction",
-        "StartModule",
-        "TargetCommandLine",
-        "TargetImage",
-        "TargetParentCommandLine",
-        "TargetParentImage",
-        "TargetParentProcessId",
-        "TargetProcessGuid",
-        "TargetProcessId",
-        "TargetUser",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "NewThreadId",
+          "Provider_Name",
+          "Security_UserID",
+          "SourceImage",
+          "SourceProcessGuid",
+          "SourceProcessId",
+          "SourceUser",
+          "StartAddress",
+          "StartFunction",
+          "StartModule",
+          "TargetCommandLine",
+          "TargetImage",
+          "TargetProcessGuid",
+          "TargetProcessId",
+          "TargetUser"
+        ],
+        "custom": [
+          "IsInitialThread",
+          "RemoteCreation",
+          "SourceCommandLine",
+          "SourceParentCommandLine",
+          "SourceParentImage",
+          "SourceParentProcessId",
+          "TargetParentCommandLine",
+          "TargetParentImage",
+          "TargetParentProcessId",
+          "User"
+        ]
+      }
     },
     "windows_create_stream_hash_none": {
       "logsource": {
@@ -1045,25 +1240,29 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "Contents",
-        "CreationUtcTime",
-        "EventID",
-        "Hash",
-        "Image",
-        "Imphash",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetFilename",
-        "User",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "Contents",
+          "CreationUtcTime",
+          "EventID",
+          "Hash",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetFilename",
+          "User"
+        ],
+        "custom": [
+          "Imphash",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "windows_dns_query_none": {
       "logsource": {
@@ -1073,20 +1272,23 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "QueryName",
-        "QueryResults",
-        "QueryStatus",
-        "Security_UserID",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "QueryName",
+          "QueryResults",
+          "QueryStatus",
+          "Security_UserID",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_driver_load_none": {
       "logsource": {
@@ -1096,22 +1298,26 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Hashes",
-        "ImageLoaded",
-        "Imphash",
-        "Provider_Name",
-        "Security_UserID",
-        "Signature",
-        "SignatureStatus",
-        "Signed",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "Hashes",
+          "ImageLoaded",
+          "Provider_Name",
+          "Security_UserID",
+          "Signature",
+          "SignatureStatus",
+          "Signed"
+        ],
+        "custom": [
+          "Imphash",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "windows_file_access_none": {
       "logsource": {
@@ -1121,26 +1327,30 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "CommandLine",
-        "Computer",
-        "CreateAttributes",
-        "CreateOptions",
-        "EventID",
-        "FileName",
-        "FileObject",
-        "Image",
-        "Irp",
-        "IssuingThreadId",
-        "ParentCommandLine",
-        "ParentImage",
-        "Provider_Name",
-        "Security_UserID",
-        "ShareAccess",
-        "TargetFilename",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "CreateAttributes",
+          "CreateOptions",
+          "EventID",
+          "FileName",
+          "FileObject",
+          "Irp",
+          "IssuingThreadId",
+          "Provider_Name",
+          "Security_UserID",
+          "ShareAccess"
+        ],
+        "custom": [
+          "CommandLine",
+          "Image",
+          "ParentCommandLine",
+          "ParentImage",
+          "TargetFilename",
+          "User"
+        ]
+      }
     },
     "windows_file_change_none": {
       "logsource": {
@@ -1150,20 +1360,23 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "CreationUtcTime",
-        "EventID",
-        "Image",
-        "PreviousCreationUtcTime",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetFilename",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "CreationUtcTime",
+          "EventID",
+          "Image",
+          "PreviousCreationUtcTime",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetFilename",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_file_delete_none": {
       "logsource": {
@@ -1173,28 +1386,32 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Archived",
-        "Channel",
-        "CommandLine",
-        "Computer",
-        "EventID",
-        "Hashes",
-        "Image",
-        "Imphash",
-        "IsExecutable",
-        "ParentCommandLine",
-        "ParentImage",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetFilename",
-        "User",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "Archived",
+          "Channel",
+          "Computer",
+          "EventID",
+          "Hashes",
+          "Image",
+          "IsExecutable",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetFilename",
+          "User"
+        ],
+        "custom": [
+          "CommandLine",
+          "Imphash",
+          "ParentCommandLine",
+          "ParentImage",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "windows_file_event_none": {
       "logsource": {
@@ -1204,23 +1421,27 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "CommandLine",
-        "Computer",
-        "CreationUtcTime",
-        "EventID",
-        "Image",
-        "MagicHeader",
-        "ParentCommandLine",
-        "ParentImage",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetFilename",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "CreationUtcTime",
+          "EventID",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetFilename",
+          "User"
+        ],
+        "custom": [
+          "CommandLine",
+          "MagicHeader",
+          "ParentCommandLine",
+          "ParentImage"
+        ]
+      }
     },
     "windows_file_executable_detected_none": {
       "logsource": {
@@ -1230,23 +1451,27 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Hashes",
-        "Image",
-        "Imphash",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetFilename",
-        "User",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "Hashes",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetFilename",
+          "User"
+        ],
+        "custom": [
+          "Imphash",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "windows_file_rename_none": {
       "logsource": {
@@ -1256,29 +1481,33 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "CommandLine",
-        "Computer",
-        "EventID",
-        "ExtraInformation",
-        "FileKey",
-        "FileObject",
-        "FilePath",
-        "Image",
-        "InfoClass",
-        "Irp",
-        "IssuingThreadId",
-        "MagicHeader",
-        "OriginalFileName",
-        "ParentCommandLine",
-        "ParentImage",
-        "Provider_Name",
-        "Security_UserID",
-        "SourceFilename",
-        "TargetFilename",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "ExtraInformation",
+          "FileKey",
+          "FileObject",
+          "FilePath",
+          "InfoClass",
+          "Irp",
+          "IssuingThreadId",
+          "Provider_Name",
+          "Security_UserID"
+        ],
+        "custom": [
+          "CommandLine",
+          "Image",
+          "MagicHeader",
+          "OriginalFileName",
+          "ParentCommandLine",
+          "ParentImage",
+          "SourceFilename",
+          "TargetFilename",
+          "User"
+        ]
+      }
     },
     "windows_image_load_none": {
       "logsource": {
@@ -1288,32 +1517,36 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "CommandLine",
-        "Company",
-        "Computer",
-        "Description",
-        "EventID",
-        "FileVersion",
-        "Hashes",
-        "Image",
-        "ImageLoaded",
-        "Imphash",
-        "OriginalFileName",
-        "ProcessGuid",
-        "ProcessId",
-        "Product",
-        "Provider_Name",
-        "Security_UserID",
-        "Signature",
-        "SignatureStatus",
-        "Signed",
-        "User",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Company",
+          "Computer",
+          "Description",
+          "EventID",
+          "FileVersion",
+          "Hashes",
+          "Image",
+          "ImageLoaded",
+          "OriginalFileName",
+          "ProcessGuid",
+          "ProcessId",
+          "Product",
+          "Provider_Name",
+          "Security_UserID",
+          "Signature",
+          "SignatureStatus",
+          "Signed",
+          "User"
+        ],
+        "custom": [
+          "CommandLine",
+          "Imphash",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "windows_network_connection_none": {
       "logsource": {
@@ -1323,32 +1556,35 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "CommandLine",
-        "Computer",
-        "DestinationHostname",
-        "DestinationIp",
-        "DestinationIsIpv6",
-        "DestinationPort",
-        "DestinationPortName",
-        "EventID",
-        "Image",
-        "Initiated",
-        "ParentImage",
-        "ParentImage",
-        "ProcessGuid",
-        "ProcessId",
-        "Protocol",
-        "Provider_Name",
-        "Security_UserID",
-        "SourceHostname",
-        "SourceIp",
-        "SourceIsIpv6",
-        "SourcePort",
-        "SourcePortName",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "DestinationHostname",
+          "DestinationIp",
+          "DestinationIsIpv6",
+          "DestinationPort",
+          "DestinationPortName",
+          "EventID",
+          "Image",
+          "Initiated",
+          "ProcessGuid",
+          "ProcessId",
+          "Protocol",
+          "Provider_Name",
+          "Security_UserID",
+          "SourceHostname",
+          "SourceIp",
+          "SourceIsIpv6",
+          "SourcePort",
+          "SourcePortName",
+          "User"
+        ],
+        "custom": [
+          "CommandLine",
+          "ParentImage"
+        ]
+      }
     },
     "windows_none_application": {
       "logsource": {
@@ -1358,7 +1594,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_applocker": {
       "logsource": {
@@ -1368,7 +1607,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_appmodel-runtime": {
       "logsource": {
@@ -1378,18 +1620,21 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "ApplicationName",
-        "Channel",
-        "Computer",
-        "EventID",
-        "ImageName",
-        "Message",
-        "PackageName",
-        "ProcessID",
-        "Provider_Name",
-        "Security_UserID"
-      ]
+      "field": {
+        "natif": [
+          "ApplicationName",
+          "Channel",
+          "Computer",
+          "EventID",
+          "ImageName",
+          "Message",
+          "PackageName",
+          "ProcessID",
+          "Provider_Name",
+          "Security_UserID"
+        ],
+        "custom": []
+      }
     },
     "windows_none_appxdeployment-server": {
       "logsource": {
@@ -1399,22 +1644,25 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "AppId",
-        "CallingProcess",
-        "Channel",
-        "Computer",
-        "DeploymentOperation",
-        "ErrorCode",
-        "EventID",
-        "FilePath",
-        "PackageDisplayName",
-        "PackageFullName",
-        "PackageSourceUri",
-        "Path",
-        "Provider_Name",
-        "Security_UserID"
-      ]
+      "field": {
+        "natif": [
+          "AppId",
+          "CallingProcess",
+          "Channel",
+          "Computer",
+          "DeploymentOperation",
+          "ErrorCode",
+          "EventID",
+          "FilePath",
+          "PackageDisplayName",
+          "PackageFullName",
+          "PackageSourceUri",
+          "Path",
+          "Provider_Name",
+          "Security_UserID"
+        ],
+        "custom": []
+      }
     },
     "windows_none_appxpackaging-om": {
       "logsource": {
@@ -1424,14 +1672,17 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Provider_Name",
-        "Security_UserID",
-        "subjectName"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "Provider_Name",
+          "Security_UserID",
+          "subjectName"
+        ],
+        "custom": []
+      }
     },
     "windows_none_bits-client": {
       "logsource": {
@@ -1441,17 +1692,20 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "LocalName",
-        "Provider_Name",
-        "RemoteName",
-        "Security_UserID",
-        "processId",
-        "processPath"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "LocalName",
+          "Provider_Name",
+          "RemoteName",
+          "Security_UserID",
+          "processId",
+          "processPath"
+        ],
+        "custom": []
+      }
     },
     "windows_none_capi2": {
       "logsource": {
@@ -1461,7 +1715,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_certificateservicesclient-lifecycle-system": {
       "logsource": {
@@ -1471,7 +1728,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_codeintegrity-operational": {
       "logsource": {
@@ -1481,20 +1741,23 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "FileNameBuffer",
-        "FileNameLength",
-        "ProcessNameBuffer",
-        "ProcessNameLength",
-        "Provider_Name",
-        "RequestedPolicy",
-        "Security_UserID",
-        "Status",
-        "ValidatedPolicy"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "FileNameBuffer",
+          "FileNameLength",
+          "ProcessNameBuffer",
+          "ProcessNameLength",
+          "Provider_Name",
+          "RequestedPolicy",
+          "Security_UserID",
+          "Status",
+          "ValidatedPolicy"
+        ],
+        "custom": []
+      }
     },
     "windows_none_diagnosis-scripted": {
       "logsource": {
@@ -1504,15 +1767,18 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "PackageId",
-        "PackagePath",
-        "Provider_Name",
-        "Security_UserID"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "PackageId",
+          "PackagePath",
+          "Provider_Name",
+          "Security_UserID"
+        ],
+        "custom": []
+      }
     },
     "windows_none_dns-client": {
       "logsource": {
@@ -1522,29 +1788,32 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Address",
-        "AddressLength",
-        "Channel",
-        "ClientPID",
-        "Computer",
-        "DnsServerIpAddress",
-        "EventID",
-        "InterfaceIndex",
-        "NetworkIndex",
-        "Provider_Name",
-        "QueryBlob",
-        "QueryName",
-        "QueryOptions",
-        "QueryResults",
-        "QueryStatus",
-        "QueryType",
-        "ResponseStatus",
-        "Security_UserID",
-        "SendBlob",
-        "SendBlobContext",
-        "Status"
-      ]
+      "field": {
+        "natif": [
+          "Address",
+          "AddressLength",
+          "Channel",
+          "ClientPID",
+          "Computer",
+          "DnsServerIpAddress",
+          "EventID",
+          "InterfaceIndex",
+          "NetworkIndex",
+          "Provider_Name",
+          "QueryBlob",
+          "QueryName",
+          "QueryOptions",
+          "QueryResults",
+          "QueryStatus",
+          "QueryType",
+          "ResponseStatus",
+          "Security_UserID",
+          "SendBlob",
+          "SendBlobContext",
+          "Status"
+        ],
+        "custom": []
+      }
     },
     "windows_none_dns-server": {
       "logsource": {
@@ -1554,7 +1823,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_dns-server-analytic": {
       "logsource": {
@@ -1564,7 +1836,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_driver-framework": {
       "logsource": {
@@ -1574,7 +1849,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_firewall-as": {
       "logsource": {
@@ -1584,16 +1862,19 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Action",
-        "ApplicationPath",
-        "Channel",
-        "Computer",
-        "EventID",
-        "ModifyingApplication",
-        "Provider_Name",
-        "Security_UserID"
-      ]
+      "field": {
+        "natif": [
+          "Action",
+          "ApplicationPath",
+          "Channel",
+          "Computer",
+          "EventID",
+          "ModifyingApplication",
+          "Provider_Name",
+          "Security_UserID"
+        ],
+        "custom": []
+      }
     },
     "windows_none_ldap": {
       "logsource": {
@@ -1603,18 +1884,21 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "AttributeList",
-        "Channel",
-        "Computer",
-        "DistinguishedName",
-        "EventID",
-        "ProcessId",
-        "Provider_Name",
-        "ScopeOfSearch",
-        "SearchFilter",
-        "Security_UserID"
-      ]
+      "field": {
+        "natif": [
+          "AttributeList",
+          "Channel",
+          "Computer",
+          "DistinguishedName",
+          "EventID",
+          "ProcessId",
+          "Provider_Name",
+          "ScopeOfSearch",
+          "SearchFilter",
+          "Security_UserID"
+        ],
+        "custom": []
+      }
     },
     "windows_none_lsa-server": {
       "logsource": {
@@ -1624,21 +1908,24 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventCountTotal",
-        "EventID",
-        "EventOrginal",
-        "Provider_Name",
-        "Security_UserID",
-        "SidList",
-        "TargetDomainName",
-        "TargetLogonGuid",
-        "TargetLogonId",
-        "TargetUserName",
-        "TargetUserSid"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventCountTotal",
+          "EventID",
+          "EventOrginal",
+          "Provider_Name",
+          "Security_UserID",
+          "SidList",
+          "TargetDomainName",
+          "TargetLogonGuid",
+          "TargetLogonId",
+          "TargetUserName",
+          "TargetUserSid"
+        ],
+        "custom": []
+      }
     },
     "windows_none_microsoft-servicebus-client": {
       "logsource": {
@@ -1648,7 +1935,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_msexchange-management": {
       "logsource": {
@@ -1658,7 +1948,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_none": {
       "logsource": {
@@ -1668,7 +1961,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_ntlm": {
       "logsource": {
@@ -1678,25 +1974,28 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "CallerPID",
-        "Channel",
-        "ClientDomainName",
-        "ClientLUID",
-        "ClientUserName",
-        "Computer",
-        "DomainName",
-        "EventID",
-        "MechanismOID",
-        "ProcessName",
-        "Provider_Name",
-        "SChannelName",
-        "SChannelType",
-        "Security_UserID",
-        "TargetName",
-        "UserName",
-        "WorkstationName"
-      ]
+      "field": {
+        "natif": [
+          "CallerPID",
+          "Channel",
+          "ClientDomainName",
+          "ClientLUID",
+          "ClientUserName",
+          "Computer",
+          "DomainName",
+          "EventID",
+          "MechanismOID",
+          "ProcessName",
+          "Provider_Name",
+          "SChannelName",
+          "SChannelType",
+          "Security_UserID",
+          "TargetName",
+          "UserName",
+          "WorkstationName"
+        ],
+        "custom": []
+      }
     },
     "windows_none_openssh": {
       "logsource": {
@@ -1706,15 +2005,18 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Provider_Name",
-        "Security_UserID",
-        "payload",
-        "process"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "Provider_Name",
+          "Security_UserID",
+          "payload",
+          "process"
+        ],
+        "custom": []
+      }
     },
     "windows_none_powershell-classic": {
       "logsource": {
@@ -1724,7 +2026,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_printservice-admin": {
       "logsource": {
@@ -1734,7 +2039,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_printservice-operational": {
       "logsource": {
@@ -1744,7 +2052,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_security": {
       "logsource": {
@@ -1754,7 +2065,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_security-mitigations": {
       "logsource": {
@@ -1764,29 +2078,32 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "ImageName",
-        "ImageNameLength",
-        "ProcessCommandLine",
-        "ProcessCommandLineLength",
-        "ProcessCreateTime",
-        "ProcessId",
-        "ProcessPath",
-        "ProcessPathLength",
-        "ProcessProtection",
-        "ProcessSectionSignatureLevel",
-        "ProcessSignatureLevel",
-        "ProcessStartKey",
-        "Provider_Name",
-        "RequiredSignatureLevel",
-        "Security_UserID",
-        "SignatureLevel",
-        "TargetThreadCreateTime",
-        "TargetThreadId"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "ImageName",
+          "ImageNameLength",
+          "ProcessCommandLine",
+          "ProcessCommandLineLength",
+          "ProcessCreateTime",
+          "ProcessId",
+          "ProcessPath",
+          "ProcessPathLength",
+          "ProcessProtection",
+          "ProcessSectionSignatureLevel",
+          "ProcessSignatureLevel",
+          "ProcessStartKey",
+          "Provider_Name",
+          "RequiredSignatureLevel",
+          "Security_UserID",
+          "SignatureLevel",
+          "TargetThreadCreateTime",
+          "TargetThreadId"
+        ],
+        "custom": []
+      }
     },
     "windows_none_shell-core": {
       "logsource": {
@@ -1796,16 +2113,19 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "AppID",
-        "Channel",
-        "Computer",
-        "EventID",
-        "Flags",
-        "Name",
-        "Provider_Name",
-        "Security_UserID"
-      ]
+      "field": {
+        "natif": [
+          "AppID",
+          "Channel",
+          "Computer",
+          "EventID",
+          "Flags",
+          "Name",
+          "Provider_Name",
+          "Security_UserID"
+        ],
+        "custom": []
+      }
     },
     "windows_none_smbclient-connectivity": {
       "logsource": {
@@ -1815,7 +2135,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_smbclient-security": {
       "logsource": {
@@ -1825,23 +2148,26 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "ObjectName",
-        "ObjectNameLength",
-        "Provider_Name",
-        "Reason",
-        "Security_UserID",
-        "ServerName",
-        "ServerNameLength",
-        "ShareName",
-        "ShareNameLength",
-        "Status",
-        "UserName",
-        "UserNameLength"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "ObjectName",
+          "ObjectNameLength",
+          "Provider_Name",
+          "Reason",
+          "Security_UserID",
+          "ServerName",
+          "ServerNameLength",
+          "ShareName",
+          "ShareNameLength",
+          "Status",
+          "UserName",
+          "UserNameLength"
+        ],
+        "custom": []
+      }
     },
     "windows_none_sysmon": {
       "logsource": {
@@ -1851,7 +2177,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_system": {
       "logsource": {
@@ -1861,7 +2190,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_taskscheduler": {
       "logsource": {
@@ -1871,19 +2203,22 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Path",
-        "Priority",
-        "ProcessID",
-        "Provider_Name",
-        "Security_UserID",
-        "TaskName",
-        "UserContext",
-        "UserName"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "Path",
+          "Priority",
+          "ProcessID",
+          "Provider_Name",
+          "Security_UserID",
+          "TaskName",
+          "UserContext",
+          "UserName"
+        ],
+        "custom": []
+      }
     },
     "windows_none_terminalservices-localsessionmanager": {
       "logsource": {
@@ -1893,16 +2228,19 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Address",
-        "Channel",
-        "Computer",
-        "EventID",
-        "Provider_Name",
-        "Security_UserID",
-        "SessionID",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Address",
+          "Channel",
+          "Computer",
+          "EventID",
+          "Provider_Name",
+          "Security_UserID",
+          "SessionID",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_none_windefend": {
       "logsource": {
@@ -1912,7 +2250,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_none_wmi": {
       "logsource": {
@@ -1922,7 +2263,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_pipe_created_none": {
       "logsource": {
@@ -1932,19 +2276,22 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "EventType",
-        "Image",
-        "PipeName",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "EventType",
+          "Image",
+          "PipeName",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_process_access_none": {
       "logsource": {
@@ -1954,26 +2301,30 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "CallTrace",
-        "CallTraceExtended",
-        "Channel",
-        "Computer",
-        "EventID",
-        "GrantedAccess",
-        "Provider_Name",
-        "Security_UserID",
-        "SourceCommandLine",
-        "SourceImage",
-        "SourceProcessGUID",
-        "SourceProcessId",
-        "SourceThreadId",
-        "SourceUser",
-        "TargetImage",
-        "TargetProcessGUID",
-        "TargetProcessId",
-        "TargetUser"
-      ]
+      "field": {
+        "natif": [
+          "CallTrace",
+          "Channel",
+          "Computer",
+          "EventID",
+          "GrantedAccess",
+          "Provider_Name",
+          "Security_UserID",
+          "SourceImage",
+          "SourceProcessGUID",
+          "SourceProcessId",
+          "SourceThreadId",
+          "SourceUser",
+          "TargetImage",
+          "TargetProcessGUID",
+          "TargetProcessId",
+          "TargetUser"
+        ],
+        "custom": [
+          "CallTraceExtended",
+          "SourceCommandLine"
+        ]
+      }
     },
     "windows_process_creation_none": {
       "logsource": {
@@ -1983,40 +2334,44 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "CommandLine",
-        "Company",
-        "Computer",
-        "CurrentDirectory",
-        "Description",
-        "EventID",
-        "FileVersion",
-        "GrandParentImage",
-        "GrandparentCommandLine",
-        "Hashes",
-        "Image",
-        "Imphash",
-        "IntegrityLevel",
-        "LogonGuid",
-        "LogonId",
-        "OriginalFileName",
-        "ParentCommandLine",
-        "ParentImage",
-        "ParentProcessGuid",
-        "ParentProcessId",
-        "ParentUser",
-        "ProcessGuid",
-        "ProcessId",
-        "Product",
-        "Provider_Name",
-        "Security_UserID",
-        "TerminalSessionId",
-        "User",
-        "md5",
-        "sha1",
-        "sha256"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "CommandLine",
+          "Company",
+          "Computer",
+          "CurrentDirectory",
+          "Description",
+          "EventID",
+          "FileVersion",
+          "GrandParentImage",
+          "Hashes",
+          "Image",
+          "IntegrityLevel",
+          "LogonGuid",
+          "LogonId",
+          "OriginalFileName",
+          "ParentCommandLine",
+          "ParentImage",
+          "ParentProcessGuid",
+          "ParentProcessId",
+          "ParentUser",
+          "ProcessGuid",
+          "ProcessId",
+          "Product",
+          "Provider_Name",
+          "Security_UserID",
+          "TerminalSessionId",
+          "User"
+        ],
+        "custom": [
+          "GrandparentCommandLine",
+          "Imphash",
+          "md5",
+          "sha1",
+          "sha256"
+        ]
+      }
     },
     "windows_process_tampering_none": {
       "logsource": {
@@ -2026,18 +2381,21 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "Type",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "Type",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_ps_classic_provider_start_none": {
       "logsource": {
@@ -2047,7 +2405,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_ps_classic_start_none": {
       "logsource": {
@@ -2057,7 +2418,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_ps_module_none": {
       "logsource": {
@@ -2067,16 +2431,19 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "ContextInfo",
-        "EventID",
-        "Payload",
-        "Provider_Name",
-        "Security_UserID",
-        "UserData"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "ContextInfo",
+          "EventID",
+          "Payload",
+          "Provider_Name",
+          "Security_UserID",
+          "UserData"
+        ],
+        "custom": []
+      }
     },
     "windows_ps_script_none": {
       "logsource": {
@@ -2086,18 +2453,21 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "MessageNumber",
-        "MessageTotal",
-        "Path",
-        "Provider_Name",
-        "ScriptBlockId",
-        "ScriptBlockText",
-        "Security_UserID"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "MessageNumber",
+          "MessageTotal",
+          "Path",
+          "Provider_Name",
+          "ScriptBlockId",
+          "ScriptBlockText",
+          "Security_UserID"
+        ],
+        "custom": []
+      }
     },
     "windows_raw_access_thread_none": {
       "logsource": {
@@ -2107,18 +2477,21 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "Device",
-        "EventID",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "Device",
+          "EventID",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_registry_add_none": {
       "logsource": {
@@ -2128,19 +2501,22 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "EventID",
-        "EventType",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetObject",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "EventID",
+          "EventType",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetObject",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_registry_delete_none": {
       "logsource": {
@@ -2150,19 +2526,22 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "Details",
-        "EventID",
-        "EventType",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetObject"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "Details",
+          "EventID",
+          "EventType",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetObject"
+        ],
+        "custom": []
+      }
     },
     "windows_registry_event_none": {
       "logsource": {
@@ -2172,21 +2551,24 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "Details",
-        "EventID",
-        "EventType",
-        "Image",
-        "NewName",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetObject",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "Details",
+          "EventID",
+          "EventType",
+          "Image",
+          "NewName",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetObject",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_registry_set_none": {
       "logsource": {
@@ -2196,20 +2578,23 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "Details",
-        "EventID",
-        "EventType",
-        "Image",
-        "ProcessGuid",
-        "ProcessId",
-        "Provider_Name",
-        "Security_UserID",
-        "TargetObject",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "Details",
+          "EventID",
+          "EventType",
+          "Image",
+          "ProcessGuid",
+          "ProcessId",
+          "Provider_Name",
+          "Security_UserID",
+          "TargetObject",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "windows_sysmon_error_none": {
       "logsource": {
@@ -2219,7 +2604,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "windows_sysmon_status_none": {
       "logsource": {
@@ -2229,18 +2617,21 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "Configuration",
-        "ConfigurationFileHash",
-        "EventID",
-        "Provider_Name",
-        "SchemaVersion",
-        "Security_UserID",
-        "State",
-        "Version"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "Configuration",
+          "ConfigurationFileHash",
+          "EventID",
+          "Provider_Name",
+          "SchemaVersion",
+          "Security_UserID",
+          "State",
+          "Version"
+        ],
+        "custom": []
+      }
     },
     "windows_wmi_event_none": {
       "logsource": {
@@ -2250,23 +2641,26 @@
         "definition": null
       },
       "description": null,
-      "field": [
-        "Channel",
-        "Computer",
-        "Consumer",
-        "Destination",
-        "EventID",
-        "EventNamespace",
-        "EventType",
-        "Filter",
-        "Name",
-        "Operation",
-        "Provider_Name",
-        "Query",
-        "Security_UserID",
-        "Type",
-        "User"
-      ]
+      "field": {
+        "natif": [
+          "Channel",
+          "Computer",
+          "Consumer",
+          "Destination",
+          "EventID",
+          "EventNamespace",
+          "EventType",
+          "Filter",
+          "Name",
+          "Operation",
+          "Provider_Name",
+          "Query",
+          "Security_UserID",
+          "Type",
+          "User"
+        ],
+        "custom": []
+      }
     },
     "zeek_none_dce_rpc": {
       "logsource": {
@@ -2276,7 +2670,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "zeek_none_dns": {
       "logsource": {
@@ -2286,7 +2683,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "zeek_none_http": {
       "logsource": {
@@ -2296,7 +2696,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "zeek_none_kerberos": {
       "logsource": {
@@ -2306,7 +2709,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "zeek_none_rdp": {
       "logsource": {
@@ -2316,7 +2722,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "zeek_none_smb_files": {
       "logsource": {
@@ -2326,7 +2735,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     },
     "zeek_none_x509": {
       "logsource": {
@@ -2336,7 +2748,10 @@
         "definition": null
       },
       "description": null,
-      "field": []
+      "field": {
+        "natif": [],
+        "custom": []
+      }
     }
   }
 }

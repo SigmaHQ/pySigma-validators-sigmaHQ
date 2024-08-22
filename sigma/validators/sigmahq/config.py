@@ -26,7 +26,8 @@ def load_taxonomy_json(json_name: str) -> dict:
     json_dict = load_remote_json("github", json_name)
     for value in json_dict["taxonomy"].values():
         logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
-        field_info[logsource] = value["field"]
+        field_info[logsource] = value["field"]["natif"]
+        field_info[logsource].extend(value["field"]["custom"])
     return field_info
 
 
