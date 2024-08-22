@@ -59,7 +59,9 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        core_logsource = SigmaLogSource(rule.logsource.category,rule.logsource.product,rule.logsource.service)
+        core_logsource = SigmaLogSource(
+            rule.logsource.category, rule.logsource.product, rule.logsource.service
+        )
         if (
             core_logsource in config.sigma_taxonomy
             and len(config.sigma_taxonomy[core_logsource]) > 0
@@ -93,7 +95,9 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        core_logsource = SigmaLogSource(rule.logsource.category,rule.logsource.product,rule.logsource.service)
+        core_logsource = SigmaLogSource(
+            rule.logsource.category, rule.logsource.product, rule.logsource.service
+        )
         if (
             core_logsource in config.sigma_taxonomy
             and len(config.sigma_taxonomy[core_logsource]) > 0
