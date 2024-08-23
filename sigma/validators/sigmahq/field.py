@@ -242,7 +242,8 @@ class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
         else:
             return []
 
-#Python 3.9 do not have the match
+
+# Python 3.9 do not have the match
 # @dataclass
 # class SigmahqInvalidHashKvIssue(SigmaValidationIssue):
 #     description: ClassVar[str] = (

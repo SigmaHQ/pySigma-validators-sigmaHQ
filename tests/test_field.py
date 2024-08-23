@@ -19,8 +19,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqSpaceFieldNameValidator,
     SigmahqFieldUserIssue,
     SigmahqFieldUserValidator,
-    #SigmahqInvalidHashKvIssue,
-    #SigmahqInvalidHashKvValidator,
+    # SigmahqInvalidHashKvIssue,
+    # SigmahqInvalidHashKvValidator,
 )
 
 
@@ -416,7 +416,7 @@ def test_validator_SigmahqFieldUserValidator():
 #         product: windows
 #     detection:
 #         sel:
-#             Hashes|contains: 
+#             Hashes|contains:
 #                 - 'MD5=4fae81eb7018069e75a087c38af783df'
 #                 - 'SHA512=123456'
 #         condition: sel
@@ -436,7 +436,7 @@ def test_validator_SigmahqFieldUserValidator():
 #         product: windows
 #     detection:
 #         sel:
-#             Hashes|contains: 
+#             Hashes|contains:
 #                 - 'MD5=4fae81eb7018069e75a087c38af783df'
 #                 - 'SHA256=123456'
 #         condition: sel
