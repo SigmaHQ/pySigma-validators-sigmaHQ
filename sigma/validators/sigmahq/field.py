@@ -242,52 +242,52 @@ class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
         else:
             return []
 
+#Python 3.9 do not have the match
+# @dataclass
+# class SigmahqInvalidHashKvIssue(SigmaValidationIssue):
+#     description: ClassVar[str] = (
+#         "A Sysmon Hash search must be valid Hash_Type=Hash_Value"
+#     )
+#     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+#     value: str
 
-@dataclass
-class SigmahqInvalidHashKvIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "A Sysmon Hash search must be valid Hash_Type=Hash_Value"
-    )
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-    value: str
 
+# class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
+#     """Check field Sysmon Hash Key-Value search is valid."""
 
-class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
-    """Check field Sysmon Hash Key-Value search is valid."""
+#     hash_field: Tuple[str] = ("Hashes", "Hash")
+#     hash_key: Tuple[str] = ("MD5", "SHA1", "SHA256", "IMPHASH")
 
-    hash_field: Tuple[str] = ("Hashes", "Hash")
-    hash_key: Tuple[str] = ("MD5", "SHA1", "SHA256", "IMPHASH")
+#     def validate_detection_item(
+#         self, detection_item: SigmaDetectionItem
+#     ) -> List[SigmaValidationIssue]:
 
-    def validate_detection_item(
-        self, detection_item: SigmaDetectionItem
-    ) -> List[SigmaValidationIssue]:
+#         errors = []
+#         if detection_item.field is not None and detection_item.field in self.hash_field:
+#             for v in detection_item.value:
+#                 if isinstance(v, SigmaString):
+#                     # v.original is empty when use |contains
+#                     for s_value in v.s:
+#                         if isinstance(s_value, str):
+#                             try:
+#                                 hash_name, hash_data = s_value.split("=")
+#                                 if hash_name in self.hash_key:
+#                                     match hash_name:
+#                                         case "MD5":
+#                                             hash_regex = r"^[a-fA-F0-9]{32}$"
+#                                         case "SHA1":
+#                                             hash_regex = r"^[a-fA-F0-9]{40}$"
+#                                         case "SHA256":
+#                                             hash_regex = r"^[a-fA-F0-9]{64}$"
+#                                         case "IMPHASH":
+#                                             hash_regex = r"^[a-fA-F0-9]{32}$"
+#                                     if re.search(hash_regex, hash_data) is None:
+#                                         errors.append(hash_data)
+#                                 else:
+#                                     errors.append(hash_name)
+#                             except ValueError:
+#                                 errors.append(s_value)
+#                 else:
+#                     errors.append(v)
 
-        errors = []
-        if detection_item.field is not None and detection_item.field in self.hash_field:
-            for v in detection_item.value:
-                if isinstance(v, SigmaString):
-                    # v.original is empty when use |contains
-                    for s_value in v.s:
-                        if isinstance(s_value, str):
-                            try:
-                                hash_name, hash_data = s_value.split("=")
-                                if hash_name in self.hash_key:
-                                    match hash_name:
-                                        case "MD5":
-                                            hash_regex = r"^[a-fA-F0-9]{32}$"
-                                        case "SHA1":
-                                            hash_regex = r"^[a-fA-F0-9]{40}$"
-                                        case "SHA256":
-                                            hash_regex = r"^[a-fA-F0-9]{64}$"
-                                        case "IMPHASH":
-                                            hash_regex = r"^[a-fA-F0-9]{32}$"
-                                    if re.search(hash_regex, hash_data) is None:
-                                        errors.append(hash_data)
-                                else:
-                                    errors.append(hash_name)
-                            except ValueError:
-                                errors.append(s_value)
-                else:
-                    errors.append(v)
-
-        return [SigmahqInvalidHashKvIssue(self.rule, v) for v in errors]
+#         return [SigmahqInvalidHashKvIssue(self.rule, v) for v in errors]
