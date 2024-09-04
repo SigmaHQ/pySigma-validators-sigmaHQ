@@ -1,6 +1,7 @@
 from pathlib import Path
 from dataclasses import dataclass
-from typing import ClassVar, Dict, List
+from typing import ClassVar, Dict, List, Tuple
+import re
 
 from sigma.rule import SigmaRule, SigmaLogSource
 from sigma.types import SigmaString
@@ -59,9 +60,15 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource in config.sigmahq_logsource_cast:
-            self.fields = config.sigmahq_logsource_cast[rule.logsource]
-            self.unifields = config.sigmahq_logsource_unicast[rule.logsource]
+        core_logsource = SigmaLogSource(
+            rule.logsource.category, rule.logsource.product, rule.logsource.service
+        )
+        if (
+            core_logsource in config.sigma_taxonomy
+            and len(config.sigma_taxonomy[core_logsource]) > 0
+        ):
+            self.fields = config.sigma_taxonomy[core_logsource]
+            self.unifields = config.sigma_taxonomy_unicast[core_logsource]
             return super().validate(rule)
         return []
 
@@ -89,9 +96,15 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource in config.sigmahq_logsource_cast:
-            self.fields = config.sigmahq_logsource_cast[rule.logsource]
-            self.unifields = config.sigmahq_logsource_unicast[rule.logsource]
+        core_logsource = SigmaLogSource(
+            rule.logsource.category, rule.logsource.product, rule.logsource.service
+        )
+        if (
+            core_logsource in config.sigma_taxonomy
+            and len(config.sigma_taxonomy[core_logsource]) > 0
+        ):
+            self.fields = config.sigma_taxonomy[core_logsource]
+            self.unifields = config.sigma_taxonomy_unicast[core_logsource]
             return super().validate(rule)
         return []
 
@@ -228,3 +241,54 @@ class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
                 return []
         else:
             return []
+
+
+# Python 3.9 do not have the match
+# @dataclass
+# class SigmahqInvalidHashKvIssue(SigmaValidationIssue):
+#     description: ClassVar[str] = (
+#         "A Sysmon Hash search must be valid Hash_Type=Hash_Value"
+#     )
+#     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+#     value: str
+
+
+# class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
+#     """Check field Sysmon Hash Key-Value search is valid."""
+
+#     hash_field: Tuple[str] = ("Hashes", "Hash")
+#     hash_key: Tuple[str] = ("MD5", "SHA1", "SHA256", "IMPHASH")
+
+#     def validate_detection_item(
+#         self, detection_item: SigmaDetectionItem
+#     ) -> List[SigmaValidationIssue]:
+
+#         errors = []
+#         if detection_item.field is not None and detection_item.field in self.hash_field:
+#             for v in detection_item.value:
+#                 if isinstance(v, SigmaString):
+#                     # v.original is empty when use |contains
+#                     for s_value in v.s:
+#                         if isinstance(s_value, str):
+#                             try:
+#                                 hash_name, hash_data = s_value.split("=")
+#                                 if hash_name in self.hash_key:
+#                                     match hash_name:
+#                                         case "MD5":
+#                                             hash_regex = r"^[a-fA-F0-9]{32}$"
+#                                         case "SHA1":
+#                                             hash_regex = r"^[a-fA-F0-9]{40}$"
+#                                         case "SHA256":
+#                                             hash_regex = r"^[a-fA-F0-9]{64}$"
+#                                         case "IMPHASH":
+#                                             hash_regex = r"^[a-fA-F0-9]{32}$"
+#                                     if re.search(hash_regex, hash_data) is None:
+#                                         errors.append(hash_data)
+#                                 else:
+#                                     errors.append(hash_name)
+#                             except ValueError:
+#                                 errors.append(s_value)
+#                 else:
+#                     errors.append(v)
+
+#         return [SigmahqInvalidHashKvIssue(self.rule, v) for v in errors]

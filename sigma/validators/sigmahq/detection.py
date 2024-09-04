@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import ClassVar, List, Set
+from typing import ClassVar, List, Set, Tuple
 
 from sigma.rule import (
     SigmaRule,
@@ -37,7 +37,7 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if (
             rule.logsource.product == "windows"
-            and rule.logsource.category in ConfigHQ.windows_category_no_eventid
+            and rule.logsource.category in config.windows_no_eventid
         ):
             return super().validate(rule)
         else:
@@ -66,10 +66,8 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a Provider_Name field with a windows category logsource that doesn't require it."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if (
-            rule.logsource.product == "windows"
-            and rule.logsource.category in ConfigHQ.windows_category_provider_name
-        ):
+        if rule.logsource in config.windows_provider_name:
+            self.list_provider = config.windows_provider_name[rule.logsource]
             return super().validate(rule)
         else:
             return []
@@ -79,15 +77,19 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
     ) -> List[SigmaValidationIssue]:
         if detection_item.field is not None and detection_item.field == "Provider_Name":
             for v in detection_item.value:
-                if (
-                    v
-                    in ConfigHQ.windows_category_provider_name[
-                        self.rule.logsource.category
-                    ]
-                ):
+                if v in self.list_provider:
                     return [SigmahqCategoryWindowsProviderNameIssue(self.rule)]
 
         return []
+
+
+@dataclass
+class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule uses an unsupported regular expression group construct. Construct such as positive and negative lookahead, positive and negative lookbehind as well as atomic groups are currently unsupported."
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    unsupported_regexp: str
 
 
 @dataclass
@@ -105,14 +107,13 @@ class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
-
         unsupported_regexps: Set[str] = set()
 
         if SigmaRegularExpressionModifier in detection_item.modifiers:
             for value in detection_item.value:
                 for (
                     unsupported_group_construct
-                ) in ConfigHQ.sigmahq_unsupported_regex_group_constructs:
+                ) in config.sigmahq_unsupported_regex_group_constructs:
                     if unsupported_group_construct in value.regexp:
                         unsupported_regexps.add(value.regexp)
 

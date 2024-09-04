@@ -65,7 +65,6 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
             if self.re_x_of_them.search(condition):
                 all_name = self.re_x_of_them.findall(condition)
                 for name in all_name:
-
                     if name.startswith("filter_") and name.endswith("_*"):
                         continue
 

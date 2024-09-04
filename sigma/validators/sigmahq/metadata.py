@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import ClassVar, List
+from typing import ClassVar, List, Tuple
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -7,9 +7,6 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
-from .config import ConfigHQ
-
-config = ConfigHQ()
 
 
 @dataclass
@@ -157,15 +154,18 @@ class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
     word: str
 
 
+@dataclass(frozen=True)
 class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
     """Checks if a rule contains a falsepositive entry that is part of the banned word list."""
+
+    word_list: Tuple[str] = ("none", "pentest", "penetration")
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         banned_words = []
         if rule.falsepositives:
             for fp_entry in rule.falsepositives:
                 for fp in fp_entry.split(" "):
-                    for banned_word in config.sigmahq_fp_banned_word:
+                    for banned_word in self.word_list:
                         if fp.lower().strip() == banned_word:
                             banned_words.append(
                                 SigmahqFalsepositivesBannedWordIssue(rule, fp)
@@ -184,16 +184,19 @@ class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
     word: str
 
 
+@dataclass(frozen=True)
 class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
     """Checks if a rule falsepositive entry contains a common typo."""
+
+    word_list: Tuple[str] = ("unkown", "ligitimate", "legitim ", "legitimeate")
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         typos = []
         if rule.falsepositives:
             for fp_entry in rule.falsepositives:
                 for fp in fp_entry.split(" "):
-                    for typo in config.sigmahq_fp_typo_word:
-                        if fp.lower().strip() in typo:
+                    for typo in self.word_list:
+                        if fp.lower().strip() == typo:
                             typos.append(SigmahqFalsepositivesTypoWordIssue(rule, fp))
         return typos
 
@@ -206,16 +209,20 @@ class SigmahqLinkInDescriptionIssue(SigmaValidationIssue):
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
+    word: str
 
 
+@dataclass(frozen=True)
 class SigmahqLinkInDescriptionValidator(SigmaRuleValidator):
     """Checks if a rule has a description field that contains a reference to a hyperlink."""
 
+    word_list: Tuple[str] = ("http://", "https://", "internal research")
+
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.description and rule.references == []:
-            for link in config.sigmahq_link_in_description:
-                if link in rule.description.lower():
-                    return [SigmahqLinkInDescriptionIssue(rule)]
+            for word in self.word_list:
+                if word in rule.description.lower():
+                    return [SigmahqLinkInDescriptionIssue(rule, word)]
         return []
 
 

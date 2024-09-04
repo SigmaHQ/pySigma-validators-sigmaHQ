@@ -107,6 +107,28 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct():
     ]
 
 
+# def test_validator_SigmahqUnsupportedRegexGroupConstruct():
+#     validator = SigmahqUnsupportedRegexGroupConstructValidator(regex_list=("(?P"))
+#     rule = SigmaRule.from_yaml(
+#         """
+#     title: A Space Field Name
+#     status: test
+#     logsource:
+#         product: windows
+#         category: process_creation
+#     detection:
+#         sel:
+#             field|re: '(?P<date>\d{4}-\d{2}-\d{2})'
+#         condition: sel
+#     """
+#     )
+#     assert validator.validate(rule) == [
+#         SigmahqUnsupportedRegexGroupConstructIssue(
+#             [rule], "(?P<date>\d{4}-\d{2}-\d{2})"
+#         )
+#     ]
+
+
 def test_validator_SigmahqUnsupportedRegexGroupConstruct_valid():
     validator = SigmahqUnsupportedRegexGroupConstructValidator()
     rule = SigmaRule.from_yaml(

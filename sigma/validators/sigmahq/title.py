@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import ClassVar, List
+from typing import ClassVar, List, Tuple
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -77,15 +77,39 @@ class SigmahqTitleCaseIssue(SigmaValidationIssue):
     word: str
 
 
+@dataclass(frozen=True)
 class SigmahqTitleCaseValidator(SigmaRuleValidator):
     """Checks if a rule has a title with invalid casing."""
+
+    word_list: Tuple[str] = (
+        "a",
+        "an",
+        "and",
+        "as",
+        "at",
+        "by",
+        "for",
+        "from",
+        "in",
+        "new",
+        "of",
+        "on",
+        "or",
+        "over",
+        "the",
+        "through",
+        "to",
+        "via",
+        "with",
+        "without",
+    )
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         wrong_casing = []
         for word in rule.title.split(" "):
             if (
                 word.islower()
-                and not word.lower() in config.allowed_lowercase_words
+                and not word.lower() in self.word_list
                 and not "." in word
                 and not "/" in word
                 and not "_" in word
