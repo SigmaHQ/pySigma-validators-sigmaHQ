@@ -50,6 +50,24 @@ def test_validator_SigmahqCategoryEventId_valid():
     assert validator.validate(rule) == []
 
 
+def test_validator_SigmahqCategoryEventId_other():
+    validator = SigmahqCategoryEventIdValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: linux
+        category: process_creation
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
 def test_validator_SigmahqCategoryWindowsProviderName():
     validator = SigmahqCategoryWindowsProviderNameValidator()
     rule = SigmaRule.from_yaml(
@@ -87,6 +105,24 @@ def test_validator_SigmahqCategoryWindowsProviderName_valid():
     assert validator.validate(rule) == []
 
 
+def test_validator_SigmahqCategoryWindowsProviderName_other():
+    validator = SigmahqCategoryWindowsProviderNameValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: linux
+        category: process_creation
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
 def test_validator_SigmahqUnsupportedRegexGroupConstruct():
     validator = SigmahqUnsupportedRegexGroupConstructValidator()
     rule = SigmaRule.from_yaml(
@@ -107,6 +143,7 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct():
     ]
 
 
+# Error with frozen=True
 # def test_validator_SigmahqUnsupportedRegexGroupConstruct():
 #     validator = SigmahqUnsupportedRegexGroupConstructValidator(regex_list=("(?P"))
 #     rule = SigmaRule.from_yaml(

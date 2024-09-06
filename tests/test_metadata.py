@@ -103,7 +103,7 @@ def test_validator_SigmahqDateExistence_valid():
         """
     title: test
     status: stable
-    date: 2023/12/10
+    date: 2023-12-10
     logsource:
         category: test
     detection:
