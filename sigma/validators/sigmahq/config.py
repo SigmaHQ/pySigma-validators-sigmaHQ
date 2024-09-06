@@ -51,8 +51,6 @@ def load_windows_json(json_name):
 
 
 class ConfigHQ:
-    title_max_length = 120
-
     sigma_taxonomy: Dict[SigmaLogSource, List[str]] = {}
     sigma_taxonomy_unicast: Dict[SigmaLogSource, List[str]] = {}
 

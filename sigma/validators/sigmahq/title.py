@@ -14,19 +14,20 @@ config = ConfigHQ()
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        f"Rule has a title longer than {config.title_max_length} characters."
-    )
+    description: ClassVar[str] = "Rule has a title is too large."
     severity: ClassVar[SigmaValidationIssueSeverity] = (
         SigmaValidationIssueSeverity.MEDIUM
     )
 
 
+@dataclass(frozen=True)
 class SigmahqTitleLengthValidator(SigmaRuleValidator):
     """Checks if a rule has an excessively long title."""
 
+    max_length: int = 120
+
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if len(rule.title) > config.title_max_length:
+        if len(rule.title) > self.max_length:
             return [SigmahqTitleLengthIssue([rule])]
         else:
             return []
