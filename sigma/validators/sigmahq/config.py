@@ -61,14 +61,6 @@ class ConfigHQ:
     windows_no_eventid: List[str] = []
     windows_provider_name: Dict[SigmaLogSource, List[str]] = {}
 
-    sigmahq_unsupported_regex_group_constructs: Tuple[str] = (
-        "(?=",
-        "(?!",
-        "(?<=",
-        "(?<!",
-        "(?>",
-    )
-
     def __init__(self) -> None:
         self.sigma_taxonomy = load_taxonomy_json("sigma.json")
         self.sigma_taxonomy_unicast = {
