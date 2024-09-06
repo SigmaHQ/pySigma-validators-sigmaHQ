@@ -22,12 +22,19 @@ def core_logsource(source: SigmaLogSource) -> SigmaLogSource:
 
 
 def load_taxonomy_json(json_name: str) -> dict:
-    field_info = {}
     json_dict = load_remote_json("github", json_name)
+    info = {}
     for value in json_dict["taxonomy"].values():
         logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
-        field_info[logsource] = value["field"]["natif"]
-        field_info[logsource].extend(value["field"]["custom"])
+        info[logsource] = value
+    return info
+
+
+def get_taxonomy_field(sigma: dict) -> dict:
+    field_info = {}
+    for key, value in sigma.items():
+        field_info[key] = value["field"]["natif"]
+        field_info[key].extend(value["field"]["custom"])
     return field_info
 
 
@@ -51,8 +58,9 @@ def load_windows_json(json_name):
 
 
 class ConfigHQ:
-    sigma_taxonomy: Dict[SigmaLogSource, List[str]] = {}
-    sigma_taxonomy_unicast: Dict[SigmaLogSource, List[str]] = {}
+    sigma_taxonomy: Dict = {}
+    sigma_fieldsname: Dict[SigmaLogSource, List[str]] = {}
+    sigma_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = {}
 
     sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {}
 
@@ -61,8 +69,9 @@ class ConfigHQ:
 
     def __init__(self) -> None:
         self.sigma_taxonomy = load_taxonomy_json("sigma.json")
-        self.sigma_taxonomy_unicast = {
-            k: [v.lower() for v in l] for k, l in self.sigma_taxonomy.items()
+        self.sigma_fieldsname = get_taxonomy_field(self.sigma_taxonomy)
+        self.sigma_fieldsname_unicast = {
+            k: [v.lower() for v in l] for k, l in self.sigma_fieldsname.items()
         }
 
         self.sigmahq_logsource_filepattern = load_filepattern_json(

@@ -101,7 +101,6 @@ class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
     unsupported_regexp: str
 
 
-@dataclass
 class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a an unsupported regular expression group constructs."""
 

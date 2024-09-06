@@ -64,11 +64,11 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
             rule.logsource.category, rule.logsource.product, rule.logsource.service
         )
         if (
-            core_logsource in config.sigma_taxonomy
-            and len(config.sigma_taxonomy[core_logsource]) > 0
+            core_logsource in config.sigma_fieldsname
+            and len(config.sigma_fieldsname[core_logsource]) > 0
         ):
-            self.fields = config.sigma_taxonomy[core_logsource]
-            self.unifields = config.sigma_taxonomy_unicast[core_logsource]
+            self.fields = config.sigma_fieldsname[core_logsource]
+            self.unifields = config.sigma_fieldsname_unicast[core_logsource]
             return super().validate(rule)
         return []
 
@@ -100,11 +100,11 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
             rule.logsource.category, rule.logsource.product, rule.logsource.service
         )
         if (
-            core_logsource in config.sigma_taxonomy
-            and len(config.sigma_taxonomy[core_logsource]) > 0
+            core_logsource in config.sigma_fieldsname
+            and len(config.sigma_fieldsname[core_logsource]) > 0
         ):
-            self.fields = config.sigma_taxonomy[core_logsource]
-            self.unifields = config.sigma_taxonomy_unicast[core_logsource]
+            self.fields = config.sigma_fieldsname[core_logsource]
+            self.unifields = config.sigma_fieldsname_unicast[core_logsource]
             return super().validate(rule)
         return []
 

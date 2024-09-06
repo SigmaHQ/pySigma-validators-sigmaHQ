@@ -1324,7 +1324,7 @@
         "product": "windows",
         "category": "file_access",
         "service": null,
-        "definition": null
+        "definition": "Requirements: Microsoft-Windows-Kernel-File ETW provider"
       },
       "description": null,
       "field": {
