@@ -279,7 +279,7 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                                         hash_regex = r"^[a-fA-F0-9]{40}$"
                                     elif hash_name == "SHA256":
                                         hash_regex = r"^[a-fA-F0-9]{64}$"
-                                    elif hash_name ==  "IMPHASH":
+                                    elif hash_name == "IMPHASH":
                                         hash_regex = r"^[a-fA-F0-9]{32}$"
                                     if re.search(hash_regex, hash_data) is None:
                                         errors.append(hash_data)
