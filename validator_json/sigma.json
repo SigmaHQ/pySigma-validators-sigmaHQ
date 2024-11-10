@@ -1876,6 +1876,29 @@
         "custom": []
       }
     },
+    "windows_none_iis-configuration": {
+      "logsource": {
+        "product": "windows",
+        "category": null,
+        "service": "iis-configuration",
+        "definition": null
+      },
+      "description": null,
+      "field": {
+        "natif": [
+          "PhysicalPath",
+          "ConfigPath",
+          "EffectiveLocationPath",
+          "EventID",
+          "Configuration",
+          "TokenCacheModule",
+          "EditOperationType",
+          "OldValue",
+          "NewValue"
+        ],
+        "custom": []
+      }
+    },
     "windows_none_ldap": {
       "logsource": {
         "product": "windows",
