@@ -37,7 +37,7 @@ def load_taxonomy_json(url: str, json_name: str) -> dict:
 def get_taxonomy_field(sigma: dict) -> dict:
     field_info = {}
     for key, value in sigma.items():
-        field_info[key] = value["field"]["natif"]
+        field_info[key] = value["field"]["native"]
         field_info[key].extend(value["field"]["custom"])
     return field_info
 
