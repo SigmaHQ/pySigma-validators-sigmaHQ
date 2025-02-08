@@ -11,7 +11,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -24,7 +24,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -37,7 +37,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -50,7 +50,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -63,7 +63,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -76,7 +76,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -89,7 +89,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -102,7 +102,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -115,7 +115,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -128,7 +128,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -141,7 +141,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -154,7 +154,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -167,7 +167,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -180,7 +180,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -193,7 +193,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -206,7 +206,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -219,7 +219,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -232,7 +232,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -245,7 +245,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -258,7 +258,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -271,7 +271,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -284,7 +284,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -297,7 +297,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "CreationUtcTime",
           "Image",
           "ProcessGuid",
@@ -317,7 +317,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "DestinationHostname",
           "DestinationIp",
           "DestinationIsIpv6",
@@ -347,7 +347,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "a0",
           "a1",
           "a2",
@@ -602,7 +602,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -615,7 +615,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -628,7 +628,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -641,7 +641,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -654,7 +654,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -667,7 +667,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -680,7 +680,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -693,7 +693,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -706,7 +706,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -719,7 +719,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "CommandLine",
           "Company",
           "CurrentDirectory",
@@ -759,7 +759,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -772,7 +772,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -785,7 +785,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -798,7 +798,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -811,7 +811,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "CreationUtcTime",
           "Image",
           "ProcessGuid",
@@ -831,7 +831,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "CommandLine",
           "Company",
           "CurrentDirectory",
@@ -871,7 +871,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -884,7 +884,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -897,7 +897,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -910,7 +910,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -923,7 +923,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -936,7 +936,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -949,7 +949,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -962,7 +962,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -975,7 +975,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "c-uri",
           "c-uri-extension",
           "c-uri-query",
@@ -1006,7 +1006,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "c-ip",
           "cs-bytes",
           "cs-cookie",
@@ -1042,7 +1042,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1055,7 +1055,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1068,7 +1068,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1081,7 +1081,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1094,7 +1094,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1107,7 +1107,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1120,7 +1120,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1133,7 +1133,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1146,7 +1146,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1159,7 +1159,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1172,7 +1172,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1185,7 +1185,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1198,7 +1198,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1241,7 +1241,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "Contents",
@@ -1273,7 +1273,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1299,7 +1299,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1324,11 +1324,11 @@
         "product": "windows",
         "category": "file_access",
         "service": null,
-        "definition": null
+        "definition": "Requirements: Microsoft-Windows-Kernel-File ETW provider"
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "CreateAttributes",
@@ -1361,7 +1361,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "CreationUtcTime",
@@ -1387,7 +1387,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Archived",
           "Channel",
           "Computer",
@@ -1422,7 +1422,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "CreationUtcTime",
@@ -1452,7 +1452,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1482,7 +1482,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1518,7 +1518,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Company",
           "Computer",
@@ -1557,7 +1557,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "DestinationHostname",
@@ -1595,7 +1595,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1608,7 +1608,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1621,7 +1621,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "ApplicationName",
           "Channel",
           "Computer",
@@ -1645,7 +1645,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "AppId",
           "CallingProcess",
           "Channel",
@@ -1673,7 +1673,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1693,7 +1693,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1716,7 +1716,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1729,7 +1729,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1742,7 +1742,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1768,7 +1768,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -1789,7 +1789,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Address",
           "AddressLength",
           "Channel",
@@ -1824,7 +1824,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1837,7 +1837,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1850,7 +1850,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1863,7 +1863,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Action",
           "ApplicationPath",
           "Channel",
@@ -1872,6 +1872,29 @@
           "ModifyingApplication",
           "Provider_Name",
           "Security_UserID"
+        ],
+        "custom": []
+      }
+    },
+    "windows_none_iis-configuration": {
+      "logsource": {
+        "product": "windows",
+        "category": null,
+        "service": "iis-configuration",
+        "definition": null
+      },
+      "description": null,
+      "field": {
+        "native": [
+          "PhysicalPath",
+          "ConfigPath",
+          "EffectiveLocationPath",
+          "EventID",
+          "Configuration",
+          "TokenCacheModule",
+          "EditOperationType",
+          "OldValue",
+          "NewValue"
         ],
         "custom": []
       }
@@ -1885,7 +1908,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "AttributeList",
           "Channel",
           "Computer",
@@ -1909,7 +1932,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventCountTotal",
@@ -1936,7 +1959,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1949,7 +1972,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1962,7 +1985,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -1975,7 +1998,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "CallerPID",
           "Channel",
           "ClientDomainName",
@@ -2006,7 +2029,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2027,7 +2050,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2040,7 +2063,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2053,7 +2076,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2066,7 +2089,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2079,7 +2102,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2114,7 +2137,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "AppID",
           "Channel",
           "Computer",
@@ -2136,7 +2159,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2149,7 +2172,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2178,7 +2201,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2191,7 +2214,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2204,7 +2227,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2229,7 +2252,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Address",
           "Channel",
           "Computer",
@@ -2251,7 +2274,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2264,7 +2287,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2277,7 +2300,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2302,7 +2325,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "CallTrace",
           "Channel",
           "Computer",
@@ -2335,7 +2358,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "CommandLine",
           "Company",
@@ -2382,7 +2405,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2406,7 +2429,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2419,7 +2442,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2432,7 +2455,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "ContextInfo",
@@ -2454,7 +2477,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2478,7 +2501,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "Device",
@@ -2502,7 +2525,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "EventID",
@@ -2527,7 +2550,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "Details",
@@ -2552,7 +2575,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "Details",
@@ -2579,7 +2602,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "Details",
@@ -2605,7 +2628,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2618,7 +2641,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "Configuration",
@@ -2642,7 +2665,7 @@
       },
       "description": null,
       "field": {
-        "natif": [
+        "native": [
           "Channel",
           "Computer",
           "Consumer",
@@ -2671,7 +2694,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2684,7 +2707,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2697,7 +2720,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2710,7 +2733,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2723,7 +2746,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2736,7 +2759,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     },
@@ -2749,7 +2772,7 @@
       },
       "description": null,
       "field": {
-        "natif": [],
+        "native": [],
         "custom": []
       }
     }
