@@ -12,9 +12,7 @@ from sigma.validators.base import (
 @dataclass
 class SigmahqStatusExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule is missing the status field"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqStatusExistenceValidator(SigmaRuleValidator):
@@ -48,9 +46,7 @@ class SigmahqStatusValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqDateExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule is missing the date field"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqDateExistenceValidator(SigmaRuleValidator):
@@ -66,9 +62,7 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqDescriptionExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule is missing the description field"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
@@ -84,9 +78,7 @@ class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqDescriptionLengthIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has an overly brief description."
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
@@ -102,9 +94,7 @@ class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqLevelExistenceIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule is missing the level field"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqLevelExistenceValidator(SigmaRuleValidator):
@@ -122,9 +112,7 @@ class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule contains a falsepositive entry that doesn't start with a capital letter"
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 
@@ -137,9 +125,7 @@ class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
             for fp in rule.falsepositives:
                 if fp[0].upper() != fp[0]:
                     # return only the first word
-                    false_positive.append(
-                        SigmahqFalsepositivesCapitalIssue(rule, fp.split(" ")[0])
-                    )
+                    false_positive.append(SigmahqFalsepositivesCapitalIssue(rule, fp.split(" ")[0]))
         return false_positive
 
 
@@ -148,9 +134,7 @@ class SigmahqFalsepositivesBannedWordIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule defines a falsepositive entry that is part of the banned words list"
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 
@@ -167,20 +151,14 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
                 for fp in fp_entry.split(" "):
                     for banned_word in self.word_list:
                         if fp.lower().strip() == banned_word:
-                            banned_words.append(
-                                SigmahqFalsepositivesBannedWordIssue(rule, fp)
-                            )
+                            banned_words.append(SigmahqFalsepositivesBannedWordIssue(rule, fp))
         return banned_words
 
 
 @dataclass
 class SigmahqFalsepositivesTypoWordIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule contains a falsepositive entry with a common typo."
-    )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    description: ClassVar[str] = "Rule contains a falsepositive entry with a common typo."
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 
@@ -206,9 +184,7 @@ class SigmahqLinkInDescriptionIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule has a description field that contains a reference to a hyperlink. All hyperlinks are reserved for the references field"
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     word: str
 
 
@@ -229,9 +205,7 @@ class SigmahqLinkInDescriptionValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqUnknownFieldIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule uses an unknown field"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     fieldname: List[str]
 
 

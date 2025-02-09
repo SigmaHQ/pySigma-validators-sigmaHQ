@@ -181,9 +181,7 @@ def test_validator_SigmahqMissingAsteriskConditionValidator():
         condition: 1 of selection_part* and 1 of selection_sub
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqMissingAsteriskConditionIssue(rule, "selection_sub")
-    ]
+    assert validator.validate(rule) == [SigmahqMissingAsteriskConditionIssue(rule, "selection_sub")]
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_valid():

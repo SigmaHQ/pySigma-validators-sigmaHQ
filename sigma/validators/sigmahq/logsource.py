@@ -62,9 +62,7 @@ class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqLogsourceDefinitionIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule uses an unknown logsource definition"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     logsource: SigmaLogSource
 
 

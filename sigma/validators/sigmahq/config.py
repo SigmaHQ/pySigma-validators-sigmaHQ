@@ -20,9 +20,7 @@ def load_remote_json(url: str, filename: str) -> dict:
 
 
 def core_logsource(source: SigmaLogSource) -> SigmaLogSource:
-    return SigmaLogSource(
-        product=source.product, category=source.category, service=source.service
-    )
+    return SigmaLogSource(product=source.product, category=source.category, service=source.service)
 
 
 def load_taxonomy_json(url: str, json_name: str) -> dict:
@@ -55,9 +53,9 @@ def load_windows_json(url: str, json_name: str):
     json_dict = load_remote_json(url, json_name)
     data = dict()
     for category in json_dict["category_provider_name"]:
-        data[SigmaLogSource(product="windows", category=category, service=None)] = (
-            json_dict["category_provider_name"][category]
-        )
+        data[SigmaLogSource(product="windows", category=category, service=None)] = json_dict[
+            "category_provider_name"
+        ][category]
     return json_dict["category_no_eventid"], data
 
 

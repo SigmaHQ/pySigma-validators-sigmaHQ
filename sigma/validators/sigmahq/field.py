@@ -30,9 +30,7 @@ config = ConfigHQ()
 
 @dataclass
 class SigmahqSpaceFieldNameIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule uses a field name with a space instead of a underscore."
-    )
+    description: ClassVar[str] = "Rule uses a field name with a space instead of a underscore."
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     field: str
 
@@ -111,10 +109,7 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
-        if (
-            detection_item.field is not None
-            and not detection_item.field.lower() in self.unifields
-        ):
+        if detection_item.field is not None and not detection_item.field.lower() in self.unifields:
             return [SigmahqInvalidFieldnameIssue(self.rule, detection_item.field)]
         else:
             return []
@@ -133,10 +128,7 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
-        if (
-            SigmaAllModifier in detection_item.modifiers
-            and len(detection_item.value) < 2
-        ):
+        if SigmaAllModifier in detection_item.modifiers and len(detection_item.value) < 2:
             return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
         else:
             return []
@@ -171,9 +163,7 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
             for v in detection_item.value:
                 if v in value_see:
                     return [
-                        SigmahqFieldDuplicateValueIssue(
-                            self.rule, detection_item.field, str(v)
-                        )
+                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field, str(v))
                     ]
                 else:
                     value_see.append(v)
@@ -183,9 +173,7 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
             for v in detection_item.value:
                 if str(v).lower() in value_see:
                     return [
-                        SigmahqFieldDuplicateValueIssue(
-                            self.rule, detection_item.field, str(v)
-                        )
+                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field, str(v))
                     ]
                 else:
                     value_see.append(str(v).lower())
@@ -205,10 +193,7 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
-        if (
-            SigmaAllModifier in detection_item.modifiers
-            and len(detection_item.value) < 2
-        ):
+        if SigmaAllModifier in detection_item.modifiers and len(detection_item.value) < 2:
             return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
         else:
             return []
@@ -246,9 +231,7 @@ class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
 # Python 3.9 do not have the match
 @dataclass
 class SigmahqInvalidHashKvIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "A Sysmon Hash search must be valid Hash_Type=Hash_Value"
-    )
+    description: ClassVar[str] = "A Sysmon Hash search must be valid Hash_Type=Hash_Value"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     value: str
 

@@ -14,13 +14,9 @@ from sigma.validators.sigmahq.filename import (
 
 def test_validator_SigmahqFilename():
     validator = SigmahqFilenameConventionValidator()
-    sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/rule_filename_errors"]
-    )
+    sigma_collection = SigmaCollection.load_ruleset(["tests/files/rule_filename_errors"])
     rule = sigma_collection[0]
-    assert validator.validate(rule) == [
-        SigmahqFilenameConventionIssue(rule, "Name.yml")
-    ]
+    assert validator.validate(rule) == [SigmahqFilenameConventionIssue(rule, "Name.yml")]
 
 
 def test_validator_SigmahqFilename_valid():
@@ -32,9 +28,7 @@ def test_validator_SigmahqFilename_valid():
 
 def test_validator_SigmahqPrefixFilename():
     validator = SigmahqFilenamePrefixValidator()
-    sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/rule_filename_errors"]
-    )
+    sigma_collection = SigmaCollection.load_ruleset(["tests/files/rule_filename_errors"])
     rule = sigma_collection[0]
     assert validator.validate(rule) == [
         SigmahqFilenamePrefixIssue(
@@ -55,9 +49,7 @@ def test_validator_SigmahqPrefixFilename_valid():
 
 def test_validator_SigmahqPrefixFilename_product():
     validator = SigmahqFilenamePrefixValidator()
-    sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/rule_name_product_errors"]
-    )
+    sigma_collection = SigmaCollection.load_ruleset(["tests/files/rule_name_product_errors"])
     rule = sigma_collection[0]
     assert validator.validate(rule) == [
         SigmahqFilenamePrefixIssue(
