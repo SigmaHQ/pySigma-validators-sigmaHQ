@@ -140,6 +140,4 @@ def test_validator_SigmahqLogsourceDefinition_invalid():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqLogsourceDefinitionIssue(rule, rule.logsource)
-    ]
+    assert validator.validate(rule) == [SigmahqLogsourceDefinitionIssue(rule, rule.logsource)]

@@ -18,9 +18,7 @@ config = ConfigHQ()
 @dataclass
 class SigmahqFilenameConventionIssue(SigmaValidationIssue):
     description: ClassVar[str] = "The rule filename doesn't match SigmaHQ convention"
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     filename: str
 
 
@@ -38,12 +36,8 @@ class SigmahqFilenameConventionValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "The rule filename prefix doesn't match the SigmaHQ convention"
-    )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    description: ClassVar[str] = "The rule filename prefix doesn't match the SigmaHQ convention"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     filename: str
     logsource: SigmaLogSource
     prefix: str
@@ -60,9 +54,7 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
             )
 
             if logsource in config.sigmahq_logsource_filepattern:
-                if not filename.startswith(
-                    config.sigmahq_logsource_filepattern[logsource]
-                ):
+                if not filename.startswith(config.sigmahq_logsource_filepattern[logsource]):
                     return [
                         SigmahqFilenamePrefixIssue(
                             rule,
@@ -77,9 +69,7 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                     logsource = SigmaLogSource(None, rule.logsource.product, None)
                     if (
                         logsource in config.sigmahq_logsource_filepattern
-                        and not filename.startswith(
-                            config.sigmahq_logsource_filepattern[logsource]
-                        )
+                        and not filename.startswith(config.sigmahq_logsource_filepattern[logsource])
                     ):
                         return [
                             SigmahqFilenamePrefixIssue(

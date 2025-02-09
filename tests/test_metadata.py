@@ -307,9 +307,7 @@ def test_validator_SigmahqFalsepositivesBannedWord():
         - Pentest tools
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqFalsepositivesBannedWordIssue(rule, "Pentest")
-    ]
+    assert validator.validate(rule) == [SigmahqFalsepositivesBannedWordIssue(rule, "Pentest")]
 
 
 def test_validator_SigmahqFalsepositivesBannedWord_custom():
@@ -328,9 +326,7 @@ def test_validator_SigmahqFalsepositivesBannedWord_custom():
         - Maybe
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqFalsepositivesBannedWordIssue(rule, "Maybe")
-    ]
+    assert validator.validate(rule) == [SigmahqFalsepositivesBannedWordIssue(rule, "Maybe")]
 
 
 def test_validator_SigmahqFalsepositivesBannedWord_valid():
@@ -368,9 +364,7 @@ def test_validator_SigmahqFalsepositivesTypoWord():
         - legitimeate AD tools
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqFalsepositivesTypoWordIssue(rule, "legitimeate")
-    ]
+    assert validator.validate(rule) == [SigmahqFalsepositivesTypoWordIssue(rule, "legitimeate")]
 
 
 def test_validator_SigmahqFalsepositivesTypoWord_custom():
@@ -389,9 +383,7 @@ def test_validator_SigmahqFalsepositivesTypoWord_custom():
         - Unkwon AD tools
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqFalsepositivesTypoWordIssue(rule, "Unkwon")
-    ]
+    assert validator.validate(rule) == [SigmahqFalsepositivesTypoWordIssue(rule, "Unkwon")]
 
 
 def test_validator_SigmahqFalsepositivesTypoWord_valid():
@@ -431,9 +423,7 @@ def test_validator_SigmahqLinkDescription():
 
 
 def test_validator_SigmahqLinkDescription():
-    validator = SigmahqLinkInDescriptionValidator(
-        word_list=("http://", "https://", "ftp:")
-    )
+    validator = SigmahqLinkInDescriptionValidator(word_list=("http://", "https://", "ftp:"))
     rule = SigmaRule.from_yaml(
         """
     title: Test

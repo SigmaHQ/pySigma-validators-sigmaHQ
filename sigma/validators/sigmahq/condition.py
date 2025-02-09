@@ -30,12 +30,7 @@ class SigmahqOfthemConditionValidator(SigmaRuleValidator):
             return []  # Correlation rules do not have detections
 
         if (
-            any(
-                [
-                    self.re_all_of_them.search(condition)
-                    for condition in rule.detection.condition
-                ]
-            )
+            any([self.re_all_of_them.search(condition) for condition in rule.detection.condition])
             and len(rule.detection.detections) == 1
         ):
             return [SigmahqOfthemConditionIssue(rule)]
@@ -86,9 +81,7 @@ class SigmahqMissingAsteriskConditionIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule uses a '1/all of ' keyword in the condition without an asterisk"
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     selection: str
 
 
