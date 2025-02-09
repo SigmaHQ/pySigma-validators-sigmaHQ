@@ -1437,6 +1437,7 @@
         ],
         "custom": [
           "CommandLine",
+          "IntegrityLevel",
           "MagicHeader",
           "ParentCommandLine",
           "ParentImage"
