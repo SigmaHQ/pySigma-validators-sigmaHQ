@@ -26,9 +26,7 @@ class SigmahqCategoryEventIdIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule uses a windows logsource category that doesn't require the use of an EventID field"
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
@@ -57,9 +55,7 @@ class SigmahqCategoryWindowsProviderNameIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule uses a windows logsource category that doesn't require the use of the Provider_Name field"
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = (
-        SigmaValidationIssueSeverity.MEDIUM
-    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):

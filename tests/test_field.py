@@ -185,9 +185,7 @@ def test_validator_SigmahqInvalidAllModifierIssue():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqInvalidAllModifierIssue(rule, "CommandLine")
-    ]
+    assert validator.validate(rule) == [SigmahqInvalidAllModifierIssue(rule, "CommandLine")]
 
 
 def test_validator_SigmahqInvalidAllModifierIssue_valid():
@@ -229,9 +227,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqFieldDuplicateValueIssue(rule, "CommandLine", "Two")
-    ]
+    assert validator.validate(rule) == [SigmahqFieldDuplicateValueIssue(rule, "CommandLine", "Two")]
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_base64():
@@ -361,9 +357,7 @@ def test_validator_SigmahqSpaceFieldNameValidator():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqSpaceFieldNameIssue(rule, "Command Line")
-    ]
+    assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue(rule, "Command Line")]
 
 
 def test_validator_SigmahqSpaceFieldNameValidator_valid():
@@ -400,9 +394,7 @@ def test_validator_SigmahqFieldUserValidator():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqFieldUserIssue(rule, "UserName", "AUTORITE NT")
-    ]
+    assert validator.validate(rule) == [SigmahqFieldUserIssue(rule, "UserName", "AUTORITE NT")]
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidhashname():
