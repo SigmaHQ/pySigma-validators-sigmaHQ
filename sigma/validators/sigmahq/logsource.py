@@ -27,6 +27,9 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
         core_logsource = SigmaLogSource(
             rule.logsource.category, rule.logsource.product, rule.logsource.service
         )
+        if config.sigma_fieldsname is None:
+            return []
+
         if not core_logsource in config.sigma_fieldsname:
             return [SigmahqLogsourceUnknownIssue(rule, rule.logsource)]
         else:
@@ -70,18 +73,18 @@ class SigmahqLogsourceDefinitionValidator(SigmaRuleValidator):
     """Checks if a rule uses the unknown logsource definition."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if config.sigma_taxonomy is None:
+            return []
+
         if rule.logsource.definition:
             core_logsource = SigmaLogSource(
                 rule.logsource.category, rule.logsource.product, rule.logsource.service
             )
-            if (
-                core_logsource in config.sigma_taxonomy
-                and config.sigma_taxonomy[core_logsource]["logsource"]["definition"]
-            ):
-                if (
-                    rule.logsource.definition
-                    != config.sigma_taxonomy[core_logsource]["logsource"]["definition"]
-                ):
-                    return [SigmahqLogsourceDefinitionIssue(rule, rule.logsource)]
-
+            if config.sigma_taxonomy is not None:
+                if core_logsource in config.sigma_taxonomy:
+                    if (
+                        rule.logsource.definition
+                        != config.sigma_taxonomy[core_logsource]["logsource"]["definition"]
+                    ):
+                        return [SigmahqLogsourceDefinitionIssue(rule, rule.logsource)]
         return []

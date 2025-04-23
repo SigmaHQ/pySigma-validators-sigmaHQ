@@ -33,13 +33,16 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses an EventID field with a windows category logsource that doesn't require it."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if config.windows_no_eventid is None:
+            return []
+
         if (
             rule.logsource.product == "windows"
             and rule.logsource.category in config.windows_no_eventid
         ):
             return super().validate(rule)
-        else:
-            return []
+
+        return []
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -62,11 +65,14 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a Provider_Name field with a windows category logsource that doesn't require it."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if config.windows_provider_name is None:
+            return []
+
         if rule.logsource in config.windows_provider_name:
             self.list_provider = config.windows_provider_name[rule.logsource]
             return super().validate(rule)
-        else:
-            return []
+
+        return []
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem

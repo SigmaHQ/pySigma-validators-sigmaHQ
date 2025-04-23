@@ -47,6 +47,9 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename prefix convention."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if config.sigmahq_logsource_filepattern is None:
+            return []
+
         if rule.source is not None:
             filename = rule.source.path.name
             logsource = SigmaLogSource(
