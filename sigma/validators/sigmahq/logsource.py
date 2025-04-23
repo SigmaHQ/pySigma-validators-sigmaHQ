@@ -80,7 +80,7 @@ class SigmahqLogsourceDefinitionValidator(SigmaRuleValidator):
             core_logsource = SigmaLogSource(
                 rule.logsource.category, rule.logsource.product, rule.logsource.service
             )
-            if core_logsource in config.sigma_taxonomy:
+            if core_logsource in config.sigma_taxonomy and config.sigma_taxonomy[core_logsource]["logsource"]["definition"]:
                 if (
                     rule.logsource.definition
                     != config.sigma_taxonomy[core_logsource]["logsource"]["definition"]
