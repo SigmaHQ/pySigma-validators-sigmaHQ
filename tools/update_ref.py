@@ -54,33 +54,34 @@ with open("sigma/validators/sigmahq/sigmahq_data.py", "wt", encoding="utf-8") as
     print("from sigma.rule import SigmaLogSource", file=file)
     print(f'\nfile_pattern_version: str = "{filename_version}"', file=file)
     print(
-        "sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = "
+        "ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = "
         + pformat(filename_info, indent=4, sort_dicts=True),
         file=file,
     )
     print(f'\ntaxonomy_version: str = "{taxonomy_version}"', file=file)
     print(
-        "sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = "
+        "ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = "
         + pformat(taxonomy_info, indent=4, sort_dicts=True),
         file=file,
     )
     print(
-        "sigmahq_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = "
+        "ref_sigmahq_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = "
         + pformat(taxonomy_info_unicast, indent=4, sort_dicts=True),
         file=file,
     )
     print(
-        "sigmahq_logsource_definition: Dict[SigmaLogSource, str] = "
+        "ref_sigmahq_logsource_definition: Dict[SigmaLogSource, str] = "
         + pformat(taxonamy_definition, indent=4, sort_dicts=True, width=200),
         file=file,
     )
-    print(f'\nwindows_version: str = "{taxonomy_version}"', file=file)
+    print(f'\nwindows_version: str = "{windows_version}"', file=file)
     print(
-        "windows_provider_name: Dict[SigmaLogSource, List[str]] = "
+        "ref_windows_provider_name: Dict[SigmaLogSource, List[str]] = "
         + pformat(windows_provider_name, indent=4, sort_dicts=True),
         file=file,
     )
     print(
-        "windows_no_eventid: List[str] = " + pformat(windows_no_eventid, indent=4, sort_dicts=True),
+        "ref_windows_no_eventid: List[str] = "
+        + pformat(windows_no_eventid, indent=4, sort_dicts=True),
         file=file,
     )

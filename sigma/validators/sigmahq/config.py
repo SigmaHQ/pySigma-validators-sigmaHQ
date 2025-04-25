@@ -5,79 +5,57 @@ from sigma.rule import SigmaLogSource
 import json
 import os
 import pathlib
-
-
 from .sigmahq_data import (
-    sigmahq_logsource_filepattern,
-    sigmahq_fieldsname,
-    sigmahq_fieldsname_unicast,
-    sigmahq_logsource_definition,
-    windows_provider_name,
-    windows_no_eventid,
+    ref_sigmahq_logsource_filepattern,
+    ref_sigmahq_fieldsname,
+    ref_sigmahq_fieldsname_unicast,
+    ref_sigmahq_logsource_definition,
+    ref_windows_provider_name,
+    ref_windows_no_eventid,
 )
-
-
-def load_json_file(filename: str) -> dict:
-    full_name = os.getcwd() + "/validator_json/" + filename
-    if pathlib.Path(full_name).exists():
-        with open(full_name, "r", encoding="UTF-8") as file:
-            json_dict = json.load(file)
-        return json_dict
-    else:
-        return None
 
 
 def core_logsource(source: SigmaLogSource) -> SigmaLogSource:
     return SigmaLogSource(product=source.product, category=source.category, service=source.service)
 
 
-def load_taxonomy_json(json_name: str) -> dict:
-    json_dict = load_json_file(json_name)
-    if json_dict is None:
-        return None
-
-    info = {}
+def load_sigma_json(local_path: str):
+    with open(local_path + "sigma.json", "r", encoding="UTF-8") as file:
+        json_dict = json.load(file)
+    taxonomy_info = {}
+    taxonamy_definition = {}
     for value in json_dict["taxonomy"].values():
         logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
-        info[logsource] = value
-    return info
+        taxonomy_info[logsource] = value["field"]["native"]
+        taxonomy_info[logsource].extend(value["field"]["custom"])
+        taxonamy_definition[logsource] = value["logsource"]["definition"]
+    taxonomy_info_unicast = {k: [v.lower() for v in l] for k, l in taxonomy_info.items()}
+    return taxonomy_info, taxonomy_info_unicast, taxonamy_definition
 
 
-def get_taxonomy_field(sigma: dict) -> dict:
-    field_info = {}
-    for key, value in sigma.items():
-        field_info[key] = value["field"]["native"]
-        field_info[key].extend(value["field"]["custom"])
-    return field_info
-
-
-def load_filepattern_json(json_name: str):
-    json_dict = load_json_file(json_name)
-    if json_dict is None:
-        return None
-
-    prefix_info = {}
+def load_sigmahq_filename_json(local_path: str):
+    with open(local_path + "sigmahq_filename.json", "r", encoding="UTF-8") as file:
+        json_dict = json.load(file)
+    filename_info = {}
     for value in json_dict["pattern"].values():
         logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
-        prefix_info[logsource] = value["prefix"]
-    return prefix_info
+        filename_info[logsource] = value["prefix"]
+    return filename_info
 
 
-def load_windows_json(json_name: str):
-    json_dict = load_json_file(json_name)
-    if json_dict is None:
-        return None, None
-
-    data = dict()
+def load_windows_provider(json_name: str):
+    with open(json_name + "sigmahq_windows_validator.json", "r", encoding="UTF-8") as file:
+        json_dict = json.load(file)
+    windows_provider_name = dict()
     for category in json_dict["category_provider_name"]:
-        data[SigmaLogSource(product="windows", category=category, service=None)] = json_dict[
-            "category_provider_name"
-        ][category]
-    return json_dict["category_no_eventid"], data
+        windows_provider_name[
+            SigmaLogSource(product="windows", category=category, service=None)
+        ] = json_dict["category_provider_name"][category]
+    windows_no_eventid = json_dict["category_no_eventid"]
+    return windows_provider_name, windows_no_eventid
 
 
 class ConfigHQ:
-    sigma_taxonomy: Dict = {}
     sigma_fieldsname: Dict[SigmaLogSource, List[str]] = {}
     sigma_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = {}
 
@@ -89,24 +67,26 @@ class ConfigHQ:
 
     def __init__(self) -> None:
 
-        self.sigmahq_logsource_filepattern = sigmahq_logsource_filepattern
-        self.sigma_fieldsname = sigmahq_fieldsname
-        self.sigma_fieldsname_unicast = sigmahq_fieldsname_unicast
-        self.sigmahq_logsource_definition = sigmahq_logsource_definition
-        self.windows_provider_name = windows_provider_name
-        self.windows_no_eventid = windows_no_eventid
+        local_path = os.getcwd() + "/validator_json/"
 
-        # self.sigma_taxonomy = load_taxonomy_json("sigma.json")
-        # if self.sigma_taxonomy is not None:
-        #     self.sigma_fieldsname = get_taxonomy_field(self.sigma_taxonomy)
-        #     self.sigma_fieldsname_unicast = {
-        #         k: [v.lower() for v in l] for k, l in self.sigma_fieldsname.items()
-        #     }
-        # else:
-        #     self.sigma_fieldsname = None
-        #     self.sigma_fieldsname_unicast = None
+        if pathlib.Path(local_path + "sigma.json").exists():
+            (
+                self.sigma_fieldsname,
+                self.sigma_fieldsname_unicast,
+                self.sigmahq_logsource_definition,
+            ) = load_sigma_json(local_path)
+        else:
+            self.sigma_fieldsname = ref_sigmahq_fieldsname
+            self.sigma_fieldsname_unicast = ref_sigmahq_fieldsname_unicast
+            self.sigmahq_logsource_definition = ref_sigmahq_logsource_definition
 
-        # self.sigmahq_logsource_filepattern = load_filepattern_json("sigmahq_filename.json")
-        # self.windows_no_eventid, self.windows_provider_name = load_windows_json(
-        #    "sigmahq_windows_validator.json"
-        # )
+        if pathlib.Path(local_path + "sigmahq_filename.json").exists():
+            self.sigmahq_logsource_filepattern = load_sigmahq_filename_json(local_path)
+        else:
+            self.sigmahq_logsource_filepattern = ref_sigmahq_logsource_filepattern
+
+        if pathlib.Path(local_path + "sigmahq_windows_validator.json").exists():
+            self.windows_provider_name, self.windows_no_eventid = load_windows_provider(local_path)
+        else:
+            self.windows_provider_name = ref_windows_provider_name
+            self.windows_no_eventid = ref_windows_no_eventid
