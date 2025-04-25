@@ -7,6 +7,16 @@ import os
 import pathlib
 
 
+from .sigmahq_data import (
+    sigmahq_logsource_filepattern,
+    sigmahq_fieldsname,
+    sigmahq_fieldsname_unicast,
+    sigmahq_logsource_definition,
+    windows_provider_name,
+    windows_no_eventid,
+)
+
+
 def load_json_file(filename: str) -> dict:
     full_name = os.getcwd() + "/validator_json/" + filename
     if pathlib.Path(full_name).exists():
@@ -75,19 +85,28 @@ class ConfigHQ:
 
     windows_no_eventid: List[str] = []
     windows_provider_name: Dict[SigmaLogSource, List[str]] = {}
+    sigmahq_logsource_definition: Dict[SigmaLogSource, str] = {}
 
     def __init__(self) -> None:
-        self.sigma_taxonomy = load_taxonomy_json("sigma.json")
-        if self.sigma_taxonomy is not None:
-            self.sigma_fieldsname = get_taxonomy_field(self.sigma_taxonomy)
-            self.sigma_fieldsname_unicast = {
-                k: [v.lower() for v in l] for k, l in self.sigma_fieldsname.items()
-            }
-        else:
-            self.sigma_fieldsname = None
-            self.sigma_fieldsname_unicast = None
 
-        self.sigmahq_logsource_filepattern = load_filepattern_json("sigmahq_filename.json")
-        self.windows_no_eventid, self.windows_provider_name = load_windows_json(
-            "sigmahq_windows_validator.json"
-        )
+        self.sigmahq_logsource_filepattern = sigmahq_logsource_filepattern
+        self.sigma_fieldsname = sigmahq_fieldsname
+        self.sigma_fieldsname_unicast = sigmahq_fieldsname_unicast
+        self.sigmahq_logsource_definition = sigmahq_logsource_definition
+        self.windows_provider_name = windows_provider_name
+        self.windows_no_eventid = windows_no_eventid
+
+        # self.sigma_taxonomy = load_taxonomy_json("sigma.json")
+        # if self.sigma_taxonomy is not None:
+        #     self.sigma_fieldsname = get_taxonomy_field(self.sigma_taxonomy)
+        #     self.sigma_fieldsname_unicast = {
+        #         k: [v.lower() for v in l] for k, l in self.sigma_fieldsname.items()
+        #     }
+        # else:
+        #     self.sigma_fieldsname = None
+        #     self.sigma_fieldsname_unicast = None
+
+        # self.sigmahq_logsource_filepattern = load_filepattern_json("sigmahq_filename.json")
+        # self.windows_no_eventid, self.windows_provider_name = load_windows_json(
+        #    "sigmahq_windows_validator.json"
+        # )

@@ -61,9 +61,6 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
         core_logsource = SigmaLogSource(
             rule.logsource.category, rule.logsource.product, rule.logsource.service
         )
-        if config.sigma_fieldsname is None:
-            return []
-
         if (
             core_logsource in config.sigma_fieldsname
             and len(config.sigma_fieldsname[core_logsource]) > 0
@@ -101,9 +98,6 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
         core_logsource = SigmaLogSource(
             rule.logsource.category, rule.logsource.product, rule.logsource.service
         )
-        if config.sigma_fieldsname is None:
-            return []
-
         if (
             core_logsource in config.sigma_fieldsname
             and len(config.sigma_fieldsname[core_logsource]) > 0
