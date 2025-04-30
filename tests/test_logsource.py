@@ -8,8 +8,6 @@ from sigma.validators.sigmahq.logsource import (
     SigmahqLogsourceUnknownValidator,
     SigmahqSysmonMissingEventidIssue,
     SigmahqSysmonMissingEventidValidator,
-    #    SigmahqLogsourceDefinitionIssue,
-    #    SigmahqLogsourceDefinitionValidator,
 )
 
 
@@ -101,43 +99,3 @@ def test_validator_SigmahqSysmonMissingEventid_other():
     """
     )
     assert validator.validate(rule) == []
-
-
-# def test_validator_SigmahqLogsourceDefinition_valid():
-#     validator = SigmahqLogsourceDefinitionValidator()
-#     rule = SigmaRule.from_yaml(
-#         """
-#     title: A Space Field Name
-#     status: test
-#     logsource:
-#        product: windows
-#        category: file_access
-#        definition: 'Requirements: Microsoft-Windows-Kernel-File ETW provider'
-#     detection:
-#         sel:
-#             field: path\\*something
-#             space name: 'error'
-#         condition: sel
-#     """
-#     )
-#     assert validator.validate(rule) == []
-
-
-# def test_validator_SigmahqLogsourceDefinition_invalid():
-#     validator = SigmahqLogsourceDefinitionValidator()
-#     rule = SigmaRule.from_yaml(
-#         """
-#     title: A Space Field Name
-#     status: test
-#     logsource:
-#        product: windows
-#        category: file_access
-#        definition: need an EDR
-#     detection:
-#         sel:
-#             field: path\\*something
-#             space name: 'error'
-#         condition: sel
-#     """
-#     )
-#     assert validator.validate(rule) == [SigmahqLogsourceDefinitionIssue(rule, rule.logsource)]

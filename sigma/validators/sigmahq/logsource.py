@@ -57,26 +57,3 @@ class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
                 return [SigmahqSysmonMissingEventidIssue(rule)]
         else:
             return []
-
-
-# @dataclass
-# class SigmahqLogsourceDefinitionIssue(SigmaValidationIssue):
-#     description: ClassVar[str] = "Rule uses an unknown logsource definition"
-#     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
-#     logsource: SigmaLogSource
-
-
-# class SigmahqLogsourceDefinitionValidator(SigmaRuleValidator):
-#     """Checks if a rule uses the unknown logsource definition."""
-
-#     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-#         if rule.logsource.definition:
-#             core_logsource = SigmaLogSource(
-#                 rule.logsource.category, rule.logsource.product, rule.logsource.service
-#             )
-#             if core_logsource in config.sigmahq_logsource_definition:
-#                 if rule.logsource.definition  == config.sigmahq_logsource_definition:
-#                     return []
-#                 else:
-#                     return [SigmahqLogsourceDefinitionIssue(rule, rule.logsource)]
-#         return []
