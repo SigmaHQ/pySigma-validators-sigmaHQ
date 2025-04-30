@@ -86,7 +86,9 @@ class ConfigHQ:
             self.sigmahq_logsource_filepattern = ref_sigmahq_logsource_filepattern
 
         if pathlib.Path(local_path + "sigmahq_windows_validator.json").exists():
-            self.windows_provider_name, self.windows_no_eventid = load_windows_provider_json(local_path)
+            self.windows_provider_name, self.windows_no_eventid = load_windows_provider_json(
+                local_path
+            )
         else:
             self.windows_provider_name = ref_windows_provider_name
             self.windows_no_eventid = ref_windows_no_eventid
