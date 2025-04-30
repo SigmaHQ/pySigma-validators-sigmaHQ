@@ -68,6 +68,7 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
             self.fields = config.sigma_fieldsname[core_logsource]
             self.unifields = config.sigma_fieldsname_unicast[core_logsource]
             return super().validate(rule)
+
         return []
 
     def validate_detection_item(
@@ -104,6 +105,7 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
             self.fields = config.sigma_fieldsname[core_logsource]
             self.unifields = config.sigma_fieldsname_unicast[core_logsource]
             return super().validate(rule)
+
         return []
 
     def validate_detection_item(

@@ -38,8 +38,8 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
             and rule.logsource.category in config.windows_no_eventid
         ):
             return super().validate(rule)
-        else:
-            return []
+
+        return []
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -65,8 +65,8 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
         if rule.logsource in config.windows_provider_name:
             self.list_provider = config.windows_provider_name[rule.logsource]
             return super().validate(rule)
-        else:
-            return []
+
+        return []
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
