@@ -27,12 +27,12 @@ with open("tools/sigma.json", "r", encoding="UTF-8") as file:
 
 taxonomy_version = json_dict["version"]
 taxonomy_info = {}
-taxonamy_definition = {}
+taxonomy_definition = {}
 for value in json_dict["taxonomy"].values():
     logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
     taxonomy_info[logsource] = value["field"]["native"]
     taxonomy_info[logsource].extend(value["field"]["custom"])
-    taxonamy_definition[logsource] = value["logsource"]["definition"]
+    taxonomy_definition[logsource] = value["logsource"]["definition"]
 
 taxonomy_info_unicast = {k: [v.lower() for v in l] for k, l in taxonomy_info.items()}
 
@@ -71,7 +71,7 @@ with open("sigma/validators/sigmahq/sigmahq_data.py", "wt", encoding="utf-8") as
     )
     print(
         "ref_sigmahq_logsource_definition: Dict[SigmaLogSource, str] = "
-        + pformat(taxonamy_definition, indent=4, sort_dicts=True, width=200),
+        + pformat(taxonomy_definition, indent=4, sort_dicts=True, width=200),
         file=file,
     )
     print(f'\nwindows_version: str = "{windows_version}"', file=file)

@@ -23,14 +23,14 @@ def load_sigma_json(local_path: str):
     with open(local_path + "sigma.json", "r", encoding="UTF-8") as file:
         json_dict = json.load(file)
     taxonomy_info = {}
-    taxonamy_definition = {}
+    taxonomy_definition = {}
     for value in json_dict["taxonomy"].values():
         logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
         taxonomy_info[logsource] = value["field"]["native"]
         taxonomy_info[logsource].extend(value["field"]["custom"])
-        taxonamy_definition[logsource] = value["logsource"]["definition"]
+        taxonomy_definition[logsource] = value["logsource"]["definition"]
     taxonomy_info_unicast = {k: [v.lower() for v in l] for k, l in taxonomy_info.items()}
-    return taxonomy_info, taxonomy_info_unicast, taxonamy_definition
+    return taxonomy_info, taxonomy_info_unicast, taxonomy_definition
 
 
 def load_sigmahq_filename_json(local_path: str):
@@ -43,8 +43,8 @@ def load_sigmahq_filename_json(local_path: str):
     return filename_info
 
 
-def load_windows_provider(json_name: str):
-    with open(json_name + "sigmahq_windows_validator.json", "r", encoding="UTF-8") as file:
+def load_windows_provider_json(local_path: str):
+    with open(local_path + "sigmahq_windows_validator.json", "r", encoding="UTF-8") as file:
         json_dict = json.load(file)
     windows_provider_name = dict()
     for category in json_dict["category_provider_name"]:
@@ -86,7 +86,7 @@ class ConfigHQ:
             self.sigmahq_logsource_filepattern = ref_sigmahq_logsource_filepattern
 
         if pathlib.Path(local_path + "sigmahq_windows_validator.json").exists():
-            self.windows_provider_name, self.windows_no_eventid = load_windows_provider(local_path)
+            self.windows_provider_name, self.windows_no_eventid = load_windows_provider_json(local_path)
         else:
             self.windows_provider_name = ref_windows_provider_name
             self.windows_no_eventid = ref_windows_no_eventid
