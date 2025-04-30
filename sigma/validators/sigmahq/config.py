@@ -67,9 +67,9 @@ class ConfigHQ:
 
     def __init__(self) -> None:
 
-        local_path = os.getcwd() + "/validator_json/"
+        local_path = os.path.join(os.getcwd(), "validator_json")
 
-        if pathlib.Path(local_path + "sigma.json").exists():
+        if pathlib.Path(os.path.join(local_path, "sigma.json")).exists():
             (
                 self.sigma_fieldsname,
                 self.sigma_fieldsname_unicast,
