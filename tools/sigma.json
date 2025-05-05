@@ -2264,14 +2264,18 @@
       "description": null,
       "field": {
         "native": [
+          "ActionName",
           "Channel",
           "Computer",
+          "EnginePID",
           "EventID",
           "Path",
           "Priority",
           "ProcessID",
           "Provider_Name",
+          "ResultCode",
           "Security_UserID",
+          "TaskInstanceId",
           "TaskName",
           "UserContext",
           "UserName"
