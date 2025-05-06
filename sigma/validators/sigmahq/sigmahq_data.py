@@ -869,7 +869,7 @@ ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
     ): "zeek_",
 }
 
-taxonomy_version: str = "20250422"
+taxonomy_version: str = "20250505"
 ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
     SigmaLogSource(
         category=None,
@@ -1263,14 +1263,18 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         source=None,
         custom_attributes=None,
     ): [
+        "ActionName",
         "Channel",
         "Computer",
+        "EnginePID",
         "EventID",
         "Path",
         "Priority",
         "ProcessID",
         "Provider_Name",
+        "ResultCode",
         "Security_UserID",
+        "TaskInstanceId",
         "TaskName",
         "UserContext",
         "UserName",
@@ -2164,7 +2168,7 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): [],
     SigmaLogSource(
-        category="appliance",
+        category="file_event",
         product="paloalto",
         service="globalprotect",
         definition=None,
@@ -2172,7 +2176,7 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): [],
     SigmaLogSource(
-        category="file_event",
+        category="appliance",
         product="paloalto",
         service="globalprotect",
         definition=None,
@@ -3357,14 +3361,18 @@ ref_sigmahq_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = {
         source=None,
         custom_attributes=None,
     ): [
+        "actionname",
         "channel",
         "computer",
+        "enginepid",
         "eventid",
         "path",
         "priority",
         "processid",
         "provider_name",
+        "resultcode",
         "security_userid",
+        "taskinstanceid",
         "taskname",
         "usercontext",
         "username",
@@ -4258,7 +4266,7 @@ ref_sigmahq_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): [],
     SigmaLogSource(
-        category="appliance",
+        category="file_event",
         product="paloalto",
         service="globalprotect",
         definition=None,
@@ -4266,7 +4274,7 @@ ref_sigmahq_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): [],
     SigmaLogSource(
-        category="file_event",
+        category="appliance",
         product="paloalto",
         service="globalprotect",
         definition=None,
@@ -5692,7 +5700,7 @@ ref_sigmahq_logsource_definition: Dict[SigmaLogSource, str] = {
         custom_attributes=None,
     ): None,
     SigmaLogSource(
-        category="appliance",
+        category="file_event",
         product="paloalto",
         service="globalprotect",
         definition=None,
@@ -5700,7 +5708,7 @@ ref_sigmahq_logsource_definition: Dict[SigmaLogSource, str] = {
         custom_attributes=None,
     ): None,
     SigmaLogSource(
-        category="file_event",
+        category="appliance",
         product="paloalto",
         service="globalprotect",
         definition=None,
@@ -6144,6 +6152,14 @@ ref_sigmahq_logsource_definition: Dict[SigmaLogSource, str] = {
 windows_version: str = "20240809"
 ref_windows_provider_name: Dict[SigmaLogSource, List[str]] = {
     SigmaLogSource(
+        category="sysmon_error",
+        product="windows",
+        service=None,
+        definition=None,
+        source=None,
+        custom_attributes=None,
+    ): ["Microsoft-Windows-Sysmon"],
+    SigmaLogSource(
         category="sysmon_status",
         product="windows",
         service=None,
@@ -6153,14 +6169,6 @@ ref_windows_provider_name: Dict[SigmaLogSource, List[str]] = {
     ): ["Microsoft-Windows-Sysmon"],
     SigmaLogSource(
         category="wmi_event",
-        product="windows",
-        service=None,
-        definition=None,
-        source=None,
-        custom_attributes=None,
-    ): ["Microsoft-Windows-Sysmon"],
-    SigmaLogSource(
-        category="sysmon_error",
         product="windows",
         service=None,
         definition=None,
@@ -6357,7 +6365,7 @@ ref_windows_provider_name: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): ["Microsoft-Windows-Sysmon"],
     SigmaLogSource(
-        category="clipboard_capture",
+        category="create_remote_thread",
         product="windows",
         service=None,
         definition=None,
@@ -6373,7 +6381,7 @@ ref_windows_provider_name: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): ["Microsoft-Windows-Sysmon"],
     SigmaLogSource(
-        category="create_remote_thread",
+        category="create_stream_hash",
         product="windows",
         service=None,
         definition=None,
@@ -6381,7 +6389,7 @@ ref_windows_provider_name: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): ["Microsoft-Windows-Sysmon"],
     SigmaLogSource(
-        category="create_stream_hash",
+        category="clipboard_capture",
         product="windows",
         service=None,
         definition=None,
