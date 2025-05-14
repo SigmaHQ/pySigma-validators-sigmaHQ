@@ -1037,8 +1037,8 @@
           "sc-content-type",
           "sc-status",
           "sc-win32-status",
-          "time-taken",
-          "time"
+          "time",
+          "time-taken"
         ],
         "custom": []
       }
