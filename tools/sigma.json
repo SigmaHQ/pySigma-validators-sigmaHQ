@@ -976,10 +976,10 @@
       "description": null,
       "field": {
         "native": [
+          "c-uri",
           "c-uri-extension",
           "c-uri-query",
           "c-uri-stem",
-          "c-uri",
           "c-useragent",
           "cs-bytes",
           "cs-content-type",
