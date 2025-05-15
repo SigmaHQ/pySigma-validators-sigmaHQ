@@ -1916,7 +1916,6 @@
           "LocalPorts",
           "LooseSourceMapped",
           "ModifyingApplication",
-          "ModifyingApplication",
           "ModifyingUser",
           "PolicyAppId",
           "Profiles",
