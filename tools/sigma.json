@@ -1901,13 +1901,35 @@
       "field": {
         "native": [
           "Action",
+          "Active",
           "ApplicationPath",
           "Channel",
           "Computer",
+          "Direction",
+          "EdgeTraversal",
+          "EmbeddedContext",
+          "ErrorCode",
           "EventID",
+          "Flags",
+          "LocalAddresses",
+          "LocalOnlyMapped",
+          "LocalPorts",
+          "LooseSourceMapped",
           "ModifyingApplication",
+          "ModifyingUser",
+          "PolicyAppId",
+          "Profiles",
+          "Protocol",
           "Provider_Name",
-          "Security_UserID"
+          "RemoteAddresses",
+          "RemoteMachineAuthorizationList",
+          "RemotePorts",
+          "RemoteUserAuthorizationList",
+          "RuleStatus",
+          "SchemaVersion",
+          "Security_UserID",
+          "SecurityOptions",
+          "ServiceName"
         ],
         "custom": []
       }
