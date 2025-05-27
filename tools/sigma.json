@@ -1922,7 +1922,6 @@
           "Protocol",
           "Provider_Name",
           "RemoteAddresses",
-          "RemoteAddresses",
           "RemoteMachineAuthorizationList",
           "RemotePorts",
           "RemoteUserAuthorizationList",
