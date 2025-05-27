@@ -30,8 +30,10 @@ taxonomy_info = {}
 taxonomy_definition = {}
 for value in json_dict["taxonomy"].values():
     logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
-    taxonomy_info[logsource] = value["field"]["native"]
-    taxonomy_info[logsource].extend(value["field"]["custom"])
+    fieldlist = []
+    fieldlist.extend(value["field"]["native"])
+    fieldlist.extend(value["field"]["custom"])
+    taxonomy_info[logsource] = sorted(fieldlist, key=str.casefold)
     taxonomy_definition[logsource] = value["logsource"]["definition"]
 
 taxonomy_info_unicast = {k: [v.lower() for v in l] for k, l in taxonomy_info.items()}
@@ -49,7 +51,7 @@ windows_no_eventid = json_dict["category_no_eventid"]
 
 
 # python data
-with open("sigma/validators/sigmahq/sigmahq_data.py", "wt", encoding="utf-8") as file:
+with open("sigma/validators/sigmahq/sigmahq_data.py", "wt", encoding="utf-8", newline="") as file:
     print("from typing import Dict, List", file=file)
     print("from sigma.rule import SigmaLogSource", file=file)
     print(f'\nfile_pattern_version: str = "{filename_version}"', file=file)
