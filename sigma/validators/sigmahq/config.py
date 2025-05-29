@@ -20,7 +20,7 @@ def core_logsource(source: SigmaLogSource) -> SigmaLogSource:
 
 
 def load_sigma_json(local_path: str):
-    with open(local_path + "sigma.json", "r", encoding="UTF-8") as file:
+    with open(os.path.join(local_path, "sigma.json"), "r", encoding="UTF-8") as file:
         json_dict = json.load(file)
     taxonomy_info = {}
     taxonomy_definition = {}
@@ -34,7 +34,7 @@ def load_sigma_json(local_path: str):
 
 
 def load_sigmahq_filename_json(local_path: str):
-    with open(local_path + "sigmahq_filename.json", "r", encoding="UTF-8") as file:
+    with open(os.path.join(local_path, "sigmahq_filename.json"), "r", encoding="UTF-8") as file:
         json_dict = json.load(file)
     filename_info = {}
     for value in json_dict["pattern"].values():
@@ -44,7 +44,9 @@ def load_sigmahq_filename_json(local_path: str):
 
 
 def load_windows_provider_json(local_path: str):
-    with open(local_path + "sigmahq_windows_validator.json", "r", encoding="UTF-8") as file:
+    with open(
+        os.path.join(local_path, "sigmahq_windows_validator.json"), "r", encoding="UTF-8"
+    ) as file:
         json_dict = json.load(file)
     windows_provider_name = dict()
     for category in json_dict["category_provider_name"]:
@@ -80,12 +82,12 @@ class ConfigHQ:
             self.sigma_fieldsname_unicast = ref_sigmahq_fieldsname_unicast
             self.sigmahq_logsource_definition = ref_sigmahq_logsource_definition
 
-        if pathlib.Path(local_path + "sigmahq_filename.json").exists():
+        if pathlib.Path(os.path.join(local_path, "sigmahq_filename.json")).exists():
             self.sigmahq_logsource_filepattern = load_sigmahq_filename_json(local_path)
         else:
             self.sigmahq_logsource_filepattern = ref_sigmahq_logsource_filepattern
 
-        if pathlib.Path(local_path + "sigmahq_windows_validator.json").exists():
+        if pathlib.Path(os.path.join(local_path, "sigmahq_windows_validator.json")).exists():
             self.windows_provider_name, self.windows_no_eventid = load_windows_provider_json(
                 local_path
             )
