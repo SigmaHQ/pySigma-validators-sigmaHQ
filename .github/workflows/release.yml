@@ -2,9 +2,6 @@ name: Release to PyPI
 on:
   release:
     types: [published]
-  push:
-    tags:
-      - v*.*.*
 
 jobs:
   build-and-publish:
@@ -29,11 +26,6 @@ jobs:
         run: poetry run pytest
       - name: Build packages
         run: poetry build
-      - name: Publish to test PyPI
-        if: ${{ github.event_name == 'push' }}
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
       - name: Publish to PyPI
         if: ${{ github.event_name == 'release' }}
         uses: pypa/gh-action-pypi-publish@release/v1
