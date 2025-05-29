@@ -16,11 +16,11 @@ TBD
 
 All the data value are in the config.py
 
-To use a local json verison, you need to put them in a `validator_json` folder visible from the launch directory.
+To use a local json version, you need to put them in a `validator_json` folder visible from the launch directory.
 
 ## 📜 Maintainer
 
-This pipelines is currently maintained by:
+This pipeline is currently maintained by:
 
 * [François Hubaut (@frack113)](https://twitter.com/frack113)
 * [Christian Burkard (@phantinuss)](https://twitter.com/phantinuss)
