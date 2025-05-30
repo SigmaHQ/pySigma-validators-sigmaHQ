@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
+from datetime import datetime
 
-from sigma.rule import SigmaRule
+from sigma.rule import SigmaRule, SigmaStatus
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,
@@ -232,4 +233,33 @@ class SigmahqUselessModifiedValidator(SigmaRuleValidator):
         if rule.date is not None and rule.modified is not None:
             if rule.date == rule.modified:
                 return [SigmahqUselessModifiedIssue([rule])]
+        return []
+
+
+class SigmahqUnknownFieldValidator(SigmaRuleValidator):
+    """Checks if a rule uses an unknown field."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if len(rule.custom_attributes) > 0:
+            return [SigmahqUnknownFieldIssue(rule, list(rule.custom_attributes.keys()))]
+        else:
+            return []
+
+
+@dataclass
+class SigmahqStatusToHighIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule have a too high status for a new one"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+
+
+class SigmahqStatusToHighValidator(SigmaRuleValidator):
+    """Checks if a new rule have a valid status"""
+
+    min_days: int = 60
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if rule.date is not None and rule.status is not None:
+            if rule.status > SigmaStatus.EXPERIMENTAL:
+                if (datetime.now().date() - rule.date).days <= self.min_days:
+                    return [SigmahqStatusToHighIssue([rule])]
         return []

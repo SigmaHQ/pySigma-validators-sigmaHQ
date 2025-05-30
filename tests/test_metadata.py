@@ -1,8 +1,9 @@
 from wsgiref.validate import validator
 
 import pytest
-from sigma.rule import SigmaRule
+from datetime import datetime
 
+from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.metadata import (
     SigmahqStatusExistenceIssue,
     SigmahqStatusExistenceValidator,
@@ -28,6 +29,8 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqUnknownFieldValidator,
     SigmahqUselessModifiedIssue,
     SigmahqUselessModifiedValidator,
+    SigmahqStatusToHighIssue,
+    SigmahqStatusToHighValidator,
 )
 
 
@@ -496,7 +499,7 @@ def test_validator_SigmahqUnknownField_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_igmahqUselessModified():
+def test_validator_SigmahqUselessModified():
     validator = SigmahqUselessModifiedValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -515,7 +518,7 @@ def test_validator_igmahqUselessModified():
     assert validator.validate(rule) == [SigmahqUselessModifiedIssue(rule)]
 
 
-def test_validator_igmahqUselessModified_valid():
+def test_validator_SigmahqUselessModified_valid():
     validator = SigmahqUselessModifiedValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -528,6 +531,45 @@ def test_validator_igmahqUselessModified_valid():
     detection:
         sel:
             field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqStatusToHigh():
+    validator = SigmahqStatusToHighValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    status: stable
+    date: 1975-01-01
+    logsource:
+        category: test
+    detection:
+        sel:
+            candle|exists: true
+        condition: sel
+    """
+    )
+    rule.date = datetime.now().date()
+    assert validator.validate(rule) == [SigmahqStatusToHighIssue(rule)]
+
+
+def test_validator_SigmahqStatusToHigh():
+    validator = SigmahqStatusToHighValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    status: stable
+    date: 1975-01-01
+    logsource:
+        category: test
+    detection:
+        sel:
+            candle|exists: true
         condition: sel
     """
     )
