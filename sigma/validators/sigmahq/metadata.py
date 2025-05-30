@@ -223,7 +223,7 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqRedundantModifiedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule have an useless modified field"
+    description: ClassVar[str] = "Rule has a redundant modified field and needs to be removed. (date == modified)"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
