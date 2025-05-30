@@ -26,6 +26,8 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqLinkInDescriptionValidator,
     SigmahqUnknownFieldIssue,
     SigmahqUnknownFieldValidator,
+    SigmahqUselessModifiedIssue,
+    SigmahqUselessModifiedValidator,
 )
 
 
@@ -485,6 +487,44 @@ def test_validator_SigmahqUnknownField_valid():
     logsource:
         category: test
     date: 2024-08-09
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_igmahqUselessModified():
+    validator = SigmahqUselessModifiedValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    date: 2024-08-09
+    modified: 2024-08-09
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqUselessModifiedIssue(rule)]
+
+
+def test_validator_igmahqUselessModified_valid():
+    validator = SigmahqUselessModifiedValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    logsource:
+        category: test
+    date: 2024-08-09
+    modified: 2025-05-30
     detection:
         sel:
             field: value
