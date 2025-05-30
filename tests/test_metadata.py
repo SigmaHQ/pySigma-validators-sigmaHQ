@@ -1,8 +1,9 @@
 from wsgiref.validate import validator
 
 import pytest
-from sigma.rule import SigmaRule
+from datetime import datetime
 
+from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.metadata import (
     SigmahqStatusExistenceIssue,
     SigmahqStatusExistenceValidator,
@@ -26,6 +27,12 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqLinkInDescriptionValidator,
     SigmahqUnknownFieldIssue,
     SigmahqUnknownFieldValidator,
+    SigmahqRedundantModifiedIssue,
+    SigmahqRedundantModifiedValidator,
+    SigmahqStatusToHighIssue,
+    SigmahqStatusToHighValidator,
+    SigmahqGithubLinkIssue,
+    SigmahqGithubLinkValidator,
 )
 
 
@@ -488,6 +495,127 @@ def test_validator_SigmahqUnknownField_valid():
     detection:
         sel:
             field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqRedundantModified():
+    validator = SigmahqRedundantModifiedValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    date: 2024-08-09
+    modified: 2024-08-09
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqRedundantModifiedIssue(rule)]
+
+
+def test_validator_SigmahqRedundantModified_valid():
+    validator = SigmahqRedundantModifiedValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    logsource:
+        category: test
+    date: 2024-08-09
+    modified: 2025-05-30
+    detection:
+        sel:
+            field: value
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqStatusToHigh():
+    validator = SigmahqStatusToHighValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    status: stable
+    date: 1975-01-01
+    logsource:
+        category: test
+    detection:
+        sel:
+            candle|exists: true
+        condition: sel
+    """
+    )
+    rule.date = datetime.now().date()
+    assert validator.validate(rule) == [SigmahqStatusToHighIssue(rule)]
+
+
+def test_validator_SigmahqStatusToHigh():
+    validator = SigmahqStatusToHighValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    status: stable
+    date: 1975-01-01
+    logsource:
+        category: test
+    detection:
+        sel:
+            candle|exists: true
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqGithubLink():
+    validator = SigmahqGithubLinkValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    status: stable
+    references:
+        - https://github.com/SigmaHQ/pySigma-validators-sigmaHQ/blob/main/README.md
+    logsource:
+        category: test
+    detection:
+        sel:
+            candle|exists: true
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqGithubLinkIssue(
+            rule, "https://github.com/SigmaHQ/pySigma-validators-sigmaHQ/blob/main/README.md"
+        )
+    ]
+
+
+def test_validator_SigmahqStatusToHigh():
+    validator = SigmahqGithubLinkValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    description: Test
+    status: stable
+    references:
+        - https://github.com/SigmaHQ/pySigma-validators-sigmaHQ/blob/e557b4acd15b24ad5e7923c69a3e73c7a512ed2c/README.md
+    logsource:
+        category: test
+    detection:
+        sel:
+            candle|exists: true
         condition: sel
     """
     )

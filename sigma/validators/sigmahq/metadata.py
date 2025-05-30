@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
+from datetime import datetime
+import re
 
-from sigma.rule import SigmaRule
+from sigma.rule import SigmaRule, SigmaStatus
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,
@@ -217,3 +219,74 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
             return [SigmahqUnknownFieldIssue(rule, list(rule.custom_attributes.keys()))]
         else:
             return []
+
+
+@dataclass
+class SigmahqRedundantModifiedIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule has a redundant modified field and needs to be removed. (date == modified)"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+
+
+class SigmahqRedundantModifiedValidator(SigmaRuleValidator):
+    """Checks if a rule has a redundant modified field"""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if rule.date is not None and rule.modified is not None:
+            if rule.date == rule.modified:
+                return [SigmahqRedundantModifiedIssue([rule])]
+        return []
+
+
+class SigmahqUnknownFieldValidator(SigmaRuleValidator):
+    """Checks if a rule uses an unknown field."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if len(rule.custom_attributes) > 0:
+            return [SigmahqUnknownFieldIssue(rule, list(rule.custom_attributes.keys()))]
+        else:
+            return []
+
+
+@dataclass
+class SigmahqStatusToHighIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule has a status level that is too high for a newly created rule."
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+
+
+class SigmahqStatusToHighValidator(SigmaRuleValidator):
+    """Checks if a new rule has a valid status regarding its age"""
+
+    min_days: int = 60
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        if rule.date is not None and rule.status is not None:
+            if rule.status > SigmaStatus.EXPERIMENTAL:
+                if (datetime.now().date() - rule.date).days <= self.min_days:
+                    return [SigmahqStatusToHighIssue([rule])]
+        return []
+
+
+@dataclass
+class SigmahqGithubLinkIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule has a branch GitHub link instead of a permalink. Use e.g. https://github.com/SigmaHQ/sigma/blob/bd2a4c37efde5f69f87040173e990f1f6ff9e234/README.md instead of https://github.com/SigmaHQ/sigma/blob/master/README.md"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+    link: str
+
+
+class SigmahqGithubLinkValidator(SigmaRuleValidator):
+    """Checks if a rule has a branch GitHub link"""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        result = []
+        if rule.references is not None:
+            for link in rule.references:
+                if re.match(r"https://github.com/.*\.\w{1,3}$", link) is not None:
+                    if re.match(r".*/[0-9a-z]{40}/.*", link) is None:
+                        result.append(SigmahqGithubLinkIssue([rule], link))
+        return result
