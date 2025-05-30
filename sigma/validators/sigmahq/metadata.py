@@ -223,7 +223,9 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqRedundantModifiedIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a redundant modified field and needs to be removed. (date == modified)"
+    description: ClassVar[str] = (
+        "Rule has a redundant modified field and needs to be removed. (date == modified)"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
@@ -249,7 +251,9 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusToHighIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a status level that is too high for a newly created rule."
+    description: ClassVar[str] = (
+        "Rule has a status level that is too high for a newly created rule."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
@@ -268,7 +272,9 @@ class SigmahqStatusToHighValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqGithubLinkIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a branch GitHub link instead of a permalink. Use e.g. https://github.com/SigmaHQ/sigma/blob/bd2a4c37efde5f69f87040173e990f1f6ff9e234/README.md instead of https://github.com/SigmaHQ/sigma/blob/master/README.md"
+    description: ClassVar[str] = (
+        "Rule has a branch GitHub link instead of a permalink. Use e.g. https://github.com/SigmaHQ/sigma/blob/bd2a4c37efde5f69f87040173e990f1f6ff9e234/README.md instead of https://github.com/SigmaHQ/sigma/blob/master/README.md"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     link: str
 
