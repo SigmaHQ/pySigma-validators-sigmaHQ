@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
 from datetime import datetime
+import re
 
 from sigma.rule import SigmaRule, SigmaStatus
 from sigma.validators.base import (
@@ -263,3 +264,23 @@ class SigmahqStatusToHighValidator(SigmaRuleValidator):
                 if (datetime.now().date() - rule.date).days <= self.min_days:
                     return [SigmahqStatusToHighIssue([rule])]
         return []
+
+
+@dataclass
+class SigmahqGithubLinkIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule have a direct github link instead of parmalink"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+    link: str
+
+
+class SigmahqGithubLinkValidator(SigmaRuleValidator):
+    """Checks if a rule have a direct github link"""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        result = []
+        if rule.references is not None:
+            for link in rule.references:
+                if re.match(r"https://github.com/.*\.\w{1,3}$", link) is not None:
+                    if re.match(r".*/[0-9a-z]{40}/.*", link) is None:
+                        result.append(SigmahqGithubLinkIssue([rule], link))
+        return result
