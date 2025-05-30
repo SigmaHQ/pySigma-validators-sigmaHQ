@@ -228,7 +228,7 @@ class SigmahqRedundantModifiedIssue(SigmaValidationIssue):
 
 
 class SigmahqRedundantModifiedValidator(SigmaRuleValidator):
-    """Checks if a rule have an useless modified field"""
+    """Checks if a rule has a redundant modified field"""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.date is not None and rule.modified is not None:
@@ -249,12 +249,12 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqStatusToHighIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule have a too high status for a new one"
+    description: ClassVar[str] = "Rule has a status level that is too high for a newly created rule."
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqStatusToHighValidator(SigmaRuleValidator):
-    """Checks if a new rule have a valid status"""
+    """Checks if a new rule has a valid status regarding its age"""
 
     min_days: int = 60
 
@@ -268,13 +268,13 @@ class SigmahqStatusToHighValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqGithubLinkIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule have a direct github link instead of a parmalink"
+    description: ClassVar[str] = "Rule has a branch GitHub link instead of a permalink. Use e.g. https://github.com/SigmaHQ/sigma/blob/bd2a4c37efde5f69f87040173e990f1f6ff9e234/README.md instead of https://github.com/SigmaHQ/sigma/blob/master/README.md"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     link: str
 
 
 class SigmahqGithubLinkValidator(SigmaRuleValidator):
-    """Checks if a rule have a direct github link"""
+    """Checks if a rule has a branch GitHub link"""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         result = []
