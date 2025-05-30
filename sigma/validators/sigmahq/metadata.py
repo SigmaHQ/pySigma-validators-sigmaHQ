@@ -222,18 +222,18 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
 
 
 @dataclass
-class SigmahqUselessModifiedIssue(SigmaValidationIssue):
+class SigmahqRedundantModifiedIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule have an useless modified field"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
-class SigmahqUselessModifiedValidator(SigmaRuleValidator):
+class SigmahqRedundantModifiedValidator(SigmaRuleValidator):
     """Checks if a rule have an useless modified field"""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.date is not None and rule.modified is not None:
             if rule.date == rule.modified:
-                return [SigmahqUselessModifiedIssue([rule])]
+                return [SigmahqRedundantModifiedIssue([rule])]
         return []
 
 
@@ -268,7 +268,7 @@ class SigmahqStatusToHighValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqGithubLinkIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule have a direct github link instead of parmalink"
+    description: ClassVar[str] = "Rule have a direct github link instead of a parmalink"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     link: str
 

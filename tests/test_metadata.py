@@ -27,8 +27,8 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqLinkInDescriptionValidator,
     SigmahqUnknownFieldIssue,
     SigmahqUnknownFieldValidator,
-    SigmahqUselessModifiedIssue,
-    SigmahqUselessModifiedValidator,
+    SigmahqRedundantModifiedIssue,
+    SigmahqRedundantModifiedValidator,
     SigmahqStatusToHighIssue,
     SigmahqStatusToHighValidator,
     SigmahqGithubLinkIssue,
@@ -501,8 +501,8 @@ def test_validator_SigmahqUnknownField_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqUselessModified():
-    validator = SigmahqUselessModifiedValidator()
+def test_validator_SigmahqRedundantModified():
+    validator = SigmahqRedundantModifiedValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -517,11 +517,11 @@ def test_validator_SigmahqUselessModified():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqUselessModifiedIssue(rule)]
+    assert validator.validate(rule) == [SigmahqRedundantModifiedIssue(rule)]
 
 
-def test_validator_SigmahqUselessModified_valid():
-    validator = SigmahqUselessModifiedValidator()
+def test_validator_SigmahqRedundantModified_valid():
+    validator = SigmahqRedundantModifiedValidator()
     rule = SigmaRule.from_yaml(
         """
     title: Test
