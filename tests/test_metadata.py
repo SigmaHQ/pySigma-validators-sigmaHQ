@@ -52,7 +52,7 @@ def test_validator_SigmahqStatus_Unsupported():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusIssue(rule)]
+    assert validator.validate(rule) == [SigmahqStatusIssue([rule])]
 
 
 def test_validator_SigmahqStatus_Deprecated():
@@ -69,7 +69,7 @@ def test_validator_SigmahqStatus_Deprecated():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusIssue(rule)]
+    assert validator.validate(rule) == [SigmahqStatusIssue([rule])]
 
 
 def test_validator_SigmahqStatus_valid():
@@ -103,7 +103,7 @@ def test_validator_SigmahqDateExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqDateExistenceIssue(rule)]
+    assert validator.validate(rule) == [SigmahqDateExistenceIssue([rule])]
 
 
 def test_validator_SigmahqDateExistence_valid():
@@ -137,7 +137,7 @@ def test_validator_SigmahqStatusExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqStatusExistenceIssue(rule)]
+    assert validator.validate(rule) == [SigmahqStatusExistenceIssue([rule])]
 
 
 def test_validator_SigmahqStatusExistence_valid():
@@ -170,7 +170,7 @@ def test_validator_SigmahqDescriptionExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqDescriptionExistenceIssue(rule)]
+    assert validator.validate(rule) == [SigmahqDescriptionExistenceIssue([rule])]
 
 
 def test_validator_SigmahqDescriptionExistence_valid():
@@ -204,7 +204,7 @@ def test_validator_SigmahqDescriptionLength():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqDescriptionLengthIssue(rule)]
+    assert validator.validate(rule) == [SigmahqDescriptionLengthIssue([rule])]
 
 
 def test_validator_SigmahqDescriptionLength_valid():
@@ -237,7 +237,7 @@ def test_validator_SigmahqLevelExistence():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqLevelExistenceIssue(rule)]
+    assert validator.validate(rule) == [SigmahqLevelExistenceIssue([rule])]
 
 
 def test_validator_SigmahqLevelExistence_valid():
@@ -275,8 +275,8 @@ def test_validator_SigmahqFalsepositivesCapital():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqFalsepositivesCapitalIssue(rule, "unknown"),
-        SigmahqFalsepositivesCapitalIssue(rule, "possible"),
+        SigmahqFalsepositivesCapitalIssue([rule], "unknown"),
+        SigmahqFalsepositivesCapitalIssue([rule], "possible"),
     ]
 
 
@@ -316,7 +316,7 @@ def test_validator_SigmahqFalsepositivesBannedWord():
         - Pentest tools
     """
     )
-    assert validator.validate(rule) == [SigmahqFalsepositivesBannedWordIssue(rule, "Pentest")]
+    assert validator.validate(rule) == [SigmahqFalsepositivesBannedWordIssue([rule], "Pentest")]
 
 
 def test_validator_SigmahqFalsepositivesBannedWord_custom():
@@ -335,7 +335,7 @@ def test_validator_SigmahqFalsepositivesBannedWord_custom():
         - Maybe
     """
     )
-    assert validator.validate(rule) == [SigmahqFalsepositivesBannedWordIssue(rule, "Maybe")]
+    assert validator.validate(rule) == [SigmahqFalsepositivesBannedWordIssue([rule], "Maybe")]
 
 
 def test_validator_SigmahqFalsepositivesBannedWord_valid():
@@ -373,7 +373,7 @@ def test_validator_SigmahqFalsepositivesTypoWord():
         - legitimeate AD tools
     """
     )
-    assert validator.validate(rule) == [SigmahqFalsepositivesTypoWordIssue(rule, "legitimeate")]
+    assert validator.validate(rule) == [SigmahqFalsepositivesTypoWordIssue([rule], "legitimeate")]
 
 
 def test_validator_SigmahqFalsepositivesTypoWord_custom():
@@ -392,7 +392,7 @@ def test_validator_SigmahqFalsepositivesTypoWord_custom():
         - Unkwon AD tools
     """
     )
-    assert validator.validate(rule) == [SigmahqFalsepositivesTypoWordIssue(rule, "Unkwon")]
+    assert validator.validate(rule) == [SigmahqFalsepositivesTypoWordIssue([rule], "Unkwon")]
 
 
 def test_validator_SigmahqFalsepositivesTypoWord_valid():
@@ -428,7 +428,7 @@ def test_validator_SigmahqLinkDescription():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule, "https://")]
+    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue([rule], "https://")]
 
 
 def test_validator_SigmahqLinkDescription():
@@ -445,7 +445,7 @@ def test_validator_SigmahqLinkDescription():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue(rule, "ftp:")]
+    assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue([rule], "ftp:")]
 
 
 def test_validator_SigmahqLinkDescription_valid():
@@ -482,7 +482,7 @@ def test_validator_SigmahqUnknownField():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqUnknownFieldIssue(rule, ["created"])]
+    assert validator.validate(rule) == [SigmahqUnknownFieldIssue([rule], ["created"])]
 
 
 def test_validator_SigmahqUnknownField_valid():
@@ -519,7 +519,7 @@ def test_validator_SigmahqRedundantModified():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqRedundantModifiedIssue(rule)]
+    assert validator.validate(rule) == [SigmahqRedundantModifiedIssue([rule])]
 
 
 def test_validator_SigmahqRedundantModified_valid():
@@ -558,7 +558,7 @@ def test_validator_SigmahqStatusToHigh():
     """
     )
     rule.date = datetime.now().date()
-    assert validator.validate(rule) == [SigmahqStatusToHighIssue(rule)]
+    assert validator.validate(rule) == [SigmahqStatusToHighIssue([rule])]
 
 
 def test_validator_SigmahqStatusToHigh():
@@ -642,7 +642,7 @@ def test_validator_SigmahqMitreLink():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqMitreLinkIssue(rule, "https://attack.mitre.org/techniques/T1588/007/")
+        SigmahqMitreLinkIssue([rule], "https://attack.mitre.org/techniques/T1588/007/")
     ]
 
 

@@ -16,7 +16,7 @@ def test_validator_SigmahqFilename():
     validator = SigmahqFilenameConventionValidator()
     sigma_collection = SigmaCollection.load_ruleset(["tests/files/rule_filename_errors"])
     rule = sigma_collection[0]
-    assert validator.validate(rule) == [SigmahqFilenameConventionIssue(rule, "Name.yml")]
+    assert validator.validate(rule) == [SigmahqFilenameConventionIssue([rule], "Name.yml")]
 
 
 def test_validator_SigmahqFilename_valid():
@@ -32,9 +32,9 @@ def test_validator_SigmahqPrefixFilename():
     rule = sigma_collection[0]
     assert validator.validate(rule) == [
         SigmahqFilenamePrefixIssue(
-            rule,
+            [rule],
             "Name.yml",
-            SigmaLogSource("process_creation", "windows", None),
+            SigmaLogSource(category="process_creation", product="windows", service=None),
             "proc_creation_win_",
         )
     ]
@@ -53,9 +53,9 @@ def test_validator_SigmahqPrefixFilename_product():
     rule = sigma_collection[0]
     assert validator.validate(rule) == [
         SigmahqFilenamePrefixIssue(
-            rule,
+            [rule],
             "rule_for_macos.yml",
-            SigmaLogSource(None, "macos", "test"),
+            SigmaLogSource(category=None, product="macos", service="test"),
             "macos_",
         )
     ]

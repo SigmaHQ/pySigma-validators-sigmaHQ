@@ -29,7 +29,7 @@ def test_validator_SigmahqCategoryEventId():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqCategoryEventIdIssue(rule)]
+    assert validator.validate(rule) == [SigmahqCategoryEventIdIssue([rule])]
 
 
 def test_validator_SigmahqCategoryEventId_valid():
@@ -84,7 +84,7 @@ def test_validator_SigmahqCategoryWindowsProviderName():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqCategoryWindowsProviderNameIssue(rule)]
+    assert validator.validate(rule) == [SigmahqCategoryWindowsProviderNameIssue([rule])]
 
 
 def test_validator_SigmahqCategoryWindowsProviderName_valid():
