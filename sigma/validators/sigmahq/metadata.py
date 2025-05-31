@@ -290,3 +290,24 @@ class SigmahqGithubLinkValidator(SigmaRuleValidator):
                     if re.match(r".*/[0-9a-z]{40}/.*", link) is None:
                         result.append(SigmahqGithubLinkIssue([rule], link))
         return result
+
+
+@dataclass
+class SigmahqMitreLinkIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Rule has a Mitre link instead of a mitre attack tag. Use e.g. - attack."
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+    link: str
+
+
+class SigmahqMitreLinkValidator(SigmaRuleValidator):
+    """Checks if a rule use Mitre link instead of tag"""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        result = []
+        if rule.references is not None:
+            for link in rule.references:
+                if link.startswith("https://attack.mitre.org/"):
+                    result.append(SigmahqMitreLinkIssue([rule], link))
+        return result
