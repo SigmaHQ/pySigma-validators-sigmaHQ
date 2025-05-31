@@ -50,7 +50,9 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
         if rule.source is not None:
             filename = rule.source.path.name
             logsource = SigmaLogSource(
-                category=rule.logsource.category, product=rule.logsource.product, service=rule.logsource.service
+                category=rule.logsource.category,
+                product=rule.logsource.product,
+                service=rule.logsource.service,
             )
 
             if logsource in config.sigmahq_logsource_filepattern:
@@ -66,7 +68,9 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
             else:
                 # check only product but must exist
                 if rule.logsource.product:
-                    logsource = SigmaLogSource(category=None,product= rule.logsource.product,service= None)
+                    logsource = SigmaLogSource(
+                        category=None, product=rule.logsource.product, service=None
+                    )
                     if (
                         logsource in config.sigmahq_logsource_filepattern
                         and not filename.startswith(config.sigmahq_logsource_filepattern[logsource])

@@ -34,7 +34,7 @@ def test_validator_SigmahqPrefixFilename():
         SigmahqFilenamePrefixIssue(
             [rule],
             "Name.yml",
-            SigmaLogSource(category="process_creation",product="windows",service= None),
+            SigmaLogSource(category="process_creation", product="windows", service=None),
             "proc_creation_win_",
         )
     ]
@@ -55,7 +55,7 @@ def test_validator_SigmahqPrefixFilename_product():
         SigmahqFilenamePrefixIssue(
             [rule],
             "rule_for_macos.yml",
-            SigmaLogSource(category=None,product= "macos",service= "test"),
+            SigmaLogSource(category=None, product="macos", service="test"),
             "macos_",
         )
     ]

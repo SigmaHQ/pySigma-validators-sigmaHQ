@@ -59,7 +59,9 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         core_logsource = SigmaLogSource(
-            category=rule.logsource.category, product=rule.logsource.product, service=rule.logsource.service
+            category=rule.logsource.category,
+            product=rule.logsource.product,
+            service=rule.logsource.service,
         )
         if (
             core_logsource in config.sigma_fieldsname
@@ -96,7 +98,9 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         core_logsource = SigmaLogSource(
-            category=rule.logsource.category, product=rule.logsource.product, service=rule.logsource.service
+            category=rule.logsource.category,
+            product=rule.logsource.product,
+            service=rule.logsource.service,
         )
         if (
             core_logsource in config.sigma_fieldsname
