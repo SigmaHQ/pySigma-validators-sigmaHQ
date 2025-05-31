@@ -295,14 +295,14 @@ class SigmahqGithubLinkValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqMitreLinkIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule has a Mitre link instead of a mitre attack tag. Use e.g. - attack."
+        "Rule has a MITRE link instead of a MITRE attack tag. Use e.g. - attack.t1053.003"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     link: str
 
 
 class SigmahqMitreLinkValidator(SigmaRuleValidator):
-    """Checks if a rule use Mitre link instead of tag"""
+    """Checks if a rule uses a MITRE link instead of tag"""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         result = []
