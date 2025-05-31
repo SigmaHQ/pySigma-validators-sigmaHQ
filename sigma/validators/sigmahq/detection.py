@@ -45,7 +45,7 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if detection_item.field is not None and detection_item.field == "EventID":
-            return [SigmahqCategoryEventIdIssue(self.rule)]
+            return [SigmahqCategoryEventIdIssue([self.rule])]
         else:
             return []
 
@@ -74,18 +74,9 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
         if detection_item.field is not None and detection_item.field == "Provider_Name":
             for v in detection_item.value:
                 if v in self.list_provider:
-                    return [SigmahqCategoryWindowsProviderNameIssue(self.rule)]
+                    return [SigmahqCategoryWindowsProviderNameIssue([self.rule])]
 
         return []
-
-
-@dataclass
-class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule uses an unsupported regular expression group construct. Construct such as positive and negative lookahead, positive and negative lookbehind as well as atomic groups are currently unsupported."
-    )
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-    unsupported_regexp: str
 
 
 @dataclass
@@ -100,7 +91,7 @@ class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
 class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a an unsupported regular expression group constructs."""
 
-    regex_list: Tuple[str] = (
+    regex_list: Tuple[str, ...] = (
         "(?=",
         "(?!",
         "(?<=",
@@ -116,8 +107,9 @@ class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator
         if SigmaRegularExpressionModifier in detection_item.modifiers:
             for value in detection_item.value:
                 for unsupported_group_construct in self.regex_list:
-                    if unsupported_group_construct in value.regexp:
-                        unsupported_regexps.add(value.regexp)
+                    regexp_value = getattr(value, "regexp", None)
+                    if regexp_value is not None and unsupported_group_construct in regexp_value:
+                        unsupported_regexps.add(regexp_value)
 
         return [
             SigmahqUnsupportedRegexGroupConstructIssue([self.rule], regexp)

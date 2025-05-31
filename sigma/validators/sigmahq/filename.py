@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass
 from typing import ClassVar, Dict, List
 
-from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
 
 from sigma.validators.base import (
     SigmaRuleValidator,
@@ -25,12 +25,12 @@ class SigmahqFilenameConventionIssue(SigmaValidationIssue):
 class SigmahqFilenameConventionValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename convention."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         filename_pattern = re.compile(r"[a-z0-9_]{10,90}\.yml")
         if rule.source is not None:
             filename = rule.source.path.name
             if filename_pattern.match(filename) is None or not "_" in filename:
-                return [SigmahqFilenameConventionIssue(rule, filename)]
+                return [SigmahqFilenameConventionIssue([rule], filename)]
         return []
 
 
@@ -57,7 +57,7 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                 if not filename.startswith(config.sigmahq_logsource_filepattern[logsource]):
                     return [
                         SigmahqFilenamePrefixIssue(
-                            rule,
+                            [rule],
                             filename,
                             rule.logsource,
                             config.sigmahq_logsource_filepattern[logsource],
@@ -73,7 +73,7 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                     ):
                         return [
                             SigmahqFilenamePrefixIssue(
-                                rule,
+                                [rule],
                                 filename,
                                 rule.logsource,
                                 config.sigmahq_logsource_filepattern[logsource],

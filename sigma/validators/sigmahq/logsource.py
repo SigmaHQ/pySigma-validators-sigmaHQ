@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import ClassVar, Dict, List
 
-from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,
@@ -24,11 +24,18 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
     """Checks if a rule uses an unknown logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        core_logsource = SigmaLogSource(
-            rule.logsource.category, rule.logsource.product, rule.logsource.service
-        )
-        if not core_logsource in config.sigma_fieldsname:
-            return [SigmahqLogsourceUnknownIssue(rule, rule.logsource)]
+        # Ensure rule is a SigmaRule instance to access logsource
+        logsource = getattr(rule, "logsource", None)
+        if logsource is not None:
+            core_logsource = SigmaLogSource(
+                getattr(logsource, "category", None),
+                getattr(logsource, "product", None),
+                getattr(logsource, "service", None),
+            )
+            if not core_logsource in config.sigma_fieldsname:
+                return [SigmahqLogsourceUnknownIssue([rule], logsource)]
+            else:
+                return []
         else:
             return []
 
@@ -54,6 +61,6 @@ class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
             if find:
                 return []
             else:
-                return [SigmahqSysmonMissingEventidIssue(rule)]
+                return [SigmahqSysmonMissingEventidIssue([rule])]
         else:
             return []
