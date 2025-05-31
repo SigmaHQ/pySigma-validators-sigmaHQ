@@ -28,9 +28,9 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
         logsource = getattr(rule, "logsource", None)
         if logsource is not None:
             core_logsource = SigmaLogSource(
-                getattr(logsource, "category", None),
-                getattr(logsource, "product", None),
-                getattr(logsource, "service", None),
+                category=getattr(logsource, "category", None),
+                product=getattr(logsource, "product", None),
+                service=getattr(logsource, "service", None),
             )
             if not core_logsource in config.sigma_fieldsname:
                 return [SigmahqLogsourceUnknownIssue([rule], logsource)]
