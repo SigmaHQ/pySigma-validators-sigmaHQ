@@ -21,7 +21,7 @@ class SigmahqTagsDetectionEmergingthreatsIssue(SigmaValidationIssue):
 
 
 class SigmahqTagsDetectionEmergingthreatsValidator(SigmaRuleValidator):
-    """Checks if a in Emerging-threats folder have the detection.emerging-threats tag."""
+    """Checks if a rule in Emerging-threats folder have the detection.emerging-threats tag."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if rule.source and "rules-emerging-threats" in str(rule.source):
@@ -42,7 +42,7 @@ class SigmahqTagsDetectionThreathuntingIssue(SigmaValidationIssue):
 
 
 class SigmahqTagsDetectionThreathuntingValidator(SigmaRuleValidator):
-    """Checks if a in Threat-hunting folder have the detection.threat-hunting tag."""
+    """Checks if a rule in Threat-hunting folder have the detection.threat-hunting tag."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if rule.source and "rules-threat-hunting" in str(rule.source):
@@ -61,7 +61,7 @@ class SigmahqTagsDetectionDfirIssue(SigmaValidationIssue):
 
 
 class SigmahqTagsDetectionDfirValidator(SigmaRuleValidator):
-    """Checks if a in Dfir folder have detection.dfir tag."""
+    """Checks if a rule in Dfir folder have detection.dfir tag."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if rule.source and "rules-dfir" in str(rule.source):
@@ -71,3 +71,25 @@ class SigmahqTagsDetectionDfirValidator(SigmaRuleValidator):
                         return []
             return [SigmahqTagsDetectionDfirIssue([rule])]
         return []
+
+
+@dataclass
+class SigmahqTagsTlpIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "The rule uses a non-authorized TLP."
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    tlp: str
+
+
+@dataclass(frozen=True)
+class SigmahqTagsTlpValidator(SigmaRuleValidator):
+    """Checks if a rule use a not allowed tlp tag."""
+
+    allowed_tlp: Tuple[str, ...] = ("clear",)
+
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        rule_error = list()
+        if rule.tags:
+            for tag in rule.tags:
+                if tag.namespace == "tlp" and tag.name not in self.allowed_tlp:
+                    rule_error.append(SigmahqTagsTlpIssue([rule], tag.name))
+        return rule_error

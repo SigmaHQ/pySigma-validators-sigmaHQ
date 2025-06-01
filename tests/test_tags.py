@@ -11,6 +11,8 @@ from sigma.validators.sigmahq.tags import (
     SigmahqTagsDetectionThreathuntingValidator,
     SigmahqTagsDetectionDfirIssue,
     SigmahqTagsDetectionDfirValidator,
+    SigmahqTagsTlpIssue,
+    SigmahqTagsTlpValidator,
 )
 
 
@@ -52,5 +54,19 @@ def test_validator_SigmahqTagsDetectionDfir():
 def test_validator_SigmahqTagsDetectionDfir_valid():
     validator = SigmahqTagsDetectionDfirValidator()
     sigma_collection = SigmaCollection.load_ruleset(["tests/files/rules-dfir/valid"])
+    rule = sigma_collection[0]
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqTagsTlp():
+    validator = SigmahqTagsTlpValidator()
+    sigma_collection = SigmaCollection.load_ruleset(["tests/files/tlp/invalid"])
+    rule = sigma_collection[0]
+    assert validator.validate(rule) == [SigmahqTagsTlpIssue([rule], "red")]
+
+
+def test_validator_SigmahqTagsTlp_valid():
+    validator = SigmahqTagsTlpValidator()
+    sigma_collection = SigmaCollection.load_ruleset(["tests/files/tlp/valid"])
     rule = sigma_collection[0]
     assert validator.validate(rule) == []
