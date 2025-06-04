@@ -101,7 +101,7 @@ def test_validator_SigmahqOfselectionConditionValidator():
         condition: 1 of selection_part* and 1 of sub_*
     """
     )
-    assert validator.validate(rule) == [SigmahqOfselectionConditionIssue(rule, "sub_*")]
+    assert validator.validate(rule) == [SigmahqOfselectionConditionIssue([rule], "sub_*")]
 
 
 def test_validator_SigmahqOfselectionConditionValidator_valid():
@@ -181,7 +181,9 @@ def test_validator_SigmahqMissingAsteriskConditionValidator():
         condition: 1 of selection_part* and 1 of selection_sub
     """
     )
-    assert validator.validate(rule) == [SigmahqMissingAsteriskConditionIssue(rule, "selection_sub")]
+    assert validator.validate(rule) == [
+        SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
+    ]
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_valid():

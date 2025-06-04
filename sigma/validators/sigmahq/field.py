@@ -42,7 +42,7 @@ class SigmahqSpaceFieldNameValidator(SigmaDetectionItemValidator):
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if detection_item.field and " " in detection_item.field:
-            return [SigmahqSpaceFieldNameIssue(self.rule, detection_item.field)]
+            return [SigmahqSpaceFieldNameIssue([self.rule], detection_item.field)]
         else:
             return []
 
@@ -59,7 +59,9 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         core_logsource = SigmaLogSource(
-            rule.logsource.category, rule.logsource.product, rule.logsource.service
+            category=rule.logsource.category,
+            product=rule.logsource.product,
+            service=rule.logsource.service,
         )
         if (
             core_logsource in config.sigma_fieldsname
@@ -79,7 +81,7 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
             and detection_item.field.lower() in self.unifields
             and not detection_item.field in self.fields
         ):
-            return [SigmahqFieldnameCastIssue(self.rule, detection_item.field)]
+            return [SigmahqFieldnameCastIssue([self.rule], detection_item.field)]
         else:
             return []
 
@@ -96,7 +98,9 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         core_logsource = SigmaLogSource(
-            rule.logsource.category, rule.logsource.product, rule.logsource.service
+            category=rule.logsource.category,
+            product=rule.logsource.product,
+            service=rule.logsource.service,
         )
         if (
             core_logsource in config.sigma_fieldsname
@@ -112,26 +116,7 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if detection_item.field is not None and not detection_item.field.lower() in self.unifields:
-            return [SigmahqInvalidFieldnameIssue(self.rule, detection_item.field)]
-        else:
-            return []
-
-
-@dataclass
-class SigmahqInvalidAllModifierIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "All modifier without a list of value"
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-    field: str
-
-
-class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
-    """Check All modifier used with a single value."""
-
-    def validate_detection_item(
-        self, detection_item: SigmaDetectionItem
-    ) -> List[SigmaValidationIssue]:
-        if SigmaAllModifier in detection_item.modifiers and len(detection_item.value) < 2:
-            return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
+            return [SigmahqInvalidFieldnameIssue([self.rule], detection_item.field)]
         else:
             return []
 
@@ -164,9 +149,14 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
             value_see = []
             for v in detection_item.value:
                 if v in value_see:
-                    return [
-                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field, str(v))
-                    ]
+                    if detection_item.field is not None:
+                        return [
+                            SigmahqFieldDuplicateValueIssue(
+                                [self.rule], detection_item.field, str(v)
+                            )
+                        ]
+                    else:
+                        return []
                 else:
                     value_see.append(v)
             return []
@@ -174,9 +164,14 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
             value_see = []
             for v in detection_item.value:
                 if str(v).lower() in value_see:
-                    return [
-                        SigmahqFieldDuplicateValueIssue(self.rule, detection_item.field, str(v))
-                    ]
+                    if detection_item.field is not None:
+                        return [
+                            SigmahqFieldDuplicateValueIssue(
+                                [self.rule], detection_item.field, str(v)
+                            )
+                        ]
+                    else:
+                        return []
                 else:
                     value_see.append(str(v).lower())
             return []
@@ -196,7 +191,10 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if SigmaAllModifier in detection_item.modifiers and len(detection_item.value) < 2:
-            return [SigmahqInvalidAllModifierIssue(self.rule, detection_item.field)]
+            if detection_item.field is not None:
+                return [SigmahqInvalidAllModifierIssue([self.rule], detection_item.field)]
+            else:
+                return []
         else:
             return []
 
@@ -223,7 +221,7 @@ class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
         ):
             user = str(detection_item.value[0])
             if "AUTORI" in user or "AUTHORI" in user:
-                return [SigmahqFieldUserIssue(self.rule, detection_item.field, user)]
+                return [SigmahqFieldUserIssue([self.rule], detection_item.field, user)]
             else:
                 return []
         else:
@@ -241,8 +239,8 @@ class SigmahqInvalidHashKvIssue(SigmaValidationIssue):
 class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
     """Check field Sysmon Hash Key-Value search is valid."""
 
-    hash_field: Tuple[str] = ("Hashes", "Hash")
-    hash_key: Tuple[str] = ("MD5", "SHA1", "SHA256", "IMPHASH")
+    hash_field: Tuple[str, ...] = ("Hashes", "Hash")
+    hash_key: Tuple[str, ...] = ("MD5", "SHA1", "SHA256", "IMPHASH")
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -258,6 +256,9 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                             try:
                                 hash_name, hash_data = s_value.split("=")
                                 if hash_name in self.hash_key:
+                                    # Initialize hash_regex with a default value
+                                    hash_regex = r"^[a-fA-F0-9]{32}$"
+
                                     if hash_name == "MD5":
                                         hash_regex = r"^[a-fA-F0-9]{32}$"
                                     elif hash_name == "SHA1":
@@ -266,6 +267,7 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                                         hash_regex = r"^[a-fA-F0-9]{64}$"
                                     elif hash_name == "IMPHASH":
                                         hash_regex = r"^[a-fA-F0-9]{32}$"
+
                                     if re.search(hash_regex, hash_data) is None:
                                         errors.append(hash_data)
                                 else:
@@ -275,4 +277,4 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                 else:
                     errors.append(v)
 
-        return [SigmahqInvalidHashKvIssue(self.rule, v) for v in errors]
+        return [SigmahqInvalidHashKvIssue([self.rule], v) for v in errors]
