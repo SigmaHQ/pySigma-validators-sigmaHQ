@@ -1,5 +1,6 @@
 from typing import Dict, List
 from sigma.rule import SigmaLogSource
+from typing import Optional
 
 file_pattern_version: str = "20240809"
 ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
@@ -5130,7 +5131,7 @@ ref_sigmahq_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): [],
 }
-ref_sigmahq_logsource_definition: Dict[SigmaLogSource, str] = {
+ref_sigmahq_logsource_definition: Dict[SigmaLogSource, Optional[str]] = {
     SigmaLogSource(
         category=None,
         product="aws",

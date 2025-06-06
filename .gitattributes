@@ -18,5 +18,6 @@
 *.png binary
 *.jpg binary
 
-# force lf for Sigma rule
+# force lf for Sigma rule and python
 *.yml text eol=lf
+*.py text eol=lf
