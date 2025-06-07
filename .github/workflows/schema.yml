@@ -27,6 +27,6 @@ jobs:
 
           - name: Validate JSON files
             run: |
-                check-jsonschema --schemafile ./json-schema/shcema_sigma.json ./tools/sigma.json  
+                check-jsonschema --schemafile ./json-schema/schema_sigma.json ./tools/sigma.json  
                 check-jsonschema --schemafile ./json-schema/schema_sigmahq_filename.json ./tools/sigmahq_filename.json 
                 check-jsonschema --schemafile ./json-schema/schema_sigmahq_windows_validator.json ./tools/sigmahq_windows_validator.json
