@@ -1,0 +1,32 @@
+name: Validate JSON files
+
+on:
+    push:
+        paths:
+            - 'tools/**/*.json'
+            - 'json-schema/**/*.json'
+    pull_request:
+        paths:
+            - 'tools/**/*.json'
+            - 'json-schema/**/*.json'
+
+jobs:
+    validate-json:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+
+          - name: Set up Python
+            uses: actions/setup-python@v5
+            with:
+              python-version: '3.12'
+
+          - name: Install check-jsonschema
+            run: pip install check-jsonschema
+
+          - name: Validate JSON files
+            run: |
+                check-jsonschema --schemafile .\json-schema\shcema_sigma.json .\tools\sigma.json  
+                check-jsonschema --schemafile .\json-schema\schema_sigmahq_filename.json .\tools\sigmahq_filename.json 
+                check-jsonschema --schemafile .\json-schema\schema_sigmahq_windows_validator.json .\tools\sigmahq_windows_validator.json
