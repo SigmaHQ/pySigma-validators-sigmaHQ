@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, List, Tuple
+from typing import Dict, List,  Optional
 
 from sigma.rule import SigmaLogSource
 import json
@@ -8,7 +8,6 @@ import pathlib
 from .sigmahq_data import (
     ref_sigmahq_logsource_filepattern,
     ref_sigmahq_fieldsname,
-    ref_sigmahq_fieldsname_unicast,
     ref_sigmahq_logsource_definition,
     ref_windows_provider_name,
     ref_windows_no_eventid,
@@ -27,7 +26,7 @@ class ConfigHQ:
 
     windows_no_eventid: List[str] = []
     windows_provider_name: Dict[SigmaLogSource, List[str]] = {}
-    sigmahq_logsource_definition: Dict[SigmaLogSource, str] = {}
+    sigmahq_logsource_definition: Dict[SigmaLogSource, Optional[str]] = {}
 
     def __init__(self) -> None:
 
@@ -36,12 +35,10 @@ class ConfigHQ:
         if pathlib.Path(os.path.join(local_path, "sigma.json")).exists():
             (
                 self.sigma_fieldsname,
-                self.sigma_fieldsname_unicast,
                 self.sigmahq_logsource_definition,
             ) = self.load_sigma_json(local_path)
         else:
             self.sigma_fieldsname = ref_sigmahq_fieldsname
-            self.sigma_fieldsname_unicast = ref_sigmahq_fieldsname_unicast
             self.sigmahq_logsource_definition = ref_sigmahq_logsource_definition
 
         if pathlib.Path(os.path.join(local_path, "sigmahq_filename.json")).exists():
@@ -67,8 +64,7 @@ class ConfigHQ:
             taxonomy_info[logsource] = value["field"]["native"]
             taxonomy_info[logsource].extend(value["field"]["custom"])
             taxonomy_definition[logsource] = value["logsource"]["definition"]
-        taxonomy_info_unicast = {k: [v.lower() for v in l] for k, l in taxonomy_info.items()}
-        return taxonomy_info, taxonomy_info_unicast, taxonomy_definition
+        return taxonomy_info, taxonomy_definition
 
     def load_sigmahq_filename_json(self, local_path: str):
         with open(os.path.join(local_path, "sigmahq_filename.json"), "r", encoding="UTF-8") as file:

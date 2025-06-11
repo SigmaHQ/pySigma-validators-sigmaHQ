@@ -68,7 +68,6 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
             and len(config.sigma_fieldsname[core_logsource]) > 0
         ):
             self.fields = config.sigma_fieldsname[core_logsource]
-            self.unifields = config.sigma_fieldsname_unicast[core_logsource]
             return super().validate(rule)
 
         return []
@@ -78,8 +77,8 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     ) -> List[SigmaValidationIssue]:
         if (
             detection_item.field is not None
-            and detection_item.field.lower() in self.unifields
             and not detection_item.field in self.fields
+            and any(x for x in self.fields if detection_item.field.casefold() == x.casefold())
         ):
             return [SigmahqFieldnameCastIssue([self.rule], detection_item.field)]
         else:
@@ -107,7 +106,6 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
             and len(config.sigma_fieldsname[core_logsource]) > 0
         ):
             self.fields = config.sigma_fieldsname[core_logsource]
-            self.unifields = config.sigma_fieldsname_unicast[core_logsource]
             return super().validate(rule)
 
         return []
@@ -115,7 +113,7 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
-        if detection_item.field is not None and not detection_item.field.lower() in self.unifields:
+        if detection_item.field is not None and not detection_item.field in self.fields:
             return [SigmahqInvalidFieldnameIssue([self.rule], detection_item.field)]
         else:
             return []

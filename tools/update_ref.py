@@ -51,7 +51,7 @@ def process_sigmahq_filename(url: str, json_name: str = "sigmahq_filename.json")
 def process_sigma_json(url: str, json_name: str = "sigma.json"):
     """
     Load and process 'sigma.json' from the given url/path.
-    Returns taxonomy_version, taxonomy_info, taxonomy_definition, taxonomy_info_unicast.
+    Returns taxonomy_version, taxonomy_info, taxonomy_definition.
     """
     filename_path = os.path.join(url, json_name)
     if filename_path.startswith("http://") or filename_path.startswith("https://"):
@@ -76,8 +76,7 @@ def process_sigma_json(url: str, json_name: str = "sigma.json"):
         taxonomy_info[logsource] = sorted(fieldlist, key=str.casefold)
         taxonomy_definition[logsource] = value["logsource"]["definition"]
 
-    taxonomy_info_unicast = {k: [v.lower() for v in l] for k, l in taxonomy_info.items()}
-    return taxonomy_version, taxonomy_info, taxonomy_definition, taxonomy_info_unicast
+    return taxonomy_version, taxonomy_info, taxonomy_definition
 
 
 def process_sigmahq_windows_validator(url: str, json_name: str = "sigmahq_windows_validator.json"):
@@ -107,7 +106,7 @@ def process_sigmahq_windows_validator(url: str, json_name: str = "sigmahq_window
 
 def write_sigmahq_data_py(url, output_path="sigma/validators/sigmahq/sigmahq_data.py"):
     filename_version, filename_info = process_sigmahq_filename(url)
-    taxonomy_version, taxonomy_info, taxonomy_definition, taxonomy_info_unicast = (
+    taxonomy_version, taxonomy_info, taxonomy_definition = (
         process_sigma_json(url)
     )
     windows_version, windows_provider_name, windows_no_eventid = process_sigmahq_windows_validator(
@@ -127,11 +126,6 @@ def write_sigmahq_data_py(url, output_path="sigma/validators/sigmahq/sigmahq_dat
         print(
             "ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = "
             + pformat(taxonomy_info, indent=4, sort_dicts=False),
-            file=file,
-        )
-        print(
-            "ref_sigmahq_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = "
-            + pformat(taxonomy_info_unicast, indent=4, sort_dicts=False),
             file=file,
         )
         print(
