@@ -106,9 +106,7 @@ def process_sigmahq_windows_validator(url: str, json_name: str = "sigmahq_window
 
 def write_sigmahq_data_py(url, output_path="sigma/validators/sigmahq/sigmahq_data.py"):
     filename_version, filename_info = process_sigmahq_filename(url)
-    taxonomy_version, taxonomy_info, taxonomy_definition = (
-        process_sigma_json(url)
-    )
+    taxonomy_version, taxonomy_info, taxonomy_definition = process_sigma_json(url)
     windows_version, windows_provider_name, windows_no_eventid = process_sigmahq_windows_validator(
         url
     )

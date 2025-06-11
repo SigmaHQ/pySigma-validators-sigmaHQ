@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, List,  Optional
+from typing import Dict, List, Optional
 
 from sigma.rule import SigmaLogSource
 import json
