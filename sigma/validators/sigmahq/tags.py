@@ -15,13 +15,13 @@ config = ConfigHQ()
 @dataclass
 class SigmahqTagsDetectionEmergingthreatsIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule in Emerging-threats folder don't have detection.emerging-threats tag."
+        "Rule in emerging-threats folder doesn't have a detection.emerging-threats tag."
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
 
 
 class SigmahqTagsDetectionEmergingthreatsValidator(SigmaRuleValidator):
-    """Checks if a rule in Emerging-threats folder have the detection.emerging-threats tag."""
+    """Checks if a rule in the emerging-threats folder has the detection.emerging-threats tag."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if rule.source and "rules-emerging-threats" in str(rule.source):
@@ -36,13 +36,13 @@ class SigmahqTagsDetectionEmergingthreatsValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqTagsDetectionThreathuntingIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule in Threat-hunting folder don't have detection.threat-hunting tag."
+        "Rule in threat-hunting folder doesn't have a detection.threat-hunting tag."
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
 
 
 class SigmahqTagsDetectionThreathuntingValidator(SigmaRuleValidator):
-    """Checks if a rule in Threat-hunting folder have the detection.threat-hunting tag."""
+    """Checks if a rule in the threat-hunting folder has the detection.threat-hunting tag."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if rule.source and "rules-threat-hunting" in str(rule.source):
@@ -56,12 +56,12 @@ class SigmahqTagsDetectionThreathuntingValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTagsDetectionDfirIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule in Dfir folder don't have the detection.dfir tag."
+    description: ClassVar[str] = "Rule in DFIR folder doesn't have the detection.dfir tag."
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
 
 
 class SigmahqTagsDetectionDfirValidator(SigmaRuleValidator):
-    """Checks if a rule in Dfir folder have detection.dfir tag."""
+    """Checks if a rule in the DFIR folder has the detection.dfir tag."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if rule.source and "rules-dfir" in str(rule.source):
@@ -82,7 +82,7 @@ class SigmahqTagsTlpIssue(SigmaValidationIssue):
 
 @dataclass(frozen=True)
 class SigmahqTagsTlpValidator(SigmaRuleValidator):
-    """Checks if a rule use a not allowed tlp tag."""
+    """Checks if a rule uses a non-authorized TLP tag."""
 
     allowed_tlp: Tuple[str, ...] = ("clear",)
 
