@@ -2,7 +2,7 @@ from wsgiref.validate import validator
 
 import pytest
 from sigma.rule import SigmaRule
-from sigma.modifiers import SigmaRegularExpression
+from sigma.types import SigmaRegularExpression
 
 from sigma.validators.sigmahq.field import (
     SigmahqSpaceFieldNameIssue,
@@ -21,6 +21,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqFieldUserValidator,
     SigmahqInvalidHashKvIssue,
     SigmahqInvalidHashKvValidator,
+    SigmahqUnneededFieldIssue,
+    SigmahqUnneededFieldValidator,
 )
 
 
@@ -488,6 +490,45 @@ def test_validator_SigmahqInvalidHashKvValidator_valid():
         sel:
             Hashes|contains: 'MD5=4fae81eb7018069e75a087c38af783df'
         condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqUnneededField():
+    validator = SigmahqUnneededFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Field Allready in the Logsource
+    status: test
+    logsource:
+        category: registry_set
+        product: windows
+    detection:
+        selection:
+            EventType: SetValue
+            TargetObject|contains: 'SigmaHQ'
+            Details|startswith: 'rules' 
+        condition: selection
+    """
+    )
+    assert validator.validate(rule) == [SigmahqUnneededFieldIssue([rule], "EventType")]
+
+
+def test_validator_SigmahqUnneededField_valid():
+    validator = SigmahqUnneededFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Field Allready in the Logsource
+    status: test
+    logsource:
+        category: registry_set
+        product: windows
+    detection:
+        selection:
+            TargetObject|contains: 'SigmaHQ'
+            Details|startswith: 'rules' 
+        condition: selection
     """
     )
     assert validator.validate(rule) == []

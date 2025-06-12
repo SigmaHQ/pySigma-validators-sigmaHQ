@@ -8,6 +8,7 @@ import pathlib
 from .sigmahq_data import (
     ref_sigmahq_logsource_filepattern,
     ref_sigmahq_fieldsname,
+    ref_sigmahq_unneededfield,
     ref_sigmahq_logsource_definition,
     ref_windows_provider_name,
     ref_windows_no_eventid,
@@ -20,7 +21,7 @@ def core_logsource(source: SigmaLogSource) -> SigmaLogSource:
 
 class ConfigHQ:
     sigma_fieldsname: Dict[SigmaLogSource, List[str]] = {}
-    sigma_fieldsname_unicast: Dict[SigmaLogSource, List[str]] = {}
+    sigmahq_unneededfields: Dict[SigmaLogSource, List[str]] = {}
 
     sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {}
 
@@ -36,10 +37,12 @@ class ConfigHQ:
             (
                 self.sigma_fieldsname,
                 self.sigmahq_logsource_definition,
+                self.sigmahq_unneededfields,
             ) = self.load_sigma_json(local_path)
         else:
             self.sigma_fieldsname = ref_sigmahq_fieldsname
             self.sigmahq_logsource_definition = ref_sigmahq_logsource_definition
+            self.sigmahq_unneededfields = ref_sigmahq_unneededfield
 
         if pathlib.Path(os.path.join(local_path, "sigmahq_filename.json")).exists():
             self.sigmahq_logsource_filepattern = self.load_sigmahq_filename_json(local_path)
@@ -59,12 +62,14 @@ class ConfigHQ:
             json_dict = json.load(file)
         taxonomy_info = {}
         taxonomy_definition = {}
+        taxonomy_unneeded = {}
         for value in json_dict["taxonomy"].values():
             logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
             taxonomy_info[logsource] = value["field"]["native"]
             taxonomy_info[logsource].extend(value["field"]["custom"])
             taxonomy_definition[logsource] = value["logsource"]["definition"]
-        return taxonomy_info, taxonomy_definition
+            taxonomy_unneeded[logsource] = value["field"]["unneeded"]
+        return taxonomy_info, taxonomy_definition, taxonomy_unneeded
 
     def load_sigmahq_filename_json(self, local_path: str):
         with open(os.path.join(local_path, "sigmahq_filename.json"), "r", encoding="UTF-8") as file:

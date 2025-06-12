@@ -65,6 +65,7 @@ def process_sigma_json(url: str, json_name: str = "sigma.json"):
     taxonomy_version = json_dict["version"]
     taxonomy_info = dict()
     taxonomy_definition = dict()
+    taxonomy_unneeded = dict()
 
     temp = {key_logsource(v["logsource"]): v for v in json_dict["taxonomy"].values()}
     for key in sorted(temp.keys(), key=str.casefold):
@@ -75,8 +76,9 @@ def process_sigma_json(url: str, json_name: str = "sigma.json"):
         fieldlist.extend(value["field"]["custom"])
         taxonomy_info[logsource] = sorted(fieldlist, key=str.casefold)
         taxonomy_definition[logsource] = value["logsource"]["definition"]
+        taxonomy_unneeded[logsource] = value["field"]["unneeded"]
 
-    return taxonomy_version, taxonomy_info, taxonomy_definition
+    return taxonomy_version, taxonomy_info, taxonomy_definition, taxonomy_unneeded
 
 
 def process_sigmahq_windows_validator(url: str, json_name: str = "sigmahq_windows_validator.json"):
@@ -106,7 +108,9 @@ def process_sigmahq_windows_validator(url: str, json_name: str = "sigmahq_window
 
 def write_sigmahq_data_py(url, output_path="sigma/validators/sigmahq/sigmahq_data.py"):
     filename_version, filename_info = process_sigmahq_filename(url)
-    taxonomy_version, taxonomy_info, taxonomy_definition = process_sigma_json(url)
+    taxonomy_version, taxonomy_info, taxonomy_definition, taxonomy_unneeded = process_sigma_json(
+        url
+    )
     windows_version, windows_provider_name, windows_no_eventid = process_sigmahq_windows_validator(
         url
     )
@@ -124,6 +128,11 @@ def write_sigmahq_data_py(url, output_path="sigma/validators/sigmahq/sigmahq_dat
         print(
             "ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = "
             + pformat(taxonomy_info, indent=4, sort_dicts=False),
+            file=file,
+        )
+        print(
+            "ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]]= "
+            + pformat(taxonomy_unneeded, indent=4, sort_dicts=False, width=200),
             file=file,
         )
         print(
