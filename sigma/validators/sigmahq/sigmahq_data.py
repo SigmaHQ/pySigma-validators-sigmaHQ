@@ -870,7 +870,7 @@ ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
     ): "zeek_",
 }
 
-taxonomy_version: str = "20250612"
+taxonomy_version: str = "20250613"
 ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
     SigmaLogSource(
         category=None,
@@ -3513,7 +3513,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="create_stream_hash",
         product="windows",
@@ -3521,7 +3521,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="dns_query",
         product="windows",
@@ -3529,7 +3529,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="driver_load",
         product="windows",
@@ -3537,7 +3537,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="file_access",
         product="windows",
@@ -3553,7 +3553,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="file_delete",
         product="windows",
@@ -3561,7 +3561,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="file_event",
         product="windows",
@@ -3569,7 +3569,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="file_executable_detected",
         product="windows",
@@ -3577,7 +3577,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="file_rename",
         product="windows",
@@ -3585,7 +3585,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="image_load",
         product="windows",
@@ -3593,7 +3593,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="network_connection",
         product="windows",
@@ -3601,7 +3601,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category=None,
         product="windows",
@@ -3905,7 +3905,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="process_access",
         product="windows",
@@ -3913,7 +3913,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="process_creation",
         product="windows",
@@ -3921,7 +3921,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="process_tampering",
         product="windows",
@@ -3929,7 +3929,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="ps_classic_provider_start",
         product="windows",
@@ -3969,7 +3969,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="registry_add",
         product="windows",
@@ -3977,7 +3977,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="registry_delete",
         product="windows",
@@ -3985,7 +3985,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="registry_event",
         product="windows",
@@ -3993,7 +3993,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="registry_set",
         product="windows",
@@ -4001,7 +4001,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): ["EventType"],
+    ): ["Channel", "EventID", "EventType"],
     SigmaLogSource(
         category="sysmon_error",
         product="windows",
@@ -4009,7 +4009,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="sysmon_status",
         product="windows",
@@ -4017,7 +4017,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category="wmi_event",
         product="windows",
@@ -4025,7 +4025,7 @@ ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [],
+    ): ["Channel", "EventID"],
     SigmaLogSource(
         category=None,
         product="zeek",

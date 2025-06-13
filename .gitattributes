@@ -7,8 +7,6 @@
 *.h text
 *.csv text
 *.sh text
-*.py text
-*.json text
 *.toml text
 
 # Declare files that will always have CRLF line endings on checkout.
@@ -21,3 +19,4 @@
 # force lf for Sigma rule and python
 *.yml text eol=lf
 *.py text eol=lf
+*.json text eol=lf

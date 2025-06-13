@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20250612",
+    "version": "20250613",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
@@ -1303,7 +1303,7 @@
                     "TargetParentProcessId",
                     "User"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_create_stream_hash_none": {
@@ -1336,7 +1336,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_dns_query_none": {
@@ -1363,7 +1363,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_driver_load_none": {
@@ -1393,7 +1393,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_file_access_none": {
@@ -1454,7 +1454,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_file_delete_none": {
@@ -1490,7 +1490,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_file_event_none": {
@@ -1522,7 +1522,7 @@
                     "ParentCommandLine",
                     "ParentImage"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_file_executable_detected_none": {
@@ -1553,7 +1553,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_file_rename_none": {
@@ -1590,7 +1590,7 @@
                     "TargetFilename",
                     "User"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_image_load_none": {
@@ -1630,7 +1630,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_network_connection_none": {
@@ -1669,7 +1669,7 @@
                     "CommandLine",
                     "ParentImage"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_none_application": {
@@ -2498,7 +2498,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_process_access_none": {
@@ -2532,7 +2532,7 @@
                     "CallTraceExtended",
                     "SourceCommandLine"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_process_creation_none": {
@@ -2580,7 +2580,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_process_tampering_none": {
@@ -2605,7 +2605,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_ps_classic_provider_start_none": {
@@ -2706,7 +2706,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_registry_add_none": {
@@ -2732,7 +2732,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_registry_delete_none": {
@@ -2758,7 +2758,7 @@
                     "TargetObject"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_registry_event_none": {
@@ -2786,7 +2786,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_registry_set_none": {
@@ -2813,7 +2813,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["EventType"]
+                "unneeded": ["Channel","EventID","EventType"]
             }
         },
         "windows_sysmon_error_none": {
@@ -2827,7 +2827,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_sysmon_status_none": {
@@ -2852,7 +2852,7 @@
                     "Version"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "windows_wmi_event_none": {
@@ -2882,7 +2882,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "unneeded": ["Channel","EventID"]
             }
         },
         "zeek_none_dce_rpc": {
