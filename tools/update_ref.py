@@ -1,109 +1,18 @@
-# Version 0.2.0
+# Version 0.3.0
 # Author: frack113
-# Date: 2025/06/06
+# Date: 2025/06/13
 
-import json
+
 from sys import stderr, stdout
 from pprint import pformat
-from sigma.rule import SigmaLogSource
 import sys
-import os
-import requests
 
 
-def core_logsource(source: SigmaLogSource) -> SigmaLogSource:
-    return SigmaLogSource(product=source.product, category=source.category, service=source.service)
-
-
-def key_logsource(source: dict) -> str:
-    product = source["product"] if source["product"] else "none"
-    category = source["category"] if source["category"] else "none"
-    service = source["service"] if source["service"] else "none"
-    return f"{product}_{category}_{service}"
-
-
-def process_sigmahq_filename(url: str, json_name: str = "sigmahq_filename.json"):
-    """
-    Load and process 'sigmahq_filename.json' from the given url/path.
-    Returns filename_version, filename_info.
-    """
-
-    filename_path = os.path.join(url, json_name)
-    if filename_path.startswith("http://") or filename_path.startswith("https://"):
-        response = requests.get(f"{url}/{json_name}")
-        response.raise_for_status()
-        json_dict = response.json()
-    else:
-        with open(filename_path, "r", encoding="UTF-8") as file:
-            json_dict = json.load(file)
-
-    filename_version = json_dict["version"]
-    filename_info = dict()
-
-    temp = {key_logsource(v["logsource"]): v for v in json_dict["pattern"].values()}
-    for key in sorted(temp.keys(), key=str.casefold):
-        value = temp[key]
-        logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
-        filename_info[logsource] = value["prefix"]
-    return filename_version, filename_info
-
-
-def process_sigma_json(url: str, json_name: str = "sigma.json"):
-    """
-    Load and process 'sigma.json' from the given url/path.
-    Returns taxonomy_version, taxonomy_info, taxonomy_definition.
-    """
-    filename_path = os.path.join(url, json_name)
-    if filename_path.startswith("http://") or filename_path.startswith("https://"):
-        response = requests.get(f"{url}/{json_name}")
-        response.raise_for_status()
-        json_dict = response.json()
-    else:
-        with open(filename_path, "r", encoding="UTF-8") as file:
-            json_dict = json.load(file)
-
-    taxonomy_version = json_dict["version"]
-    taxonomy_info = dict()
-    taxonomy_definition = dict()
-    taxonomy_unneeded = dict()
-
-    temp = {key_logsource(v["logsource"]): v for v in json_dict["taxonomy"].values()}
-    for key in sorted(temp.keys(), key=str.casefold):
-        value = temp[key]
-        logsource = core_logsource(SigmaLogSource.from_dict(value["logsource"]))
-        fieldlist = []
-        fieldlist.extend(value["field"]["native"])
-        fieldlist.extend(value["field"]["custom"])
-        taxonomy_info[logsource] = sorted(fieldlist, key=str.casefold)
-        taxonomy_definition[logsource] = value["logsource"]["definition"]
-        taxonomy_unneeded[logsource] = value["field"]["unneeded"]
-
-    return taxonomy_version, taxonomy_info, taxonomy_definition, taxonomy_unneeded
-
-
-def process_sigmahq_windows_validator(url: str, json_name: str = "sigmahq_windows_validator.json"):
-    """
-    Load and process 'sigmahq_windows_validator.json' from the given url/path.
-    Returns windows_version, windows_provider_name, windows_no_eventid.
-    """
-    filename_path = os.path.join(url, json_name)
-    if filename_path.startswith("http://") or filename_path.startswith("https://"):
-        response = requests.get(f"{url}/{json_name}")
-        response.raise_for_status()
-        json_dict = response.json()
-    else:
-        with open(filename_path, "r", encoding="UTF-8") as file:
-            json_dict = json.load(file)
-
-    windows_version = json_dict["version"]
-    windows_provider_name = dict()
-
-    for category in sorted(json_dict["category_provider_name"], key=str.casefold):
-        windows_provider_name[
-            SigmaLogSource(product="windows", category=category, service=None)
-        ] = json_dict["category_provider_name"][category]
-    windows_no_eventid = sorted(json_dict["category_no_eventid"], key=str.casefold)
-    return windows_version, windows_provider_name, windows_no_eventid
+from sigma.validators.sigmahq.config import (
+    process_sigmahq_filename,
+    process_sigma_json,
+    process_sigmahq_windows_validator,
+)
 
 
 def write_sigmahq_data_py(url, output_path="sigma/validators/sigmahq/sigmahq_data.py"):

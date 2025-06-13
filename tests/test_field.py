@@ -320,7 +320,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     )
     assert validator.validate(rule) == [
         SigmahqFieldDuplicateValueIssue(
-            rule, "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
+            [rule], "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
         )
     ]
 
@@ -477,7 +477,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
     assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], 1234)]
 
 
-def test_validator_SigmahqInvalidHashKvValidator_valid():
+def test_validator_SigmahqInvalidHashKvValidator_valid_md5():
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
