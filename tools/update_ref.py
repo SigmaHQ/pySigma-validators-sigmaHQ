@@ -8,56 +8,51 @@ from pprint import pformat
 import sys
 
 
-from sigma.validators.sigmahq.config import (
-    process_sigmahq_filename,
-    process_sigma_json,
-    process_sigmahq_windows_validator,
-)
+from sigma.validators.sigmahq.config import ConfigHQ
 
 
-def write_sigmahq_data_py(url, output_path="sigma/validators/sigmahq/sigmahq_data.py"):
-    filename_version, filename_info = process_sigmahq_filename(url)
-    taxonomy_version, taxonomy_info, taxonomy_definition, taxonomy_unneeded = process_sigma_json(
-        url
-    )
-    windows_version, windows_provider_name, windows_no_eventid = process_sigmahq_windows_validator(
-        url
-    )
+def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/sigmahq_data.py"):
+    config = ConfigHQ(url)
+
+    if config.taxonomy_version == "0.0.0":
+        print("No sigmahq data found. Please check the URL or the local files.", file=stderr)
+        sys.exit(1)
+
     with open(output_path, "wt", encoding="utf-8", newline="") as file:
         print("from typing import Dict, List", file=file)
         print("from sigma.rule import SigmaLogSource", file=file)
         print("from typing import Optional", file=file)
-        print(f'\nfile_pattern_version: str = "{filename_version}"', file=file)
+        print(f'\nfile_pattern_version: str = "{config.filename_version}"', file=file)
         print(
             "ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = "
-            + pformat(filename_info, indent=4, sort_dicts=False),
+            + pformat(config.sigmahq_logsource_filepattern, indent=4, sort_dicts=False),
             file=file,
         )
-        print(f'\ntaxonomy_version: str = "{taxonomy_version}"', file=file)
+        print(f'\ntaxonomy_version: str = "{config.taxonomy_version}"', file=file)
         print(
             "ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = "
-            + pformat(taxonomy_info, indent=4, sort_dicts=False),
+            + pformat(config.sigma_fieldsname, indent=4, sort_dicts=False),
             file=file,
         )
         print(
             "ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]]= "
-            + pformat(taxonomy_unneeded, indent=4, sort_dicts=False, width=200),
+            + pformat(config.sigmahq_unneededfields, indent=4, sort_dicts=False, width=200),
             file=file,
         )
         print(
             "ref_sigmahq_logsource_definition: Dict[SigmaLogSource, Optional[str]] = "
-            + pformat(taxonomy_definition, indent=4, sort_dicts=False, width=200),
+            + pformat(config.sigmahq_logsource_definition, indent=4, sort_dicts=False, width=200),
             file=file,
         )
-        print(f'\nwindows_version: str = "{windows_version}"', file=file)
+        print(f'\nwindows_version: str = "{config.windows_version}"', file=file)
         print(
             "ref_windows_provider_name: Dict[SigmaLogSource, List[str]] = "
-            + pformat(windows_provider_name, indent=4, sort_dicts=False),
+            + pformat(config.windows_provider_name, indent=4, sort_dicts=False),
             file=file,
         )
         print(
             "ref_windows_no_eventid: List[str] = "
-            + pformat(windows_no_eventid, indent=4, sort_dicts=False),
+            + pformat(config.windows_no_eventid, indent=4, sort_dicts=False),
             file=file,
         )
 
