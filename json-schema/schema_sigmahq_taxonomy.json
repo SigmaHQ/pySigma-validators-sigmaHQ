@@ -40,9 +40,13 @@
                             "custom": {
                                 "type":"array",
                                 "items": { "type": "string" }
+                            },
+                            "unneeded": {
+                                "type":"array",
+                                "items": { "type": "string" }
                             }
                         },
-                        "required": ["native","custom"]
+                        "required": ["native","custom","unneeded"]
                     }
                 },
                 "required": ["logsource","description","field"]

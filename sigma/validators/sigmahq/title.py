@@ -72,7 +72,7 @@ class SigmahqTitleCaseIssue(SigmaValidationIssue):
 class SigmahqTitleCaseValidator(SigmaRuleValidator):
     """Checks if a rule has a title with invalid casing."""
 
-    word_list: Tuple[str] = (
+    word_list: Tuple[str, ...] = (
         "a",
         "an",
         "and",
