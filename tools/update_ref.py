@@ -35,8 +35,8 @@ def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/sigmah
             file=file,
         )
         print(
-            "ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]]= "
-            + pformat(config.sigmahq_unneededfields, indent=4, sort_dicts=False, width=200),
+            "ref_sigmahq_redundantfield: Dict[SigmaLogSource, List[str]]= "
+            + pformat(config.sigmahq_redundant_fields, indent=4, sort_dicts=False, width=200),
             file=file,
         )
         print(

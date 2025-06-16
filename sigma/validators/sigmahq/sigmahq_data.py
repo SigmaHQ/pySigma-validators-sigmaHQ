@@ -3001,7 +3001,7 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         custom_attributes=None,
     ): [],
 }
-ref_sigmahq_unneededfield: Dict[SigmaLogSource, List[str]] = {
+ref_sigmahq_redundant_field: Dict[SigmaLogSource, List[str]] = {
     SigmaLogSource(
         category=None,
         product="aws",

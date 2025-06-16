@@ -279,14 +279,14 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
 
 
 @dataclass
-class SigmahqUnneededFieldIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "A field name is allready cover by the logsource"
+class SigmahqRedundantFieldIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "A field name is redundant (already covered by the logsource)"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     field: str
 
 
-class SigmahqUnneededFieldValidator(SigmaDetectionItemValidator):
-    """Check field name is allready cover by the logsource."""
+class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
+    """Check if a field name is already covered by the logsource."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         core_logsource = SigmaLogSource(
@@ -295,10 +295,10 @@ class SigmahqUnneededFieldValidator(SigmaDetectionItemValidator):
             service=rule.logsource.service,
         )
         if (
-            core_logsource in config.sigmahq_unneededfields
-            and len(config.sigmahq_unneededfields[core_logsource]) > 0
+            core_logsource in config.sigmahq_redundant_fields
+            and len(config.sigmahq_redundant_fields[core_logsource]) > 0
         ):
-            self.fields = config.sigmahq_unneededfields[core_logsource]
+            self.fields = config.sigmahq_redundant_fields[core_logsource]
             return super().validate(rule)
         return []
 
@@ -307,6 +307,6 @@ class SigmahqUnneededFieldValidator(SigmaDetectionItemValidator):
     ) -> List[SigmaValidationIssue]:
 
         if detection_item.field is not None and detection_item.field in self.fields:
-            return [SigmahqUnneededFieldIssue([self.rule], detection_item.field)]
+            return [SigmahqRedundantFieldIssue([self.rule], detection_item.field)]
         else:
             return []

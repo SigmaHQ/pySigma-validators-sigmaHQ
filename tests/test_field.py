@@ -21,8 +21,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqFieldUserValidator,
     SigmahqInvalidHashKvIssue,
     SigmahqInvalidHashKvValidator,
-    SigmahqUnneededFieldIssue,
-    SigmahqUnneededFieldValidator,
+    SigmahqRedundantFieldIssue,
+    SigmahqRedundantFieldValidator,
 )
 
 
@@ -495,11 +495,11 @@ def test_validator_SigmahqInvalidHashKvValidator_valid_md5():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqUnneededField():
-    validator = SigmahqUnneededFieldValidator()
+def test_validator_SigmahqRedundantField():
+    validator = SigmahqRedundantFieldValidator()
     rule = SigmaRule.from_yaml(
         """
-    title: Field Allready in the Logsource
+    title: Field Already in the Logsource
     status: test
     logsource:
         category: registry_set
@@ -508,18 +508,18 @@ def test_validator_SigmahqUnneededField():
         selection:
             EventType: SetValue
             TargetObject|contains: 'SigmaHQ'
-            Details|startswith: 'rules' 
+            Details|startswith: 'rules'
         condition: selection
     """
     )
-    assert validator.validate(rule) == [SigmahqUnneededFieldIssue([rule], "EventType")]
+    assert validator.validate(rule) == [SigmahqRedundantFieldIssue([rule], "EventType")]
 
 
-def test_validator_SigmahqUnneededField_valid():
-    validator = SigmahqUnneededFieldValidator()
+def test_validator_SigmahqRedundantField_valid():
+    validator = SigmahqRedundantFieldValidator()
     rule = SigmaRule.from_yaml(
         """
-    title: Field Allready in the Logsource
+    title: Field Already in the Logsource
     status: test
     logsource:
         category: registry_set
@@ -527,7 +527,7 @@ def test_validator_SigmahqUnneededField_valid():
     detection:
         selection:
             TargetObject|contains: 'SigmaHQ'
-            Details|startswith: 'rules' 
+            Details|startswith: 'rules'
         condition: selection
     """
     )

@@ -41,12 +41,12 @@
                                 "type":"array",
                                 "items": { "type": "string" }
                             },
-                            "unneeded": {
+                            "redundant": {
                                 "type":"array",
                                 "items": { "type": "string" }
                             }
                         },
-                        "required": ["native","custom","unneeded"]
+                        "required": ["native","custom","redundant"]
                     }
                 },
                 "required": ["logsource","description","field"]

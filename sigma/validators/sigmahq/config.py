@@ -7,7 +7,7 @@ from sigma.rule import SigmaLogSource
 from .sigmahq_data import (
     ref_sigmahq_logsource_filepattern,
     ref_sigmahq_fieldsname,
-    ref_sigmahq_unneededfield,
+    ref_sigmahq_redundant_field,
     ref_sigmahq_logsource_definition,
     ref_windows_provider_name,
     ref_windows_no_eventid,
@@ -36,7 +36,7 @@ class ConfigHQ:
 
     taxonomy_version: str = "0.0.0"
     sigma_fieldsname: Dict[SigmaLogSource, List[str]] = {}
-    sigmahq_unneededfields: Dict[SigmaLogSource, List[str]] = {}
+    sigmahq_redundant_fields: Dict[SigmaLogSource, List[str]] = {}
 
     filename_version: str = "0.0.0"
     sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {}
@@ -91,7 +91,7 @@ class ConfigHQ:
         if json_dict:
             taxonomy_info = dict()
             taxonomy_definition = dict()
-            taxonomy_unneeded = dict()
+            taxonomy_redundant = dict()
             temp = {key_logsource(v["logsource"]): v for v in json_dict["taxonomy"].values()}
             for key in sorted(temp.keys(), key=str.casefold):
                 value = temp[key]
@@ -101,14 +101,14 @@ class ConfigHQ:
                 fieldlist.extend(value["field"]["custom"])
                 taxonomy_info[logsource] = sorted(fieldlist, key=str.casefold)
                 taxonomy_definition[logsource] = value["logsource"]["definition"]
-                taxonomy_unneeded[logsource] = value["field"]["unneeded"]
+                taxonomy_redundant[logsource] = value["field"]["redundant"]
             self.taxonomy_version = json_dict["version"]
-            self.sigmahq_unneededfields = taxonomy_unneeded
+            self.sigmahq_redundant_fields = taxonomy_redundant
             self.sigma_fieldsname = taxonomy_info
             self.sigmahq_logsource_definition = taxonomy_definition
         else:
             self.taxonomy_version = "0.0.0"
-            self.sigmahq_unneededfields = ref_sigmahq_unneededfield
+            self.sigmahq_redundant_fields = ref_sigmahq_redundant_field
             self.sigma_fieldsname = ref_sigmahq_fieldsname
             self.sigmahq_logsource_definition = ref_sigmahq_logsource_definition
 

@@ -13,7 +13,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "azure_none_activitylogs": {
@@ -27,7 +27,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "azure_none_auditlogs": {
@@ -41,7 +41,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "azure_none_pim": {
@@ -55,7 +55,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "azure_none_riskdetection": {
@@ -69,7 +69,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "azure_none_signinlogs": {
@@ -83,7 +83,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "bitbucket_none_audit": {
@@ -97,7 +97,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "cisco_none_aaa": {
@@ -111,7 +111,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "cisco_none_bgp": {
@@ -125,7 +125,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "cisco_none_duo": {
@@ -139,7 +139,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "cisco_none_ldp": {
@@ -153,7 +153,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "cisco_none_syslog": {
@@ -167,7 +167,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "django_application_none": {
@@ -181,7 +181,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "fortios_none_sslvpnd": {
@@ -195,7 +195,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "gcp_none_gcp.audit": {
@@ -209,7 +209,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "gcp_none_google_workspace.admin": {
@@ -223,7 +223,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "github_none_audit": {
@@ -237,7 +237,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "huawei_none_bgp": {
@@ -251,7 +251,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "juniper_none_bgp": {
@@ -265,7 +265,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "jvm_application_none": {
@@ -279,7 +279,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "kubernetes_application_audit": {
@@ -293,7 +293,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "kubernetes_none_audit": {
@@ -307,7 +307,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_file_event_none": {
@@ -328,7 +328,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_network_connection_none": {
@@ -359,7 +359,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_auditd": {
@@ -615,7 +615,7 @@
                     "watch"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_auth": {
@@ -629,7 +629,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_clamav": {
@@ -643,7 +643,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_cron": {
@@ -657,7 +657,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_guacamole": {
@@ -671,7 +671,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_none": {
@@ -685,7 +685,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_sshd": {
@@ -699,7 +699,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_sudo": {
@@ -713,7 +713,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_syslog": {
@@ -727,7 +727,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_none_vsftpd": {
@@ -741,7 +741,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "linux_process_creation_none": {
@@ -782,7 +782,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "redundant": []
             }
         },
         "m365_none_audit": {
@@ -796,7 +796,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "m365_none_exchange": {
@@ -810,7 +810,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "m365_none_threat_detection": {
@@ -824,7 +824,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "m365_none_threat_management": {
@@ -838,7 +838,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "macos_file_event_none": {
@@ -859,7 +859,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "macos_process_creation_none": {
@@ -900,7 +900,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": []
+                "redundant": []
             }
         },
         "nodejs_application_none": {
@@ -914,7 +914,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_antivirus_none": {
@@ -928,7 +928,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_database_none": {
@@ -942,7 +942,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_dns_none": {
@@ -956,7 +956,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_firewall_none": {
@@ -970,7 +970,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_none_apache": {
@@ -984,7 +984,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_none_netflow": {
@@ -998,7 +998,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_none_nginx": {
@@ -1012,7 +1012,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_proxy_none": {
@@ -1049,7 +1049,7 @@
                     "src_ip"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "none_webserver_none": {
@@ -1091,7 +1091,7 @@
                     "time-taken"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "okta_none_okta": {
@@ -1105,7 +1105,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "onelogin_none_onelogin.events": {
@@ -1119,7 +1119,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "opencanary_application_none": {
@@ -1133,7 +1133,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "paloalto_appliance_globalprotect": {
@@ -1147,7 +1147,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "paloalto_file_event_globalprotect": {
@@ -1161,7 +1161,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "python_application_none": {
@@ -1175,7 +1175,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "qualys_none_none": {
@@ -1189,7 +1189,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "rpc_firewall_application_none": {
@@ -1203,7 +1203,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "ruby_on_rails_application_none": {
@@ -1217,7 +1217,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "spring_application_none": {
@@ -1231,7 +1231,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "sql_application_none": {
@@ -1245,7 +1245,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "velocity_application_none": {
@@ -1259,7 +1259,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_create_remote_thread_none": {
@@ -1303,7 +1303,7 @@
                     "TargetParentProcessId",
                     "User"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_create_stream_hash_none": {
@@ -1336,7 +1336,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_dns_query_none": {
@@ -1363,7 +1363,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_driver_load_none": {
@@ -1393,7 +1393,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_file_access_none": {
@@ -1427,7 +1427,7 @@
                     "TargetFilename",
                     "User"
                 ],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_file_change_none": {
@@ -1454,7 +1454,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_file_delete_none": {
@@ -1490,7 +1490,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_file_event_none": {
@@ -1522,7 +1522,7 @@
                     "ParentCommandLine",
                     "ParentImage"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_file_executable_detected_none": {
@@ -1553,7 +1553,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_file_rename_none": {
@@ -1590,7 +1590,7 @@
                     "TargetFilename",
                     "User"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_image_load_none": {
@@ -1630,7 +1630,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_network_connection_none": {
@@ -1669,7 +1669,7 @@
                     "CommandLine",
                     "ParentImage"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_none_application": {
@@ -1683,7 +1683,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_applocker": {
@@ -1697,7 +1697,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_appmodel-runtime": {
@@ -1722,7 +1722,7 @@
                     "Security_UserID"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_appxdeployment-server": {
@@ -1751,7 +1751,7 @@
                     "Security_UserID"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_appxpackaging-om": {
@@ -1772,7 +1772,7 @@
                     "subjectName"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_bits-client": {
@@ -1796,7 +1796,7 @@
                     "processPath"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_capi2": {
@@ -1810,7 +1810,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_certificateservicesclient-lifecycle-system": {
@@ -1824,7 +1824,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_codeintegrity-operational": {
@@ -1886,7 +1886,7 @@
                     "ValidatedSigningLevel"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_diagnosis-scripted": {
@@ -1908,7 +1908,7 @@
                     "Security_UserID"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_dns-client": {
@@ -1944,7 +1944,7 @@
                     "Status"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_dns-server": {
@@ -1958,7 +1958,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_dns-server-analytic": {
@@ -1972,7 +1972,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_driver-framework": {
@@ -1986,7 +1986,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_firewall-as": {
@@ -2031,7 +2031,7 @@
                     "ServiceName"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_iis-configuration": {
@@ -2055,7 +2055,7 @@
                     "NewValue"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_ldap": {
@@ -2080,7 +2080,7 @@
                     "Security_UserID"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_lsa-server": {
@@ -2108,7 +2108,7 @@
                     "TargetUserSid"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_microsoft-servicebus-client": {
@@ -2122,7 +2122,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_msexchange-management": {
@@ -2136,7 +2136,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_none": {
@@ -2150,7 +2150,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_ntlm": {
@@ -2182,7 +2182,7 @@
                     "WorkstationName"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_openssh": {
@@ -2204,7 +2204,7 @@
                     "process"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_powershell-classic": {
@@ -2218,7 +2218,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_printservice-admin": {
@@ -2232,7 +2232,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_printservice-operational": {
@@ -2246,7 +2246,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_security": {
@@ -2260,7 +2260,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_security-mitigations": {
@@ -2296,7 +2296,7 @@
                     "TargetThreadId"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_shell-core": {
@@ -2319,7 +2319,7 @@
                     "Security_UserID"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_smbclient-connectivity": {
@@ -2333,7 +2333,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_smbclient-security": {
@@ -2363,7 +2363,7 @@
                     "UserNameLength"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_sysmon": {
@@ -2377,7 +2377,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_system": {
@@ -2391,7 +2391,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_taskscheduler": {
@@ -2421,7 +2421,7 @@
                     "UserName"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_terminalservices-localsessionmanager": {
@@ -2444,7 +2444,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_windefend": {
@@ -2458,7 +2458,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_none_wmi": {
@@ -2472,7 +2472,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_pipe_created_none": {
@@ -2498,7 +2498,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_process_access_none": {
@@ -2532,7 +2532,7 @@
                     "CallTraceExtended",
                     "SourceCommandLine"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_process_creation_none": {
@@ -2580,7 +2580,7 @@
                     "sha1",
                     "sha256"
                 ],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_process_tampering_none": {
@@ -2605,7 +2605,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_ps_classic_provider_start_none": {
@@ -2619,7 +2619,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_ps_classic_start_none": {
@@ -2633,7 +2633,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_ps_module_none": {
@@ -2656,7 +2656,7 @@
                     "UserData"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_ps_script_none": {
@@ -2681,7 +2681,7 @@
                     "Security_UserID"
                 ],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "windows_raw_access_thread_none": {
@@ -2706,7 +2706,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_registry_add_none": {
@@ -2732,7 +2732,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_registry_delete_none": {
@@ -2758,7 +2758,7 @@
                     "TargetObject"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_registry_event_none": {
@@ -2786,7 +2786,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_registry_set_none": {
@@ -2813,7 +2813,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID","EventType"]
+                "redundant": ["Channel","EventID","EventType"]
             }
         },
         "windows_sysmon_error_none": {
@@ -2827,7 +2827,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_sysmon_status_none": {
@@ -2852,7 +2852,7 @@
                     "Version"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "windows_wmi_event_none": {
@@ -2882,7 +2882,7 @@
                     "User"
                 ],
                 "custom": [],
-                "unneeded": ["Channel","EventID"]
+                "redundant": ["Channel","EventID"]
             }
         },
         "zeek_none_dce_rpc": {
@@ -2896,7 +2896,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "zeek_none_dns": {
@@ -2910,7 +2910,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "zeek_none_http": {
@@ -2924,7 +2924,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "zeek_none_kerberos": {
@@ -2938,7 +2938,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "zeek_none_rdp": {
@@ -2952,7 +2952,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "zeek_none_smb_files": {
@@ -2966,7 +2966,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         },
         "zeek_none_x509": {
@@ -2980,7 +2980,7 @@
             "field": {
                 "native": [],
                 "custom": [],
-                "unneeded": []
+                "redundant": []
             }
         }
     }
