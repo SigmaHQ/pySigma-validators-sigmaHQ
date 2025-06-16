@@ -2,7 +2,7 @@ from wsgiref.validate import validator
 
 import pytest
 from sigma.rule import SigmaRule
-from sigma.modifiers import SigmaRegularExpression
+from sigma.types import SigmaRegularExpression
 
 from sigma.validators.sigmahq.field import (
     SigmahqSpaceFieldNameIssue,
@@ -21,6 +21,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqFieldUserValidator,
     SigmahqInvalidHashKvIssue,
     SigmahqInvalidHashKvValidator,
+    SigmahqRedundantFieldIssue,
+    SigmahqRedundantFieldValidator,
 )
 
 
@@ -318,7 +320,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     )
     assert validator.validate(rule) == [
         SigmahqFieldDuplicateValueIssue(
-            rule, "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
+            [rule], "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
         )
     ]
 
@@ -475,7 +477,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
     assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], 1234)]
 
 
-def test_validator_SigmahqInvalidHashKvValidator_valid():
+def test_validator_SigmahqInvalidHashKvValidator_valid_md5():
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -488,6 +490,45 @@ def test_validator_SigmahqInvalidHashKvValidator_valid():
         sel:
             Hashes|contains: 'MD5=4fae81eb7018069e75a087c38af783df'
         condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqRedundantField():
+    validator = SigmahqRedundantFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Field Already in the Logsource
+    status: test
+    logsource:
+        category: registry_set
+        product: windows
+    detection:
+        selection:
+            EventType: SetValue
+            TargetObject|contains: 'SigmaHQ'
+            Details|startswith: 'rules'
+        condition: selection
+    """
+    )
+    assert validator.validate(rule) == [SigmahqRedundantFieldIssue([rule], "EventType")]
+
+
+def test_validator_SigmahqRedundantField_valid():
+    validator = SigmahqRedundantFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Field Already in the Logsource
+    status: test
+    logsource:
+        category: registry_set
+        product: windows
+    detection:
+        selection:
+            TargetObject|contains: 'SigmaHQ'
+            Details|startswith: 'rules'
+        condition: selection
     """
     )
     assert validator.validate(rule) == []

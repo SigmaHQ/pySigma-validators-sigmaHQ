@@ -276,3 +276,37 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                     errors.append(v)
 
         return [SigmahqInvalidHashKvIssue([self.rule], v) for v in errors]
+
+
+@dataclass
+class SigmahqRedundantFieldIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "A field name is redundant (already covered by the logsource)"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+
+
+class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
+    """Check if a field name is already covered by the logsource."""
+
+    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+        core_logsource = SigmaLogSource(
+            category=rule.logsource.category,
+            product=rule.logsource.product,
+            service=rule.logsource.service,
+        )
+        if (
+            core_logsource in config.sigmahq_redundant_fields
+            and len(config.sigmahq_redundant_fields[core_logsource]) > 0
+        ):
+            self.fields = config.sigmahq_redundant_fields[core_logsource]
+            return super().validate(rule)
+        return []
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+
+        if detection_item.field is not None and detection_item.field in self.fields:
+            return [SigmahqRedundantFieldIssue([self.rule], detection_item.field)]
+        else:
+            return []

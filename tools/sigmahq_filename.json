@@ -1,978 +1,978 @@
 {
-  "title":  "SigmaHQ rule filename prefix",
-  "version": "20240809",
-  "pattern": {
-    "aws_none_none": {
-      "logsource": {
-        "product": "aws",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "aws"
-    },
-    "azure_none_none": {
-      "logsource": {
-        "product": "azure",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "azure_"
-    },
-    "bitbucket_none_audit": {
-      "logsource": {
-        "product": "bitbucket",
-        "category": null,
-        "service": "audit",
-        "definition": null
-      },
-      "prefix": "bitbucket_audit_"
-    },
-    "cisco_none_none": {
-      "logsource": {
-        "product": "cisco",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "cisco_"
-    },
-    "django_application_none": {
-      "logsource": {
-        "product": "django",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "appframework_django_"
-    },
-    "fortios_none_sslvpnd": {
-      "logsource": {
-        "product": "fortios",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "fortios_"
-    },
-    "gcp_none_none": {
-      "logsource": {
-        "product": "gcp",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "gcp_"
-    },
-    "github_none_none": {
-      "logsource": {
-        "product": "github",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "github_"
-    },
-    "huawei_none_bgp": {
-      "logsource": {
-        "product": "huawei",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "huawei_"
-    },
-    "juniper_none_bgp": {
-      "logsource": {
-        "product": "juniper",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "juniper_"
-    },
-    "jvm_application_none": {
-      "logsource": {
-        "product": "jvm",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "java_"
-    },
-    "kubernetes_application_audit": {
-      "logsource": {
-        "product": "kubernetes",
-        "category": "application",
-        "service": "audit",
-        "definition": null
-      },
-      "prefix": "kubernetes_audit_"
-    },
-    "kubernetes_none_audit": {
-      "logsource": {
-        "product": "kubernetes",
-        "category": null,
-        "service": "audit",
-        "definition": null
-      },
-      "prefix": "kubernetes_audit_"
-    },
-    "linux_none_none": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "lnx_"
-    },
-    "linux_file_event_none": {
-      "logsource": {
-        "product": "linux",
-        "category": "file_event",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_event_lnx_"
-    },
-    "linux_network_connection_none": {
-      "logsource": {
-        "product": "linux",
-        "category": "network_connection",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "net_connection_lnx_"
-    },
-    "linux_none_auditd": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "auditd",
-        "definition": null
-      },
-      "prefix": "lnx_auditd_"
-    },
-    "linux_none_auth": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "auth",
-        "definition": null
-      },
-      "prefix": "lnx_auth_"
-    },
-    "linux_none_clamav": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "clamav",
-        "definition": null
-      },
-      "prefix": "lnx_clamav"
-    },
-    "linux_none_cron": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "cron",
-        "definition": null
-      },
-      "prefix": "lnx_cron_"
-    },
-    "linux_none_guacamole": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "guacamole",
-        "definition": null
-      },
-      "prefix": "lnx_guacamole_"
-    },
-    "linux_none_sshd": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "sshd",
-        "definition": null
-      },
-      "prefix": "lnx_sshd_"
-    },
-    "linux_none_sudo": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "sudo",
-        "definition": null
-      },
-      "prefix": "lnx_sudo"
-    },
-    "linux_none_syslog": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "syslog",
-        "definition": null
-      },
-      "prefix": "lnx_syslog_"
-    },
-    "linux_none_vsftpd": {
-      "logsource": {
-        "product": "linux",
-        "category": null,
-        "service": "vsftpd",
-        "definition": null
-      },
-      "prefix": "lnx_vsftpd_"
-    },
-    "linux_process_creation_none": {
-      "logsource": {
-        "product": "linux",
-        "category": "process_creation",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "proc_creation_lnx_"
-    },
-    "m365_none_none": {
-      "logsource": {
-        "product": "m365",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "microsoft365_"
-    },
-    "macos_none_none": {
-      "logsource": {
-        "product": "macos",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "macos_"
-    },
-    "macos_file_event_none": {
-      "logsource": {
-        "product": "macos",
-        "category": "file_event",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_event_macos_"
-    },
-    "macos_process_creation_none": {
-      "logsource": {
-        "product": "macos",
-        "category": "process_creation",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "proc_creation_macos_"
-    },
-    "nodejs_application_none": {
-      "logsource": {
-        "product": "nodejs",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "nodejs_"
-    },
-    "none_antivirus_none": {
-      "logsource": {
-        "product": null,
-        "category": "antivirus",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "av_"
-    },
-    "none_database_none": {
-      "logsource": {
-        "product": null,
-        "category": "database",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "db_"
-    },
-    "none_dns_none": {
-      "logsource": {
-        "product": null,
-        "category": "dns",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "net_dns_"
-    },
-    "none_firewall_none": {
-      "logsource": {
-        "product": null,
-        "category": "firewall",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "net_firewall_"
-    },
-    "none_none_apache": {
-      "logsource": {
-        "product": null,
-        "category": null,
-        "service": "apache",
-        "definition": null
-      },
-      "prefix": "web_apache_"
-    },
-    "none_none_nginx": {
-      "logsource": {
-        "product": null,
-        "category": null,
-        "service": "nginx",
-        "definition": null
-      },
-      "prefix": "web_nginx_"
-    },
-    "none_proxy_none": {
-      "logsource": {
-        "product": null,
-        "category": "proxy",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "proxy_"
-    },
-    "none_webserver_none": {
-      "logsource": {
-        "product": null,
-        "category": "webserver",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "web_"
-    },
-    "okta_none_none": {
-      "logsource": {
-        "product": "okta",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "okta_"
-    },
-    "onelogin_none_none": {
-      "logsource": {
-        "product": "onelogin",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "onelogin_"
-    },
-    "opencanary_application_none": {
-      "logsource": {
-        "product": "opencanary",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "opencanary_"
-    },
-    "paloalto_appliance_globalprotect": {
-      "logsource": {
-        "product": "paloalto",
-        "category": "appliance",
-        "service": "globalprotect",
-        "definition": null
-      },
-      "prefix": "paloalto_globalprotect_"
-    },
-    "paloalto_file_event_globalprotect": {
-      "logsource": {
-        "product": "paloalto",
-        "category": "file_event",
-        "service": "globalprotect",
-        "definition": null
-      },
-      "prefix": "file_event_paloalto_globalprotect_"
-    },
-    "python_application_none": {
-      "logsource": {
-        "product": "python",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "app_python_"
-    },
-    "rpc_firewall_application_none": {
-      "logsource": {
-        "product": "rpc_firewall",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "rpc_firewall_"
-    },
-    "ruby_on_rails_application_none": {
-      "logsource": {
-        "product": "ruby_on_rails",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "appframework_ruby_"
-    },
-    "spring_application_none": {
-      "logsource": {
-        "product": "spring",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "spring_"
-    },
-    "velocity_application_none": {
-      "logsource": {
-        "product": "velocity",
-        "category": "application",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "velocity_"
-    },
-    "windows_create_remote_thread_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "create_remote_thread",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "create_remote_thread_win_"
-    },
-    "windows_create_stream_hash_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "create_stream_hash",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "create_stream_hash_"
-    },
-    "windows_dns_query_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "dns_query",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "dns_query_win_"
-    },
-    "windows_driver_load_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "driver_load",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "driver_load_win_"
-    },
-    "windows_file_access_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "file_access",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_access_win_"
-    },
-    "windows_file_change_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "file_change",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_change_win_"
-    },
-    "windows_file_delete_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "file_delete",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_delete_win_"
-    },
-    "windows_file_event_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "file_event",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_event_win_"
-    },
-    "windows_file_executable_detected_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "file_executable_detected",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_executable_detected_win_"
-    },
-    "windows_file_rename_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "file_rename",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "file_rename_win_"
-    },
-    "windows_image_load_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "image_load",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "image_load_"
-    },
-    "windows_network_connection_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "network_connection",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "net_connection_win_"
-    },
-    "windows_none_applocker": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "applocker",
-        "definition": null
-      },
-      "prefix": "win_applocker_"
-    },
-    "windows_none_appmodel-runtime": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "appmodel-runtime",
-        "definition": null
-      },
-      "prefix": "win_appmodel_runtime_"
-    },
-    "windows_none_appxdeployment-server": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "appxdeployment-server",
-        "definition": null
-      },
-      "prefix": "win_appxdeployment_server_"
-    },
-    "windows_none_appxpackaging-om": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "appxpackaging-om",
-        "definition": null
-      },
-      "prefix": "win_appxpackaging_om_"
-    },
-    "windows_none_bits-client": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "bits-client",
-        "definition": null
-      },
-      "prefix": "win_bits_client_"
-    },
-    "windows_none_capi2": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "capi2",
-        "definition": null
-      },
-      "prefix": "win_capi2_"
-    },
-    "windows_none_certificateservicesclient-lifecycle-system": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "certificateservicesclient-lifecycle-system",
-        "definition": null
-      },
-      "prefix": "win_certificateservicesclient_lifecycle_system_"
-    },
-    "windows_none_codeintegrity-operational": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "codeintegrity-operational",
-        "definition": null
-      },
-      "prefix": "win_codeintegrity_"
-    },
-    "windows_none_diagnosis-scripted": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "diagnosis-scripted",
-        "definition": null
-      },
-      "prefix": "win_diagnosis_scripted"
-    },
-    "windows_none_dns-client": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "dns-client",
-        "definition": null
-      },
-      "prefix": "win_dns_client"
-    },
-    "windows_none_dns-server": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "dns-server",
-        "definition": null
-      },
-      "prefix": "win_dns_server"
-    },
-    "windows_none_dns-server-analytic": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "dns-server-analytic",
-        "definition": null
-      },
-      "prefix": "win_dns_analytic_"
-    },
-    "windows_none_firewall-as": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "firewall-as",
-        "definition": null
-      },
-      "prefix": "win_firewall_as_"
-    },
-    "windows_none_ldap": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "ldap",
-        "definition": null
-      },
-      "prefix": "win_ldap_"
-    },
-    "windows_none_lsa-server": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "lsa-server",
-        "definition": null
-      },
-      "prefix": "win_lsa_server_"
-    },
-    "windows_none_msexchange-management": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "msexchange-management",
-        "definition": null
-      },
-      "prefix": "win_exchange_"
-    },
-    "windows_none_none": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "win_"
-    },
-    "windows_none_openssh": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "openssh",
-        "definition": null
-      },
-      "prefix": "win_sshd_openssh_"
-    },
-    "windows_none_powershell-classic": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "powershell-classic",
-        "definition": null
-      },
-      "prefix": "posh_pc_"
-    },
-    "windows_none_security": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "security",
-        "definition": null
-      },
-      "prefix": "win_security_"
-    },
-    "windows_none_security-mitigations": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "security-mitigations",
-        "definition": null
-      },
-      "prefix": "win_security_mitigations_"
-    },
-    "windows_none_shell-core": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "shell-core",
-        "definition": null
-      },
-      "prefix": "win_shell_core"
-    },
-    "windows_none_smbclient-connectivity": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "smbclient-connectivity",
-        "definition": null
-      },
-      "prefix": "win_smbclient_connectivity_"
-    },
-    "windows_none_smbclient-security": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "smbclient-security",
-        "definition": null
-      },
-      "prefix": "win_smbclient_security_"
-    },
-    "windows_none_sysmon": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "sysmon",
-        "definition": null
-      },
-      "prefix": "sysmon_"
-    },
-    "windows_none_system": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "system",
-        "definition": null
-      },
-      "prefix": "win_system_"
-    },
-    "windows_none_taskscheduler": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "taskscheduler",
-        "definition": null
-      },
-      "prefix": "win_taskscheduler_"
-    },
-    "windows_none_terminalservices-localsessionmanager": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "terminalservices-localsessionmanager",
-        "definition": null
-      },
-      "prefix": "win_terminalservices_"
-    },
-    "windows_none_windefend": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "windefend",
-        "definition": null
-      },
-      "prefix": "win_defender_"
-    },
-    "windows_none_wmi": {
-      "logsource": {
-        "product": "windows",
-        "category": null,
-        "service": "wmi",
-        "definition": null
-      },
-      "prefix": "win_wmi_"
-    },
-    "windows_pipe_created_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "pipe_created",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "pipe_created_"
-    },
-    "windows_process_access_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "process_access",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "proc_access_win_"
-    },
-    "windows_process_creation_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "process_creation",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "proc_creation_win_"
-    },
-    "windows_process_tampering_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "process_tampering",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "proc_tampering_"
-    },
-    "windows_ps_classic_provider_start_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "ps_classic_provider_start",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "posh_pc_"
-    },
-    "windows_ps_classic_start_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "ps_classic_start",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "posh_pc_"
-    },
-    "windows_ps_module_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "ps_module",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "posh_pm_"
-    },
-    "windows_ps_script_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "ps_script",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "posh_ps_"
-    },
-    "windows_raw_access_thread_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "raw_access_thread",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "raw_access_thread_"
-    },
-    "windows_registry_add_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "registry_add",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "registry_add_"
-    },
-    "windows_registry_delete_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "registry_delete",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "registry_delete_"
-    },
-    "windows_registry_event_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "registry_event",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "registry_event_"
-    },
-    "windows_registry_set_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "registry_set",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "registry_set_"
-    },
-    "windows_sysmon_error_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "sysmon_error",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "sysmon_"
-    },
-    "windows_sysmon_status_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "sysmon_status",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "sysmon_"
-    },
-    "windows_wmi_event_none": {
-      "logsource": {
-        "product": "windows",
-        "category": "wmi_event",
-        "service": null,
-        "definition": null
-      },
-      "prefix": "sysmon_wmi_"
-    },
-    "zeek_none_none": {
-      "logsource": {
-        "product": "zeek",
-        "category": null,
-        "service": null,
-        "definition": null
-      },
-      "prefix": "zeek_"
+    "title": "SigmaHQ rule filename prefix",
+    "version": "20240809",
+    "pattern": {
+        "aws_none_none": {
+            "logsource": {
+                "product": "aws",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "aws"
+        },
+        "azure_none_none": {
+            "logsource": {
+                "product": "azure",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "azure_"
+        },
+        "bitbucket_none_audit": {
+            "logsource": {
+                "product": "bitbucket",
+                "category": null,
+                "service": "audit",
+                "definition": null
+            },
+            "prefix": "bitbucket_audit_"
+        },
+        "cisco_none_none": {
+            "logsource": {
+                "product": "cisco",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "cisco_"
+        },
+        "django_application_none": {
+            "logsource": {
+                "product": "django",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "appframework_django_"
+        },
+        "fortios_none_sslvpnd": {
+            "logsource": {
+                "product": "fortios",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "fortios_"
+        },
+        "gcp_none_none": {
+            "logsource": {
+                "product": "gcp",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "gcp_"
+        },
+        "github_none_none": {
+            "logsource": {
+                "product": "github",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "github_"
+        },
+        "huawei_none_bgp": {
+            "logsource": {
+                "product": "huawei",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "huawei_"
+        },
+        "juniper_none_bgp": {
+            "logsource": {
+                "product": "juniper",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "juniper_"
+        },
+        "jvm_application_none": {
+            "logsource": {
+                "product": "jvm",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "java_"
+        },
+        "kubernetes_application_audit": {
+            "logsource": {
+                "product": "kubernetes",
+                "category": "application",
+                "service": "audit",
+                "definition": null
+            },
+            "prefix": "kubernetes_audit_"
+        },
+        "kubernetes_none_audit": {
+            "logsource": {
+                "product": "kubernetes",
+                "category": null,
+                "service": "audit",
+                "definition": null
+            },
+            "prefix": "kubernetes_audit_"
+        },
+        "linux_none_none": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "lnx_"
+        },
+        "linux_file_event_none": {
+            "logsource": {
+                "product": "linux",
+                "category": "file_event",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_event_lnx_"
+        },
+        "linux_network_connection_none": {
+            "logsource": {
+                "product": "linux",
+                "category": "network_connection",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "net_connection_lnx_"
+        },
+        "linux_none_auditd": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "auditd",
+                "definition": null
+            },
+            "prefix": "lnx_auditd_"
+        },
+        "linux_none_auth": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "auth",
+                "definition": null
+            },
+            "prefix": "lnx_auth_"
+        },
+        "linux_none_clamav": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "clamav",
+                "definition": null
+            },
+            "prefix": "lnx_clamav"
+        },
+        "linux_none_cron": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "cron",
+                "definition": null
+            },
+            "prefix": "lnx_cron_"
+        },
+        "linux_none_guacamole": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "guacamole",
+                "definition": null
+            },
+            "prefix": "lnx_guacamole_"
+        },
+        "linux_none_sshd": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "sshd",
+                "definition": null
+            },
+            "prefix": "lnx_sshd_"
+        },
+        "linux_none_sudo": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "sudo",
+                "definition": null
+            },
+            "prefix": "lnx_sudo"
+        },
+        "linux_none_syslog": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "syslog",
+                "definition": null
+            },
+            "prefix": "lnx_syslog_"
+        },
+        "linux_none_vsftpd": {
+            "logsource": {
+                "product": "linux",
+                "category": null,
+                "service": "vsftpd",
+                "definition": null
+            },
+            "prefix": "lnx_vsftpd_"
+        },
+        "linux_process_creation_none": {
+            "logsource": {
+                "product": "linux",
+                "category": "process_creation",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "proc_creation_lnx_"
+        },
+        "m365_none_none": {
+            "logsource": {
+                "product": "m365",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "microsoft365_"
+        },
+        "macos_none_none": {
+            "logsource": {
+                "product": "macos",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "macos_"
+        },
+        "macos_file_event_none": {
+            "logsource": {
+                "product": "macos",
+                "category": "file_event",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_event_macos_"
+        },
+        "macos_process_creation_none": {
+            "logsource": {
+                "product": "macos",
+                "category": "process_creation",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "proc_creation_macos_"
+        },
+        "nodejs_application_none": {
+            "logsource": {
+                "product": "nodejs",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "nodejs_"
+        },
+        "none_antivirus_none": {
+            "logsource": {
+                "product": null,
+                "category": "antivirus",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "av_"
+        },
+        "none_database_none": {
+            "logsource": {
+                "product": null,
+                "category": "database",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "db_"
+        },
+        "none_dns_none": {
+            "logsource": {
+                "product": null,
+                "category": "dns",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "net_dns_"
+        },
+        "none_firewall_none": {
+            "logsource": {
+                "product": null,
+                "category": "firewall",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "net_firewall_"
+        },
+        "none_none_apache": {
+            "logsource": {
+                "product": null,
+                "category": null,
+                "service": "apache",
+                "definition": null
+            },
+            "prefix": "web_apache_"
+        },
+        "none_none_nginx": {
+            "logsource": {
+                "product": null,
+                "category": null,
+                "service": "nginx",
+                "definition": null
+            },
+            "prefix": "web_nginx_"
+        },
+        "none_proxy_none": {
+            "logsource": {
+                "product": null,
+                "category": "proxy",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "proxy_"
+        },
+        "none_webserver_none": {
+            "logsource": {
+                "product": null,
+                "category": "webserver",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "web_"
+        },
+        "okta_none_none": {
+            "logsource": {
+                "product": "okta",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "okta_"
+        },
+        "onelogin_none_none": {
+            "logsource": {
+                "product": "onelogin",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "onelogin_"
+        },
+        "opencanary_application_none": {
+            "logsource": {
+                "product": "opencanary",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "opencanary_"
+        },
+        "paloalto_appliance_globalprotect": {
+            "logsource": {
+                "product": "paloalto",
+                "category": "appliance",
+                "service": "globalprotect",
+                "definition": null
+            },
+            "prefix": "paloalto_globalprotect_"
+        },
+        "paloalto_file_event_globalprotect": {
+            "logsource": {
+                "product": "paloalto",
+                "category": "file_event",
+                "service": "globalprotect",
+                "definition": null
+            },
+            "prefix": "file_event_paloalto_globalprotect_"
+        },
+        "python_application_none": {
+            "logsource": {
+                "product": "python",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "app_python_"
+        },
+        "rpc_firewall_application_none": {
+            "logsource": {
+                "product": "rpc_firewall",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "rpc_firewall_"
+        },
+        "ruby_on_rails_application_none": {
+            "logsource": {
+                "product": "ruby_on_rails",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "appframework_ruby_"
+        },
+        "spring_application_none": {
+            "logsource": {
+                "product": "spring",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "spring_"
+        },
+        "velocity_application_none": {
+            "logsource": {
+                "product": "velocity",
+                "category": "application",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "velocity_"
+        },
+        "windows_create_remote_thread_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "create_remote_thread",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "create_remote_thread_win_"
+        },
+        "windows_create_stream_hash_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "create_stream_hash",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "create_stream_hash_"
+        },
+        "windows_dns_query_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "dns_query",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "dns_query_win_"
+        },
+        "windows_driver_load_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "driver_load",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "driver_load_win_"
+        },
+        "windows_file_access_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "file_access",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_access_win_"
+        },
+        "windows_file_change_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "file_change",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_change_win_"
+        },
+        "windows_file_delete_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "file_delete",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_delete_win_"
+        },
+        "windows_file_event_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "file_event",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_event_win_"
+        },
+        "windows_file_executable_detected_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "file_executable_detected",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_executable_detected_win_"
+        },
+        "windows_file_rename_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "file_rename",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_rename_win_"
+        },
+        "windows_image_load_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "image_load",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "image_load_"
+        },
+        "windows_network_connection_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "network_connection",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "net_connection_win_"
+        },
+        "windows_none_applocker": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "applocker",
+                "definition": null
+            },
+            "prefix": "win_applocker_"
+        },
+        "windows_none_appmodel-runtime": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "appmodel-runtime",
+                "definition": null
+            },
+            "prefix": "win_appmodel_runtime_"
+        },
+        "windows_none_appxdeployment-server": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "appxdeployment-server",
+                "definition": null
+            },
+            "prefix": "win_appxdeployment_server_"
+        },
+        "windows_none_appxpackaging-om": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "appxpackaging-om",
+                "definition": null
+            },
+            "prefix": "win_appxpackaging_om_"
+        },
+        "windows_none_bits-client": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "bits-client",
+                "definition": null
+            },
+            "prefix": "win_bits_client_"
+        },
+        "windows_none_capi2": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "capi2",
+                "definition": null
+            },
+            "prefix": "win_capi2_"
+        },
+        "windows_none_certificateservicesclient-lifecycle-system": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "certificateservicesclient-lifecycle-system",
+                "definition": null
+            },
+            "prefix": "win_certificateservicesclient_lifecycle_system_"
+        },
+        "windows_none_codeintegrity-operational": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "codeintegrity-operational",
+                "definition": null
+            },
+            "prefix": "win_codeintegrity_"
+        },
+        "windows_none_diagnosis-scripted": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "diagnosis-scripted",
+                "definition": null
+            },
+            "prefix": "win_diagnosis_scripted"
+        },
+        "windows_none_dns-client": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "dns-client",
+                "definition": null
+            },
+            "prefix": "win_dns_client"
+        },
+        "windows_none_dns-server": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "dns-server",
+                "definition": null
+            },
+            "prefix": "win_dns_server"
+        },
+        "windows_none_dns-server-analytic": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "dns-server-analytic",
+                "definition": null
+            },
+            "prefix": "win_dns_analytic_"
+        },
+        "windows_none_firewall-as": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "firewall-as",
+                "definition": null
+            },
+            "prefix": "win_firewall_as_"
+        },
+        "windows_none_ldap": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "ldap",
+                "definition": null
+            },
+            "prefix": "win_ldap_"
+        },
+        "windows_none_lsa-server": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "lsa-server",
+                "definition": null
+            },
+            "prefix": "win_lsa_server_"
+        },
+        "windows_none_msexchange-management": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "msexchange-management",
+                "definition": null
+            },
+            "prefix": "win_exchange_"
+        },
+        "windows_none_none": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "win_"
+        },
+        "windows_none_openssh": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "openssh",
+                "definition": null
+            },
+            "prefix": "win_sshd_openssh_"
+        },
+        "windows_none_powershell-classic": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "powershell-classic",
+                "definition": null
+            },
+            "prefix": "posh_pc_"
+        },
+        "windows_none_security": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "security",
+                "definition": null
+            },
+            "prefix": "win_security_"
+        },
+        "windows_none_security-mitigations": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "security-mitigations",
+                "definition": null
+            },
+            "prefix": "win_security_mitigations_"
+        },
+        "windows_none_shell-core": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "shell-core",
+                "definition": null
+            },
+            "prefix": "win_shell_core"
+        },
+        "windows_none_smbclient-connectivity": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "smbclient-connectivity",
+                "definition": null
+            },
+            "prefix": "win_smbclient_connectivity_"
+        },
+        "windows_none_smbclient-security": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "smbclient-security",
+                "definition": null
+            },
+            "prefix": "win_smbclient_security_"
+        },
+        "windows_none_sysmon": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "sysmon",
+                "definition": null
+            },
+            "prefix": "sysmon_"
+        },
+        "windows_none_system": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "system",
+                "definition": null
+            },
+            "prefix": "win_system_"
+        },
+        "windows_none_taskscheduler": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "taskscheduler",
+                "definition": null
+            },
+            "prefix": "win_taskscheduler_"
+        },
+        "windows_none_terminalservices-localsessionmanager": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "terminalservices-localsessionmanager",
+                "definition": null
+            },
+            "prefix": "win_terminalservices_"
+        },
+        "windows_none_windefend": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "windefend",
+                "definition": null
+            },
+            "prefix": "win_defender_"
+        },
+        "windows_none_wmi": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "wmi",
+                "definition": null
+            },
+            "prefix": "win_wmi_"
+        },
+        "windows_pipe_created_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "pipe_created",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "pipe_created_"
+        },
+        "windows_process_access_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "process_access",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "proc_access_win_"
+        },
+        "windows_process_creation_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "process_creation",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "proc_creation_win_"
+        },
+        "windows_process_tampering_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "process_tampering",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "proc_tampering_"
+        },
+        "windows_ps_classic_provider_start_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "ps_classic_provider_start",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "posh_pc_"
+        },
+        "windows_ps_classic_start_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "ps_classic_start",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "posh_pc_"
+        },
+        "windows_ps_module_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "ps_module",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "posh_pm_"
+        },
+        "windows_ps_script_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "ps_script",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "posh_ps_"
+        },
+        "windows_raw_access_thread_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "raw_access_thread",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "raw_access_thread_"
+        },
+        "windows_registry_add_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "registry_add",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "registry_add_"
+        },
+        "windows_registry_delete_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "registry_delete",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "registry_delete_"
+        },
+        "windows_registry_event_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "registry_event",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "registry_event_"
+        },
+        "windows_registry_set_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "registry_set",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "registry_set_"
+        },
+        "windows_sysmon_error_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "sysmon_error",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "sysmon_"
+        },
+        "windows_sysmon_status_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "sysmon_status",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "sysmon_"
+        },
+        "windows_wmi_event_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "wmi_event",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "sysmon_wmi_"
+        },
+        "zeek_none_none": {
+            "logsource": {
+                "product": "zeek",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "zeek_"
+        }
     }
-  }
 }
