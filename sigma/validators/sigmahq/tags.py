@@ -1,7 +1,9 @@
+# sigma/validators/sigmahq/tags.py
+
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
 
-from sigma.rule import SigmaRule, SigmaRuleBase
+from sigma.rule import SigmaRuleBase
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,
@@ -13,71 +15,69 @@ config = ConfigHQ()
 
 
 @dataclass
-class SigmahqTagsDetectionEmergingthreatsIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule in emerging-threats folder doesn't have a detection.emerging-threats tag."
-    )
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
+class SigmahqTagsUniqueDetectionIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Multiple 'detection' tags found."
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
-class SigmahqTagsDetectionEmergingthreatsValidator(SigmaRuleValidator):
-    """Checks if a rule in the emerging-threats folder has the detection.emerging-threats tag."""
+class SigmahqTagsUniqueDetectionValidator(SigmaRuleValidator):
+    """Ensures that the tag.namespace 'detection' is unique in the tags."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        if rule.source and "rules-emerging-threats" in str(rule.source):
-            if rule.tags:
-                for tag in rule.tags:
-                    if tag.namespace == "detection" and tag.name == "emerging-threats":
-                        return []
-            return [SigmahqTagsDetectionEmergingthreatsIssue([rule])]
+        detection_tags = [tag for tag in rule.tags or [] if tag.namespace == "detection"]
+        if len(detection_tags) > 1:
+            return [SigmahqTagsUniqueDetectionIssue([rule])]
         return []
 
 
 @dataclass
-class SigmahqTagsDetectionThreathuntingIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule in threat-hunting folder doesn't have a detection.threat-hunting tag."
-    )
+class SigmahqTagsDetectionIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule doesn't have a detection tag."
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
+    tag: str
 
 
-class SigmahqTagsDetectionThreathuntingValidator(SigmaRuleValidator):
-    """Checks if a rule in the threat-hunting folder has the detection.threat-hunting tag."""
+@dataclass(frozen=True)
+class SigmahqTagsDetectionValidator(SigmaRuleValidator):
+    """Checks if a rule in a specific folder has the corresponding detection tag."""
+
+    Folder_tag: Tuple[str, ...] = ("dfir", "emerging-threats", "threat-hunting")
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        if rule.source and "rules-threat-hunting" in str(rule.source):
-            if rule.tags:
-                for tag in rule.tags:
-                    if tag.namespace == "detection" and tag.name == "threat-hunting":
-                        return []
-            return [SigmahqTagsDetectionThreathuntingIssue([rule])]
+        if rule.source:
+            for name in self.Folder_tag:
+                if f"rules-{name}" in str(rule.source):
+                    tag_found = False
+                    for tag in rule.tags or []:
+                        if tag.namespace == "detection" and tag.name == name:
+                            tag_found = True
+                            break
+                    if not tag_found:
+                        return [SigmahqTagsDetectionIssue([rule], tag=name)]
         return []
 
 
 @dataclass
-class SigmahqTagsDetectionDfirIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule in DFIR folder doesn't have the detection.dfir tag."
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
+class SigmahqTagsUniqueTlpIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Multiple 'tlp' tags found."
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
-class SigmahqTagsDetectionDfirValidator(SigmaRuleValidator):
-    """Checks if a rule in the DFIR folder has the detection.dfir tag."""
+class SigmahqTagsUniqueTlpValidator(SigmaRuleValidator):
+    """Ensures that the tag.namespace 'tlp' is unique in the tags."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        if rule.source and "rules-dfir" in str(rule.source):
-            if rule.tags:
-                for tag in rule.tags:
-                    if tag.namespace == "detection" and tag.name == "dfir":
-                        return []
-            return [SigmahqTagsDetectionDfirIssue([rule])]
+        tlp_tags = [tag for tag in rule.tags or [] if tag.namespace == "tlp"]
+        if len(tlp_tags) > 1:
+            return [SigmahqTagsUniqueTlpIssue([rule])]
         return []
 
 
 @dataclass
 class SigmahqTagsTlpIssue(SigmaValidationIssue):
+    tlp: str
     description: ClassVar[str] = "The rule uses a non-authorized TLP."
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-    tlp: str
 
 
 @dataclass(frozen=True)
@@ -87,9 +87,7 @@ class SigmahqTagsTlpValidator(SigmaRuleValidator):
     allowed_tlp: Tuple[str, ...] = ("clear",)
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        rule_error = list()
-        if rule.tags:
-            for tag in rule.tags:
-                if tag.namespace == "tlp" and tag.name not in self.allowed_tlp:
-                    rule_error.append(SigmahqTagsTlpIssue([rule], tag.name))
-        return rule_error
+        for tag in rule.tags or []:
+            if tag.namespace == "tlp" and tag.name not in self.allowed_tlp:
+                return [SigmahqTagsTlpIssue([rule], tlp=tag.name)]
+        return []
