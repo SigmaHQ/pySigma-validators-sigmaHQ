@@ -1,3 +1,5 @@
+# sigma/validators/sigmahq/title.py
+
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
 
@@ -14,7 +16,7 @@ config = ConfigHQ()
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a title is too large."
+    description: ClassVar[str] = "Rule has a title that is too long."
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
@@ -27,8 +29,7 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if len(rule.title) > self.max_length:
             return [SigmahqTitleLengthIssue([rule])]
-        else:
-            return []
+        return []
 
 
 @dataclass
@@ -41,7 +42,7 @@ class SigmahqTitleStartValidator(SigmaRuleValidator):
     """Checks if a rule title starts with the word 'Detect' or 'Detects'."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.title.startswith("Detects "):
+        if rule.title.startswith("Detect ") or rule.title.startswith("Detects "):
             return [SigmahqTitleStartIssue([rule])]
         return []
 
@@ -53,7 +54,7 @@ class SigmahqTitleEndIssue(SigmaValidationIssue):
 
 
 class SigmahqTitleEndValidator(SigmaRuleValidator):
-    """Checks if a rule has title that ends with a dot(.)."""
+    """Checks if a rule has a title that ends with a dot(.)."""
 
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         if rule.title.endswith("."):

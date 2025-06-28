@@ -14,17 +14,20 @@ from sigma.validators.sigmahq.tags import (
     SigmahqTagsUniqueTlpValidator,
 )
 
+
 def test_validator_SigmahqTagsDetection():
     validator = SigmahqTagsDetectionValidator()
     sigma_collection = SigmaCollection.load_ruleset(["tests/files/rules-emerging-threats/invalid"])
     rule = sigma_collection[0]
     assert validator.validate(rule) == [SigmahqTagsDetectionIssue([rule], tag="emerging-threats")]
 
+
 def test_validator_SigmahqTagsDetection_valid():
     validator = SigmahqTagsDetectionValidator()
     sigma_collection = SigmaCollection.load_ruleset(["tests/files/rules-emerging-threats/valid"])
     rule = sigma_collection[0]
     assert validator.validate(rule) == []
+
 
 def test_validator_SigmahqTagsDetection_no_folders():
     validator = SigmahqTagsDetectionValidator()
@@ -43,6 +46,7 @@ def test_validator_SigmahqTagsDetection_no_folders():
     """
     )
     assert validator.validate(rule) == []
+
 
 def test_validator_SigmahqTagsUniqueDetection():
     validator = SigmahqTagsUniqueDetectionValidator()
@@ -63,6 +67,7 @@ def test_validator_SigmahqTagsUniqueDetection():
     )
     assert validator.validate(rule) == [SigmahqTagsUniqueDetectionIssue([rule])]
 
+
 def test_validator_SigmahqTagsUniqueDetection_valid():
     validator = SigmahqTagsUniqueDetectionValidator()
     rule = SigmaRule.from_yaml(
@@ -82,6 +87,7 @@ def test_validator_SigmahqTagsUniqueDetection_valid():
     )
     assert validator.validate(rule) == []
 
+
 def test_validator_SigmahqTagsTlp():
     validator = SigmahqTagsTlpValidator()
     rule = SigmaRule.from_yaml(
@@ -100,6 +106,7 @@ def test_validator_SigmahqTagsTlp():
     )
     assert validator.validate(rule) == [SigmahqTagsTlpIssue([rule], tlp="red")]
 
+
 def test_validator_SigmahqTagsTlp_valid():
     validator = SigmahqTagsTlpValidator()
     rule = SigmaRule.from_yaml(
@@ -117,6 +124,7 @@ def test_validator_SigmahqTagsTlp_valid():
     """
     )
     assert validator.validate(rule) == []
+
 
 def test_validator_SigmahqTagsUniqueTlp():
     validator = SigmahqTagsUniqueTlpValidator()
@@ -137,6 +145,7 @@ def test_validator_SigmahqTagsUniqueTlp():
     )
     assert validator.validate(rule) == [SigmahqTagsUniqueTlpIssue([rule])]
 
+
 def test_validator_SigmahqTagsUniqueTlp_valid():
     validator = SigmahqTagsUniqueTlpValidator()
     rule = SigmaRule.from_yaml(
@@ -156,12 +165,10 @@ def test_validator_SigmahqTagsUniqueTlp_valid():
     )
     assert validator.validate(rule) == []
 
+
 def test_validator_SigmahqTagsNoTags():
     # Test for no tags at all
-    validators = [
-        SigmahqTagsUniqueDetectionValidator(),
-        SigmahqTagsUniqueTlpValidator()
-    ]
+    validators = [SigmahqTagsUniqueDetectionValidator(), SigmahqTagsUniqueTlpValidator()]
     rule = SigmaRule.from_yaml(
         """
     title: test
@@ -176,6 +183,7 @@ def test_validator_SigmahqTagsNoTags():
     )
     for validator in validators:
         assert validator.validate(rule) == []
+
 
 def test_validator_SigmahqTagsNoTlp():
     # Test for no TLP tags
@@ -195,6 +203,7 @@ def test_validator_SigmahqTagsNoTlp():
     """
     )
     assert validator.validate(rule) == []
+
 
 def test_validator_SigmahqTagsNoDetection():
     # Test for no detection tags
