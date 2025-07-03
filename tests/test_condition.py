@@ -11,6 +11,7 @@ from sigma.validators.sigmahq.condition import (
 from sigma.correlations import SigmaCorrelationRule
 
 
+# Test cases for SigmahqOfthemConditionValidator
 def test_validator_SigmahqOfthemConditionValidator_1():
     validator = SigmahqOfthemConditionValidator()
     rule = SigmaRule.from_yaml(
@@ -83,6 +84,7 @@ def test_validator_SigmahqOfthemConditionValidator_valid():
     assert validator.validate(rule) == []
 
 
+# Test cases for SigmahqOfselectionConditionValidator
 def test_validator_SigmahqOfselectionConditionValidator():
     validator = SigmahqOfselectionConditionValidator()
     rule = SigmaRule.from_yaml(
@@ -163,6 +165,7 @@ def test_validator_SigmahqOfselectionConditionValidator_selection():
     assert validator.validate(rule) == []
 
 
+# Test cases for SigmahqMissingAsteriskConditionValidator
 def test_validator_SigmahqMissingAsteriskConditionValidator():
     validator = SigmahqMissingAsteriskConditionValidator()
     rule = SigmaRule.from_yaml(
@@ -228,6 +231,7 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_them():
     assert validator.validate(rule) == []
 
 
+# Additional tests for correlation rules (no changes needed)
 def SigmahqOfthemConditionValidator_correlation():
     validator = SigmahqOfthemConditionValidator()
     rule = SigmaCorrelationRule.from_dict(
