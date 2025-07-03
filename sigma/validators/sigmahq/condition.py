@@ -22,7 +22,7 @@ class SigmahqOfthemConditionIssue(SigmaValidationIssue):
 class SigmahqOfthemConditionValidator(SigmaRuleValidator):
     """Check use of the ' of them' keyword with only a single selection in the detection section"""
 
-    re_all_of_them: ClassVar[re.Pattern] = re.compile("\\s+of\\s+them")
+    re_all_of_them: ClassVar[re.Pattern] = re.compile(r"\s+of\s+them")
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
@@ -53,7 +53,7 @@ class SigmahqOfselectionConditionIssue(SigmaValidationIssue):
 class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
     """Check use of the 'All/X of ' format with only one selection in the detection section"""
 
-    re_x_of_them: ClassVar[re.Pattern] = re.compile("[\\d+|all]\\s+of\\s+([^\\s]+)")
+    re_x_of_them: ClassVar[re.Pattern] = re.compile(r"(?:\d+|all)\s+of\s+([^\s]+)")
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
@@ -97,7 +97,7 @@ class SigmahqMissingAsteriskConditionIssue(SigmaValidationIssue):
 class SigmahqMissingAsteriskConditionValidator(SigmaRuleValidator):
     """Check the use of the '1/all of ' keyword without an asterisk in the condition"""
 
-    re_x_of_them: ClassVar[re.Pattern] = re.compile("\\s+of\\s+([^\\s\\)]+)")
+    re_x_of_them: ClassVar[re.Pattern] = re.compile(r"\s+of\s+([^\s\)]+)")
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
