@@ -232,7 +232,7 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_them():
 
 
 # Additional tests for correlation rules (no changes needed)
-def SigmahqOfthemConditionValidator_correlation():
+def test_SigmahqOfthemConditionValidator_correlation():
     validator = SigmahqOfthemConditionValidator()
     rule = SigmaCorrelationRule.from_dict(
         {
