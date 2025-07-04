@@ -1,6 +1,5 @@
-from wsgiref.validate import validator
+# tests/test_title.py
 
-import pytest
 from sigma.rule import SigmaRule
 
 from sigma.validators.sigmahq.title import (
@@ -100,7 +99,7 @@ def test_validator_SigmahqTitleStart():
     assert validator.validate(rule) == [SigmahqTitleStartIssue([rule])]
 
 
-def test_validator_SigmahqTitleStart_valid():
+def test_validator_SigmahqTitleStart_detection():
     validator = SigmahqTitleStartValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -172,7 +171,7 @@ def test_validator_SigmahqTitleCase():
 
 
 def test_validator_SigmahqTitleCase_custom():
-    validator = SigmahqTitleCaseValidator(word_list=["a", "title", "is", "needed"])
+    validator = SigmahqTitleCaseValidator(word_list=("a", "title", "is", "needed"))
     rule = SigmaRule.from_yaml(
         """
     title: Case is needed For a beautiful title
@@ -205,24 +204,7 @@ def test_validator_SigmahqTitleCase_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqTitleCase_specialdot_valid():
-    validator = SigmahqTitleCaseValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: Case Is Needed for the Title Except test.com
-    status: test
-    logsource:
-        category: test
-    detection:
-        sel:
-            field: path\\*something
-        condition: sel
-    """
-    )
-    assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqTitleCase_dot_valid():
+def test_validator_SigmahqTitleCase_specialchar_valid():
     validator = SigmahqTitleCaseValidator()
     rule = SigmaRule.from_yaml(
         """

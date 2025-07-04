@@ -320,7 +320,7 @@ def test_validator_SigmahqFalsepositivesBannedWord():
 
 
 def test_validator_SigmahqFalsepositivesBannedWord_custom():
-    validator = SigmahqFalsepositivesBannedWordValidator(word_list=["maybe"])
+    validator = SigmahqFalsepositivesBannedWordValidator(word_list=("maybe",))
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -377,7 +377,7 @@ def test_validator_SigmahqFalsepositivesTypoWord():
 
 
 def test_validator_SigmahqFalsepositivesTypoWord_custom():
-    validator = SigmahqFalsepositivesTypoWordValidator(word_list=["unkwon"])
+    validator = SigmahqFalsepositivesTypoWordValidator(word_list=("unkwon",))
     rule = SigmaRule.from_yaml(
         """
     title: Test
@@ -414,7 +414,7 @@ def test_validator_SigmahqFalsepositivesTypoWord_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqLinkDescription():
+def test_validator_SigmahqLinkDescription_https():
     validator = SigmahqLinkInDescriptionValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -431,7 +431,7 @@ def test_validator_SigmahqLinkDescription():
     assert validator.validate(rule) == [SigmahqLinkInDescriptionIssue([rule], "https://")]
 
 
-def test_validator_SigmahqLinkDescription():
+def test_validator_SigmahqLinkDescription_ftp():
     validator = SigmahqLinkInDescriptionValidator(word_list=("http://", "https://", "ftp:"))
     rule = SigmaRule.from_yaml(
         """
@@ -561,7 +561,7 @@ def test_validator_SigmahqStatusToHigh():
     assert validator.validate(rule) == [SigmahqStatusToHighIssue([rule])]
 
 
-def test_validator_SigmahqStatusToHigh():
+def test_validator_SigmahqStatusToHigh_valid():
     validator = SigmahqStatusToHighValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -599,12 +599,12 @@ def test_validator_SigmahqGithubLink():
     )
     assert validator.validate(rule) == [
         SigmahqGithubLinkIssue(
-            rule, "https://github.com/SigmaHQ/pySigma-validators-sigmaHQ/blob/main/README.md"
+            [rule], "https://github.com/SigmaHQ/pySigma-validators-sigmaHQ/blob/main/README.md"
         )
     ]
 
 
-def test_validator_SigmahqStatusToHigh():
+def test_validator_SigmahqGithubLink_valid():
     validator = SigmahqGithubLinkValidator()
     rule = SigmaRule.from_yaml(
         """
