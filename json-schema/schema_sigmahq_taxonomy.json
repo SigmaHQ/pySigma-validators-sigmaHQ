@@ -1,0 +1,58 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "title": { "type": "string" },
+        "version": { "type": "string" },
+        "taxonomy": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "logsource":{
+                        "type":"object",
+                        "properties": {
+                            "product": {
+                                "type": ["string", "null"] 
+                            },
+                            "category": {
+                                "type": ["string", "null"] 
+                            },
+                            "service": {
+                                "type": ["string", "null"] 
+                            },
+                            "definition": {
+                                "type": ["string", "null"] 
+                            }
+                        },
+                        "required": ["product","category","service","definition"]
+                    },
+                    "description":{
+                        "type": ["string", "null"] 
+                    },
+                    "field":{
+                        "type":"object",
+                        "properties": {
+                            "native": {
+                                "type":"array",
+                                "items": { "type": "string" }
+                            },
+                            "custom": {
+                                "type":"array",
+                                "items": { "type": "string" }
+                            },
+                            "redundant": {
+                                "type":"array",
+                                "items": { "type": "string" }
+                            }
+                        },
+                        "required": ["native","custom","redundant"]
+                    }
+                },
+                "required": ["logsource","description","field"]
+            }
+        }
+    },
+    "required": ["title","version","taxonomy"]
+}
+

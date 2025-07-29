@@ -27,7 +27,7 @@ def test_validator_SigmahqLogsourceKnown():
     """
     )
     assert validator.validate(rule) == [
-        SigmahqLogsourceUnknownIssue(rule, SigmaLogSource(category="test"))
+        SigmahqLogsourceUnknownIssue([rule], SigmaLogSource(category="test"))
     ]
 
 
@@ -64,7 +64,7 @@ def test_validator_SigmahqSysmonMissingEventid():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqSysmonMissingEventidIssue(rule)]
+    assert validator.validate(rule) == [SigmahqSysmonMissingEventidIssue([rule])]
 
 
 def test_validator_SigmahqSysmonMissingEventid_valid():

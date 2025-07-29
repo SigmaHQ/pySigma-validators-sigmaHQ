@@ -2,7 +2,7 @@ from wsgiref.validate import validator
 
 import pytest
 from sigma.rule import SigmaRule
-from sigma.modifiers import SigmaRegularExpression
+from sigma.types import SigmaRegularExpression
 
 from sigma.validators.sigmahq.field import (
     SigmahqSpaceFieldNameIssue,
@@ -21,6 +21,8 @@ from sigma.validators.sigmahq.field import (
     SigmahqFieldUserValidator,
     SigmahqInvalidHashKvIssue,
     SigmahqInvalidHashKvValidator,
+    SigmahqRedundantFieldIssue,
+    SigmahqRedundantFieldValidator,
 )
 
 
@@ -39,7 +41,7 @@ def test_validator_SigmahqSpaceFieldname():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue(rule, "space name")]
+    assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue([rule], "space name")]
 
 
 def test_validator_SigmahqSpaceFieldname_valid():
@@ -75,7 +77,7 @@ def test_validator_SigmahqFieldnameCast():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqFieldnameCastIssue(rule, "commandline")]
+    assert validator.validate(rule) == [SigmahqFieldnameCastIssue([rule], "commandline")]
 
 
 def test_validator_SigmahqFieldnameCast_valid():
@@ -130,7 +132,7 @@ def test_validator_SigmahqInvalidFieldname():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidFieldnameIssue(rule, "images")]
+    assert validator.validate(rule) == [SigmahqInvalidFieldnameIssue([rule], "images")]
 
 
 def test_validator_SigmahqInvalidFieldname_valid():
@@ -185,7 +187,7 @@ def test_validator_SigmahqInvalidAllModifierIssue():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidAllModifierIssue(rule, "CommandLine")]
+    assert validator.validate(rule) == [SigmahqInvalidAllModifierIssue([rule], "CommandLine")]
 
 
 def test_validator_SigmahqInvalidAllModifierIssue_valid():
@@ -227,7 +229,9 @@ def test_validator_SigmahqFieldDuplicateValueIssue():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqFieldDuplicateValueIssue(rule, "CommandLine", "Two")]
+    assert validator.validate(rule) == [
+        SigmahqFieldDuplicateValueIssue([rule], "CommandLine", "Two")
+    ]
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_base64():
@@ -316,7 +320,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     )
     assert validator.validate(rule) == [
         SigmahqFieldDuplicateValueIssue(
-            rule, "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
+            [rule], "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
         )
     ]
 
@@ -357,7 +361,7 @@ def test_validator_SigmahqSpaceFieldNameValidator():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue(rule, "Command Line")]
+    assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue([rule], "Command Line")]
 
 
 def test_validator_SigmahqSpaceFieldNameValidator_valid():
@@ -394,7 +398,7 @@ def test_validator_SigmahqFieldUserValidator():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqFieldUserIssue(rule, "UserName", "AUTORITE NT")]
+    assert validator.validate(rule) == [SigmahqFieldUserIssue([rule], "UserName", "AUTORITE NT")]
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidhashname():
@@ -414,7 +418,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidhashname():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue(rule, "SHA512")]
+    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], "SHA512")]
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidhashdata():
@@ -434,7 +438,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidhashdata():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue(rule, "123456")]
+    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], "123456")]
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidtypo():
@@ -452,7 +456,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtypo():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue(rule, "azerty")]
+    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], "azerty")]
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
@@ -470,10 +474,10 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue(rule, 1234)]
+    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], 1234)]
 
 
-def test_validator_SigmahqInvalidHashKvValidator_valid():
+def test_validator_SigmahqInvalidHashKvValidator_valid_md5():
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -486,6 +490,45 @@ def test_validator_SigmahqInvalidHashKvValidator_valid():
         sel:
             Hashes|contains: 'MD5=4fae81eb7018069e75a087c38af783df'
         condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqRedundantField():
+    validator = SigmahqRedundantFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Field Already in the Logsource
+    status: test
+    logsource:
+        category: registry_set
+        product: windows
+    detection:
+        selection:
+            EventType: SetValue
+            TargetObject|contains: 'SigmaHQ'
+            Details|startswith: 'rules'
+        condition: selection
+    """
+    )
+    assert validator.validate(rule) == [SigmahqRedundantFieldIssue([rule], "EventType")]
+
+
+def test_validator_SigmahqRedundantField_valid():
+    validator = SigmahqRedundantFieldValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Field Already in the Logsource
+    status: test
+    logsource:
+        category: registry_set
+        product: windows
+    detection:
+        selection:
+            TargetObject|contains: 'SigmaHQ'
+            Details|startswith: 'rules'
+        condition: selection
     """
     )
     assert validator.validate(rule) == []

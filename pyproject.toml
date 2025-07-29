@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pySigma-validators-sigmahq"
-version = "0.9.6"
+version = "0.10.0"
 description = "pySigma SigmaHQ validators"
 authors = ["François Hubaut <frack113@users.noreply.github.com>"]
 license = "LGPL-2.1-only"
@@ -13,12 +13,15 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.9"
 pysigma = "^0.11"
+requests = "^2.32"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
 defusedxml = "^0.7"
 pytest = "^8.0"
 pytest-cov = "^4.1"
+mypy = "^1.16"
+types-requests = "^2.32.4"
 
 [tool.black]
 line-length = 100

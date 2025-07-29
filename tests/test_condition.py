@@ -11,6 +11,7 @@ from sigma.validators.sigmahq.condition import (
 from sigma.correlations import SigmaCorrelationRule
 
 
+# Test cases for SigmahqOfthemConditionValidator
 def test_validator_SigmahqOfthemConditionValidator_1():
     validator = SigmahqOfthemConditionValidator()
     rule = SigmaRule.from_yaml(
@@ -83,6 +84,7 @@ def test_validator_SigmahqOfthemConditionValidator_valid():
     assert validator.validate(rule) == []
 
 
+# Test cases for SigmahqOfselectionConditionValidator
 def test_validator_SigmahqOfselectionConditionValidator():
     validator = SigmahqOfselectionConditionValidator()
     rule = SigmaRule.from_yaml(
@@ -101,7 +103,7 @@ def test_validator_SigmahqOfselectionConditionValidator():
         condition: 1 of selection_part* and 1 of sub_*
     """
     )
-    assert validator.validate(rule) == [SigmahqOfselectionConditionIssue(rule, "sub_*")]
+    assert validator.validate(rule) == [SigmahqOfselectionConditionIssue([rule], "sub_*")]
 
 
 def test_validator_SigmahqOfselectionConditionValidator_valid():
@@ -163,6 +165,7 @@ def test_validator_SigmahqOfselectionConditionValidator_selection():
     assert validator.validate(rule) == []
 
 
+# Test cases for SigmahqMissingAsteriskConditionValidator
 def test_validator_SigmahqMissingAsteriskConditionValidator():
     validator = SigmahqMissingAsteriskConditionValidator()
     rule = SigmaRule.from_yaml(
@@ -181,7 +184,9 @@ def test_validator_SigmahqMissingAsteriskConditionValidator():
         condition: 1 of selection_part* and 1 of selection_sub
     """
     )
-    assert validator.validate(rule) == [SigmahqMissingAsteriskConditionIssue(rule, "selection_sub")]
+    assert validator.validate(rule) == [
+        SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
+    ]
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_valid():
@@ -226,7 +231,8 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_them():
     assert validator.validate(rule) == []
 
 
-def SigmahqOfthemConditionValidator_correlation():
+# Additional tests for correlation rules (no changes needed)
+def test_SigmahqOfthemConditionValidator_correlation():
     validator = SigmahqOfthemConditionValidator()
     rule = SigmaCorrelationRule.from_dict(
         {
