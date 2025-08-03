@@ -1,6 +1,6 @@
-# Version 0.3.0
+# Version 0.3.1
 # Author: frack113
-# Date: 2025/06/13
+# Date: 2025/08/03
 
 
 from sys import stderr, stdout
@@ -8,7 +8,7 @@ from pprint import pformat
 import sys
 
 
-from sigma.validators.sigmahq.config import ConfigHQ
+from sigma.validators.sigmahq import ConfigHQ
 
 
 def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/sigmahq_data.py"):
