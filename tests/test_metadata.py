@@ -4,7 +4,7 @@ import pytest
 from datetime import datetime
 
 from sigma.rule import SigmaRule
-from sigma.validators.sigmahq.metadata import (
+from sigma.validators.sigmahq.check_metadata import (
     SigmahqStatusExistenceIssue,
     SigmahqStatusExistenceValidator,
     SigmahqStatusIssue,

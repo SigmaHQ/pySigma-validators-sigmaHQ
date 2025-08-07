@@ -1,20 +1,23 @@
+# sigma/validators/sigmahq/check_detection.py
+
 from dataclasses import dataclass
-from typing import ClassVar, List, Set, Tuple
+from typing import List, Union, ClassVar, Set, Tuple
 
 from sigma.rule import (
     SigmaRule,
     SigmaDetectionItem,
+    SigmaLogSource,
 )
+from sigma.correlations import SigmaCorrelationRule
 
 from sigma.validators.base import (
     SigmaValidationIssue,
-    SigmaRuleValidator,
     SigmaValidationIssueSeverity,
     SigmaDetectionItemValidator,
-    SigmaDetectionItem,
 )
 
 from sigma.modifiers import SigmaRegularExpressionModifier
+from sigma.types import SigmaRegularExpression
 
 from .config import ConfigHQ
 
@@ -32,13 +35,14 @@ class SigmahqCategoryEventIdIssue(SigmaValidationIssue):
 class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses an EventID field with a windows category logsource that doesn't require it."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if (
-            rule.logsource.product == "windows"
-            and rule.logsource.category in config.windows_no_eventid
-        ):
-            return super().validate(rule)
-
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        # Only check SigmaRule objects, not SigmaCorrelationRule
+        if isinstance(rule, SigmaRule):
+            if (
+                rule.logsource.product == "windows"
+                and rule.logsource.category in config.windows_no_eventid
+            ):
+                return super().validate(rule)
         return []
 
     def validate_detection_item(
@@ -61,21 +65,23 @@ class SigmahqCategoryWindowsProviderNameIssue(SigmaValidationIssue):
 class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a Provider_Name field with a windows category logsource that doesn't require it."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
-        if rule.logsource in config.windows_provider_name:
-            self.list_provider = config.windows_provider_name[rule.logsource]
-            return super().validate(rule)
-
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        # Only check SigmaRule objects, not SigmaCorrelationRule
+        if isinstance(rule, SigmaRule) and rule.logsource.product=="windows":
+            key=SigmaLogSource(product=rule.logsource.product, category=rule.logsource.category, service=None)
+            if key in config.windows_provider_name:
+                self.list_provider = config.windows_provider_name[key]
+                return super().validate(rule)
         return []
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if detection_item.field is not None and detection_item.field == "Provider_Name":
-            for v in detection_item.value:
-                if v in self.list_provider:
+            # Check each value in the detection item against our list of providers
+            for value in detection_item.value:
+                if str(value) in self.list_provider:
                     return [SigmahqCategoryWindowsProviderNameIssue([self.rule])]
-
         return []
 
 
@@ -89,7 +95,7 @@ class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
 
 
 class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator):
-    """Checks if a rule uses a an unsupported regular expression group constructs."""
+    """Checks if a rule uses unsupported regular expression group constructs."""
 
     regex_list: Tuple[str, ...] = (
         "(?=",
@@ -106,10 +112,11 @@ class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator
 
         if SigmaRegularExpressionModifier in detection_item.modifiers:
             for value in detection_item.value:
-                for unsupported_group_construct in self.regex_list:
-                    regexp_value = getattr(value, "regexp", None)
-                    if regexp_value is not None and unsupported_group_construct in regexp_value:
-                        unsupported_regexps.add(regexp_value)
+                if isinstance(value, SigmaRegularExpression):
+                    regexp_value = str(value.regexp)
+                    for unsupported_group_construct in self.regex_list:
+                        if unsupported_group_construct in regexp_value:
+                            unsupported_regexps.add(regexp_value)
 
         return [
             SigmahqUnsupportedRegexGroupConstructIssue([self.rule], regexp)

@@ -1,4 +1,4 @@
-# sigma/validators/sigmahq/title.py
+# sigma/validators/sigmahq/check_title.py
 
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
@@ -10,6 +10,7 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 from .config import ConfigHQ
+from sigma.correlations import SigmaCorrelationRule
 
 config = ConfigHQ()
 
@@ -99,6 +100,7 @@ class SigmahqTitleCaseValidator(SigmaRuleValidator):
     def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
         wrong_casing = []
         for word in rule.title.split(" "):
+            # Skip words that contain special characters or are numbers
             if (
                 word.islower()
                 and not word.lower() in self.word_list
@@ -106,9 +108,12 @@ class SigmahqTitleCaseValidator(SigmaRuleValidator):
                 and not "/" in word
                 and not "_" in word
                 and not word[0].isdigit()
+                and len(word) > 0  # Ensure word is not empty
             ):
                 wrong_casing.append(word)
-        case_error = []
+
+        case_errors = []
         for word in wrong_casing:
-            case_error.append(SigmahqTitleCaseIssue([rule], word))
-        return case_error
+            issue = SigmahqTitleCaseIssue([rule], word=word)
+            case_errors.append(issue)
+        return case_errors

@@ -54,7 +54,9 @@ class ConfigHQ:
             self.is_remote = True
         else:
             self.config_dir = (
-                pathlib.Path(config_dir) if config_dir else pathlib.Path.cwd() / self.JSON_FOLDER
+                pathlib.Path(config_dir)
+                if config_dir
+                else pathlib.Path.cwd() / pathlib.Path(self.JSON_FOLDER)
             )
 
         self._load_sigma_json()

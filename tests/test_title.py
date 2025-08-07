@@ -2,7 +2,7 @@
 
 from sigma.rule import SigmaRule
 
-from sigma.validators.sigmahq.title import (
+from sigma.validators.sigmahq.check_title import (
     SigmahqTitleLengthIssue,
     SigmahqTitleLengthValidator,
     SigmahqTitleStartIssue,

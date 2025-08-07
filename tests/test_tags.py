@@ -3,7 +3,7 @@
 from sigma.rule import SigmaRule, SigmaLogSource
 from sigma.collection import SigmaCollection
 
-from sigma.validators.sigmahq.tags import (
+from sigma.validators.sigmahq.check_tags import (
     SigmahqTagsDetectionIssue,
     SigmahqTagsDetectionValidator,
     SigmahqTagsTlpIssue,

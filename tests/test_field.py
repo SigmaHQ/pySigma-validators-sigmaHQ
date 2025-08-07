@@ -2,9 +2,10 @@ from wsgiref.validate import validator
 
 import pytest
 from sigma.rule import SigmaRule
+from sigma.rule.base import SigmaRuleBase
 from sigma.types import SigmaRegularExpression
 
-from sigma.validators.sigmahq.field import (
+from sigma.validators.sigmahq.check_field import (
     SigmahqSpaceFieldNameIssue,
     SigmahqSpaceFieldNameValidator,
     SigmahqFieldnameCastIssue,
@@ -15,8 +16,6 @@ from sigma.validators.sigmahq.field import (
     SigmahqInvalidAllModifierValidator,
     SigmahqFieldDuplicateValueIssue,
     SigmahqFieldDuplicateValueValidator,
-    SigmahqSpaceFieldNameIssue,
-    SigmahqSpaceFieldNameValidator,
     SigmahqFieldUserIssue,
     SigmahqFieldUserValidator,
     SigmahqInvalidHashKvIssue,
@@ -28,8 +27,9 @@ from sigma.validators.sigmahq.field import (
 
 def test_validator_SigmahqSpaceFieldname():
     validator = SigmahqSpaceFieldNameValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -40,6 +40,7 @@ def test_validator_SigmahqSpaceFieldname():
             space name: 'error'
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [SigmahqSpaceFieldNameIssue([rule], "space name")]
 
@@ -320,7 +321,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     )
     assert validator.validate(rule) == [
         SigmahqFieldDuplicateValueIssue(
-            [rule], "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
+            [rule], "CommandLine", str(SigmaRegularExpression(regexp_init="One", flags=set()))
         )
     ]
 

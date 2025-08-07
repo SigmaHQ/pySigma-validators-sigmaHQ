@@ -1,6 +1,6 @@
 from pathlib import Path
 from dataclasses import dataclass
-from typing import ClassVar, Dict, List, Tuple
+from typing import ClassVar, Dict, List, Tuple, Union
 import re
 
 from sigma.rule import SigmaRule, SigmaLogSource
@@ -24,6 +24,7 @@ from sigma.modifiers import (
     SigmaCaseSensitiveModifier,
 )
 from .config import ConfigHQ
+from sigma.correlations import SigmaCorrelationRule
 
 config = ConfigHQ()
 
@@ -57,7 +58,10 @@ class SigmahqFieldnameCastIssue(SigmaValidationIssue):
 class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -95,7 +99,10 @@ class SigmahqInvalidFieldnameIssue(SigmaValidationIssue):
 class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -288,7 +295,10 @@ class SigmahqRedundantFieldIssue(SigmaValidationIssue):
 class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
     """Check if a field name is already covered by the logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
