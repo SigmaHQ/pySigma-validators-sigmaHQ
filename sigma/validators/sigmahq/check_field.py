@@ -3,13 +3,14 @@ from dataclasses import dataclass
 from typing import ClassVar, Dict, List, Tuple, Union
 import re
 
+from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule.detection import SigmaDetectionItem
 from sigma.types import SigmaString
 from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
     SigmaDetectionItemValidator,
-    SigmaDetectionItem,
 )
 
 from sigma.modifiers import (
@@ -24,7 +25,6 @@ from sigma.modifiers import (
     SigmaCaseSensitiveModifier,
 )
 from .config import ConfigHQ
-from sigma.correlations import SigmaCorrelationRule
 
 config = ConfigHQ()
 
@@ -178,7 +178,7 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
                     else:
                         return []
                 else:
-                    value_see.append(str(v).lower())
+                    value_see.append(v)
             return []
 
 
@@ -280,7 +280,7 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                             except ValueError:
                                 errors.append(s_value)
                 else:
-                    errors.append(v)
+                    errors.append("Not a string")
 
         return [SigmahqInvalidHashKvIssue([self.rule], v) for v in errors]
 

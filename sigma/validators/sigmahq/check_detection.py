@@ -67,8 +67,10 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
         # Only check SigmaRule objects, not SigmaCorrelationRule
-        if isinstance(rule, SigmaRule) and rule.logsource.product=="windows":
-            key=SigmaLogSource(product=rule.logsource.product, category=rule.logsource.category, service=None)
+        if isinstance(rule, SigmaRule) and rule.logsource.product == "windows":
+            key = SigmaLogSource(
+                product=rule.logsource.product, category=rule.logsource.category, service=None
+            )
             if key in config.windows_provider_name:
                 self.list_provider = config.windows_provider_name[key]
                 return super().validate(rule)

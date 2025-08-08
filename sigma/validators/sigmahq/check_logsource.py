@@ -1,7 +1,10 @@
-from dataclasses import dataclass
-from typing import ClassVar, Dict, List
+# sigma/validators/sigmahq/check_logsource.py
 
-from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
+from dataclasses import dataclass
+from typing import ClassVar, List, Union
+
+from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule, SigmaLogSource
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,
@@ -23,8 +26,10 @@ class SigmahqLogsourceUnknownIssue(SigmaValidationIssue):
 class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
     """Checks if a rule uses an unknown logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
         # Ensure rule is a SigmaRule instance to access logsource
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
         logsource = getattr(rule, "logsource", None)
         if logsource is not None:
             core_logsource = SigmaLogSource(
@@ -51,12 +56,15 @@ class SigmahqSysmonMissingEventidIssue(SigmaValidationIssue):
 class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
     """Checks if a rule uses the windows sysmon service logsource without the EventID field."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
         if rule.logsource.service == "sysmon":
             find = False
             for selection in rule.detection.detections.values():
                 for item in selection.detection_items:
-                    if item.field == "EventID":
+                    # Safely check if item has field attribute and if it equals "EventID"
+                    if hasattr(item, "field") and item.field == "EventID":
                         find = True
             if find:
                 return []

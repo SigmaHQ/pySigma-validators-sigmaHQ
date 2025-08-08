@@ -1,7 +1,7 @@
 # sigma/validators/sigmahq/check_title.py
 
 from dataclasses import dataclass
-from typing import ClassVar, List, Tuple
+from typing import ClassVar, List, Tuple, Union
 
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -27,7 +27,7 @@ class SigmahqTitleLengthValidator(SigmaRuleValidator):
 
     max_length: int = 120
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
         if len(rule.title) > self.max_length:
             return [SigmahqTitleLengthIssue([rule])]
         return []
@@ -42,7 +42,7 @@ class SigmahqTitleStartIssue(SigmaValidationIssue):
 class SigmahqTitleStartValidator(SigmaRuleValidator):
     """Checks if a rule title starts with the word 'Detect' or 'Detects'."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
         if rule.title.startswith("Detect ") or rule.title.startswith("Detects "):
             return [SigmahqTitleStartIssue([rule])]
         return []
@@ -57,7 +57,7 @@ class SigmahqTitleEndIssue(SigmaValidationIssue):
 class SigmahqTitleEndValidator(SigmaRuleValidator):
     """Checks if a rule has a title that ends with a dot(.)."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
         if rule.title.endswith("."):
             return [SigmahqTitleEndIssue([rule])]
         return []
@@ -97,7 +97,7 @@ class SigmahqTitleCaseValidator(SigmaRuleValidator):
         "without",
     )
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
         wrong_casing = []
         for word in rule.title.split(" "):
             # Skip words that contain special characters or are numbers
@@ -112,7 +112,7 @@ class SigmahqTitleCaseValidator(SigmaRuleValidator):
             ):
                 wrong_casing.append(word)
 
-        case_errors = []
+        case_errors: List[SigmaValidationIssue] = []
         for word in wrong_casing:
             issue = SigmahqTitleCaseIssue([rule], word=word)
             case_errors.append(issue)

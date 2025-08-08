@@ -1,8 +1,9 @@
 import re
 from dataclasses import dataclass
-from typing import ClassVar, Dict, List
+from typing import ClassVar, Dict, List, Union
 
-from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
+from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule, SigmaLogSource
 
 from sigma.validators.base import (
     SigmaRuleValidator,
@@ -25,7 +26,9 @@ class SigmahqFilenameConventionIssue(SigmaValidationIssue):
 class SigmahqFilenameConventionValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename convention."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
         filename_pattern = re.compile(r"[a-z0-9_]{10,90}\.yml")
         if rule.source is not None:
             filename = rule.source.path.name
@@ -46,7 +49,9 @@ class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
 class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename prefix convention."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
         if rule.source is not None:
             filename = rule.source.path.name
             logsource = SigmaLogSource(

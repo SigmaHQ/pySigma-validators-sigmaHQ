@@ -475,7 +475,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], 1234)]
+    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], "Not a string")]
 
 
 def test_validator_SigmahqInvalidHashKvValidator_valid_md5():

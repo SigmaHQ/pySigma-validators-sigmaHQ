@@ -1,8 +1,6 @@
-from dataclasses import dataclass
 import json
-import os
 import pathlib
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from sigma.rule import SigmaLogSource
 from .sigmahq_data import (
     ref_sigmahq_logsource_filepattern,
@@ -50,10 +48,10 @@ class ConfigHQ:
         # Accept both local path and remote URL for config_dir
         self.is_remote = False
         if config_dir and (config_dir.startswith("http://") or config_dir.startswith("https://")):
-            self.config_dir = config_dir.rstrip("/")
+            self.remote_url = config_dir.rstrip("/")
             self.is_remote = True
         else:
-            self.config_dir = (
+            self.local_dir = (
                 pathlib.Path(config_dir)
                 if config_dir
                 else pathlib.Path.cwd() / pathlib.Path(self.JSON_FOLDER)
@@ -63,23 +61,18 @@ class ConfigHQ:
         self._load_filename_json()
         self._load_windows_provider_json()
 
-    def _load_json(self, filename: str):
+    def _load_json(self, filename: str) -> Optional[Any]:
         if self.is_remote:
-            url = f"{self.config_dir}/{filename}"
+            file_url = f"{self.remote_url}/{filename}"
             try:
-                response = requests.get(url)
+                response = requests.get(file_url)
                 response.raise_for_status()
                 return response.json()
             except Exception as e:
                 print(f"Error loading remote {filename}: {e}")
             return None
         else:
-            config_dir_path = (
-                pathlib.Path(self.config_dir)
-                if isinstance(self.config_dir, str)
-                else self.config_dir
-            )
-            path = config_dir_path / filename
+            path = self.local_dir / filename
             if path.exists():
                 try:
                     with path.open("r", encoding="UTF-8") as file:
@@ -88,7 +81,7 @@ class ConfigHQ:
                     print(f"Error loading {filename}: {e}")
             return None
 
-    def _load_sigma_json(self):
+    def _load_sigma_json(self) -> None:
         json_dict = self._load_json(self.JSON_NAME_TAXONOMY)
         if json_dict:
             taxonomy_info = dict()
@@ -114,7 +107,7 @@ class ConfigHQ:
             self.sigma_fieldsname = ref_sigmahq_fieldsname
             self.sigmahq_logsource_definition = ref_sigmahq_logsource_definition
 
-    def _load_filename_json(self):
+    def _load_filename_json(self) -> None:
         json_dict = self._load_json(self.JSON_NAME_FILENAME)
         if json_dict:
 
@@ -130,7 +123,7 @@ class ConfigHQ:
             self.filename_version = "0.0.0"
             self.sigmahq_logsource_filepattern = ref_sigmahq_logsource_filepattern
 
-    def _load_windows_provider_json(self):
+    def _load_windows_provider_json(self) -> None:
         json_dict = self._load_json(self.JSON_NAME_WINDOWS_PROVIDER)
         if json_dict:
             windows_provider_name = dict()

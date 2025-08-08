@@ -126,7 +126,7 @@ class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
     """Checks if a rule falsepositive entry starts with a capital letter."""
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
-        false_positive = []
+        false_positive: List[SigmaValidationIssue] = []
         if rule.falsepositives:
             for fp in rule.falsepositives:
                 if fp[0].upper() != fp[0]:
@@ -153,7 +153,7 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
     word_list: Tuple[str, ...] = ("none", "pentest", "penetration")
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
-        banned_words = []
+        banned_words: List[SigmaValidationIssue] = []
         if rule.falsepositives:
             for fp_entry in rule.falsepositives:
                 for fp in fp_entry.split(" "):
@@ -177,7 +177,7 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
     word_list: Tuple[str, ...] = ("unkown", "ligitimate", "legitim ", "legitimeate")
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
-        typos = []
+        typos: List[SigmaValidationIssue] = []
         if rule.falsepositives:
             for fp_entry in rule.falsepositives:
                 for fp in fp_entry.split(" "):
@@ -280,7 +280,7 @@ class SigmahqGithubLinkValidator(SigmaRuleValidator):
     """Checks if a rule has a branch GitHub link"""
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
-        result = []
+        result: List[SigmaValidationIssue] = []
         if rule.references is not None:
             for link in rule.references:
                 if re.match(r"https://github.com/.*\.\w{1,3}$", link) is not None:
@@ -302,7 +302,7 @@ class SigmahqMitreLinkValidator(SigmaRuleValidator):
     """Checks if a rule uses a MITRE link instead of tag"""
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
-        result = []
+        result: List[SigmaValidationIssue] = []
         if rule.references is not None:
             for link in rule.references:
                 if link.startswith("https://attack.mitre.org/"):
