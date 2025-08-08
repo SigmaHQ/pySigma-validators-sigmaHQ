@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import json
 import pathlib
 from typing import Dict, List, Optional, Any
@@ -17,7 +18,7 @@ def core_logsource(source: SigmaLogSource) -> SigmaLogSource:
     return SigmaLogSource(product=source.product, category=source.category, service=source.service)
 
 
-def key_logsource(source: dict) -> str:
+def key_logsource(source: Dict[str, Any]) -> str:
     product = source["product"] if source["product"] else "none"
     category = source["category"] if source["category"] else "none"
     service = source["service"] if source["service"] else "none"
@@ -61,13 +62,15 @@ class ConfigHQ:
         self._load_filename_json()
         self._load_windows_provider_json()
 
-    def _load_json(self, filename: str) -> Optional[Any]:
+    def _load_json(self, filename: str) -> Optional[Dict[str, Any]]:
         if self.is_remote:
             file_url = f"{self.remote_url}/{filename}"
             try:
                 response = requests.get(file_url)
                 response.raise_for_status()
-                return response.json()
+                # Type cast the response to avoid mypy warnings
+                result = response.json()
+                return result  # type: ignore
             except Exception as e:
                 print(f"Error loading remote {filename}: {e}")
             return None
@@ -76,7 +79,8 @@ class ConfigHQ:
             if path.exists():
                 try:
                     with path.open("r", encoding="UTF-8") as file:
-                        return json.load(file)
+                        # Use type: ignore for json.load as well
+                        return json.load(file)  # type: ignore
                 except Exception as e:
                     print(f"Error loading {filename}: {e}")
             return None
@@ -84,9 +88,9 @@ class ConfigHQ:
     def _load_sigma_json(self) -> None:
         json_dict = self._load_json(self.JSON_NAME_TAXONOMY)
         if json_dict:
-            taxonomy_info = dict()
-            taxonomy_definition = dict()
-            taxonomy_redundant = dict()
+            taxonomy_info: Dict[SigmaLogSource, List[str]] = {}
+            taxonomy_definition: Dict[SigmaLogSource, Optional[str]] = {}
+            taxonomy_redundant: Dict[SigmaLogSource, List[str]] = {}
             temp = {key_logsource(v["logsource"]): v for v in json_dict["taxonomy"].values()}
             for key in sorted(temp.keys(), key=str.casefold):
                 value = temp[key]
@@ -111,7 +115,7 @@ class ConfigHQ:
         json_dict = self._load_json(self.JSON_NAME_FILENAME)
         if json_dict:
 
-            filename_info = dict()
+            filename_info: Dict[SigmaLogSource, str] = {}
             temp = {key_logsource(v["logsource"]): v for v in json_dict["pattern"].values()}
             for key in sorted(temp.keys(), key=str.casefold):
                 value = temp[key]
@@ -126,7 +130,7 @@ class ConfigHQ:
     def _load_windows_provider_json(self) -> None:
         json_dict = self._load_json(self.JSON_NAME_WINDOWS_PROVIDER)
         if json_dict:
-            windows_provider_name = dict()
+            windows_provider_name: Dict[SigmaLogSource, List[str]] = {}
             for category in sorted(json_dict["category_provider_name"], key=str.casefold):
                 windows_provider_name[
                     SigmaLogSource(product="windows", category=category, service=None)
