@@ -14,9 +14,7 @@ validators = {
     for _, submodule, _ in iter_modules(
         [str(Path(__file__).resolve().parent)]
     )  # Iterate over modules, str around Path is due to issue with PosixPath from Python 3.10
-    for name, cls in getmembers(
-        import_module(__name__ + "." + submodule)
-    )  # Iterate over classes
+    for name, cls in getmembers(import_module(__name__ + "." + submodule))  # Iterate over classes
     if not isabstract(cls)
     and name.endswith("Validator")
     and issubclass(cls, SigmaRuleValidator)  # Class filtering
