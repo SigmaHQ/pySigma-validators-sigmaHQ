@@ -1,3 +1,5 @@
+# sigma/validators/sigmahq/check_condition.py
+
 from dataclasses import dataclass
 from typing import List, Union, ClassVar, Pattern
 import re

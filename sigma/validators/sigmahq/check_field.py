@@ -1,3 +1,5 @@
+# sigma/validators/sigmahq/check_field.py
+
 from pathlib import Path
 from dataclasses import dataclass
 from typing import ClassVar, Dict, List, Tuple, Union

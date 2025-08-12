@@ -1,3 +1,5 @@
+# sigma/validators/sigmahq/check_filename.py
+
 import re
 from dataclasses import dataclass
 from typing import ClassVar, Dict, List, Union

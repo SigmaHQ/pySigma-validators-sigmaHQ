@@ -1,4 +1,5 @@
 # sigma/validators/sigmahq/check_tags.py
+# Only SigmaRule have tags in V2.0.0
 
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple, Union
@@ -10,9 +11,6 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
-from .config import ConfigHQ
-
-config = ConfigHQ()
 
 
 @dataclass
@@ -25,6 +23,8 @@ class SigmahqTagsUniqueDetectionValidator(SigmaRuleValidator):
     """Ensures that the tag.namespace 'detection' is unique in the tags."""
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
         detection_tags = [tag for tag in rule.tags or [] if tag.namespace == "detection"]
         if len(detection_tags) > 1:
             return [SigmahqTagsUniqueDetectionIssue([rule])]
@@ -42,19 +42,26 @@ class SigmahqTagsDetectionIssue(SigmaValidationIssue):
 class SigmahqTagsDetectionValidator(SigmaRuleValidator):
     """Checks if a rule in a specific folder has the corresponding detection tag."""
 
-    Folder_tag: Tuple[str, ...] = ("dfir", "emerging-threats", "threat-hunting")
+    folder_tag: Tuple[str, ...] = ("dfir", "emerging-threats", "threat-hunting")
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
-        if rule.source:
-            for name in self.Folder_tag:
-                if f"rules-{name}" in str(rule.source):
-                    tag_found = False
-                    for tag in rule.tags or []:
-                        if tag.namespace == "detection" and tag.name == name:
-                            tag_found = True
-                            break
-                    if not tag_found:
-                        return [SigmahqTagsDetectionIssue([rule], tag=name)]
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
+
+        if not rule.source:
+            return []
+
+        source_path = str(rule.source)
+
+        for name in self.folder_tag:
+            if f"rules-{name}" in source_path:
+                tag_found = False
+                for tag in rule.tags or []:
+                    if tag.namespace == "detection" and tag.name == name:
+                        tag_found = True
+                        break
+                if not tag_found:
+                    return [SigmahqTagsDetectionIssue([rule], tag=name)]
         return []
 
 
@@ -68,6 +75,8 @@ class SigmahqTagsUniqueTlpValidator(SigmaRuleValidator):
     """Ensures that the tag.namespace 'tlp' is unique in the tags."""
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
         tlp_tags = [tag for tag in rule.tags or [] if tag.namespace == "tlp"]
         if len(tlp_tags) > 1:
             return [SigmahqTagsUniqueTlpIssue([rule])]
@@ -88,6 +97,8 @@ class SigmahqTagsTlpValidator(SigmaRuleValidator):
     allowed_tlp: Tuple[str, ...] = ("clear",)
 
     def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
         for tag in rule.tags or []:
             if tag.namespace == "tlp" and tag.name not in self.allowed_tlp:
                 return [SigmahqTagsTlpIssue([rule], tlp=tag.name)]

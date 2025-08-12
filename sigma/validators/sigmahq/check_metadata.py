@@ -1,3 +1,5 @@
+# sigma/validators/sigmahq/check_metadata.py
+
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple, Union
 from datetime import datetime
