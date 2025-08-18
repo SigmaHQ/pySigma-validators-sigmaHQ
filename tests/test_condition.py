@@ -1,6 +1,6 @@
 import pytest
 from sigma.rule import SigmaRule
-from sigma.validators.sigmahq.condition import (
+from sigma.validators.sigmahq.check_condition import (
     SigmahqOfthemConditionIssue,
     SigmahqOfthemConditionValidator,
     SigmahqOfselectionConditionIssue,
@@ -14,8 +14,9 @@ from sigma.correlations import SigmaCorrelationRule
 # Test cases for SigmahqOfthemConditionValidator
 def test_validator_SigmahqOfthemConditionValidator_1():
     validator = SigmahqOfthemConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -25,14 +26,16 @@ def test_validator_SigmahqOfthemConditionValidator_1():
             field1: val1
         condition: 1 of them
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [SigmahqOfthemConditionIssue([rule])]
 
 
 def test_validator_SigmahqOfthemConditionValidator_all():
     validator = SigmahqOfthemConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -42,14 +45,16 @@ def test_validator_SigmahqOfthemConditionValidator_all():
             field1: val1
         condition: all of them
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [SigmahqOfthemConditionIssue([rule])]
 
 
 def test_validator_SigmahqOfthemConditionValidator_all_valid():
     validator = SigmahqOfthemConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -61,14 +66,16 @@ def test_validator_SigmahqOfthemConditionValidator_all_valid():
             field1: val2
         condition: all of them
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqOfthemConditionValidator_valid():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -80,6 +87,7 @@ def test_validator_SigmahqOfthemConditionValidator_valid():
             field2: val2
         condition: all of them
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
@@ -87,8 +95,9 @@ def test_validator_SigmahqOfthemConditionValidator_valid():
 # Test cases for SigmahqOfselectionConditionValidator
 def test_validator_SigmahqOfselectionConditionValidator():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -102,14 +111,16 @@ def test_validator_SigmahqOfselectionConditionValidator():
             field1: val1   
         condition: 1 of selection_part* and 1 of sub_*
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [SigmahqOfselectionConditionIssue([rule], "sub_*")]
 
 
 def test_validator_SigmahqOfselectionConditionValidator_valid():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -123,14 +134,16 @@ def test_validator_SigmahqOfselectionConditionValidator_valid():
             field1: val1   
         condition: 1 of selection_part* and selection_sub_1
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_filter():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -144,14 +157,16 @@ def test_validator_SigmahqOfselectionConditionValidator_filter():
             field1: val1   
         condition: 1 of selection_part* and not 1 of filter_*
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_selection():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -161,6 +176,7 @@ def test_validator_SigmahqOfselectionConditionValidator_selection():
             field1: val1 
         condition: 1 of selection_*
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
@@ -168,8 +184,9 @@ def test_validator_SigmahqOfselectionConditionValidator_selection():
 # Test cases for SigmahqMissingAsteriskConditionValidator
 def test_validator_SigmahqMissingAsteriskConditionValidator():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -183,6 +200,7 @@ def test_validator_SigmahqMissingAsteriskConditionValidator():
             field1: val1   
         condition: 1 of selection_part* and 1 of selection_sub
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [
         SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
@@ -191,8 +209,9 @@ def test_validator_SigmahqMissingAsteriskConditionValidator():
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_valid():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -206,14 +225,16 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_valid():
             field1: val1   
         condition: 1 of selection_part* and selection_sub
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_them():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: Test
     status: test
     logsource:
@@ -227,6 +248,7 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_them():
             field1: val1   
         condition: 1 of them
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 

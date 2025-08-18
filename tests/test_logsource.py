@@ -3,7 +3,7 @@ from wsgiref.validate import validator
 import pytest
 from sigma.rule import SigmaRule, SigmaLogSource
 
-from sigma.validators.sigmahq.logsource import (
+from sigma.validators.sigmahq.check_logsource import (
     SigmahqLogsourceUnknownIssue,
     SigmahqLogsourceUnknownValidator,
     SigmahqSysmonMissingEventidIssue,

@@ -3,7 +3,7 @@ from wsgiref.validate import validator
 import pytest
 from sigma.rule import SigmaRule
 
-from sigma.validators.sigmahq.detection import (
+from sigma.validators.sigmahq.check_detection import (
     SigmahqCategoryEventIdIssue,
     SigmahqCategoryEventIdValidator,
     SigmahqCategoryWindowsProviderNameIssue,
@@ -15,8 +15,9 @@ from sigma.validators.sigmahq.detection import (
 
 def test_validator_SigmahqCategoryEventId():
     validator = SigmahqCategoryEventIdValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -28,14 +29,16 @@ def test_validator_SigmahqCategoryEventId():
             EventID: 4103
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [SigmahqCategoryEventIdIssue([rule])]
 
 
 def test_validator_SigmahqCategoryEventId_valid():
     validator = SigmahqCategoryEventIdValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -46,14 +49,16 @@ def test_validator_SigmahqCategoryEventId_valid():
             field: path\\*something
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqCategoryEventId_other():
     validator = SigmahqCategoryEventIdValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -64,14 +69,16 @@ def test_validator_SigmahqCategoryEventId_other():
             field: path\\*something
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqCategoryWindowsProviderName():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -83,14 +90,16 @@ def test_validator_SigmahqCategoryWindowsProviderName():
             Provider_Name: Microsoft-Windows-Sysmon
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [SigmahqCategoryWindowsProviderNameIssue([rule])]
 
 
 def test_validator_SigmahqCategoryWindowsProviderName_valid():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -101,14 +110,16 @@ def test_validator_SigmahqCategoryWindowsProviderName_valid():
             field: path\\*something
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqCategoryWindowsProviderName_other():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -119,14 +130,16 @@ def test_validator_SigmahqCategoryWindowsProviderName_other():
             field: path\\*something
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
 
 
 def test_validator_SigmahqUnsupportedRegexGroupConstruct():
     validator = SigmahqUnsupportedRegexGroupConstructValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -137,39 +150,18 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct():
             field|re: 'A(?=B)'
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == [
         SigmahqUnsupportedRegexGroupConstructIssue([rule], "A(?=B)")
     ]
 
 
-# Error with frozen=True
-# def test_validator_SigmahqUnsupportedRegexGroupConstruct():
-#     validator = SigmahqUnsupportedRegexGroupConstructValidator(regex_list=("(?P"))
-#     rule = SigmaRule.from_yaml(
-#         """
-#     title: A Space Field Name
-#     status: test
-#     logsource:
-#         product: windows
-#         category: process_creation
-#     detection:
-#         sel:
-#             field|re: '(?P<date>\d{4}-\d{2}-\d{2})'
-#         condition: sel
-#     """
-#     )
-#     assert validator.validate(rule) == [
-#         SigmahqUnsupportedRegexGroupConstructIssue(
-#             [rule], "(?P<date>\d{4}-\d{2}-\d{2})"
-#         )
-#     ]
-
-
 def test_validator_SigmahqUnsupportedRegexGroupConstruct_valid():
     validator = SigmahqUnsupportedRegexGroupConstructValidator()
-    rule = SigmaRule.from_yaml(
-        """
+    rule = SigmaRule.from_dict(
+        SigmaRule.from_yaml(
+            """
     title: A Space Field Name
     status: test
     logsource:
@@ -180,5 +172,6 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct_valid():
             field|re: 'a\w+b'
         condition: sel
     """
+        ).to_dict()
     )
     assert validator.validate(rule) == []
