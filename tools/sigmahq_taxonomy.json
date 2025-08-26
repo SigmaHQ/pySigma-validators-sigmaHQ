@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20250613",
+    "version": "20250825",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
