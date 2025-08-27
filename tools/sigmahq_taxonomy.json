@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20250613",
+    "version": "20250825",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
@@ -2574,11 +2574,18 @@
                     "User"
                 ],
                 "custom": [
+                    "FileAge",
+                    "FileCreationDate",
                     "GrandparentCommandLine",
+                    "GrandparentImage",
+                    "GrandparentProcessId",
                     "Imphash",
                     "md5",
+                    "ParentSpoofed",
+                    "ProcessTree",
                     "sha1",
-                    "sha256"
+                    "sha256",
+                    "Winversion"
                 ],
                 "redundant": ["Channel","EventID"]
             }
