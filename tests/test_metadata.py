@@ -1,5 +1,3 @@
-from wsgiref.validate import validator
-
 import pytest
 from datetime import datetime
 
