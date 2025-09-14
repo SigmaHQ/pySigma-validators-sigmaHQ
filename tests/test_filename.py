@@ -1,10 +1,8 @@
-from wsgiref.validate import validator
-
 import pytest
 from sigma.rule import SigmaRule, SigmaLogSource
 from sigma.collection import SigmaCollection
 
-from sigma.validators.sigmahq.filename import (
+from sigma.validators.sigmahq.check_filename import (
     SigmahqFilenameConventionIssue,
     SigmahqFilenameConventionValidator,
     SigmahqFilenamePrefixIssue,

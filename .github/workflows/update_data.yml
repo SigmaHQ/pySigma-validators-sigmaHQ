@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  pull-master:
+  update-data:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -25,6 +25,7 @@ jobs:
       run: |
         pip install pySigma~=0.11
         pip install black~=24.4.2
+        pip install pySigma-validators-sigmahq
         python tools/update_ref.py https://github.com/SigmaHQ/pySigma-validators-sigmaHQ/raw/refs/heads/main/tools/
         python -m black --line-length 100 sigma/validators/sigmahq/sigmahq_data.py
     - name: Create Pull Request

@@ -1,10 +1,9 @@
-from wsgiref.validate import validator
-
 import pytest
 from sigma.rule import SigmaRule
+from sigma.rule.base import SigmaRuleBase
 from sigma.types import SigmaRegularExpression
 
-from sigma.validators.sigmahq.field import (
+from sigma.validators.sigmahq.check_field import (
     SigmahqSpaceFieldNameIssue,
     SigmahqSpaceFieldNameValidator,
     SigmahqFieldnameCastIssue,
@@ -15,8 +14,6 @@ from sigma.validators.sigmahq.field import (
     SigmahqInvalidAllModifierValidator,
     SigmahqFieldDuplicateValueIssue,
     SigmahqFieldDuplicateValueValidator,
-    SigmahqSpaceFieldNameIssue,
-    SigmahqSpaceFieldNameValidator,
     SigmahqFieldUserIssue,
     SigmahqFieldUserValidator,
     SigmahqInvalidHashKvIssue,
@@ -320,7 +317,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     )
     assert validator.validate(rule) == [
         SigmahqFieldDuplicateValueIssue(
-            [rule], "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
+            [rule], "CommandLine", str(SigmaRegularExpression(regexp_init="One", flags=set()))
         )
     ]
 
@@ -474,7 +471,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], 1234)]
+    assert validator.validate(rule) == [SigmahqInvalidHashKvIssue([rule], "Not a string")]
 
 
 def test_validator_SigmahqInvalidHashKvValidator_valid_md5():

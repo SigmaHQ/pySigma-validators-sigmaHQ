@@ -1,6 +1,6 @@
 import pytest
 from sigma.rule import SigmaRule
-from sigma.validators.sigmahq.condition import (
+from sigma.validators.sigmahq.check_condition import (
     SigmahqOfthemConditionIssue,
     SigmahqOfthemConditionValidator,
     SigmahqOfselectionConditionIssue,

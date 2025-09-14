@@ -1,15 +1,18 @@
+# sigma/validators/sigmahq/check_field.py
+
 from pathlib import Path
 from dataclasses import dataclass
-from typing import ClassVar, Dict, List, Tuple
+from typing import ClassVar, Dict, List, Tuple, Union
 import re
 
+from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule.detection import SigmaDetectionItem
 from sigma.types import SigmaString
 from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
     SigmaDetectionItemValidator,
-    SigmaDetectionItem,
 )
 
 from sigma.modifiers import (
@@ -57,7 +60,10 @@ class SigmahqFieldnameCastIssue(SigmaValidationIssue):
 class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -95,7 +101,10 @@ class SigmahqInvalidFieldnameIssue(SigmaValidationIssue):
 class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -171,7 +180,7 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
                     else:
                         return []
                 else:
-                    value_see.append(str(v).lower())
+                    value_see.append(v)
             return []
 
 
@@ -273,7 +282,7 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                             except ValueError:
                                 errors.append(s_value)
                 else:
-                    errors.append(v)
+                    errors.append("Not a string")
 
         return [SigmahqInvalidHashKvIssue([self.rule], v) for v in errors]
 
@@ -288,7 +297,10 @@ class SigmahqRedundantFieldIssue(SigmaValidationIssue):
 class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
     """Check if a field name is already covered by the logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: Union[SigmaRule, SigmaCorrelationRule]) -> List[SigmaValidationIssue]:
+        if isinstance(rule, SigmaCorrelationRule):
+            return []
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,

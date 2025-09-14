@@ -26,6 +26,8 @@ jobs:
         run: poetry install
       - name: Lint with black
         run: poetry run black --check .
+      - name: Static type checking with mypy
+        run: poetry run mypy
       - name: Run tests
         run: poetry run pytest --cov=sigma --cov-report term --cov-report xml:cov.xml -vv
       - name: Store coverage for badge

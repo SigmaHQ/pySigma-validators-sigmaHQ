@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-and-publish:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     environment: release
     permissions:
       id-token: write
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: 3.12
       - name: Verify versioning
         run: |
           [ "$(poetry version -s)" == "${GITHUB_REF#refs/tags/v}" ]

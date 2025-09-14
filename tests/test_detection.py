@@ -1,9 +1,7 @@
-from wsgiref.validate import validator
-
 import pytest
 from sigma.rule import SigmaRule
 
-from sigma.validators.sigmahq.detection import (
+from sigma.validators.sigmahq.check_detection import (
     SigmahqCategoryEventIdIssue,
     SigmahqCategoryEventIdValidator,
     SigmahqCategoryWindowsProviderNameIssue,
@@ -141,29 +139,6 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct():
     assert validator.validate(rule) == [
         SigmahqUnsupportedRegexGroupConstructIssue([rule], "A(?=B)")
     ]
-
-
-# Error with frozen=True
-# def test_validator_SigmahqUnsupportedRegexGroupConstruct():
-#     validator = SigmahqUnsupportedRegexGroupConstructValidator(regex_list=("(?P"))
-#     rule = SigmaRule.from_yaml(
-#         """
-#     title: A Space Field Name
-#     status: test
-#     logsource:
-#         product: windows
-#         category: process_creation
-#     detection:
-#         sel:
-#             field|re: '(?P<date>\d{4}-\d{2}-\d{2})'
-#         condition: sel
-#     """
-#     )
-#     assert validator.validate(rule) == [
-#         SigmahqUnsupportedRegexGroupConstructIssue(
-#             [rule], "(?P<date>\d{4}-\d{2}-\d{2})"
-#         )
-#     ]
 
 
 def test_validator_SigmahqUnsupportedRegexGroupConstruct_valid():
