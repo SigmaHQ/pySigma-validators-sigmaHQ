@@ -870,7 +870,7 @@ ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
     ): "zeek_",
 }
 
-taxonomy_version: str = "20250613"
+taxonomy_version: str = "20250825"
 ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
     SigmaLogSource(
         category=None,
@@ -2694,9 +2694,13 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         "CurrentDirectory",
         "Description",
         "EventID",
+        "FileAge",
+        "FileCreationDate",
         "FileVersion",
         "GrandparentCommandLine",
         "GrandParentImage",
+        "GrandparentImage",
+        "GrandparentProcessId",
         "Hashes",
         "Image",
         "Imphash",
@@ -2709,9 +2713,11 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         "ParentImage",
         "ParentProcessGuid",
         "ParentProcessId",
+        "ParentSpoofed",
         "ParentUser",
         "ProcessGuid",
         "ProcessId",
+        "ProcessTree",
         "Product",
         "Provider_Name",
         "Security_UserID",
@@ -2719,6 +2725,7 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         "sha256",
         "TerminalSessionId",
         "User",
+        "Winversion",
     ],
     SigmaLogSource(
         category="process_tampering",
