@@ -28,6 +28,22 @@ class SigmahqStatusExistenceValidator(SigmaRuleValidator):
 
 
 @dataclass
+class SigmahqAuthorExistenceIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule is missing the author field"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+
+
+class SigmahqAuthorExistenceValidator(SigmaRuleValidator):
+    """Checks if a rule is missing the author field."""
+
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        if rule.author is None:
+            return [SigmahqAuthorExistenceIssue([rule])]
+        else:
+            return []
+
+
+@dataclass
 class SigmahqStatusIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule uses a status field with either Deprecated or Unsupported values, and it is not located in the appropriate folder."
