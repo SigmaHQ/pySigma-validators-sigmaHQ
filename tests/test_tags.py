@@ -243,12 +243,12 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics():
         condition: sel
     """
     )
-    
-    assert validator.validate(rule) == [SigmahqTagsTechniquesWithoutTacticsIssue(
-        [rule], 
-        technique="t1027.004",
-        missing_tactics=["defense-evasion"]
-    )]
+
+    assert validator.validate(rule) == [
+        SigmahqTagsTechniquesWithoutTacticsIssue(
+            [rule], technique="t1027.004", missing_tactics=["defense-evasion"]
+        )
+    ]
 
 
 def test_validator_SigmahqTagsTechniquesWithoutTactics_valid():

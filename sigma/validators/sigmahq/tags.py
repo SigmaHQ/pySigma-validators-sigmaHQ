@@ -98,7 +98,9 @@ class SigmahqTagsTlpValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqTagsTechniquesWithoutTacticsIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "A MITRE ATT&CK technique tag was found without its corresponding tactic tag."
+    description: ClassVar[str] = (
+        "A MITRE ATT&CK technique tag was found without its corresponding tactic tag."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     technique: str
     missing_tactics: List[str]
@@ -109,24 +111,30 @@ class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         issues = []
-        
+
         attack_tags = [tag for tag in rule.tags or [] if tag.namespace == "attack"]
-        
-        technique_tags = [tag.name for tag in attack_tags if tag.name.startswith('t') and any(c.isdigit() for c in tag.name)]
-        tactic_tags = [tag.name for tag in attack_tags if not tag.name.startswith('t')]
-        
+
+        technique_tags = [
+            tag.name
+            for tag in attack_tags
+            if tag.name.startswith("t") and any(c.isdigit() for c in tag.name)
+        ]
+        tactic_tags = [tag.name for tag in attack_tags if not tag.name.startswith("t")]
+
         for technique in technique_tags:
             technique_upper = technique.upper()
-            
+
             if technique_upper in mitre_attack_techniques_tactics_mapping:
                 required_tactics = mitre_attack_techniques_tactics_mapping[technique_upper]
-                missing_tactics = [tactic for tactic in required_tactics if tactic not in tactic_tags]
-                
+                missing_tactics = [
+                    tactic for tactic in required_tactics if tactic not in tactic_tags
+                ]
+
                 if missing_tactics:
-                    issues.append(SigmahqTagsTechniquesWithoutTacticsIssue(
-                        [rule], 
-                        technique=technique,
-                        missing_tactics=missing_tactics
-                    ))
-        
+                    issues.append(
+                        SigmahqTagsTechniquesWithoutTacticsIssue(
+                            [rule], technique=technique, missing_tactics=missing_tactics
+                        )
+                    )
+
         return issues
