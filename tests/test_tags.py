@@ -247,7 +247,9 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics():
 
     assert validator.validate(rule) == [
         SigmahqTagsTechniquesWithoutTacticsIssue(
-            [rule], techniques=["t1027.004", "t1027.005"], missing_tactic="defense-evasion"
+            [rule],
+            techniques=["attack.t1027.004", "attack.t1027.005"],
+            missing_tactic="attack.defense-evasion",
         )
     ]
 
