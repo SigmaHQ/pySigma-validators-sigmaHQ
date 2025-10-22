@@ -235,6 +235,7 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics():
     status: unsupported
     tags:
         - attack.t1027.004
+        - attack.t1027.005
     logsource:
         category: test
     detection:
@@ -246,7 +247,7 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics():
 
     assert validator.validate(rule) == [
         SigmahqTagsTechniquesWithoutTacticsIssue(
-            [rule], technique="t1027.004", missing_tactics=["defense-evasion"]
+            [rule], techniques=["t1027.004", "t1027.005"], missing_tactic="defense-evasion"
         )
     ]
 
@@ -259,6 +260,7 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics_valid():
     status: unsupported
     tags:
         - attack.t1027.004
+        - attack.t1027.005
         - attack.defense-evasion
         - attack.t1003
         - attack.credential-access
