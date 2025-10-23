@@ -9,6 +9,9 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
+
+from sigma.data.mitre_attack import mitre_attack_techniques_tactics_mapping
+
 from .config import ConfigHQ
 
 config = ConfigHQ()
@@ -91,3 +94,56 @@ class SigmahqTagsTlpValidator(SigmaRuleValidator):
             if tag.namespace == "tlp" and tag.name not in self.allowed_tlp:
                 return [SigmahqTagsTlpIssue([rule], tlp=tag.name)]
         return []
+
+
+@dataclass
+class SigmahqTagsTechniquesWithoutTacticsIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "A MITRE ATT&CK technique tag was found without its corresponding tactic name. (e.g. when using 'attack.t1059' you have to add 'attack.execution' as well)"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    techniques: List[str]
+    missing_tactic: str
+
+
+class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
+    """Ensures that MITRE ATT&CK technique tags have their corresponding tactic tags."""
+
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        issues = []
+
+        attack_tags = [tag for tag in rule.tags or [] if tag.namespace == "attack"]
+
+        technique_tags = [
+            tag.name
+            for tag in attack_tags
+            if tag.name.startswith("t") and any(c.isdigit() for c in tag.name)
+        ]
+        tactic_tags = [tag.name for tag in attack_tags if not tag.name.startswith("t")]
+
+        missing_tactics = []
+        for technique in technique_tags:
+            technique_upper = technique.upper()
+
+            if technique_upper in mitre_attack_techniques_tactics_mapping:
+                required_tactics = mitre_attack_techniques_tactics_mapping[technique_upper]
+                missing_tactics.extend(
+                    [tactic for tactic in required_tactics if tactic not in tactic_tags]
+                )
+
+        if missing_tactics:
+            for missing_tactic in set(missing_tactics):
+                techniques = [
+                    technique
+                    for technique in technique_tags
+                    if missing_tactic in mitre_attack_techniques_tactics_mapping[technique.upper()]
+                ]
+                issues.append(
+                    SigmahqTagsTechniquesWithoutTacticsIssue(
+                        [rule],
+                        techniques=["attack." + t for t in techniques],
+                        missing_tactic="attack." + missing_tactic,
+                    )
+                )
+
+        return issues

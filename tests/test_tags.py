@@ -12,6 +12,8 @@ from sigma.validators.sigmahq.tags import (
     SigmahqTagsUniqueDetectionValidator,
     SigmahqTagsUniqueTlpIssue,
     SigmahqTagsUniqueTlpValidator,
+    SigmahqTagsTechniquesWithoutTacticsIssue,
+    SigmahqTagsTechniquesWithoutTacticsValidator,
 )
 
 
@@ -214,6 +216,56 @@ def test_validator_SigmahqTagsNoDetection():
     status: unsupported
     tags:
         - tlp.clear
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqTagsTechniquesWithoutTactics():
+    validator = SigmahqTagsTechniquesWithoutTacticsValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: test
+    status: unsupported
+    tags:
+        - attack.t1027.004
+        - attack.t1027.005
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+
+    assert validator.validate(rule) == [
+        SigmahqTagsTechniquesWithoutTacticsIssue(
+            [rule],
+            techniques=["attack.t1027.004", "attack.t1027.005"],
+            missing_tactic="attack.defense-evasion",
+        )
+    ]
+
+
+def test_validator_SigmahqTagsTechniquesWithoutTactics_valid():
+    validator = SigmahqTagsTechniquesWithoutTacticsValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: test
+    status: unsupported
+    tags:
+        - attack.t1027.004
+        - attack.t1027.005
+        - attack.defense-evasion
+        - attack.t1003
+        - attack.credential-access
     logsource:
         category: test
     detection:
