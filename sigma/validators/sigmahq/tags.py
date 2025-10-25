@@ -101,7 +101,7 @@ class SigmahqTagsTechniquesWithoutTacticsIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "A MITRE ATT&CK technique tag was found without its corresponding tactic name. (e.g. when using 'attack.t1059' you have to add 'attack.execution' as well)"
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
     techniques: List[str]
     missing_tactic: str
 
