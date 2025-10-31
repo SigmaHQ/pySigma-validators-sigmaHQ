@@ -237,7 +237,9 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if len(rule.custom_attributes) > 0:
-            return [SigmahqUnknownFieldIssue([rule], list(rule.custom_attributes.keys()))]
+            custom_keys = list(rule.custom_attributes.keys())
+            if "regression_tests_path" not in custom_keys or "simulation" not in custom_keys:
+                return [SigmahqUnknownFieldIssue([rule], custom_keys)]
         else:
             return []
 
@@ -278,7 +280,9 @@ class SigmahqStatusToHighValidator(SigmaRuleValidator):
         if rule.date is not None and rule.status is not None:
             if rule.status > SigmaStatus.EXPERIMENTAL:
                 if (datetime.now().date() - rule.date).days <= self.min_days:
-                    return [SigmahqStatusToHighIssue([rule])]
+                    custom_keys = list(rule.custom_attributes.keys())
+                    if "regression_tests_path" not in custom_keys:
+                        return [SigmahqStatusToHighIssue([rule])]
         return []
 
 
