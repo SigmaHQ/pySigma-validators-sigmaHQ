@@ -239,10 +239,10 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
         if len(rule.custom_attributes) > 0:
             custom_keys = list(rule.custom_attributes.keys())
             allowed_fields = {"regression_tests_path", "simulation"}
-            
+
             # Find any custom attributes that are not in the allowed list
             unknown_fields = [key for key in custom_keys if key not in allowed_fields]
-            
+
             if unknown_fields:
                 return [SigmahqUnknownFieldIssue([rule], unknown_fields)]
             else:
