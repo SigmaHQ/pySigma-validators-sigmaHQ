@@ -76,9 +76,12 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
         else:
             return []
 
+
 @dataclass
 class SigmahqModifiedDateOrderIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a modified date that is same or older than the date field"
+    description: ClassVar[str] = (
+        "Rule has a modified date that is same or older than the date field"
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
@@ -91,11 +94,13 @@ class SigmahqModifiedDateOrderValidator(SigmaRuleValidator):
                 return [SigmahqModifiedDateOrderIssue([rule])]
         return []
 
+
 @dataclass
 class SigmahqModifiedWithoutDateIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a modified field without a date field"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
-    
+
+
 class SigmahqModifiedWithoutDateValidator(SigmaRuleValidator):
     """Checks if a rule has a modified field without a date field."""
 

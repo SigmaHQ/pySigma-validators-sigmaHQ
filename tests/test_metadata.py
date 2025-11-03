@@ -148,6 +148,7 @@ def test_validator_SigmahqModifiedDateOrder_older():
     )
     assert validator.validate(rule) == [SigmahqModifiedDateOrderIssue([rule])]
 
+
 def test_validator_SigmahqModifiedDateOrder_same():
     validator = SigmahqModifiedDateOrderValidator()
     rule = SigmaRule.from_yaml(
@@ -184,6 +185,7 @@ def test_validator_SigmahqModifiedDateOrder_valid():
     """
     )
     assert validator.validate(rule) == []
+
 
 def test_validator_SigmahqModifiedWithoutDate():
     validator = SigmahqModifiedWithoutDateValidator()
