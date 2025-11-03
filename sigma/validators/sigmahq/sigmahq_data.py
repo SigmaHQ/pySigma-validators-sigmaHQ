@@ -870,7 +870,7 @@ ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
     ): "zeek_",
 }
 
-taxonomy_version: str = "20250825"
+taxonomy_version: str = "20251103"
 ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
     SigmaLogSource(
         category=None,
@@ -1598,6 +1598,7 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         "cs-uri",
         "cs-uri-port",
         "cs-uri-scheme",
+        "cs-uri-stem",
         "cs-user-agent",
         "cs-version",
         "dst_ip",
@@ -2131,7 +2132,16 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): ["Channel", "Computer", "EventID", "Provider_Name", "Security_UserID", "subjectName"],
+    ): [
+        "Channel",
+        "Computer",
+        "EventID",
+        "Flags",
+        "HasFullTrust",
+        "Provider_Name",
+        "Security_UserID",
+        "subjectName",
+    ],
     SigmaLogSource(
         category=None,
         product="windows",
