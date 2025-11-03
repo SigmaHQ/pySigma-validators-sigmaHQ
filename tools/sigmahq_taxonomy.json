@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20251101",
+    "version": "20251103",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
@@ -1770,7 +1770,9 @@
                     "EventID",
                     "Provider_Name",
                     "Security_UserID",
-                    "subjectName"
+                    "subjectName",
+                    "Flags",
+                    "HasFullTrust"
                 ],
                 "custom": [],
                 "redundant": []
