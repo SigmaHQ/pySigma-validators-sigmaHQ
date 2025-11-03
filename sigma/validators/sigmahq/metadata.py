@@ -80,17 +80,17 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqModifiedDateOrderIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule has a modified date that is same or older than the date field"
+        "Rule has a modified field that has value older than the date field. Modified will always be in the future compared to date."
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
 class SigmahqModifiedDateOrderValidator(SigmaRuleValidator):
-    """Checks if a rule has a modified date that is same or older than the date field."""
+    """Checks if a rule has a modified field that has value older than the date field."""
 
     def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         if rule.date is not None and rule.modified is not None:
-            if rule.modified <= rule.date:
+            if rule.modified < rule.date:
                 return [SigmahqModifiedDateOrderIssue([rule])]
         return []
 
