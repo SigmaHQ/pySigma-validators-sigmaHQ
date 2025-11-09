@@ -138,8 +138,8 @@ class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
                 techniques = [
                     technique
                     for technique in technique_tags
-                    if technique.upper() in mitre_attack_techniques_tactics_mapping and 
-                       missing_tactic in mitre_attack_techniques_tactics_mapping[technique.upper()]
+                    if technique.upper() in mitre_attack_techniques_tactics_mapping
+                    and missing_tactic in mitre_attack_techniques_tactics_mapping[technique.upper()]
                 ]
                 issues.append(
                     SigmahqTagsTechniquesWithoutTacticsIssue(
