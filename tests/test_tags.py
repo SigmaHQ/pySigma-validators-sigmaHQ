@@ -275,3 +275,26 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqTagsInvalidTechnique():
+    """Test that invalid MITRE technique codes don't cause KeyError"""
+    validator = SigmahqTagsTechniquesWithoutTacticsValidator()
+    # This rule contains an invalid T1234 technique code
+    rule = SigmaRule.from_yaml(
+        """
+    title: test
+    status: unsupported
+    tags:
+        - attack.t1234
+        - tlp.clear
+    logsource:
+        category: test
+    detection:
+        sel:
+            field: path\\*something
+        condition: sel
+    """
+    )
+    # Should not raise KeyError, should return empty list since invalid technique is ignored
+    assert validator.validate(rule) == []

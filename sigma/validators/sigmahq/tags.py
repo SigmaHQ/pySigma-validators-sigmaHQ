@@ -125,6 +125,7 @@ class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
         for technique in technique_tags:
             technique_upper = technique.upper()
 
+            # Check if the technique exists in mapping before accessing it
             if technique_upper in mitre_attack_techniques_tactics_mapping:
                 required_tactics = mitre_attack_techniques_tactics_mapping[technique_upper]
                 missing_tactics.extend(
@@ -133,10 +134,12 @@ class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
 
         if missing_tactics:
             for missing_tactic in set(missing_tactics):
+                # Add safety check to ensure technique exists before accessing mapping
                 techniques = [
                     technique
                     for technique in technique_tags
-                    if missing_tactic in mitre_attack_techniques_tactics_mapping[technique.upper()]
+                    if technique.upper() in mitre_attack_techniques_tactics_mapping and 
+                       missing_tactic in mitre_attack_techniques_tactics_mapping[technique.upper()]
                 ]
                 issues.append(
                     SigmahqTagsTechniquesWithoutTacticsIssue(
