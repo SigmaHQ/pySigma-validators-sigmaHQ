@@ -80,9 +80,9 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqModifiedDateOrderIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule has a modified field that has value older than the date field. Modified will always be in the future compared to date."
+        "Rule has a modified field whose value is older than that of the date field. The modified date has always to be newer than date."
     )
-    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqModifiedDateOrderValidator(SigmaRuleValidator):
@@ -97,7 +97,7 @@ class SigmahqModifiedDateOrderValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqModifiedWithoutDateIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a modified field without a date field"
+    description: ClassVar[str] = "Rule has a modified field without a date field. New rules should only have a date field."
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
