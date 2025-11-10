@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20250825",
+    "version": "20251103",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
@@ -1025,10 +1025,10 @@
             "description": null,
             "field": {
                 "native": [
-                    "c-uri",
                     "c-uri-extension",
                     "c-uri-query",
                     "c-uri-stem",
+                    "c-uri",
                     "c-useragent",
                     "cs-bytes",
                     "cs-content-type",
@@ -1039,6 +1039,7 @@
                     "cs-referrer",
                     "cs-uri-port",
                     "cs-uri-scheme",
+                    "cs-uri-stem",
                     "cs-uri",
                     "cs-user-agent",
                     "cs-version",
@@ -1769,7 +1770,9 @@
                     "EventID",
                     "Provider_Name",
                     "Security_UserID",
-                    "subjectName"
+                    "subjectName",
+                    "Flags",
+                    "HasFullTrust"
                 ],
                 "custom": [],
                 "redundant": []
