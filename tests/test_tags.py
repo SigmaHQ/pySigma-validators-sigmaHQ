@@ -280,13 +280,13 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics_valid():
 def test_validator_SigmahqTagsInvalidTechnique():
     """Test that invalid MITRE technique codes don't cause KeyError"""
     validator = SigmahqTagsTechniquesWithoutTacticsValidator()
-    # This rule contains an invalid T1234 technique code
+    # This rule contains an invalid T123456789 technique code
     rule = SigmaRule.from_yaml(
         """
     title: test
     status: unsupported
     tags:
-        - attack.t1234
+        - attack.t123456789
         - tlp.clear
     logsource:
         category: test
