@@ -97,7 +97,9 @@ class SigmahqModifiedDateOrderValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqModifiedWithoutDateIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule has a modified field without a date field. New rules should only have a date field."
+    description: ClassVar[str] = (
+        "Rule has a modified field without a date field. New rules should only have a date field."
+    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
