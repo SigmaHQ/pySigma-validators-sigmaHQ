@@ -67,7 +67,9 @@ class ConfigHQ:
             self.config_dir = Path(data_place)
 
         # Load configuration if path exists
-        if (self.config_dir is not None and self.config_dir.exists()) or self.config_url is not None:
+        if (
+            self.config_dir is not None and self.config_dir.exists()
+        ) or self.config_url is not None:
             self._load_sigma_json()
             self._load_filename_json()
             self._load_windows_provider_json()

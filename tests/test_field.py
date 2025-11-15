@@ -15,8 +15,6 @@ from sigma.validators.sigmahq.field import (
     SigmahqInvalidAllModifierValidator,
     SigmahqFieldDuplicateValueIssue,
     SigmahqFieldDuplicateValueValidator,
-    SigmahqSpaceFieldNameIssue,
-    SigmahqSpaceFieldNameValidator,
     SigmahqFieldUserIssue,
     SigmahqFieldUserValidator,
     SigmahqInvalidHashKvIssue,
@@ -27,6 +25,7 @@ from sigma.validators.sigmahq.field import (
 
 
 def test_validator_SigmahqSpaceFieldname():
+    """Test that space in field names are detected"""
     validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -45,6 +44,7 @@ def test_validator_SigmahqSpaceFieldname():
 
 
 def test_validator_SigmahqSpaceFieldname_valid():
+    """Test that underscore in field names are valid"""
     validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -63,6 +63,7 @@ def test_validator_SigmahqSpaceFieldname_valid():
 
 
 def test_validator_SigmahqFieldnameCast():
+    """Test that field name casting errors are detected"""
     validator = SigmahqFieldnameCastValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -81,6 +82,7 @@ def test_validator_SigmahqFieldnameCast():
 
 
 def test_validator_SigmahqFieldnameCast_valid():
+    """Test that valid field name casting is accepted"""
     validator = SigmahqFieldnameCastValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -99,6 +101,7 @@ def test_validator_SigmahqFieldnameCast_valid():
 
 
 def test_validator_SigmahqFieldnameCast_valid_new_logsource():
+    """Test that new log sources with custom field names are accepted"""
     validator = SigmahqFieldnameCastValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -117,6 +120,7 @@ def test_validator_SigmahqFieldnameCast_valid_new_logsource():
 
 
 def test_validator_SigmahqInvalidFieldname():
+    """Test that invalid field names are detected"""
     validator = SigmahqInvalidFieldnameValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -136,6 +140,7 @@ def test_validator_SigmahqInvalidFieldname():
 
 
 def test_validator_SigmahqInvalidFieldname_valid():
+    """Test that valid field names are accepted"""
     validator = SigmahqInvalidFieldnameValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -155,6 +160,7 @@ def test_validator_SigmahqInvalidFieldname_valid():
 
 
 def test_validator_SigmahqInvalidFieldname_valid_new_logsource():
+    """Test that new log sources with custom field names are accepted"""
     validator = SigmahqInvalidFieldnameValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -173,6 +179,7 @@ def test_validator_SigmahqInvalidFieldname_valid_new_logsource():
 
 
 def test_validator_SigmahqInvalidAllModifierIssue():
+    """Test that all modifier with single value is detected"""
     validator = SigmahqInvalidAllModifierValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -191,6 +198,7 @@ def test_validator_SigmahqInvalidAllModifierIssue():
 
 
 def test_validator_SigmahqInvalidAllModifierIssue_valid():
+    """Test that all modifier with multiple values is accepted"""
     validator = SigmahqInvalidAllModifierValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -211,6 +219,7 @@ def test_validator_SigmahqInvalidAllModifierIssue_valid():
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue():
+    """Test that duplicate case insensitive values are detected"""
     validator = SigmahqFieldDuplicateValueValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -235,6 +244,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue():
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_base64():
+    """Test that base64 modifier doesn't trigger duplicate detection"""
     validator = SigmahqFieldDuplicateValueValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -257,6 +267,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_base64():
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_re():
+    """Test that regex modifier doesn't trigger duplicate detection"""
     validator = SigmahqFieldDuplicateValueValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -277,6 +288,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_re():
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_cased():
+    """Test that cased modifier doesn't trigger duplicate detection"""
     validator = SigmahqFieldDuplicateValueValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -298,6 +310,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_cased():
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
+    """Test that case sensitive duplicates are detected"""
     validator = SigmahqFieldDuplicateValueValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -326,6 +339,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_valid():
+    """Test that valid non-duplicate values are accepted"""
     validator = SigmahqFieldDuplicateValueValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -346,6 +360,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_valid():
 
 
 def test_validator_SigmahqSpaceFieldNameValidator():
+    """Test that space in field names are detected"""
     validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -365,6 +380,7 @@ def test_validator_SigmahqSpaceFieldNameValidator():
 
 
 def test_validator_SigmahqSpaceFieldNameValidator_valid():
+    """Test that underscore in field names are valid"""
     validator = SigmahqSpaceFieldNameValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -384,6 +400,7 @@ def test_validator_SigmahqSpaceFieldNameValidator_valid():
 
 
 def test_validator_SigmahqFieldUserValidator():
+    """Test that localized user names are detected"""
     validator = SigmahqFieldUserValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -402,6 +419,7 @@ def test_validator_SigmahqFieldUserValidator():
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidhashname():
+    """Test that invalid hash names are detected"""
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -422,6 +440,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidhashname():
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidhashdata():
+    """Test that invalid hash data is detected"""
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -442,6 +461,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidhashdata():
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidtypo():
+    """Test that invalid hash format is detected"""
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -460,6 +480,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtypo():
 
 
 def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
+    """Test that invalid hash value type is detected"""
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -478,6 +499,7 @@ def test_validator_SigmahqInvalidHashKvValidator_invalidtype():
 
 
 def test_validator_SigmahqInvalidHashKvValidator_valid_md5():
+    """Test that valid MD5 hash is accepted"""
     validator = SigmahqInvalidHashKvValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -496,6 +518,7 @@ def test_validator_SigmahqInvalidHashKvValidator_valid_md5():
 
 
 def test_validator_SigmahqRedundantField():
+    """Test that redundant fields are detected"""
     validator = SigmahqRedundantFieldValidator()
     rule = SigmaRule.from_yaml(
         """
@@ -516,6 +539,7 @@ def test_validator_SigmahqRedundantField():
 
 
 def test_validator_SigmahqRedundantField_valid():
+    """Test that non-redundant fields are accepted"""
     validator = SigmahqRedundantFieldValidator()
     rule = SigmaRule.from_yaml(
         """

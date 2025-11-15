@@ -143,29 +143,6 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct():
     ]
 
 
-# Error with frozen=True
-# def test_validator_SigmahqUnsupportedRegexGroupConstruct():
-#     validator = SigmahqUnsupportedRegexGroupConstructValidator(regex_list=("(?P"))
-#     rule = SigmaRule.from_yaml(
-#         """
-#     title: A Space Field Name
-#     status: test
-#     logsource:
-#         product: windows
-#         category: process_creation
-#     detection:
-#         sel:
-#             field|re: '(?P<date>\d{4}-\d{2}-\d{2})'
-#         condition: sel
-#     """
-#     )
-#     assert validator.validate(rule) == [
-#         SigmahqUnsupportedRegexGroupConstructIssue(
-#             [rule], "(?P<date>\d{4}-\d{2}-\d{2})"
-#         )
-#     ]
-
-
 def test_validator_SigmahqUnsupportedRegexGroupConstruct_valid():
     validator = SigmahqUnsupportedRegexGroupConstructValidator()
     rule = SigmaRule.from_yaml(
@@ -177,7 +154,147 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct_valid():
         category: process_creation
     detection:
         sel:
-            field|re: 'a\w+b'
+            field|re: 'a\\w+b'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqUnsupportedRegexGroupConstruct_lookbehind():
+    validator = SigmahqUnsupportedRegexGroupConstructValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field|re: 'A(?<!B)'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqUnsupportedRegexGroupConstructIssue([rule], "A(?<!B)")
+    ]
+
+
+def test_validator_SigmahqUnsupportedRegexGroupConstruct_atomic_group():
+    validator = SigmahqUnsupportedRegexGroupConstructValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field|re: 'A(?>B)'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqUnsupportedRegexGroupConstructIssue([rule], "A(?>B)")
+    ]
+
+
+def test_validator_SigmahqUnsupportedRegexGroupConstruct_negative_lookahead():
+    validator = SigmahqUnsupportedRegexGroupConstructValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field|re: 'A(?!B)'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqUnsupportedRegexGroupConstructIssue([rule], "A(?!B)")
+    ]
+
+
+def test_validator_SigmahqUnsupportedRegexGroupConstruct_positive_lookbehind():
+    validator = SigmahqUnsupportedRegexGroupConstructValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field|re: 'A(?<=B)'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqUnsupportedRegexGroupConstructIssue([rule], "A(?<=B)")
+    ]
+
+
+def test_validator_SigmahqUnsupportedRegexGroupConstruct_complex_regex():
+    validator = SigmahqUnsupportedRegexGroupConstructValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field|re: '(?P<name>\\w+)(?=\\s+\\w+)'
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqUnsupportedRegexGroupConstructIssue([rule], "(?P<name>\\w+)(?=\\s+\\w+)")
+    ]
+
+
+def test_validator_SigmahqCategoryWindowsProviderName_multiple_values():
+    validator = SigmahqCategoryWindowsProviderNameValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field: path\\*something
+            Provider_Name: 
+                - Microsoft-Windows-Sysmon
+                - Microsoft-Windows-PowerShell
+        condition: sel
+    """
+    )
+    assert validator.validate(rule) == [SigmahqCategoryWindowsProviderNameIssue([rule])]
+
+
+def test_validator_SigmahqCategoryWindowsProviderName_no_provider():
+    validator = SigmahqCategoryWindowsProviderNameValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: A Space Field Name
+    status: test
+    logsource:
+        product: windows
+        category: process_creation
+    detection:
+        sel:
+            field: path\\*something
+            Provider_Name: Some-Other-Provider
         condition: sel
     """
     )
