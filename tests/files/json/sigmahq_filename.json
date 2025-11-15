@@ -1,0 +1,33 @@
+{
+    "title": "SigmaHQ rule filename prefix pytest",
+    "version": "20250101",
+    "pattern": {
+        "p1_none_none": {
+            "logsource": {
+                "product": "p1",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "prefix": "p1_"
+        },
+        "none_c1_none": {
+            "logsource": {
+                "product": null,
+                "category": "c1",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "c1_"
+        },
+		"none_none_s1": {
+            "logsource": {
+                "product": null,
+                "category": null,
+                "service": "s1",
+                "definition": null
+            },
+            "prefix": "s1_"
+        }
+    }
+}

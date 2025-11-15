@@ -1,0 +1,76 @@
+{
+    "title": "SigmaHQ taxonomy pytest",
+    "version": "20250101",
+    "taxonomy": {
+        "p1_none_none": {
+            "logsource": {
+                "product": "p1",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": [],
+                "custom": [],
+                "redundant": []
+            }
+        },
+	    "p2_none_none": {
+            "logsource": {
+                "product": "p2",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": ["azerty"],
+                "custom": [],
+                "redundant": []
+            }
+        },
+        "p3_none_none": {
+            "logsource": {
+                "product": "p3",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": [],
+                "custom": ["azerty"],
+                "redundant": []
+            }
+        },
+        "p4_none_none": {
+            "logsource": {
+                "product": "p4",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": [],
+                "custom": [],
+                "redundant": ["azerty"]
+            }
+        },
+        "p5_none_none": {
+            "logsource": {
+                "product": "p5",
+                "category": null,
+                "service": null,
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": ["azerty"],
+                "custom": ["qwerty"],
+                "redundant": ["hello"]
+            }
+        }
+    }
+}

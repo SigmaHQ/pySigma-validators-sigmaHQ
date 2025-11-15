@@ -1,0 +1,20 @@
+{
+    "title": "Windows specific validator data pytests",
+    "version": "20250101",
+    "category_no_eventid": [
+        "clipboard_capture",
+        "create_remote_thread",
+        "create_stream_hash"
+    ],
+    "category_provider_name": {
+        "clipboard_capture": [
+            "Microsoft-Windows-Sysmon"
+        ],
+        "create_remote_thread": [
+            "Microsoft-Windows-Sysmon"
+        ],
+        "create_stream_hash": [
+            "Microsoft-Windows-Sysmon"
+        ]
+    }
+}
