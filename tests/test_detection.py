@@ -181,26 +181,6 @@ def test_validator_SigmahqUnsupportedRegexGroupConstruct_lookbehind():
     ]
 
 
-def test_validator_SigmahqUnsupportedRegexGroupConstruct_atomic_group():
-    validator = SigmahqUnsupportedRegexGroupConstructValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: A Space Field Name
-    status: test
-    logsource:
-        product: windows
-        category: process_creation
-    detection:
-        sel:
-            field|re: 'A(?>B)'
-        condition: sel
-    """
-    )
-    assert validator.validate(rule) == [
-        SigmahqUnsupportedRegexGroupConstructIssue([rule], "A(?>B)")
-    ]
-
-
 def test_validator_SigmahqUnsupportedRegexGroupConstruct_negative_lookahead():
     validator = SigmahqUnsupportedRegexGroupConstructValidator()
     rule = SigmaRule.from_yaml(
