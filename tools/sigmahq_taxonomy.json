@@ -1765,6 +1765,8 @@
                     "PackageSourceUri",
                     "PackageType",
                     "Path",
+                    "Provider_Name",
+                    "Security_UserID",
                     "StorageId",
                     "SystemVolume",
                     "TargetPlatform"
