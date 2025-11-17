@@ -2139,6 +2139,8 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         "PackageSourceUri",
         "PackageType",
         "Path",
+        "Provider_Name",
+        "Security_UserID",
         "StorageId",
         "SystemVolume",
         "TargetPlatform",
