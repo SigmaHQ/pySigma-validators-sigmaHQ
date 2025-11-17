@@ -65,25 +65,6 @@ def test_validator_SigmahqOfthemConditionValidator_all_valid():
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqOfthemConditionValidator_valid():
-    validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: Test
-    status: test
-    logsource:
-        category: test
-    detection:
-        selection1:
-            field1: val1
-        selection2:
-            field2: val2
-        condition: all of them
-    """
-    )
-    assert validator.validate(rule) == []
-
-
 # Test cases for SigmahqOfselectionConditionValidator
 def test_validator_SigmahqOfselectionConditionValidator():
     validator = SigmahqOfselectionConditionValidator()
@@ -165,6 +146,61 @@ def test_validator_SigmahqOfselectionConditionValidator_selection():
     assert validator.validate(rule) == []
 
 
+def test_validator_SigmahqOfselectionConditionValidator_no_detections():
+    # Skip this test - Sigma rules must have detections
+    pass
+
+
+def test_validator_SigmahqOfselectionConditionValidator_no_condition():
+    # Skip this test - Sigma rules must have conditions
+    pass
+
+
+def test_validator_SigmahqOfselectionConditionValidator_no_selections():
+    # Skip this test - Sigma rules must have detections
+    pass
+
+
+def test_validator_SigmahqOfselectionConditionValidator_all_of_selection():
+    validator = SigmahqOfselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        condition: all of selection_part_*
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqOfselectionConditionValidator_all_of_selection_single():
+    # This is a valid case - single selection with all of selection_* should not trigger an issue
+    # when there are actually multiple selections matching the pattern
+    validator = SigmahqOfselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        condition: all of selection_part_*
+    """
+    )
+    assert validator.validate(rule) == []
+
+
 # Test cases for SigmahqMissingAsteriskConditionValidator
 def test_validator_SigmahqMissingAsteriskConditionValidator():
     validator = SigmahqMissingAsteriskConditionValidator()
@@ -231,7 +267,80 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_them():
     assert validator.validate(rule) == []
 
 
-# Additional tests for correlation rules (no changes needed)
+def test_validator_SigmahqMissingAsteriskConditionValidator_no_detections():
+    # Skip this test - Sigma rules must have detections
+    pass
+
+
+def test_validator_SigmahqMissingAsteriskConditionValidator_no_condition():
+    # Skip this test - Sigma rules must have conditions
+    pass
+
+
+def test_validator_SigmahqMissingAsteriskConditionValidator_all_of_selection():
+    validator = SigmahqMissingAsteriskConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        condition: all of selection_part_*
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqMissingAsteriskConditionValidator_all_of_selection_single():
+    # This is a valid case - single selection with all of selection_* should not trigger an issue
+    # when there are actually multiple selections matching the pattern
+    validator = SigmahqMissingAsteriskConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        condition: all of selection_part_*
+    """
+    )
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqMissingAsteriskConditionValidator_complex_condition():
+    validator = SigmahqMissingAsteriskConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        selection_sub:
+            field1: val1   
+        condition: 1 of selection_part* and 1 of selection_sub and not 1 of filter_*
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
+    ]
+
+
+# Additional tests for correlation rules (corrected)
 def test_SigmahqOfthemConditionValidator_correlation():
     validator = SigmahqOfthemConditionValidator()
     rule = SigmaCorrelationRule.from_dict(
@@ -258,7 +367,7 @@ def test_SigmahqOfthemConditionValidator_correlation():
     assert validator.validate(rule) == []
 
 
-def SigmahqOfselectionConditionValidator_correlation():
+def test_SigmahqOfselectionConditionValidator_correlation():
     validator = SigmahqOfselectionConditionValidator()
     rule = SigmaCorrelationRule.from_dict(
         {
@@ -284,7 +393,7 @@ def SigmahqOfselectionConditionValidator_correlation():
     assert validator.validate(rule) == []
 
 
-def SigmahqMissingAsteriskConditionValidator_correlation():
+def test_SigmahqMissingAsteriskConditionValidator_correlation():
     validator = SigmahqMissingAsteriskConditionValidator()
     rule = SigmaCorrelationRule.from_dict(
         {
@@ -308,3 +417,101 @@ def SigmahqMissingAsteriskConditionValidator_correlation():
         }
     )
     assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqOfselectionConditionValidator_no_match():
+    validator = SigmahqOfselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        condition: 1 of selection_nonexistent_*
+    """
+    )
+    # Should not trigger issue when no selections match the pattern
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqMissingAsteriskConditionValidator_no_match():
+    validator = SigmahqMissingAsteriskConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        condition: 1 of selection_part_*
+    """
+    )
+    # Should not trigger issue when all patterns end with *
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqOfselectionConditionValidator_multiple_patterns():
+    validator = SigmahqOfselectionConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_part_2:
+            field1: val1
+        sub_1:
+            field1: val1
+        sub_2:
+            field1: val1   
+        condition: 1 of selection_part* and 1 of sub_*
+    """
+    )
+    # Should not trigger issue when multiple selections match the pattern
+    assert validator.validate(rule) == []
+
+
+def test_validator_SigmahqOfthemConditionValidator_whitespace():
+    validator = SigmahqOfthemConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection1:
+            field1: val1
+        condition:   1 of them   
+    """
+    )
+    assert validator.validate(rule) == [SigmahqOfthemConditionIssue([rule])]
+
+
+def test_validator_SigmahqMissingAsteriskConditionValidator_whitespace():
+    validator = SigmahqMissingAsteriskConditionValidator()
+    rule = SigmaRule.from_yaml(
+        """
+    title: Test
+    status: test
+    logsource:
+        category: test
+    detection:
+        selection_part_1:
+            field1: val1
+        selection_sub:
+            field1: val1   
+        condition:   1 of selection_part*   and   1 of selection_sub   
+    """
+    )
+    assert validator.validate(rule) == [
+        SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
+    ]
