@@ -1,4 +1,3 @@
-import pytest
 
 from sigma.correlations import SigmaCorrelationRule
 from sigma.validators.sigmahq.correlation import (
