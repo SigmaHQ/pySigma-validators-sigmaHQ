@@ -1,0 +1,16 @@
+title: Test Correlation Rule With Incorrect Filename
+id: 98765432-9876-9876-9876-987654321098
+status: test
+description: This is a test correlation rule with an incorrectly named file
+author: Test Author
+date: 2024-01-01
+level: high
+correlation:
+    type: event_count
+    rules:
+        - 87654321-4321-4321-4321-210987654321
+    group-by:
+        - Computer
+    timespan: 5m
+    condition:
+        gte: 10
