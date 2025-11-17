@@ -68,7 +68,7 @@ def test_validator_SigmahqCorrelationFilename():
     """Test that correlation files without correlation_ prefix fail validation"""
     validator = SigmahqCorrelationFilenamePrefixValidator()
     sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/correlation/invalid_prefix_name.yml"]
+        ["tests/files/rules-correlations/invalid_prefix_name.yml"]
     )
     rule = sigma_collection[0]
     assert isinstance(rule, SigmaCorrelationRule)
@@ -81,7 +81,7 @@ def test_validator_SigmahqCorrelationFilename_valid():
     """Test that correlation files with correlation_ prefix pass validation"""
     validator = SigmahqCorrelationFilenamePrefixValidator()
     sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/correlation/correlation_valid_filename.yml"]
+        ["tests/files/rules-correlations/correlation_valid_filename.yml"]
     )
     rule = sigma_collection[0]
     assert isinstance(rule, SigmaCorrelationRule)
@@ -92,7 +92,7 @@ def test_validator_SigmahqCorrelationFilename_combined_valid():
     """Test that combined format files with correlation_ prefix pass validation"""
     validator = SigmahqCorrelationFilenamePrefixValidator()
     sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/correlation/correlation_combined_format.yml"]
+        ["tests/files/rules-correlations/correlation_combined_format.yml"]
     )
 
     # Find the correlation rule in the combined file
