@@ -4,6 +4,7 @@ from typing import ClassVar, List, Set, Tuple
 from sigma.rule import (
     SigmaRule,
     SigmaDetectionItem,
+    SigmaRuleBase,
 )
 
 from sigma.validators.base import (
@@ -32,7 +33,11 @@ class SigmahqCategoryEventIdIssue(SigmaValidationIssue):
 class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses an EventID field with a windows category logsource that doesn't require it."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        
         if (
             rule.logsource.product == "windows"
             and rule.logsource.category in config.windows_no_eventid
@@ -61,7 +66,11 @@ class SigmahqCategoryWindowsProviderNameIssue(SigmaValidationIssue):
 class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a Provider_Name field with a windows category logsource that doesn't require it."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        
         if rule.logsource in config.windows_provider_name:
             self.list_provider = config.windows_provider_name[rule.logsource]
             return super().validate(rule)

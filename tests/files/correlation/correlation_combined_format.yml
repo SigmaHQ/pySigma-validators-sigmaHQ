@@ -1,0 +1,33 @@
+title: Test Detection Rule in Combined File
+id: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+status: test
+description: This is a test detection rule in a combined format file
+author: Test Author
+date: 2024-01-01
+level: medium
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\test.exe'
+    condition: selection
+falsepositives:
+    - Unknown
+---
+title: Test Correlation Rule in Combined File
+id: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb
+status: test
+description: This is a test correlation rule in a combined format file
+author: Test Author
+date: 2024-01-01
+level: high
+correlation:
+    type: event_count
+    rules:
+        - aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+    group-by:
+        - Computer
+    timespan: 5m
+    condition:
+        gte: 10

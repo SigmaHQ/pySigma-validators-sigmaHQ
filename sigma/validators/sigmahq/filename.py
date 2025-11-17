@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import ClassVar, Dict, List
 
 from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
+from sigma.correlations import SigmaCorrelationRule
 
 from sigma.validators.base import (
     SigmaRuleValidator,
@@ -22,6 +23,13 @@ class SigmahqFilenameConventionIssue(SigmaValidationIssue):
     filename: str
 
 
+@dataclass
+class SigmahqCorrelationFilenamePrefixIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Correlation rule filename must start with 'correlation_'"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+    filename: str
+
+
 class SigmahqFilenameConventionValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename convention."""
 
@@ -31,6 +39,24 @@ class SigmahqFilenameConventionValidator(SigmaRuleValidator):
             filename = rule.source.path.name
             if filename_pattern.match(filename) is None or not "_" in filename:
                 return [SigmahqFilenameConventionIssue([rule], filename)]
+        return []
+
+
+class SigmahqCorrelationFilenamePrefixValidator(SigmaRuleValidator):
+    """Check that correlation rule filenames start with 'correlation_'."""
+
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate correlation rules
+        if not isinstance(rule, SigmaCorrelationRule):
+            return []
+        
+        if rule.source is not None:
+            filename = rule.source.path.name
+            
+            # All correlation files (pure or combined) must start with 'correlation_'
+            if not filename.startswith('correlation_'):
+                return [SigmahqCorrelationFilenamePrefixIssue([rule], filename)]
+        
         return []
 
 
@@ -46,7 +72,36 @@ class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
 class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename prefix convention."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def _is_combined_file(self, rule: SigmaRuleBase) -> bool:
+        """
+        Check if the file contains a combined format (both detection(s) and correlation rules).
+        This is determined by reading the file and checking for YAML document separator.
+        """
+        if rule.source is None:
+            return False
+        
+        try:
+            with open(rule.source.path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                # Check if file contains both correlation and detection/logsource sections
+                has_separator = '\n---\n' in content or '\n---' in content
+                has_correlation = 'correlation:' in content
+                has_logsource = 'logsource:' in content
+                
+                # Combined if it has separator and both correlation and logsource
+                return has_separator and has_correlation and has_logsource
+        except:
+            return False
+
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        
+        # Skip validation for combined format files (they can have multiple logsources)
+        if self._is_combined_file(rule):
+            return []
+        
         if rule.source is not None:
             filename = rule.source.path.name
             logsource = SigmaLogSource(

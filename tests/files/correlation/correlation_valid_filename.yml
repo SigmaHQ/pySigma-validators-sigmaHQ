@@ -1,0 +1,16 @@
+title: Test Correlation Rule With Correct Filename
+id: 12345678-1234-1234-1234-123456789012
+status: test
+description: This is a test correlation rule with a correctly named file
+author: Test Author
+date: 2024-01-01
+level: high
+correlation:
+    type: event_count
+    rules:
+        - 87654321-4321-4321-4321-210987654321
+    group-by:
+        - Computer
+    timespan: 5m
+    condition:
+        gte: 10

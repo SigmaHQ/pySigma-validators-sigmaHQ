@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import ClassVar, Dict, List, Tuple
 import re
 
-from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
 from sigma.types import SigmaString
 from sigma.validators.base import (
     SigmaValidationIssue,
@@ -57,7 +57,11 @@ class SigmahqFieldnameCastIssue(SigmaValidationIssue):
 class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -95,7 +99,11 @@ class SigmahqInvalidFieldnameIssue(SigmaValidationIssue):
 class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -288,7 +296,11 @@ class SigmahqRedundantFieldIssue(SigmaValidationIssue):
 class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
     """Check if a field name is already covered by the logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,

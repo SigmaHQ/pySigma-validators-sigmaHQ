@@ -23,7 +23,7 @@ class SigmahqLogsourceUnknownIssue(SigmaValidationIssue):
 class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
     """Checks if a rule uses an unknown logsource."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
         # Ensure rule is a SigmaRule instance to access logsource
         logsource = getattr(rule, "logsource", None)
         if logsource is not None:
@@ -51,7 +51,11 @@ class SigmahqSysmonMissingEventidIssue(SigmaValidationIssue):
 class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
     """Checks if a rule uses the windows sysmon service logsource without the EventID field."""
 
-    def validate(self, rule: SigmaRule) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        
         if rule.logsource.service == "sysmon":
             find = False
             for selection in rule.detection.detections.values():
