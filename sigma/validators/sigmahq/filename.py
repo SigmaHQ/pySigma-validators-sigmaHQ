@@ -84,7 +84,7 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
             with open(rule.source.path, "r", encoding="utf-8") as f:
                 content = f.read()
                 # Check if file contains both correlation and detection/logsource sections
-                has_separator = "\n---\n" in content or "\n---" in content
+                has_separator = "\n---\n" in content or content.startswith("---\n")
                 has_correlation = "correlation:" in content
                 has_logsource = "logsource:" in content
 
