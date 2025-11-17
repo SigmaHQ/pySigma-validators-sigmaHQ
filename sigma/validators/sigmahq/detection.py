@@ -9,7 +9,6 @@ from sigma.rule import (
 
 from sigma.validators.base import (
     SigmaValidationIssue,
-    SigmaRuleValidator,
     SigmaValidationIssueSeverity,
     SigmaDetectionItemValidator,
     SigmaDetectionItem,
@@ -37,7 +36,7 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
-        
+
         if (
             rule.logsource.product == "windows"
             and rule.logsource.category in config.windows_no_eventid
@@ -70,7 +69,7 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
-        
+
         if rule.logsource in config.windows_provider_name:
             self.list_provider = config.windows_provider_name[rule.logsource]
             return super().validate(rule)

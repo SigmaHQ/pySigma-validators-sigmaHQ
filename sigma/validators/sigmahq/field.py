@@ -61,7 +61,7 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
-        
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -103,7 +103,7 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
-        
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,
@@ -300,7 +300,7 @@ class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
-        
+
         core_logsource = SigmaLogSource(
             category=rule.logsource.category,
             product=rule.logsource.product,

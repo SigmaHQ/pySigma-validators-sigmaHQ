@@ -55,7 +55,7 @@ class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
-        
+
         if rule.logsource.service == "sysmon":
             find = False
             for selection in rule.detection.detections.values():

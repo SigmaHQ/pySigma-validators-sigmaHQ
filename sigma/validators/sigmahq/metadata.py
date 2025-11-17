@@ -275,7 +275,7 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
         if len(rule.custom_attributes) > 0:
             custom_keys = list(rule.custom_attributes.keys())
             allowed_fields = {"regression_tests_path", "simulation"}
-            
+
             # For correlation rules, the 'correlation' field is standard, not custom
             if isinstance(rule, SigmaCorrelationRule):
                 allowed_fields.add("correlation")

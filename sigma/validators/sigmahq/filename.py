@@ -49,14 +49,14 @@ class SigmahqCorrelationFilenamePrefixValidator(SigmaRuleValidator):
         # Only validate correlation rules
         if not isinstance(rule, SigmaCorrelationRule):
             return []
-        
+
         if rule.source is not None:
             filename = rule.source.path.name
-            
+
             # All correlation files (pure or combined) must start with 'correlation_'
-            if not filename.startswith('correlation_'):
+            if not filename.startswith("correlation_"):
                 return [SigmahqCorrelationFilenamePrefixIssue([rule], filename)]
-        
+
         return []
 
 
@@ -79,15 +79,15 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
         """
         if rule.source is None:
             return False
-        
+
         try:
-            with open(rule.source.path, 'r', encoding='utf-8') as f:
+            with open(rule.source.path, "r", encoding="utf-8") as f:
                 content = f.read()
                 # Check if file contains both correlation and detection/logsource sections
-                has_separator = '\n---\n' in content or '\n---' in content
-                has_correlation = 'correlation:' in content
-                has_logsource = 'logsource:' in content
-                
+                has_separator = "\n---\n" in content or "\n---" in content
+                has_correlation = "correlation:" in content
+                has_logsource = "logsource:" in content
+
                 # Combined if it has separator and both correlation and logsource
                 return has_separator and has_correlation and has_logsource
         except:
@@ -97,11 +97,11 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
-        
+
         # Skip validation for combined format files (they can have multiple logsources)
         if self._is_combined_file(rule):
             return []
-        
+
         if rule.source is not None:
             filename = rule.source.path.name
             logsource = SigmaLogSource(
