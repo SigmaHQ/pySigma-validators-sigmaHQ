@@ -870,7 +870,7 @@ ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
     ): "zeek_",
 }
 
-taxonomy_version: str = "20251103"
+taxonomy_version: str = "20251117"
 ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
     SigmaLogSource(
         category=None,
@@ -2115,15 +2115,33 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         "Channel",
         "Computer",
         "DeploymentOperation",
+        "DeploymentOptions",
         "ErrorCode",
         "EventID",
+        "ExternalLocation",
         "FilePath",
+        "Flags",
+        "FlagsHigh",
+        "HasFullTrust",
+        "HasWin32alacarte",
+        "IsCentennial",
+        "IsInRelatedSet",
+        "IsOptional",
+        "IsPackageEncrypted",
+        "IsPackageUsingBDC",
+        "IsStreamingPackage",
+        "MainPackageFamilyName",
+        "MountPoint",
         "PackageDisplayName",
+        "PackageFlags",
+        "PackageFlags2",
         "PackageFullName",
         "PackageSourceUri",
+        "PackageType",
         "Path",
-        "Provider_Name",
-        "Security_UserID",
+        "StorageId",
+        "SystemVolume",
+        "TargetPlatform",
     ],
     SigmaLogSource(
         category=None,
@@ -2132,16 +2150,7 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): [
-        "Channel",
-        "Computer",
-        "EventID",
-        "Flags",
-        "HasFullTrust",
-        "Provider_Name",
-        "Security_UserID",
-        "subjectName",
-    ],
+    ): ["Channel", "Computer", "EventID", "Provider_Name", "Security_UserID", "subjectName"],
     SigmaLogSource(
         category=None,
         product="windows",

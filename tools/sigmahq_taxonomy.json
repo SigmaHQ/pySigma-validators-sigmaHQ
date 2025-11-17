@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20251103",
+    "version": "20251117",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
@@ -1741,15 +1741,33 @@
                     "Channel",
                     "Computer",
                     "DeploymentOperation",
+                    "DeploymentOptions",
                     "ErrorCode",
                     "EventID",
+                    "ExternalLocation",
                     "FilePath",
+                    "Flags",
+                    "FlagsHigh",
+                    "HasFullTrust",
+                    "HasWin32alacarte",
+                    "IsCentennial",
+                    "IsInRelatedSet",
+                    "IsOptional",
+                    "IsPackageEncrypted",
+                    "IsPackageUsingBDC",
+                    "IsStreamingPackage",
+                    "MainPackageFamilyName",
+                    "MountPoint",
                     "PackageDisplayName",
+                    "PackageFlags",
+                    "PackageFlags2",
                     "PackageFullName",
                     "PackageSourceUri",
+                    "PackageType",
                     "Path",
-                    "Provider_Name",
-                    "Security_UserID"
+                    "StorageId",
+                    "SystemVolume",
+                    "TargetPlatform"
                 ],
                 "custom": [],
                 "redundant": []
@@ -1770,9 +1788,7 @@
                     "EventID",
                     "Provider_Name",
                     "Security_UserID",
-                    "subjectName",
-                    "Flags",
-                    "HasFullTrust"
+                    "subjectName"
                 ],
                 "custom": [],
                 "redundant": []
