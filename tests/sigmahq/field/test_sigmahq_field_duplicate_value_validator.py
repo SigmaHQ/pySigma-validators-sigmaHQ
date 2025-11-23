@@ -103,26 +103,28 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     validator = SigmahqFieldDuplicateValueValidator()
     rule = SigmaRule.from_yaml(
         """
-    title: Re Duplicate Case Sensitive
-    status: test
-    logsource:
-        category: process_creation
-        product: windows
-    detection:
-        sel:
-            CommandLine|re: 
+        title: Re Duplicate Case Sensitive
+        status: test
+        logsource:
+          category: process_creation
+          product: windows
+        detection:
+          sel:
+            CommandLine|re:
               - 'one'
               - 'One'
               - 'two'
               - 'three'
               - 'Two'
               - 'One'
-        condition: sel
-    """
+          condition: sel
+        """
     )
+
+    # Assuming SigmaRegularExpression is initialized without keyword arguments like this
     assert validator.validate(rule) == [
         SigmahqFieldDuplicateValueIssue(
-            [rule], "CommandLine", str(SigmaRegularExpression(regexp="One", flags=set()))
+            [rule], "CommandLine", str(SigmaRegularExpression("One"))  # Correct initialization
         )
     ]
 

@@ -10,12 +10,16 @@ def test_validator_SigmahqCorrelationFilename():
     """Test that correlation files without correlation_ prefix fail validation"""
     validator = SigmahqCorrelationFilenamePrefixValidator()
     sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/rules-correlations/invalid_prefix_name.yml"]
+        [
+            "tests/files/rules-correlations/invalid_prefix_name.yml",
+            "tests/files/rule_filename_valid/proc_creation_win_svchost_accepteula.yml",
+        ]
     )
-    rule = sigma_collection[0]
-    assert isinstance(rule, SigmaCorrelationRule)
-    assert validator.validate(rule) == [
-        SigmahqCorrelationFilenamePrefixIssue([rule], "invalid_prefix_name.yml")
+    for rule in sigma_collection:
+        if isinstance(rule, SigmaCorrelationRule):
+            corelation_rule = rule
+    assert validator.validate(corelation_rule) == [
+        SigmahqCorrelationFilenamePrefixIssue([corelation_rule], "invalid_prefix_name.yml")
     ]
 
 
@@ -23,11 +27,15 @@ def test_validator_SigmahqCorrelationFilename_valid():
     """Test that correlation files with correlation_ prefix pass validation"""
     validator = SigmahqCorrelationFilenamePrefixValidator()
     sigma_collection = SigmaCollection.load_ruleset(
-        ["tests/files/rules-correlations/correlation_valid_filename.yml"]
+        [
+            "tests/files/rules-correlations/correlation_valid_filename.yml",
+            "tests/files/rule_filename_valid/proc_creation_win_svchost_accepteula.yml",
+        ]
     )
-    rule = sigma_collection[0]
-    assert isinstance(rule, SigmaCorrelationRule)
-    assert validator.validate(rule) == []
+    for rule in sigma_collection:
+        if isinstance(rule, SigmaCorrelationRule):
+            corelation_rule = rule
+    assert validator.validate(corelation_rule) == []
 
 
 def test_validator_SigmahqCorrelationFilename_combined_valid():

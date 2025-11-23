@@ -95,6 +95,7 @@ class ConfigHQ:
                     print(f"Error loading {filename}: {e}")
                     return None
             return None
+        return None
 
     def _load_sigma_json(self):
         """Load taxonomy configuration from JSON."""

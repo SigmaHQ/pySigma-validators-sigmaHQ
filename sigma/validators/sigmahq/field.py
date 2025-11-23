@@ -2,7 +2,7 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import ClassVar, Dict, List, Tuple
 import re
-
+from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
 from sigma.types import SigmaString
 from sigma.validators.base import (
@@ -38,6 +38,12 @@ class SigmahqSpaceFieldNameIssue(SigmaValidationIssue):
 class SigmahqSpaceFieldNameValidator(SigmaDetectionItemValidator):
     """Check if rules uses a field name that contains a space instead of an underscore."""
 
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        return super().validate(rule)
+
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
@@ -57,7 +63,7 @@ class SigmahqFieldnameCastIssue(SigmaValidationIssue):
 class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
@@ -99,7 +105,7 @@ class SigmahqInvalidFieldnameIssue(SigmaValidationIssue):
 class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
@@ -137,6 +143,12 @@ class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):
 
 class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
     """Check uniques value in field list."""
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        return super().validate(rule)
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -193,6 +205,12 @@ class SigmahqInvalidAllModifierIssue(SigmaValidationIssue):
 class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
     """Check All modifier used with a single value."""
 
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        return super().validate(rule)
+
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
@@ -215,6 +233,12 @@ class SigmahqFieldUserIssue(SigmaValidationIssue):
 
 class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
     """Check a User field use a localized name."""
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        return super().validate(rule)
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -247,6 +271,12 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
 
     hash_field: Tuple[str, ...] = ("Hashes", "Hash")
     hash_key: Tuple[str, ...] = ("MD5", "SHA1", "SHA256", "IMPHASH")
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules
+        if not isinstance(rule, SigmaRule):
+            return []
+        return super().validate(rule)
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -296,7 +326,7 @@ class SigmahqRedundantFieldIssue(SigmaValidationIssue):
 class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
     """Check if a field name is already covered by the logsource."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []

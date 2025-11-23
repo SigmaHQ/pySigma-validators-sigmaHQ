@@ -8,7 +8,7 @@ level: high
 correlation:
     type: event_count
     rules:
-        - 87654321-4321-4321-4321-210987654321
+        - 240dbc26-8b19-4f5f-8972-fc3841f4185f
     group-by:
         - Computer
     timespan: 5m

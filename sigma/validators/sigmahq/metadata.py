@@ -3,7 +3,7 @@ from typing import ClassVar, List, Tuple
 from datetime import datetime
 import re
 
-from sigma.rule import SigmaRuleBase, SigmaStatus
+from sigma.rule import SigmaRule, SigmaStatus
 from sigma.correlations import SigmaCorrelationRule
 from sigma.validators.base import (
     SigmaRuleValidator,
@@ -21,7 +21,7 @@ class SigmahqStatusExistenceIssue(SigmaValidationIssue):
 class SigmahqStatusExistenceValidator(SigmaRuleValidator):
     """Checks if a rule is missing the status field."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.status is None:
             return [SigmahqStatusExistenceIssue([rule])]
         else:
@@ -37,7 +37,7 @@ class SigmahqAuthorExistenceIssue(SigmaValidationIssue):
 class SigmahqAuthorExistenceValidator(SigmaRuleValidator):
     """Checks if a rule is missing the author field."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.author is None:
             return [SigmahqAuthorExistenceIssue([rule])]
         else:
@@ -55,7 +55,7 @@ class SigmahqStatusIssue(SigmaValidationIssue):
 class SigmahqStatusValidator(SigmaRuleValidator):
     """Checks if a rule uses a status field with the value Deprecated or Unsupported, and its not located in the appropriate folder."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.status and rule.status.name in ["DEPRECATED", "UNSUPPORTED"]:
             return [SigmahqStatusIssue([rule])]
         else:
@@ -71,7 +71,7 @@ class SigmahqDateExistenceIssue(SigmaValidationIssue):
 class SigmahqDateExistenceValidator(SigmaRuleValidator):
     """Checks if a rule is missing the date field."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.date is None:
             return [SigmahqDateExistenceIssue([rule])]
         else:
@@ -89,7 +89,7 @@ class SigmahqModifiedDateOrderIssue(SigmaValidationIssue):
 class SigmahqModifiedDateOrderValidator(SigmaRuleValidator):
     """Checks if a rule has a modified field that has value older than the date field."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.date is not None and rule.modified is not None:
             if rule.modified < rule.date:
                 return [SigmahqModifiedDateOrderIssue([rule])]
@@ -107,7 +107,7 @@ class SigmahqModifiedWithoutDateIssue(SigmaValidationIssue):
 class SigmahqModifiedWithoutDateValidator(SigmaRuleValidator):
     """Checks if a rule has a modified field without a date field."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.modified is not None and rule.date is None:
             return [SigmahqModifiedWithoutDateIssue([rule])]
         return []
@@ -122,7 +122,7 @@ class SigmahqDescriptionExistenceIssue(SigmaValidationIssue):
 class SigmahqDescriptionExistenceValidator(SigmaRuleValidator):
     """Checks if a rule is missing the description field"""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.description is None:
             return [SigmahqDescriptionExistenceIssue([rule])]
         else:
@@ -141,7 +141,7 @@ class SigmahqDescriptionLengthValidator(SigmaRuleValidator):
 
     description_len: int = 16
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.description is not None and len(rule.description) < self.description_len:
             return [SigmahqDescriptionLengthIssue([rule])]
         else:
@@ -157,7 +157,7 @@ class SigmahqLevelExistenceIssue(SigmaValidationIssue):
 class SigmahqLevelExistenceValidator(SigmaRuleValidator):
     """Checks if a rule is missing the level field"""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.level is None:
             return [SigmahqLevelExistenceIssue([rule])]
         else:
@@ -176,8 +176,8 @@ class SigmahqFalsepositivesCapitalIssue(SigmaValidationIssue):
 class SigmahqFalsepositivesCapitalValidator(SigmaRuleValidator):
     """Checks if a rule falsepositive entry starts with a capital letter."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        false_positive = []
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        false_positive: List[SigmaValidationIssue] = []
         if rule.falsepositives:
             for fp in rule.falsepositives:
                 if fp[0].upper() != fp[0]:
@@ -203,8 +203,8 @@ class SigmahqFalsepositivesBannedWordValidator(SigmaRuleValidator):
 
     word_list: Tuple[str, ...] = ("none", "pentest", "penetration")
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        banned_words = []
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        banned_words: List[SigmaValidationIssue] = []
         if rule.falsepositives:
             for fp_entry in rule.falsepositives:
                 for fp in fp_entry.split(" "):
@@ -227,8 +227,8 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
 
     word_list: Tuple[str, ...] = ("unkown", "ligitimate", "legitim ", "legitimeate")
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        typos = []
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        typos: List[SigmaValidationIssue] = []
         if rule.falsepositives:
             for fp_entry in rule.falsepositives:
                 for fp in fp_entry.split(" "):
@@ -253,7 +253,7 @@ class SigmahqLinkInDescriptionValidator(SigmaRuleValidator):
 
     word_list: Tuple[str, ...] = ("http://", "https://", "internal research")
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.description and rule.references == []:
             for word in self.word_list:
                 if word in rule.description.lower():
@@ -271,7 +271,7 @@ class SigmahqUnknownFieldIssue(SigmaValidationIssue):
 class SigmahqUnknownFieldValidator(SigmaRuleValidator):
     """Checks if a rule uses an unknown field."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if len(rule.custom_attributes) > 0:
             custom_keys = list(rule.custom_attributes.keys())
             allowed_fields = {"regression_tests_path", "simulation"}
@@ -302,7 +302,7 @@ class SigmahqRedundantModifiedIssue(SigmaValidationIssue):
 class SigmahqRedundantModifiedValidator(SigmaRuleValidator):
     """Checks if a rule has a redundant modified field"""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.date is not None and rule.modified is not None:
             if rule.date == rule.modified:
                 return [SigmahqRedundantModifiedIssue([rule])]
@@ -323,7 +323,7 @@ class SigmahqStatusToHighValidator(SigmaRuleValidator):
 
     min_days: int = 60
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.date is not None and rule.status is not None:
             if rule.status > SigmaStatus.EXPERIMENTAL:
                 if (datetime.now().date() - rule.date).days <= self.min_days:
@@ -345,8 +345,8 @@ class SigmahqGithubLinkIssue(SigmaValidationIssue):
 class SigmahqGithubLinkValidator(SigmaRuleValidator):
     """Checks if a rule has a branch GitHub link"""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        result = []
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        result: List[SigmaValidationIssue] = []
         if rule.references is not None:
             for link in rule.references:
                 if re.match(r"https://github.com/.*\.\w{1,3}$", link) is not None:
@@ -367,8 +367,8 @@ class SigmahqMitreLinkIssue(SigmaValidationIssue):
 class SigmahqMitreLinkValidator(SigmaRuleValidator):
     """Checks if a rule uses a MITRE link instead of tag"""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
-        result = []
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        result: List[SigmaValidationIssue] = []
         if rule.references is not None:
             for link in rule.references:
                 if link.startswith("https://attack.mitre.org/"):
