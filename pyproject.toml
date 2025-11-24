@@ -1,27 +1,42 @@
-[tool.poetry]
+[project]
 name = "pySigma-validators-sigmahq"
-version = "0.13.0"
+version = "0.20.0"
 description = "pySigma SigmaHQ validators"
-authors = ["François Hubaut <frack113@users.noreply.github.com>"]
 license = "LGPL-2.1-only"
 readme = "README.md"
+requires-python = "^3.10"
+
+authors = [
+    {name = "François Hubaut", email = "frack113@users.noreply.github.com" }
+]
+
+maintainers =[
+    {name = "François Hubaut", email = "frack113@users.noreply.github.com" },
+    {name = "Christian Burkard", email = "phantinuss@users.noreply.github.com" }
+]
+
+keywords = [ "pySigma", "SigmaHQ", "validators"]
+
+dependencies = [
+    "pysigma >=1.0",
+    "requests >=2.32"
+]
+
+[project.urls]
 repository = "https://github.com/SigmaHQ/pySigma_validators_sigmaHQ"
+
+[tool.poetry]
 packages = [
     { include = "sigma" }
 ]
 
-[tool.poetry.dependencies]
-python = "^3.9" # EOL but used in the wide
-pysigma = "^0.11"
-requests = "^2.32"
-
 [tool.poetry.group.dev.dependencies]
 black = "^25.0"
 defusedxml = "^0.7"
-pytest = "^8.0"  # 9.0 need python 3.10
+pytest = "^9.0"
 pytest-cov = "^7.0"
 mypy = "^1.18"
-types-requests = "^2.32.4"
+types-requests = "^2.32"
 
 [tool.black]
 line-length = 100

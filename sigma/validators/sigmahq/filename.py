@@ -33,7 +33,7 @@ class SigmahqCorrelationFilenamePrefixIssue(SigmaValidationIssue):
 class SigmahqFilenameConventionValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename convention."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         filename_pattern = re.compile(r"[a-z0-9_]{10,90}\.yml")
         if rule.source is not None:
             filename = rule.source.path.name
@@ -45,7 +45,7 @@ class SigmahqFilenameConventionValidator(SigmaRuleValidator):
 class SigmahqCorrelationFilenamePrefixValidator(SigmaRuleValidator):
     """Check that correlation rule filenames start with 'correlation_'."""
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         # Only validate correlation rules
         if not isinstance(rule, SigmaCorrelationRule):
             return []
@@ -72,7 +72,7 @@ class SigmahqFilenamePrefixIssue(SigmaValidationIssue):
 class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
     """Check a rule filename against SigmaHQ filename prefix convention."""
 
-    def _is_combined_file(self, rule: SigmaRuleBase) -> bool:
+    def _is_combined_file(self, rule: SigmaRule | SigmaCorrelationRule) -> bool:
         """
         Check if the file contains a combined format (both detection(s) and correlation rules).
         This is determined by reading the file and checking for YAML document separator.
@@ -93,7 +93,7 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
         except:
             return False
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []

@@ -22,9 +22,9 @@ class SigmahqOfthemConditionIssue(SigmaValidationIssue):
 class SigmahqOfthemConditionValidator(SigmaRuleValidator):
     """Check use of the ' of them' keyword with only a single selection in the detection section"""
 
-    re_all_of_them: ClassVar[re.Pattern] = re.compile(r"\s+of\s+them")
+    re_of_them: ClassVar[re.Pattern] = re.compile(r"\s+of\s+them")
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
             return []  # Correlation rules do not have detections
 
@@ -33,7 +33,7 @@ class SigmahqOfthemConditionValidator(SigmaRuleValidator):
             detection is not None
             and hasattr(detection, "condition")
             and hasattr(detection, "detections")
-            and any(self.re_all_of_them.search(condition) for condition in detection.condition)
+            and any(self.re_of_them.search(condition) for condition in detection.condition)
             and len(detection.detections) == 1
         ):
             return [SigmahqOfthemConditionIssue([rule])]
@@ -55,7 +55,7 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
 
     re_x_of_them: ClassVar[re.Pattern] = re.compile(r"(?:\d+|all)\s+of\s+([^\s]+)")
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
             return []  # Correlation rules do not have detections
 
@@ -97,17 +97,17 @@ class SigmahqMissingAsteriskConditionIssue(SigmaValidationIssue):
 class SigmahqMissingAsteriskConditionValidator(SigmaRuleValidator):
     """Check the use of the '1/all of ' keyword without an asterisk in the condition"""
 
-    re_x_of_them: ClassVar[re.Pattern] = re.compile(r"\s+of\s+([^\s\)]+)")
+    re_x_of: ClassVar[re.Pattern] = re.compile(r"\s+of\s+([^\s\)]+)")
 
-    def validate(self, rule: SigmaRuleBase) -> List[SigmaValidationIssue]:
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
             return []  # Correlation rules do not have detections
 
         detection = getattr(rule, "detection", None)
         if detection is not None and hasattr(detection, "condition"):
             for condition in detection.condition:
-                if self.re_x_of_them.search(condition):
-                    all_name = self.re_x_of_them.findall(condition)
+                if self.re_x_of.search(condition):
+                    all_name = self.re_x_of.findall(condition)
                     for name in all_name:
                         if name == "them":
                             continue
