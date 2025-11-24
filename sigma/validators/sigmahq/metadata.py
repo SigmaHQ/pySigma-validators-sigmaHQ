@@ -80,12 +80,12 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 
 @dataclass
 class SigmahqFieldsExistenceIssue(SigmaValidationIssue):
-    description: ClassVar[str] = "Rule is using the deprecated fields"
+    description: ClassVar[str] = "Rule is using the deprecated field fields"
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
 
 
 class SigmahqFieldsExistenceValidator(SigmaRuleValidator):
-    """Checks if a rule is musing the deprecated fields."""
+    """Checks if a rule is using the deprecated field fields."""
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if len(rule.fields) > 0:

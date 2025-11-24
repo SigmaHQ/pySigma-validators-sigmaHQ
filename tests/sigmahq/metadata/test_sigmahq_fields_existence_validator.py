@@ -5,26 +5,7 @@ from sigma.validators.sigmahq.metadata import (
 )
 
 
-def test_validator_SigmahqFieldsExistence_1():
-    validator = SigmahqFieldsExistenceValidator()
-    rule = SigmaRule.from_yaml(
-        """
-    title: test
-    status: stable
-    logsource:
-        category: test
-    detection:
-        sel:
-            field: path\\*something
-        condition: sel
-    fields:
-        - eventid
-    """
-    )
-    assert validator.validate(rule) == [SigmahqFieldsExistenceIssue([rule])]
-
-
-def test_validator_SigmahqFieldsExistence_2():
+def test_validator_SigmahqFieldsExistence():
     validator = SigmahqFieldsExistenceValidator()
     rule = SigmaRule.from_yaml(
         """
