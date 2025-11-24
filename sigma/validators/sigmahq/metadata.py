@@ -79,6 +79,22 @@ class SigmahqDateExistenceValidator(SigmaRuleValidator):
 
 
 @dataclass
+class SigmahqFieldsExistenceIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Rule is using the deprecated field fields"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+
+
+class SigmahqFieldsExistenceValidator(SigmaRuleValidator):
+    """Checks if a rule is using the deprecated field fields."""
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        if len(rule.fields) > 0:
+            return [SigmahqFieldsExistenceIssue([rule])]
+        else:
+            return []
+
+
+@dataclass
 class SigmahqModifiedDateOrderIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
         "Rule has a modified field whose value is older than that of the date field. The modified date has always to be newer than date."
