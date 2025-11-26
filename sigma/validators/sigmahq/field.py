@@ -1,9 +1,9 @@
 from pathlib import Path
 from dataclasses import dataclass
-from typing import ClassVar, Dict, List, Tuple
+from typing import ClassVar, List, Tuple
 import re
 from sigma.correlations import SigmaCorrelationRule
-from sigma.rule import SigmaRule, SigmaLogSource, SigmaRuleBase
+from sigma.rule import SigmaRule, SigmaLogSource
 from sigma.types import SigmaString
 from sigma.validators.base import (
     SigmaValidationIssue,

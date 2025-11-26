@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 import re
 from typing import ClassVar, List
-from sigma.conditions import ConditionIdentifier, ConditionItem, ConditionSelector
 from sigma.correlations import SigmaCorrelationRule
-from sigma.rule import SigmaDetections, SigmaRule, SigmaRuleBase
+from sigma.rule import SigmaRule
 from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
