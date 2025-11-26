@@ -1,6 +1,4 @@
-# tests/test_sigmahq_tags_detection_validator.py
-
-from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule import SigmaRule
 from sigma.collection import SigmaCollection
 from sigma.validators.sigmahq.tags import (
     SigmahqTagsDetectionIssue,

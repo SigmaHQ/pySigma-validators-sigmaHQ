@@ -1,5 +1,3 @@
-# tests/test_sigmahq_title_case_validator.py
-
 from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.title import (
     SigmahqTitleCaseIssue,

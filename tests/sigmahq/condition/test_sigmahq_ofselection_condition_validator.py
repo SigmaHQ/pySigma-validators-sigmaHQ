@@ -1,4 +1,3 @@
-import pytest
 from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.condition import (
     SigmahqOfselectionConditionIssue,
@@ -85,21 +84,6 @@ def test_validator_SigmahqOfselectionConditionValidator_selection():
     """
     )
     assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqOfselectionConditionValidator_no_detections():
-    # Skip this test - Sigma rules must have detections
-    pass
-
-
-def test_validator_SigmahqOfselectionConditionValidator_no_condition():
-    # Skip this test - Sigma rules must have conditions
-    pass
-
-
-def test_validator_SigmahqOfselectionConditionValidator_no_selections():
-    # Skip this test - Sigma rules must have detections
-    pass
 
 
 def test_validator_SigmahqOfselectionConditionValidator_all_of_selection():
