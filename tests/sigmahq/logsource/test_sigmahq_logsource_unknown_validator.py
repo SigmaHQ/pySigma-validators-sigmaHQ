@@ -1,4 +1,3 @@
-import pytest
 from sigma.rule import SigmaRule, SigmaLogSource
 
 from sigma.validators.sigmahq.logsource import (

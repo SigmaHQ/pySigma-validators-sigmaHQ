@@ -1,6 +1,4 @@
-import pytest
 from sigma.rule import SigmaRule
-from sigma.types import SigmaRegularExpression
 
 from sigma.validators.sigmahq.field import (
     SigmahqInvalidAllModifierIssue,

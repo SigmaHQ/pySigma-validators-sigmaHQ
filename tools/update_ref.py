@@ -8,7 +8,7 @@ from pprint import pformat
 import sys
 
 
-from sigma.validators.sigmahq import ConfigHQ
+from sigma.validators.sigmahq.config import ConfigHQ
 
 
 def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/sigmahq_data.py"):

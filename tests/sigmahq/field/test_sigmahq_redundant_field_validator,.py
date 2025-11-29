@@ -1,4 +1,3 @@
-import pytest
 from sigma.rule import SigmaRule
 from sigma.types import SigmaRegularExpression
 

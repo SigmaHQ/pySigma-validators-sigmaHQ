@@ -5,6 +5,10 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqMitreLinkValidator,
 )
 
+#
+# Detection Rule Tests
+#
+
 
 def test_validator_mitre_link_with_references():
     """Test that the validator correctly identifies a Sigma rule with MITRE references."""
@@ -50,6 +54,11 @@ detection:
 """
     )
     assert validator.validate(rule) == []
+
+
+#
+# Correlation Rule Tests
+#
 
 
 def test_validator_correlation_rules_temporal():

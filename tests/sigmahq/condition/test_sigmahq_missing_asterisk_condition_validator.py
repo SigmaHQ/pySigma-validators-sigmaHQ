@@ -1,4 +1,3 @@
-import pytest
 from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.condition import (
     SigmahqMissingAsteriskConditionIssue,
@@ -70,16 +69,6 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_them():
     """
     )
     assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqMissingAsteriskConditionValidator_no_detections():
-    # Skip this test - Sigma rules must have detections
-    pass
-
-
-def test_validator_SigmahqMissingAsteriskConditionValidator_no_condition():
-    # Skip this test - Sigma rules must have conditions
-    pass
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_all_of_selection():

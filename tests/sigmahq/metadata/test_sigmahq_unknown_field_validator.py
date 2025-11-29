@@ -4,6 +4,10 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqUnknownFieldValidator,
 )
 
+#
+# Detection Rule Tests
+#
+
 
 def test_validator_SigmahqUnknownField_single():
     """Test with a single unknown field."""
@@ -100,3 +104,8 @@ invalid_field: value
     assert (
         rule is None
     )  # This will ensure the rule creation failed as expected due to invalid structure.
+
+
+#
+# Correlation Rule Tests
+#

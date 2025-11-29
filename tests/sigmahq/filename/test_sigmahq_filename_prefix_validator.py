@@ -1,4 +1,4 @@
-from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule import SigmaLogSource
 from sigma.collection import SigmaCollection
 from sigma.validators.sigmahq.filename import (
     SigmahqFilenamePrefixIssue,

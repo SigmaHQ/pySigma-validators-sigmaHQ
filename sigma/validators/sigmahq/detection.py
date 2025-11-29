@@ -12,7 +12,7 @@ from sigma.validators.base import (
     SigmaDetectionItemValidator,
     SigmaDetectionItem,
 )
-from sigma.types import SigmaRegularExpression, SigmaString
+from sigma.types import SigmaString
 from sigma.modifiers import SigmaRegularExpressionModifier
 
 from .config import ConfigHQ
