@@ -6,6 +6,10 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqStatusToHighValidator,
 )
 
+#
+# Detection Rule Tests
+#
+
 
 def test_validator_SigmahqStatusToHigh():
     validator = SigmahqStatusToHighValidator()
@@ -65,3 +69,8 @@ def test_validator_SigmahqStatusToHigh_with_regression_valid():
     )
     rule.date = datetime.now().date()
     assert validator.validate(rule) == []
+
+
+#
+# Correlation Rule Tests
+#

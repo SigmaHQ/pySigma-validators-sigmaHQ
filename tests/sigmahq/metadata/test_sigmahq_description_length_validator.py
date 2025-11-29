@@ -5,6 +5,10 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqDescriptionLengthValidator,
 )
 
+#
+# Detection Rule Tests
+#
+
 
 def test_validator_SigmahqDescriptionLength():
     validator = SigmahqDescriptionLengthValidator()
@@ -38,6 +42,11 @@ def test_validator_SigmahqDescriptionLength_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+#
+# Correlation Rule Tests
+#
 
 
 # Tests for Description Length

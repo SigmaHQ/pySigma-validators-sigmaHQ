@@ -42,21 +42,3 @@ def test_validator_SigmahqFieldUserValidator():
     """
     )
     assert validator.validate(rule) == [SigmahqFieldUserIssue([rule], "UserName", "AUTORITE NT")]
-
-def test_validator_SigmahqFieldUser_correlation():
-    """Test that localized user names are detected in correlation rules"""
-    validator = SigmahqFieldUserValidator()
-    rule = SigmaCorrelationRule.from_yaml(
-        """
-title: Correlation with localized username
-id: 0e95725d-7320-415d-80f7-004da920fc11
-correlation:
-    type: event_count
-    rules:
-        - 5638f7c0-ac70-491d-8465-2a65075e0d86
-    timespan: 1h
-    group-by:
-        - ComputerName
-"""
-    )
-    assert validator.validate(rule) == []

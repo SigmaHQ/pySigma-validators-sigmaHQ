@@ -7,6 +7,9 @@ from sigma.validators.sigmahq.metadata import (
 )
 
 
+#
+# Detection Rule Tests
+#
 def test_validator_SigmahqLevelExistence():
     validator = SigmahqLevelExistenceValidator()
     rule = SigmaRule.from_yaml(
@@ -38,6 +41,11 @@ def test_validator_SigmahqLevelExistence_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+#
+# Correlation Rule Tests
+#
 
 
 # Tests for Level Existence

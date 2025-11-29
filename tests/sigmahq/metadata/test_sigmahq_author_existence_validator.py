@@ -6,6 +6,9 @@ from sigma.validators.sigmahq.metadata import (
 )
 
 
+#
+# Detection Rule Tests
+#
 def test_validator_SigmahqAuthorExistence():
     validator = SigmahqAuthorExistenceValidator()
     rule = SigmaRule.from_yaml(
@@ -38,6 +41,11 @@ def test_validator_SigmahqAuthorExistence_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+#
+# Correlation Rule Tests
+#
 
 
 # Tests for Author Existence

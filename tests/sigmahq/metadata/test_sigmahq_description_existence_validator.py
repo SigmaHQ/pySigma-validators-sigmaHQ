@@ -5,6 +5,10 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqDescriptionExistenceValidator,
 )
 
+#
+# Detection Rule Tests
+#
+
 
 def test_validator_SigmahqDescriptionExistence():
     validator = SigmahqDescriptionExistenceValidator()
@@ -37,6 +41,11 @@ def test_validator_SigmahqDescriptionExistence_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+#
+# Correlation Rule Tests
+#
 
 
 def test_validator_SigmahqDescription_correlation():

@@ -5,6 +5,10 @@ from sigma.validators.sigmahq.metadata import (
     SigmahqDateExistenceValidator,
 )
 
+#
+# Detection Rule Tests
+#
+
 
 def test_validator_SigmahqDateExistence():
     validator = SigmahqDateExistenceValidator()
@@ -39,6 +43,11 @@ def test_validator_SigmahqDateExistence_valid():
     """
     )
     assert validator.validate(rule) == []
+
+
+#
+# Correlation Rule Tests
+#
 
 
 # Tests for Date Existence

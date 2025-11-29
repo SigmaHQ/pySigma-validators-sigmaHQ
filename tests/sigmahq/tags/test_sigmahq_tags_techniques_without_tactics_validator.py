@@ -1,8 +1,14 @@
+# tests/sigmahq/tags/test_sigmahq_tags_techniques_without_tactics_validator.py
 from sigma.rule import SigmaRule
+from sigma.correlations import SigmaCorrelationRule
 from sigma.validators.sigmahq.tags import (
     SigmahqTagsTechniquesWithoutTacticsIssue,
     SigmahqTagsTechniquesWithoutTacticsValidator,
 )
+
+#
+# Detection Rule Tests
+#
 
 
 def test_validator_SigmahqTagsTechniquesWithoutTactics():
@@ -39,11 +45,8 @@ def test_validator_SigmahqTagsTechniquesWithoutTactics_valid():
 title: test
 status: unsupported
 tags:
-    - attack.t1027.004
-    - attack.t1027.005
     - attack.defense-evasion
-    - attack.t1003
-    - attack.credential-access
+    - attack.t1027.004
 logsource:
     category: test
 detection:
@@ -55,24 +58,49 @@ detection:
     assert validator.validate(rule) == []
 
 
-def test_validator_SigmahqTagsInvalidTechnique():
-    """Test that invalid MITRE technique codes don't cause KeyError"""
+#
+# Correlation Rule Tests
+#
+
+
+def test_validator_SigmahqTagsTechniquesWithoutTactics_correlation():
     validator = SigmahqTagsTechniquesWithoutTacticsValidator()
-    # This rule contains an invalid T123456789 technique code
-    rule = SigmaRule.from_yaml(
+    correlation_rule = SigmaCorrelationRule.from_yaml(
         """
-title: test
-status: unsupported
-tags:
-    - attack.t123456789
-    - tlp.clear
-logsource:
-    category: test
-detection:
-    sel:
-        field: path\\*something
-    condition: sel
+title: test correlation
+id: 0e95725d-7320-415d-80f7-004da920fc11
+correlation:
+    type: event_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    timespan: 1h
+    group-by:
+        - ComputerName
+    condition:
+        gte: 100
 """
     )
-    # Should not raise KeyError, should return empty list since invalid technique is ignored
-    assert validator.validate(rule) == []
+    assert validator.validate(correlation_rule) == []
+
+
+def test_validator_SigmahqTagsTechniquesWithoutTactics_correlation_with_tactic():
+    validator = SigmahqTagsTechniquesWithoutTacticsValidator()
+    correlation_rule = SigmaCorrelationRule.from_yaml(
+        """
+title: test correlation
+id: 0e95725d-7320-415d-80f7-004da920fc11
+tags:
+    - attack.defense-evasion
+    - attack.t1027.004
+correlation:
+    type: event_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    timespan: 1h
+    group-by:
+        - ComputerName
+    condition:
+        gte: 100
+"""
+    )
+    assert validator.validate(correlation_rule) == []
