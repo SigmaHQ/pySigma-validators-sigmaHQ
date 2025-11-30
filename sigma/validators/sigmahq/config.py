@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Dict, List, Optional
 from sigma.rule import SigmaLogSource
-from .sigmahq_data import (
+from .data.sigmahq_data import (
     taxonomy_version,
     ref_sigmahq_logsource_filepattern,
     file_pattern_version,

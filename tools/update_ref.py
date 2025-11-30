@@ -1,4 +1,4 @@
-# Version 0.3.1
+# Version 0.3.2
 # Author: frack113
 # Date: 2025/08/03
 
@@ -11,7 +11,7 @@ import sys
 from sigma.validators.sigmahq.config import ConfigHQ
 
 
-def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/sigmahq_data.py"):
+def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/data/sigmahq_data.py"):
     config = ConfigHQ(url)
 
     if config.taxonomy_version == "0.0.0":
