@@ -4,7 +4,7 @@ version = "0.20.0"
 description = "pySigma SigmaHQ validators"
 license = "LGPL-2.1-only"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<4.0"
 
 authors = [
     {name = "François Hubaut", email = "frack113@users.noreply.github.com" }

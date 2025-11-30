@@ -1,4 +1,4 @@
-import pytest
+from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.detection import (
     SigmahqCategoryWindowsProviderNameIssue,
@@ -8,7 +8,7 @@ from sigma.validators.sigmahq.detection import (
 
 def test_validator_SigmahqCategoryWindowsProviderName():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: A Space Field Name
 status: test
@@ -22,12 +22,14 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == [SigmahqCategoryWindowsProviderNameIssue([rule])]
+    assert validator.validate(detection_rule) == [
+        SigmahqCategoryWindowsProviderNameIssue([detection_rule])
+    ]
 
 
 def test_validator_SigmahqCategoryWindowsProviderName_valid():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: A Space Field Name
 status: test
@@ -40,12 +42,12 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqCategoryWindowsProviderName_other():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: A Space Field Name
 status: test
@@ -58,12 +60,12 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqCategoryWindowsProviderName_multiple_values():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: A Space Field Name
 status: test
@@ -79,12 +81,14 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == [SigmahqCategoryWindowsProviderNameIssue([rule])]
+    assert validator.validate(detection_rule) == [
+        SigmahqCategoryWindowsProviderNameIssue([detection_rule])
+    ]
 
 
 def test_validator_SigmahqCategoryWindowsProviderName_no_provider():
     validator = SigmahqCategoryWindowsProviderNameValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: A Space Field Name
 status: test
@@ -98,4 +102,25 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
+
+
+def test_validator_correlation_valid():
+    validator = SigmahqCategoryWindowsProviderNameValidator()
+    correlation_rule = SigmaCorrelationRule.from_yaml(
+        """
+title: Test Correlation
+id: 0e95725d-7320-415d-80f7-004da920fc11
+author: Test Author
+correlation:
+    type: event_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    timespan: 1h
+    group-by:
+        - ComputerName
+    condition:
+        gte: 100
+"""
+    )
+    assert validator.validate(correlation_rule) == []

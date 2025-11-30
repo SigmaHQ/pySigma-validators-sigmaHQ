@@ -1,5 +1,5 @@
-import pytest
 from sigma.rule import SigmaRule
+from sigma.correlations import SigmaCorrelationRule
 from sigma.types import SigmaRegularExpression
 from sigma.validators.sigmahq.field import (
     SigmahqFieldDuplicateValueIssue,
@@ -10,7 +10,7 @@ from sigma.validators.sigmahq.field import (
 def test_validator_SigmahqFieldDuplicateValueIssue():
     """Test that duplicate case insensitive values are detected"""
     validator = SigmahqFieldDuplicateValueValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Duplicate Case InSensitive
     status: test
@@ -27,15 +27,15 @@ def test_validator_SigmahqFieldDuplicateValueIssue():
         condition: sel
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqFieldDuplicateValueIssue([rule], "CommandLine", "Two")
+    assert validator.validate(detection_rule) == [
+        SigmahqFieldDuplicateValueIssue([detection_rule], "CommandLine", "Two")
     ]
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_base64():
     """Test that base64 modifier doesn't trigger duplicate detection"""
     validator = SigmahqFieldDuplicateValueValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Base64 Duplicate Case Sensitive
     status: test
@@ -52,13 +52,13 @@ def test_validator_SigmahqFieldDuplicateValueIssue_base64():
         condition: sel
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_re():
     """Test that regex modifier doesn't trigger duplicate detection"""
     validator = SigmahqFieldDuplicateValueValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Re Duplicate Case Sensitive
     status: test
@@ -73,13 +73,13 @@ def test_validator_SigmahqFieldDuplicateValueIssue_re():
         condition: sel
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_cased():
     """Test that cased modifier doesn't trigger duplicate detection"""
     validator = SigmahqFieldDuplicateValueValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Cased Duplicate Case Sensitive
     status: test
@@ -95,13 +95,13 @@ def test_validator_SigmahqFieldDuplicateValueIssue_cased():
         condition: sel
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     """Test that case sensitive duplicates are detected"""
     validator = SigmahqFieldDuplicateValueValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
         title: Re Duplicate Case Sensitive
         status: test
@@ -122,9 +122,11 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
     )
 
     # Assuming SigmaRegularExpression is initialized without keyword arguments like this
-    assert validator.validate(rule) == [
+    assert validator.validate(detection_rule) == [
         SigmahqFieldDuplicateValueIssue(
-            [rule], "CommandLine", str(SigmaRegularExpression("One"))  # Correct initialization
+            [detection_rule],
+            "CommandLine",
+            str(SigmaRegularExpression("One")),  # Correct initialization
         )
     ]
 
@@ -132,19 +134,19 @@ def test_validator_SigmahqFieldDuplicateValueIssue_casesensitive():
 def test_validator_SigmahqFieldDuplicateValueIssue_valid():
     """Test that valid non-duplicate values are accepted"""
     validator = SigmahqFieldDuplicateValueValidator()
-    rule = SigmaRule.from_yaml(
+    correlation_rule = SigmaCorrelationRule.from_yaml(
         """
-    title: Cased Duplicate 
-    status: test
-    logsource:
-        category: process_creation
-        product: windows
-    detection:
-        sel:
-            CommandLine|contains:
-              - 'azertyy'
-              - 'qwerty'
-        condition: sel
+    title: Test Correlation
+    id: 0e95725d-7320-415d-80f7-004da920fc11
+    correlation:
+        type: event_count
+        rules:
+            - 5638f7c0-ac70-491d-8465-2a65075e0d86
+        timespan: 1h
+        group-by:
+            - ComputerName
+        condition:
+            gte: 100
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(correlation_rule) == []

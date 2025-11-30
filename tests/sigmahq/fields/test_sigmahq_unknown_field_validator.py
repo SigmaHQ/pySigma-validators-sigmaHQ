@@ -1,5 +1,6 @@
 from sigma.rule import SigmaRule
-from sigma.validators.sigmahq.metadata import (
+from sigma.correlations import SigmaCorrelationRule
+from sigma.validators.sigmahq.fields import (
     SigmahqUnknownFieldIssue,
     SigmahqUnknownFieldValidator,
 )
@@ -8,7 +9,7 @@ from sigma.validators.sigmahq.metadata import (
 def test_validator_SigmahqUnknownField_single():
     """Test with a single unknown field."""
     validator = SigmahqUnknownFieldValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: Test
 description: Test
@@ -21,13 +22,15 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == [SigmahqUnknownFieldIssue([rule], ["created"])]
+    assert validator.validate(detection_rule) == [
+        SigmahqUnknownFieldIssue([detection_rule], ["created"])
+    ]
 
 
 def test_validator_SigmahqUnknownField_valid():
     """Test with only known fields."""
     validator = SigmahqUnknownFieldValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: Test
 description: Test
@@ -40,13 +43,13 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqUnknownField_mixed():
     """Test with both known and unknown fields."""
     validator = SigmahqUnknownFieldValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: Test
 description: Test
@@ -60,13 +63,15 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == [SigmahqUnknownFieldIssue([rule], ["unknown_field"])]
+    assert validator.validate(detection_rule) == [
+        SigmahqUnknownFieldIssue([detection_rule], ["unknown_field"])
+    ]
 
 
 def test_validator_SigmahqUnknownField_empty_rule():
     """Test with an empty rule (edge case)."""
     validator = SigmahqUnknownFieldValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
 title: Test
 description: Test
@@ -78,25 +83,25 @@ detection:
     condition: sel
 """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
-def test_validator_SigmahqUnknownField_invalid_rule():
-    """Test with an invalid rule (no detection section)."""
+def test_validator_SigmahqUnknownField_correlation_rule_empty():
+    """Test with an empty correlation rule (edge case)."""
     validator = SigmahqUnknownFieldValidator()
-    try:
-        rule = SigmaRule.from_yaml(
-            """
-title: Test
-description: Test
-logsource:
-    category: test
-invalid_field: value
+    correlation_rule = SigmaCorrelationRule.from_yaml(
+        """
+title: Test Correlation
+id: 0e95725d-7320-415d-80f7-004da920fc11
+correlation:
+    type: event_count
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    timespan: 1h
+    group-by:
+        - ComputerName
+    condition:
+        gte: 100
 """
-        )
-    except ValueError:
-        rule = None
-
-    assert (
-        rule is None
-    )  # This will ensure the rule creation failed as expected due to invalid structure.
+    )
+    assert validator.validate(correlation_rule) == []

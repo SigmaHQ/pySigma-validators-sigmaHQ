@@ -1,4 +1,3 @@
-import pytest
 from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.condition import (
     SigmahqOfselectionConditionIssue,
@@ -9,7 +8,7 @@ from sigma.correlations import SigmaCorrelationRule
 
 def test_validator_SigmahqOfselectionConditionValidator():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -25,12 +24,14 @@ def test_validator_SigmahqOfselectionConditionValidator():
         condition: 1 of selection_part* and 1 of sub_*
     """
     )
-    assert validator.validate(rule) == [SigmahqOfselectionConditionIssue([rule], "sub_*")]
+    assert validator.validate(detection_rule) == [
+        SigmahqOfselectionConditionIssue([detection_rule], "sub_*")
+    ]
 
 
 def test_validator_SigmahqOfselectionConditionValidator_valid():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -46,12 +47,12 @@ def test_validator_SigmahqOfselectionConditionValidator_valid():
         condition: 1 of selection_part* and selection_sub_1
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_filter():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -67,12 +68,12 @@ def test_validator_SigmahqOfselectionConditionValidator_filter():
         condition: 1 of selection_part* and not 1 of filter_*
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_selection():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -84,27 +85,12 @@ def test_validator_SigmahqOfselectionConditionValidator_selection():
         condition: 1 of selection_*
     """
     )
-    assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqOfselectionConditionValidator_no_detections():
-    # Skip this test - Sigma rules must have detections
-    pass
-
-
-def test_validator_SigmahqOfselectionConditionValidator_no_condition():
-    # Skip this test - Sigma rules must have conditions
-    pass
-
-
-def test_validator_SigmahqOfselectionConditionValidator_no_selections():
-    # Skip this test - Sigma rules must have detections
-    pass
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_all_of_selection():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -118,14 +104,14 @@ def test_validator_SigmahqOfselectionConditionValidator_all_of_selection():
         condition: all of selection_part_*
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_all_of_selection_single():
     # This is a valid case - single selection with all of selection_* should not trigger an issue
     # when there are actually multiple selections matching the pattern
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -139,12 +125,12 @@ def test_validator_SigmahqOfselectionConditionValidator_all_of_selection_single(
         condition: all of selection_part_*
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_SigmahqOfselectionConditionValidator_correlation():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaCorrelationRule.from_dict(
+    correlation_rule = SigmaCorrelationRule.from_dict(
         {
             "title": "Valid correlation",
             "correlation": {
@@ -165,12 +151,12 @@ def test_SigmahqOfselectionConditionValidator_correlation():
             },
         }
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(correlation_rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_no_match():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -183,12 +169,12 @@ def test_validator_SigmahqOfselectionConditionValidator_no_match():
     """
     )
     # Should not trigger issue when no selections match the pattern
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqOfselectionConditionValidator_multiple_patterns():
     validator = SigmahqOfselectionConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -207,4 +193,32 @@ def test_validator_SigmahqOfselectionConditionValidator_multiple_patterns():
     """
     )
     # Should not trigger issue when multiple selections match the pattern
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
+
+
+def test_validator_SigmahqOfselectionConditionValidator_correlation_with_issue():
+    """Test that correlation rules are properly validated for ofselection conditions"""
+    validator = SigmahqOfselectionConditionValidator()
+    correlation_rule = SigmaCorrelationRule.from_dict(
+        {
+            "title": "Test correlation with issue",
+            "correlation": {
+                "type": "temporal",
+                "rules": ["event_a", "event_b"],
+                "group-by": ["source", "user"],
+                "timespan": "1h",
+                "aliases": {
+                    "source": {
+                        "event_a": "source_ip",
+                        "event_b": "source_address",
+                    },
+                    "user": {
+                        "event_a": "username",
+                        "event_b": "user_name",
+                    },
+                },
+            },
+        }
+    )
+    # This should not trigger any issues for correlation rules
+    assert validator.validate(correlation_rule) == []

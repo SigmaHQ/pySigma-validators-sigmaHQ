@@ -1,4 +1,3 @@
-import pytest
 from sigma.rule import SigmaRule
 from sigma.validators.sigmahq.condition import (
     SigmahqMissingAsteriskConditionIssue,
@@ -9,7 +8,7 @@ from sigma.correlations import SigmaCorrelationRule
 
 def test_validator_SigmahqMissingAsteriskConditionValidator():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -25,14 +24,14 @@ def test_validator_SigmahqMissingAsteriskConditionValidator():
         condition: 1 of selection_part* and 1 of selection_sub
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
+    assert validator.validate(detection_rule) == [
+        SigmahqMissingAsteriskConditionIssue([detection_rule], "selection_sub")
     ]
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_valid():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -48,12 +47,12 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_valid():
         condition: 1 of selection_part* and selection_sub
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_them():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -69,22 +68,12 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_them():
         condition: 1 of them
     """
     )
-    assert validator.validate(rule) == []
-
-
-def test_validator_SigmahqMissingAsteriskConditionValidator_no_detections():
-    # Skip this test - Sigma rules must have detections
-    pass
-
-
-def test_validator_SigmahqMissingAsteriskConditionValidator_no_condition():
-    # Skip this test - Sigma rules must have conditions
-    pass
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_all_of_selection():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -98,14 +87,14 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_all_of_selection():
         condition: all of selection_part_*
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_all_of_selection_single():
     # This is a valid case - single selection with all of selection_* should not trigger an issue
     # when there are actually multiple selections matching the pattern
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -119,12 +108,12 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_all_of_selection_sin
         condition: all of selection_part_*
     """
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_complex_condition():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -140,14 +129,14 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_complex_condition():
         condition: 1 of selection_part* and 1 of selection_sub and not 1 of filter_*
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
+    assert validator.validate(detection_rule) == [
+        SigmahqMissingAsteriskConditionIssue([detection_rule], "selection_sub")
     ]
 
 
 def test_SigmahqMissingAsteriskConditionValidator_correlation():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaCorrelationRule.from_dict(
+    correlation_rule = SigmaCorrelationRule.from_dict(
         {
             "title": "Valid correlation",
             "correlation": {
@@ -168,12 +157,12 @@ def test_SigmahqMissingAsteriskConditionValidator_correlation():
             },
         }
     )
-    assert validator.validate(rule) == []
+    assert validator.validate(correlation_rule) == []
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_no_match():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -186,12 +175,12 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_no_match():
     """
     )
     # Should not trigger issue when all patterns end with *
-    assert validator.validate(rule) == []
+    assert validator.validate(detection_rule) == []
 
 
 def test_validator_SigmahqMissingAsteriskConditionValidator_whitespace():
     validator = SigmahqMissingAsteriskConditionValidator()
-    rule = SigmaRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
     title: Test
     status: test
@@ -205,6 +194,6 @@ def test_validator_SigmahqMissingAsteriskConditionValidator_whitespace():
         condition:   1 of selection_part*   and   1 of selection_sub
     """
     )
-    assert validator.validate(rule) == [
-        SigmahqMissingAsteriskConditionIssue([rule], "selection_sub")
+    assert validator.validate(detection_rule) == [
+        SigmahqMissingAsteriskConditionIssue([detection_rule], "selection_sub")
     ]

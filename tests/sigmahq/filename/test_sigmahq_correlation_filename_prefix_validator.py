@@ -54,3 +54,24 @@ def test_validator_SigmahqCorrelationFilename_combined_valid():
 
     assert correlation_rule is not None
     assert validator.validate(correlation_rule) == []
+
+
+def test_validator_SigmahqDetectionFilename():
+    """Test that detection files without correlation_ prefix pass validation (detection rules should not be validated by this validator)"""
+    validator = SigmahqCorrelationFilenamePrefixValidator()
+    sigma_collection = SigmaCollection.load_ruleset(
+        [
+            "tests/files/rule_filename_valid/proc_creation_win_svchost_accepteula.yml",
+        ]
+    )
+
+    # Find the detection rule
+    detection_rule = None
+    for rule in sigma_collection:
+        if not isinstance(rule, SigmaCorrelationRule):
+            detection_rule = rule
+            break
+
+    assert detection_rule is not None
+    # Detection rules should not trigger this validator, so validation should return empty list
+    assert validator.validate(detection_rule) == []
