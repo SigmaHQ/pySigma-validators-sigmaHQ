@@ -25,4 +25,3 @@ class SigmahqLevelExistenceValidator(SigmaRuleValidator):
             return [SigmahqLevelExistenceIssue([rule])]
         else:
             return []
-

@@ -83,4 +83,3 @@ class SigmahqFalsepositivesTypoWordValidator(SigmaRuleValidator):
                         if fp.lower().strip() == typo:
                             typos.append(SigmahqFalsepositivesTypoWordIssue([rule], fp))
         return typos
-
