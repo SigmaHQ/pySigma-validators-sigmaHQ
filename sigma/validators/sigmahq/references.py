@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import ClassVar, List, Tuple
+from typing import ClassVar, List
 import re
 
 from sigma.rule import SigmaRule
