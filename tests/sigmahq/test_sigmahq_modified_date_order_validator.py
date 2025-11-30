@@ -5,7 +5,6 @@ from sigma.validators.sigmahq.date import (
     SigmahqModifiedDateOrderIssue,
     SigmahqModifiedDateOrderValidator,
 )
-from datetime import datetime
 
 
 def test_validator_SigmahqModifiedDateOrder():
