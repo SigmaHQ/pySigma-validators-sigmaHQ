@@ -279,3 +279,36 @@ def test_config_load_windows_provider_json_empty_data():
         assert config.windows_version == original_version
         assert config.windows_provider_name == original_provider_name
         assert config.windows_no_eventid == original_no_eventid
+
+
+def test_config_with_none_data_place_no_local_folder():
+    """Test ConfigHQ initialization with None data_place when no local folder exists.
+    
+    This tests the new default behavior of using DEFAULT_REMOTE_URL when 
+    data_place is None and no local folder exists.
+    """
+    # Mock Path.exists() to return False to simulate no local folder
+    with patch("pathlib.Path.exists", return_value=False):
+        # Mock requests.get to verify remote loading is attempted
+        mock_response = MagicMock()
+        mock_response.json.return_value = {"version": "1.0"}
+        mock_response.raise_for_status.return_value = None
+
+        with patch("sigma.validators.sigmahq.config.requests.get", return_value=mock_response) as mock_get:
+            config = ConfigHQ(None)
+
+            # Verify that config_url is set to DEFAULT_REMOTE_URL
+            assert config.config_url == ConfigHQ.DEFAULT_REMOTE_URL
+            assert config.config_dir is None
+
+            # Verify that remote loading was attempted with the default URL
+            assert mock_get.called
+            # Check that all three JSON files were requested from the default URL
+            expected_calls = [
+                f"{ConfigHQ.DEFAULT_REMOTE_URL}/{ConfigHQ.JSON_NAME_TAXONOMY}",
+                f"{ConfigHQ.DEFAULT_REMOTE_URL}/{ConfigHQ.JSON_NAME_FILENAME}",
+                f"{ConfigHQ.DEFAULT_REMOTE_URL}/{ConfigHQ.JSON_NAME_WINDOWS_PROVIDER}",
+            ]
+            actual_urls = [call[0][0] for call in mock_get.call_args_list]
+            for expected_url in expected_calls:
+                assert expected_url in actual_urls
