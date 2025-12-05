@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from typing import Dict, List, Optional
 from sigma.rule import SigmaLogSource
@@ -30,15 +31,15 @@ def key_logsource(source: dict) -> str:
 
 
 class ConfigHQ:
-    """Loads SigmaHQ configuration from local JSON files if available, otherwise uses reference data.
-
-    Supports both local and remote configuration sources with caching and fallback mechanisms.
-    """
+    """Loads SigmaHQ configuration with support for remote URLs or local files"""
 
     JSON_FOLDER: str = "validator_json"
     JSON_NAME_TAXONOMY: str = "sigmahq_taxonomy.json"
     JSON_NAME_FILENAME: str = "sigmahq_filename.json"
     JSON_NAME_WINDOWS_PROVIDER: str = "sigmahq_windows_validator.json"
+    DEFAULT_REMOTE_URL: str = (
+        "https://raw.githubusercontent.com/SigmaHQ/pySigma-validators-sigmaHQ/main/tools"
+    )
 
     def __init__(self, data_place: Optional[str] = None):
         # Initialize with internal reference data
@@ -57,19 +58,22 @@ class ConfigHQ:
         self.config_url: Optional[str] = None
 
         if data_place is None:
-            # Check default local folder
+            # Prioritize the remote URL by default, with local folder as fallback
+            self.config_url = self.DEFAULT_REMOTE_URL
             default_path = Path.cwd() / self.JSON_FOLDER
             if default_path.exists():
+                # Prioritize local if it exists (for offline work)
                 self.config_dir = default_path
+                self.config_url = None
         elif data_place.startswith("http://") or data_place.startswith("https://"):
             self.config_url = data_place.rstrip("/")
         else:
             self.config_dir = Path(data_place)
 
-        # Load configuration if path exists
-        if (
+        # Try to load configuration from source
+        if self.config_url is not None or (
             self.config_dir is not None and self.config_dir.exists()
-        ) or self.config_url is not None:
+        ):
             self._load_sigma_json()
             self._load_filename_json()
             self._load_windows_provider_json()
@@ -82,8 +86,8 @@ class ConfigHQ:
                 response = requests.get(url, timeout=10)
                 response.raise_for_status()
                 return response.json()
-            except Exception as e:
-                print(f"Error loading remote {filename}: {e}")
+            except Exception:
+                pass
             return None
         elif self.config_dir:
             path = self.config_dir / filename
