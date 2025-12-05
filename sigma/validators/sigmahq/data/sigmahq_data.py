@@ -2,7 +2,7 @@ from typing import Dict, List
 from sigma.rule import SigmaLogSource
 from typing import Optional
 
-file_pattern_version: str = "20240809"
+file_pattern_version: str = "20251205"
 ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
     SigmaLogSource(
         category=None,
@@ -1311,6 +1311,7 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         "success",
         "suid",
         "syscall",
+        "SYSCALL",
         "table",
         "tclass",
         "tcontext",
