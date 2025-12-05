@@ -1,4 +1,3 @@
-from pathlib import Path
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
 import re
@@ -12,17 +11,6 @@ from sigma.validators.base import (
     SigmaDetectionItem,
 )
 
-from sigma.modifiers import (
-    SigmaAllModifier,
-    SigmaBase64Modifier,
-    SigmaBase64OffsetModifier,
-    SigmaRegularExpressionDotAllFlagModifier,
-    SigmaRegularExpressionFlagModifier,
-    SigmaRegularExpressionIgnoreCaseFlagModifier,
-    SigmaRegularExpressionModifier,
-    SigmaRegularExpressionMultilineFlagModifier,
-    SigmaCaseSensitiveModifier,
-)
 from .config import ConfigHQ
 
 config = ConfigHQ()
@@ -205,14 +193,15 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                                     # Initialize hash_regex with a default value
                                     hash_regex = r"^[a-fA-F0-9]{32}$"
 
-                                    if hash_name == "MD5":
-                                        hash_regex = r"^[a-fA-F0-9]{32}$"
-                                    elif hash_name == "SHA1":
-                                        hash_regex = r"^[a-fA-F0-9]{40}$"
-                                    elif hash_name == "SHA256":
-                                        hash_regex = r"^[a-fA-F0-9]{64}$"
-                                    elif hash_name == "IMPHASH":
-                                        hash_regex = r"^[a-fA-F0-9]{32}$"
+                                    match hash_name:
+                                        case "MD5":
+                                            hash_regex = r"^[a-fA-F0-9]{32}$"
+                                        case "SHA1":
+                                            hash_regex = r"^[a-fA-F0-9]{40}$"
+                                        case "SHA256":
+                                            hash_regex = r"^[a-fA-F0-9]{64}$"
+                                        case "IMPHASH":
+                                            hash_regex = r"^[a-fA-F0-9]{32}$"
 
                                     if re.search(hash_regex, hash_data) is None:
                                         errors.append(hash_data)
