@@ -85,8 +85,8 @@ class ConfigHQ:
                 response = requests.get(url, timeout=10)
                 response.raise_for_status()
                 return response.json()
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"Error loading remote {filename}: {e}")
             return None
         elif self.config_dir:
             path = self.config_dir / filename
