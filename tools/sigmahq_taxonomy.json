@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20251117",
+    "version": "20251205",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
@@ -594,6 +594,7 @@
                     "success",
                     "suid",
                     "syscall",
+                    "SYSCALL",
                     "table",
                     "tclass",
                     "tcontext",
