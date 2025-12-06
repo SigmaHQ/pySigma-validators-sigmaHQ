@@ -1,6 +1,6 @@
 [project]
 name = "pySigma-validators-sigmahq"
-version = "0.20.0"
+version = "0.20.1"
 description = "pySigma SigmaHQ validators"
 license = "LGPL-2.1-only"
 readme = "README.md"
