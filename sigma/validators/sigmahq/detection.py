@@ -15,6 +15,8 @@ from sigma.validators.base import (
 from sigma.types import SigmaString
 from sigma.modifiers import SigmaRegularExpressionModifier
 
+from sigma.validators.sigmahq.data import eventid
+
 from .config import ConfigHQ
 
 config = ConfigHQ()
@@ -38,7 +40,7 @@ class SigmahqCategoryEventIdValidator(SigmaDetectionItemValidator):
 
         if (
             rule.logsource.product == "windows"
-            and rule.logsource.category in config.windows_no_eventid
+            and rule.logsource.category in eventid.sigmahq_category_no_eventid
         ):
             return super().validate(rule)
 
