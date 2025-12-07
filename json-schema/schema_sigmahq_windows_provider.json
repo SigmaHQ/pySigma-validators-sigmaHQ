@@ -4,10 +4,6 @@
     "properties": {
         "title": { "type": "string" },
         "version": { "type": "string" },
-        "category_no_eventid": {
-            "type":"array",
-            "items": { "type": "string" }
-        },
         "category_provider_name": {
             "type": "object",
             "additionalProperties": {
@@ -16,6 +12,6 @@
             }
         }
     },
-    "required": ["title","version","category_no_eventid","category_provider_name"]
+    "required": ["title","version","category_provider_name"]
 }
 

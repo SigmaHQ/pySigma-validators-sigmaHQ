@@ -1,6 +1,6 @@
 from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
-from sigma.validators.sigmahq.field import (
+from sigma.validators.sigmahq.fieldname import (
     SigmahqSpaceFieldNameIssue,
     SigmahqSpaceFieldNameValidator,
 )

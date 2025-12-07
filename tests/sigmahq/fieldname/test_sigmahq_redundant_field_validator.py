@@ -1,7 +1,7 @@
 from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
 
-from sigma.validators.sigmahq.field import (
+from sigma.validators.sigmahq.fieldname import (
     SigmahqRedundantFieldIssue,
     SigmahqRedundantFieldValidator,
 )
@@ -40,6 +40,26 @@ def test_validator_SigmahqRedundantField_valid():
     logsource:
         category: registry_set
         product: windows
+    detection:
+        selection:
+            TargetObject|contains: 'SigmaHQ'
+            Details|startswith: 'rules'
+        condition: selection
+    """
+    )
+    assert validator.validate(detection_rule) == []
+
+
+def test_validator_SigmahqRedundantField_unkown_logsource():
+    """Test that non-redundant fields are accepted"""
+    validator = SigmahqRedundantFieldValidator()
+    detection_rule = SigmaRule.from_yaml(
+        """
+    title: Field Already in the Logsource
+    status: test
+    logsource:
+        category: registry_set
+        product: wondows
     detection:
         selection:
             TargetObject|contains: 'SigmaHQ'

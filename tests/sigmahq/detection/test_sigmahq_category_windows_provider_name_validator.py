@@ -105,6 +105,25 @@ detection:
     assert validator.validate(detection_rule) == []
 
 
+def test_validator_SigmahqCategoryWindowsProviderName_no_windows():
+    validator = SigmahqCategoryWindowsProviderNameValidator()
+    detection_rule = SigmaRule.from_yaml(
+        """
+title: A Space Field Name
+status: test
+logsource:
+    product: windows
+    category: Something
+detection:
+    sel:
+        field: path\\*something
+        Provider_Name: Some-Other-Provider
+    condition: sel
+"""
+    )
+    assert validator.validate(detection_rule) == []
+
+
 def test_validator_correlation_valid():
     validator = SigmahqCategoryWindowsProviderNameValidator()
     correlation_rule = SigmaCorrelationRule.from_yaml(

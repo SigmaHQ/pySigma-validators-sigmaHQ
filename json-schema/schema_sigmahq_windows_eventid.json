@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "title": { "type": "string" },
+        "version": { "type": "string" },
+        "category_no_eventid": {
+            "type":"array",
+            "items": { "type": "string" }
+        }
+    },
+    "required": ["title","version","category_no_eventid"]
+}
+
