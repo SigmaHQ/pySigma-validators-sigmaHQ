@@ -11,10 +11,7 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
-from .config import ConfigHQ
-
-config = ConfigHQ()
-
+from sigma.validators.sigmahq.data import data_filename
 
 @dataclass
 class SigmahqFilenameConventionIssue(SigmaValidationIssue):
@@ -104,20 +101,20 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
 
         if rule.source is not None:
             filename = rule.source.path.name
-            logsource = SigmaLogSource(
-                category=rule.logsource.category,
-                product=rule.logsource.product,
-                service=rule.logsource.service,
-            )
+            logsource = getattr(rule, "logsource", None)
+            if logsource is None:
+                return []
 
-            if logsource in config.sigmahq_logsource_filepattern:
-                if not filename.startswith(config.sigmahq_logsource_filepattern[logsource]):
+            logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
+
+            if logsource_key in data_filename.sigmahq_filename_pattern:
+                if not filename.startswith(data_filename.sigmahq_filename_pattern[logsource_key]):
                     return [
                         SigmahqFilenamePrefixIssue(
                             [rule],
                             filename,
                             rule.logsource,
-                            config.sigmahq_logsource_filepattern[logsource],
+                            data_filename.sigmahq_filename_pattern[logsource_key],
                         )
                     ]
             else:
@@ -126,16 +123,17 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                     logsource = SigmaLogSource(
                         category=None, product=rule.logsource.product, service=None
                     )
+                    logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
                     if (
-                        logsource in config.sigmahq_logsource_filepattern
-                        and not filename.startswith(config.sigmahq_logsource_filepattern[logsource])
+                        logsource_key in data_filename.sigmahq_filename_pattern
+                        and not filename.startswith(data_filename.sigmahq_filename_pattern[logsource_key])
                     ):
                         return [
                             SigmahqFilenamePrefixIssue(
                                 [rule],
                                 filename,
                                 rule.logsource,
-                                config.sigmahq_logsource_filepattern[logsource],
+                                data_filename.sigmahq_filename_pattern[logsource_key],
                             )
                         ]
         return []

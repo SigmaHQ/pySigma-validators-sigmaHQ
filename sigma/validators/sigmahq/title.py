@@ -9,10 +9,6 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
-from .config import ConfigHQ
-
-config = ConfigHQ()
-
 
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):

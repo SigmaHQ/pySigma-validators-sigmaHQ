@@ -21,10 +21,6 @@ from sigma.modifiers import (
     SigmaRegularExpressionMultilineFlagModifier,
     SigmaCaseSensitiveModifier,
 )
-from .config import ConfigHQ
-
-config = ConfigHQ()
-
 
 @dataclass
 class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):

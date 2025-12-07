@@ -12,10 +12,6 @@ from sigma.validators.base import (
 
 from sigma.data.mitre_attack import mitre_attack_techniques_tactics_mapping
 
-from .config import ConfigHQ
-
-config = ConfigHQ()
-
 
 @dataclass
 class SigmahqTagsUniqueDetectionIssue(SigmaValidationIssue):

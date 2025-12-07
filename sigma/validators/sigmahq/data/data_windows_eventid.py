@@ -8,12 +8,12 @@ from urllib.request import urlopen
 import diskcache
 
 SIGMAHQ_EVENTID_URL = (
-    "https://github.com/frack113/pySigma-validators-sigmaHQ/tree/Refractor/"
+    "https://raw.githubusercontent.com/frack113/pySigma-validators-sigmaHQ/refs/heads/Refractor/"
     "tools/sigmahq_windows_eventid.json"
 )
 
 # Cache directory (in user's cache directory)
-_DEFAULT_CACHE_DIR = Path.home() / ".cache" / "pysigma" / "mitre_attack"
+_DEFAULT_CACHE_DIR = Path.home() / ".cache" / "pysigma" / "sigmahq"
 
 # Disk cache instance
 _cache: Optional[diskcache.Cache] = None
@@ -31,19 +31,21 @@ def _get_cache() -> diskcache.Cache:
     return _cache
 
 
-def _load_sigmahq_json() -> Dict[str, Any]:
-    """Load JSON data from a URL or local file and cache it.
+def _load_sigmahq_json() -> Dict[str, str]:
+    """Load JSON data from the SigmaHQ eventid source (URL or local file) and cache it.
 
     Returns:
-        dict: A dictionary containing the parsed JSON data.
+        dict: A dictionary containing the version and category_no_eventid data with keys:
+            - 'sigmahq_category_no_eventid_version': The version string
+            - 'sigmahq_category_no_eventid': The event ID mapping data (both strings)
     """
     cache = _get_cache()
-    cache_key = f"sigmahq_category_no_data_{_custom_url or 'default'}"
+    cache_key = f"sigmahq_eventid_{_custom_url or 'default'}"
 
     # Try to get from cache first
     cached_data = cache.get(cache_key)
     if cached_data is not None:
-        return cast(dict[str, Any], cached_data)
+        return cast(dict[str, str], cached_data)
 
     url = _custom_url if _custom_url is not None else SIGMAHQ_EVENTID_URL
 
@@ -72,11 +74,11 @@ def _load_sigmahq_json() -> Dict[str, Any]:
     return result
 
 
-def _get_cached_data() -> Dict[str, Any]:
+def _get_cached_data() -> Dict[str, str]:
     """Get cached data, loading it if necessary.
 
     Returns:
-        dict: The cached data.
+        dict: The cached data containing version and category_no_eventid strings.
     """
     return _load_sigmahq_json()
 
@@ -92,7 +94,7 @@ def __getattr__(name: str) -> Any:
     Raises:
         AttributeError: If the attribute does not exist.
     """
-    if name.startswith("sigmahq_category_no_"):
+    if name.startswith("sigmahq_category_"):
         data = _get_cached_data()
         if name in data:
             return data[name]

@@ -11,9 +11,7 @@ from sigma.validators.base import (
     SigmaDetectionItem,
 )
 
-from .config import ConfigHQ
-
-config = ConfigHQ()
+from sigma.validators.sigmahq.data import data_taxonomy
 
 
 @dataclass
@@ -56,16 +54,16 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
         if not isinstance(rule, SigmaRule):
             return []
 
-        core_logsource = SigmaLogSource(
-            category=rule.logsource.category,
-            product=rule.logsource.product,
-            service=rule.logsource.service,
-        )
+        logsource = getattr(rule, "logsource", None)
+        if logsource is None:
+            return []
+
+        logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
         if (
-            core_logsource in config.sigma_fieldsname
-            and len(config.sigma_fieldsname[core_logsource]) > 0
+            logsource_key in data_taxonomy.sigmahq_taxonomy_fieldsname
+            and len(data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]) > 0
         ):
-            self.fields = config.sigma_fieldsname[core_logsource]
+            self.fields = data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]
             return super().validate(rule)
 
         return []
@@ -98,16 +96,16 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
         if not isinstance(rule, SigmaRule):
             return []
 
-        core_logsource = SigmaLogSource(
-            category=rule.logsource.category,
-            product=rule.logsource.product,
-            service=rule.logsource.service,
-        )
+        logsource = getattr(rule, "logsource", None)
+        if logsource is None:
+            return []
+
+        logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
         if (
-            core_logsource in config.sigma_fieldsname
-            and len(config.sigma_fieldsname[core_logsource]) > 0
+            logsource_key in data_taxonomy.sigmahq_taxonomy_fieldsname
+            and len(data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]) > 0
         ):
-            self.fields = config.sigma_fieldsname[core_logsource]
+            self.fields = data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]
             return super().validate(rule)
 
         return []
@@ -156,7 +154,6 @@ class SigmahqFieldUserValidator(SigmaDetectionItemValidator):
             return []
 
 
-# Python 3.9 do not have the match
 @dataclass
 class SigmahqInvalidHashKvIssue(SigmaValidationIssue):
     description: ClassVar[str] = "A Sysmon Hash search must be valid Hash_Type=Hash_Value"
@@ -230,16 +227,16 @@ class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
         if not isinstance(rule, SigmaRule):
             return []
 
-        core_logsource = SigmaLogSource(
-            category=rule.logsource.category,
-            product=rule.logsource.product,
-            service=rule.logsource.service,
-        )
+        logsource = getattr(rule, "logsource", None)
+        if logsource is None:
+            return []
+
+        logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
         if (
-            core_logsource in config.sigmahq_redundant_fields
-            and len(config.sigmahq_redundant_fields[core_logsource]) > 0
+            logsource_key in data_taxonomy.sigmahq_taxonomy_redundant_fields
+            and len(data_taxonomy.sigmahq_taxonomy_redundant_fields[logsource_key]) > 0
         ):
-            self.fields = config.sigmahq_redundant_fields[core_logsource]
+            self.fields = data_taxonomy.sigmahq_taxonomy_redundant_fields[logsource_key]
             return super().validate(rule)
         return []
 
@@ -251,3 +248,4 @@ class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
             return [SigmahqRedundantFieldIssue([self.rule], detection_item.field)]
         else:
             return []
+
