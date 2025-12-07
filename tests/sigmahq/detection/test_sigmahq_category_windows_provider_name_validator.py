@@ -105,7 +105,7 @@ detection:
     assert validator.validate(detection_rule) == []
 
 
-def test_validator_SigmahqCategoryWindowsProviderName_no_provider():
+def test_validator_SigmahqCategoryWindowsProviderName_no_windows():
     validator = SigmahqCategoryWindowsProviderNameValidator()
     detection_rule = SigmaRule.from_yaml(
         """
