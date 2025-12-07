@@ -13,7 +13,7 @@ from sigma.rule import SigmaLogSource
 
 
 _SIGMAHQ_TAXONOMY_URL = (
-    "https://raw.githubusercontent.com/frack113/pySigma-validators-sigmaHQ/refs/heads/Refractor/"
+    "https://raw.githubusercontent.com/SigmaHQ/pySigma-validators-sigmaHQ/refs/heads/main/"
     "tools/sigmahq_taxonomy.json"
 )
 
@@ -24,6 +24,7 @@ _DEFAULT_CACHE_DIR = Path.home() / ".cache" / "pyssigma" / "sigmahq"
 _cache: Optional[diskcache.Cache] = None
 _custom_url: Optional[str] = None
 _custom_cache_dir: Optional[Path] = None
+
 
 def _get_cache() -> diskcache.Cache:
     """Get or initialize the disk cache.
@@ -37,6 +38,7 @@ def _get_cache() -> diskcache.Cache:
         cache_dir.mkdir(parents=True, exist_ok=True)
         _cache = diskcache.Cache(str(cache_dir))
     return _cache
+
 
 def _load_sigmahq_json() -> Dict[str, Any]:
     """Load JSON data from the SigmaHQ eventid source (URL or local file) and cache it.
@@ -83,7 +85,9 @@ def _load_sigmahq_json() -> Dict[str, Any]:
             )
             sigmahq_taxonomy_redundant_fields[logsource_key] = info["field"]["redundant"]
             if "definition" in info["logsource"]:
-                sigmahq_taxonomy_logsource_definition[logsource_key] = info["logsource"].get("definition")
+                sigmahq_taxonomy_logsource_definition[logsource_key] = info["logsource"].get(
+                    "definition"
+                )
 
     result = {
         "sigmahq_taxonomy_version": sigmahq_taxonomy_version,
@@ -97,6 +101,7 @@ def _load_sigmahq_json() -> Dict[str, Any]:
 
     return result
 
+
 def _get_cached_data() -> Dict[str, Any]:
     """Get cached data if available, otherwise load it from the URL.
 
@@ -104,6 +109,7 @@ def _get_cached_data() -> Dict[str, Any]:
         dict: The cached data containing version and taxonomy strings.
     """
     return _load_sigmahq_json()
+
 
 def __getattr__(name: str) -> Any:
     """Handle dynamic attribute access for module attributes.
@@ -122,11 +128,13 @@ def __getattr__(name: str) -> Any:
             return data[name]
     raise AttributeError(f"module '{__name__}' has no attribute '{name}")
 
+
 def clear_cache() -> None:
     """Clear the disk cache."""
     global _cache
     cache = _get_cache()
     cache.clear()
+
 
 def set_url(url: str) -> None:
     """Set a custom URL for loading JSON data.
@@ -139,6 +147,7 @@ def set_url(url: str) -> None:
     clear_cache()
     _cache = None
 
+
 def set_cache_dir(cache_dir: str) -> None:
     """Set a custom cache directory for storing cached data.
 
@@ -150,4 +159,3 @@ def set_cache_dir(cache_dir: str) -> None:
     if _cache is not None:
         _cache.close()
         _cache = None
-

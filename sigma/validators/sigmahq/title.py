@@ -10,6 +10,7 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
+
 @dataclass
 class SigmahqTitleLengthIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Rule has a title that is too long."

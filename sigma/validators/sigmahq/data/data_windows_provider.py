@@ -8,7 +8,7 @@ from urllib.request import urlopen
 import diskcache
 
 _SIGMAHQ_PROVIDER_URL = (
-    "https://raw.githubusercontent.com/frack113/pySigma-validators-sigmaHQ/refs/heads/Refractor/"
+    "https://raw.githubusercontent.com/SigmaHQ/pySigma-validators-sigmaHQ/refs/heads/main/"
     "tools/sigmahq_windows_provider.json"
 )
 

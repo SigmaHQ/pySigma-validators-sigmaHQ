@@ -15,7 +15,7 @@ from sigma.validators.base import (
 from sigma.types import SigmaString
 from sigma.modifiers import SigmaRegularExpressionModifier
 
-from sigma.validators.sigmahq.data import data_windows_eventid,data_windows_provider
+from sigma.validators.sigmahq.data import data_windows_eventid, data_windows_provider
 
 
 @dataclass
@@ -67,11 +67,13 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
         if not isinstance(rule, SigmaRule):
             return []
 
-        if not rule.logsource.product=="windows":
+        if not rule.logsource.product == "windows":
             return []
-        
+
         if rule.logsource.category in data_windows_provider.sigmahq_provider_name:
-            self.list_provider = data_windows_provider.sigmahq_provider_name[rule.logsource.category]
+            self.list_provider = data_windows_provider.sigmahq_provider_name[
+                rule.logsource.category
+            ]
             return super().validate(rule)
 
         return []

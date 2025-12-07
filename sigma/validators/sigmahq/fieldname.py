@@ -54,9 +54,8 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
         if not isinstance(rule, SigmaRule):
             return []
 
-        logsource = getattr(rule, "logsource", None)
-        if logsource is None:
-            return []
+        # Sigma rule must have a log source
+        logsource = getattr(rule, "logsource")
 
         logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
         if (
@@ -96,9 +95,8 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
         if not isinstance(rule, SigmaRule):
             return []
 
-        logsource = getattr(rule, "logsource", None)
-        if logsource is None:
-            return []
+        # Sigma rule must have a log source
+        logsource = getattr(rule, "logsource")
 
         logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
         if (
@@ -227,9 +225,8 @@ class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
         if not isinstance(rule, SigmaRule):
             return []
 
-        logsource = getattr(rule, "logsource", None)
-        if logsource is None:
-            return []
+        # Sigma rule must have a log source
+        logsource = getattr(rule, "logsource")
 
         logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
         if (
@@ -248,4 +245,3 @@ class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
             return [SigmahqRedundantFieldIssue([self.rule], detection_item.field)]
         else:
             return []
-

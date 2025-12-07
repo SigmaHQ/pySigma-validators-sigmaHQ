@@ -13,6 +13,7 @@ from sigma.validators.base import (
 
 from sigma.validators.sigmahq.data import data_filename
 
+
 @dataclass
 class SigmahqFilenameConventionIssue(SigmaValidationIssue):
     description: ClassVar[str] = "The rule filename doesn't match SigmaHQ convention"
@@ -101,10 +102,9 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
 
         if rule.source is not None:
             filename = rule.source.path.name
-            logsource = getattr(rule, "logsource", None)
-            if logsource is None:
-                return []
 
+            # Sigma rule must have a log source
+            logsource = getattr(rule, "logsource")
             logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
 
             if logsource_key in data_filename.sigmahq_filename_pattern:
@@ -126,7 +126,9 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                     logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
                     if (
                         logsource_key in data_filename.sigmahq_filename_pattern
-                        and not filename.startswith(data_filename.sigmahq_filename_pattern[logsource_key])
+                        and not filename.startswith(
+                            data_filename.sigmahq_filename_pattern[logsource_key]
+                        )
                     ):
                         return [
                             SigmahqFilenamePrefixIssue(

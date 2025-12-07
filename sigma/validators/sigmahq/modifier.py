@@ -22,6 +22,7 @@ from sigma.modifiers import (
     SigmaCaseSensitiveModifier,
 )
 
+
 @dataclass
 class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):
     description: ClassVar[str] = "Field list value has a duplicate item"

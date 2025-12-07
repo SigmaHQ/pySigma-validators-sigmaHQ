@@ -27,12 +27,11 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
     """
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
-        if not isinstance(rule, (SigmaRule, SigmaCorrelationRule)):
+        if not isinstance(rule, SigmaRule):
             return []
 
-        logsource = getattr(rule, "logsource", None)
-        if logsource is None:
-            return []
+        # Sigma rule must have a log source
+        logsource = getattr(rule, "logsource")
 
         logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
         if logsource_key not in data_taxonomy.sigmahq_taxonomy_fieldsname:

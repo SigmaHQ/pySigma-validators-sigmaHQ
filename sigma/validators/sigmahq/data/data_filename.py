@@ -10,7 +10,7 @@ import diskcache
 from sigma.rule import SigmaLogSource
 
 _SIGMAHQ_FILENAME_URL = (
-    "https://raw.githubusercontent.com/frack113/pySigma-validators-sigmaHQ/refs/heads/Refractor/"
+    "https://raw.githubusercontent.com/SigmaHQ/pySigma-validators-sigmaHQ/refs/heads/main/"
     "tools/sigmahq_filename.json"
 )
 
@@ -79,7 +79,7 @@ def _load_sigmahq_json() -> Dict[str, Any]:
 
     result = {
         "sigmahq_filename_version": sigmahq_filename_version,
-        "sigmahq_filename_pattern": sigmahq_filename_pattern
+        "sigmahq_filename_pattern": sigmahq_filename_pattern,
     }
 
     # Store in cache
