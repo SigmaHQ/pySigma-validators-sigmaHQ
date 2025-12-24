@@ -1,6 +1,6 @@
 from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule
-from sigma.validators.sigmahq.field import (
+from sigma.validators.sigmahq.fieldname import (
     SigmahqFieldUserIssue,
     SigmahqFieldUserValidator,
 )
@@ -67,23 +67,20 @@ def test_validator_SigmahqFieldUserValidator_correlation_rule():
     assert validator.validate(correlation_rule) == []
 
 
-def test_validator_SigmahqFieldUserValidator_correlation_rule_with_user_field():
-    """Test that localized user names are detected in correlation rules with user fields"""
+def test_validator_SigmahqFieldUserValidator_detection_rule_unbund():
+    """Test that localized user names are detected in detection rules"""
     validator = SigmahqFieldUserValidator()
-    correlation_rule = SigmaCorrelationRule.from_yaml(
+    detection_rule = SigmaRule.from_yaml(
         """
-    title: Test Correlation With User
-    id: 0e95725d-7320-415d-80f7-004da920fc12
-    correlation:
-        type: event_count
-        rules:
-            - 5638f7c0-ac70-491d-8465-2a65075e0d87
-        timespan: 1h
-        group-by:
-            - ComputerName
-            - UserName
-        condition:
-            gte: 100
+    title: Duplicate Case InSensitive
+    status: test
+    logsource:
+        category: process_creation
+        product: windows
+    detection:
+        keyword:
+           'AUTORITE NT'
+        condition: keyword
     """
     )
-    assert validator.validate(correlation_rule) == []
+    assert validator.validate(detection_rule) == []
