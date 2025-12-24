@@ -1,5 +1,5 @@
 import json
-import os
+
 from pathlib import Path
 from typing import Any, Dict, List, Optional, cast
 from urllib.error import URLError
@@ -38,14 +38,13 @@ def _get_cache() -> diskcache.Cache:
 
 
 def _load_sigmahq_json() -> Dict[str, Any]:
-    """Load JSON data from the SigmaHQ eventid source (URL or local file) and cache it.
+    """Load JSON data from the SigmaHQ filename source (URL or local file) and cache it.
 
     Returns:
-        dict: A dictionary containing version and taxonomy data with keys:
-            - 'sigmahq_taxonomy_version': The version string
-            - 'sigmahq_taxonomy_fieldsname': Dictionary mapping logsource keys to sorted field names
-            - 'sigmahq_taxonomy_redundant_fields': Dictionary of redundant fields information
-            - 'sigmahq_taxonomy_logsource_definition': Dictionary with logsource definitions
+        dict: A dictionary containing version and filename pattern data with keys:
+            - 'sigmahq_filename_version': The version string of the filename data
+            - 'sigmahq_filename_pattern': Dictionary mapping logsource keys
+              (formatted as 'product_category_service') to a list of filename prefixes
     """
     cache = _get_cache()
     cache_key = f"sigmahq_filename_{_custom_url or 'default'}"

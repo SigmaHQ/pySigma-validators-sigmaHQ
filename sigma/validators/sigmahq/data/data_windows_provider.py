@@ -1,7 +1,7 @@
 import json
-import os
+
 from pathlib import Path
-from typing import Any, Optional, Dict, List, cast
+from typing import Any, Optional, Dict
 from urllib.error import URLError
 from urllib.request import urlopen
 

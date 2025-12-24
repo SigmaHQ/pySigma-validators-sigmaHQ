@@ -18,7 +18,7 @@ _SIGMAHQ_TAXONOMY_URL = (
 )
 
 # Cache directory (in user's cache directory)
-_DEFAULT_CACHE_DIR = Path.home() / ".cache" / "pyssigma" / "sigmahq"
+_DEFAULT_CACHE_DIR = Path.home() / ".cache" / "pysigma" / "sigmahq"
 
 # Disk cache instance
 _cache: Optional[diskcache.Cache] = None
@@ -126,7 +126,7 @@ def __getattr__(name: str) -> Any:
         data = _get_cached_data()
         if name in data:
             return data[name]
-    raise AttributeError(f"module '{__name__}' has no attribute '{name}")
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
 
 def clear_cache() -> None:
