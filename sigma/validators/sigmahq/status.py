@@ -57,13 +57,24 @@ class SigmahqStatusToHighIssue(SigmaValidationIssue):
 class SigmahqStatusToHighValidator(SigmaRuleValidator):
     """Checks if a new rule has a valid status regarding its age"""
 
-    min_days: int = 60
+    min_days_for_nolog_rule: int = 60
+    min_days_for_log_rule: int = 0
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
-        if rule.date is not None and rule.status is not None:
-            if rule.status > SigmaStatus.EXPERIMENTAL:
-                if (datetime.now().date() - rule.date).days <= self.min_days:
-                    custom_keys = list(rule.custom_attributes.keys())
-                    if "regression_tests_path" not in custom_keys:
-                        return [SigmahqStatusToHighIssue([rule])]
+        if rule.date is None or rule.status is None:
+            return []
+
+        custom_keys = list(rule.custom_attributes.keys())
+        max_status = (
+            SigmaStatus.TEST if "regression_tests_path" in custom_keys else SigmaStatus.EXPERIMENTAL
+        )
+        min_days = (
+            self.min_days_for_log_rule
+            if "regression_tests_path" in custom_keys
+            else self.min_days_for_nolog_rule
+        )
+        delta_days = (datetime.now().date() - rule.date).days
+
+        if rule.status > max_status and delta_days <= min_days:
+            return [SigmahqStatusToHighIssue([rule])]
         return []
