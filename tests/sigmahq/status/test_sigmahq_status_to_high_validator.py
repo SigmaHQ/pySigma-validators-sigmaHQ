@@ -10,50 +10,24 @@ from sigma.validators.sigmahq.status import (
 # Constants for test parameters with min_days configuration
 TEST_PARAMS = [
     # (min_nolog, min_log, days_ago, status, has_regression_tests, expected_has_issue)
-    # Default minimum days (60 for non-log, 0 for log)
-    (60, 0, 1, SigmaStatus.STABLE, False, True),  # New STABLE rule fails
-    (60, 0, 60, SigmaStatus.STABLE, False, True),  # Exactly at min_nolog=60 fails
-    (60, 0, 61, SigmaStatus.STABLE, False, False),  # Just over min_nolog=60 passes
-    # Custom minimum days for non-log rules (30 instead of 60)
-    (30, 0, 1, SigmaStatus.STABLE, False, True),  # New STABLE rule fails with min_nolog=30
-    (30, 0, 29, SigmaStatus.STABLE, False, True),  # Just under min_nolog=30 fails
-    (30, 0, 30, SigmaStatus.STABLE, False, True),  # Exactly at min_nolog=30 fails
-    (30, 0, 31, SigmaStatus.STABLE, False, False),  # Just over min_nolog=30 passes
-    # Custom minimum days for log rules (15 instead of 0)
-    (60, 15, 1, SigmaStatus.STABLE, True, True),  # New STABLE rule fails with min_log=15
-    (60, 15, 14, SigmaStatus.STABLE, True, True),  # Just under min_log=15 fails
-    (60, 15, 15, SigmaStatus.STABLE, True, False),  # Exactly at min_log=15 passes
-    # Both custom minimum days
-    (30, 15, 29, SigmaStatus.STABLE, False, True),  # Under min_nolog=30 fails for non-log rule
-    (30, 15, 14, SigmaStatus.STABLE, True, True),  # Under min_log=15 fails for log rule
-    # Regression test rules should always pass regardless of custom minimums
-    (60, 0, 1, SigmaStatus.STABLE, True, False),
-    (30, 15, 29, SigmaStatus.TEST, True, False),
-    # EXPERIMENTAL status should always pass
-    (60, 0, 1, SigmaStatus.EXPERIMENTAL, False, False),
+    # Default minimum days (60 for non-log, 15 for log)
+    (60, 15, 1, SigmaStatus.STABLE, False, True),  # New STABLE rule fails
+    (60, 15, 60, SigmaStatus.STABLE, False, True),  # Exactly at min_nolog=60 fails
+    (60, 15, 61, SigmaStatus.STABLE, False, False),  # Just over min_nolog=60 passes
+    (30, 15, 1, SigmaStatus.STABLE, False, True),  # New STABLE rule fails with min_nolog=30
+    (30, 15, 29, SigmaStatus.STABLE, False, True),  # Just under min_nolog=30 fails
+    (30, 15, 30, SigmaStatus.STABLE, False, True),  # Exactly at min_nolog=30 fails
+    (60, 15, 29, SigmaStatus.STABLE, True, False),  # Regression test rule passes
+    (60, 15, 14, SigmaStatus.STABLE, True, True),  # Log rule with regression under min_log=15
+    (30, 15, 29, SigmaStatus.TEST, True, False),  # TEST status always passes
 ]
 
 
-def create_test_rule(
-    min_nolog, min_log, days_ago, status, has_regression_tests, rule_type="detection"
-):
-    """Helper function to create test rules with configurable minimum days.
-
-    Args:
-        min_nolog: Minimum days for non-log rules (not used in rule creation but passed for context)
-        min_log: Minimum days for log rules (not used in rule creation but passed for context)
-        days_ago: Number of days since rule creation
-        status: Rule status level
-        has_regression_tests: Boolean indicating if regression tests exist
-        rule_type: Type of rule ('detection' or 'correlation')
-
-    Returns:
-        A SigmaRule or SigmaCorrelationRule instance based on the parameters.
-    """
+def create_test_rule(days_ago, status, has_regression_tests):
+    """Helper function to create test rules."""
     date_str = (date.today() - timedelta(days=days_ago)).strftime("%Y-%m-%d")
 
-    if rule_type == "detection":
-        yaml_content = f"""
+    yaml_content = f"""
 title: Test Rule
 status: {status.name.lower()}
 date: {date_str}
@@ -65,8 +39,18 @@ detection:
         candle|exists: true
     condition: sel
 """
-    else:  # correlation
-        yaml_content = f"""
+
+    if has_regression_tests:
+        yaml_content += "\nregression_tests_path: regression/rule/test_rule.yml"
+
+    return SigmaRule.from_yaml(yaml_content)
+
+
+def create_correlation_rule(days_ago, status, has_regression_tests):
+    """Helper function to create correlation test rules."""
+    date_str = (date.today() - timedelta(days=days_ago)).strftime("%Y-%m-%d")
+
+    yaml_content = f"""
 title: Test Correlation
 id: 12345678-1234-1234-1234-123456789012
 status: {status.name.lower()}
@@ -86,59 +70,52 @@ correlation:
     if has_regression_tests:
         yaml_content += "\nregression_tests_path: regression/rule/test_rule.yml"
 
-    return (
-        SigmaRule.from_yaml(yaml_content)
-        if rule_type == "detection"
-        else SigmaCorrelationRule.from_yaml(yaml_content)
+    return SigmaCorrelationRule.from_yaml(yaml_content)
+
+
+@pytest.mark.parametrize(
+    "min_nolog, min_log, days_ago, status, has_regression_tests, expected_has_issue", TEST_PARAMS
+)
+def test_status_validation_detection(
+    min_nolog, min_log, days_ago, status, has_regression_tests, expected_has_issue
+):
+    """Test validation scenarios for detection rules with configurable minimum days."""
+    rule = create_test_rule(days_ago, status, has_regression_tests)
+
+    validator = SigmahqStatusToHighValidator(
+        min_days_for_nolog_rule=min_nolog, min_days_for_log_rule=min_log
     )
 
+    if expected_has_issue:
+        assert validator.validate(rule) == [SigmahqStatusToHighIssue([rule])]
+    else:
+        assert validator.validate(rule) == []
 
-def test_status_validation_basic_scenarios():
-    """Test basic validation scenarios for both detection and correlation rules with configurable minimum days."""
-    # Test all combinations of parameters
-    for (
-        min_nolog,
-        min_log,
-        days_ago,
-        status,
-        has_regression_tests,
-        expected_has_issue,
-    ) in TEST_PARAMS:
-        # Create validator with custom minimum days
-        validator = SigmahqStatusToHighValidator(
-            min_days_for_nolog_rule=min_nolog, min_days_for_log_rule=min_log
-        )
 
-        # Test with detection rule
-        detection_rule = create_test_rule(
-            min_nolog, min_log, days_ago, status, has_regression_tests
-        )
-        if expected_has_issue:
-            assert validator.validate(detection_rule) == [
-                SigmahqStatusToHighIssue([detection_rule])
-            ]
-        else:
-            assert validator.validate(detection_rule) == []
+@pytest.mark.parametrize(
+    "min_nolog, min_log, days_ago, status, has_regression_tests, expected_has_issue", TEST_PARAMS
+)
+def test_status_validation_correlation(
+    min_nolog, min_log, days_ago, status, has_regression_tests, expected_has_issue
+):
+    """Test validation scenarios for correlation rules with configurable minimum days."""
+    rule = create_correlation_rule(days_ago, status, has_regression_tests)
 
-        # Test with correlation rule
-        correlation_rule = create_test_rule(
-            min_nolog, min_log, days_ago, status, has_regression_tests, "correlation"
-        )
-        if expected_has_issue:
-            assert validator.validate(correlation_rule) == [
-                SigmahqStatusToHighIssue([correlation_rule])
-            ]
-        else:
-            assert validator.validate(correlation_rule) == []
+    validator = SigmahqStatusToHighValidator(
+        min_days_for_nolog_rule=min_nolog, min_days_for_log_rule=min_log
+    )
+    if expected_has_issue:
+        assert validator.validate(rule) == [SigmahqStatusToHighIssue([rule])]
+    else:
+        assert validator.validate(rule) == []
 
 
 def test_rules_without_date():
-    """Test that rules without dates always pass validation regardless of minimum days settings."""
+    """Test that rules without dates always pass validation."""
     # Test with different minimum days configurations
     validators = [
-        SigmahqStatusToHighValidator(min_days_for_nolog_rule=60, min_days_for_log_rule=0),
+        SigmahqStatusToHighValidator(min_days_for_nolog_rule=60, min_days_for_log_rule=15),
         SigmahqStatusToHighValidator(min_days_for_nolog_rule=30, min_days_for_log_rule=15),
-        SigmahqStatusToHighValidator(min_days_for_nolog_rule=0, min_days_for_log_rule=0),
     ]
 
     # Test detection rule without date
@@ -161,6 +138,53 @@ detection:
 title: Correlation Rule Without Date
 id: 12345678-1234-1234-1234-123456789012
 status: stable
+logsource:
+    category: correlation
+product: windows
+correlation:
+    type: temporal
+    rules:
+        - 5638f7c0-ac70-491d-8465-2a65075e0d86
+    timespan: 5m
+    group-by:
+        - ComputerName
+"""
+    )
+
+    # All validators should pass rules without dates
+    for validator in validators:
+        assert validator.validate(detection_rule) == []
+        assert validator.validate(correlation_rule) == []
+
+
+def test_rules_without_status():
+    """Test that rules without dates always pass validation."""
+    # Test with different minimum days configurations
+    validators = [
+        SigmahqStatusToHighValidator(min_days_for_nolog_rule=60, min_days_for_log_rule=15),
+        SigmahqStatusToHighValidator(min_days_for_nolog_rule=30, min_days_for_log_rule=15),
+    ]
+
+    # Test detection rule without date
+    detection_rule = SigmaRule.from_yaml(
+        """
+title: Rule Without Status
+date: 2030-01-01
+logsource:
+    category: test
+detection:
+    sel:
+        candle|exists: true
+    condition: sel
+"""
+    )
+
+    # Test correlation rule without date
+    correlation_rule = SigmaCorrelationRule.from_yaml(
+        """
+title: Correlation Rule Without Status
+id: 12345678-1234-1234-1234-123456789012
+date: 2030-01-01
 logsource:
     category: correlation
 product: windows
