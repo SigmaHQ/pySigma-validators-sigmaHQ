@@ -10,7 +10,7 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
-from sigma.data.mitre_attack import mitre_attack_techniques_tactics_mapping
+import sigma.data.mitre_attack as _mitre_attack
 
 from .config import ConfigHQ
 
@@ -122,31 +122,33 @@ class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
         tactic_tags = [tag.name for tag in attack_tags if not tag.name.startswith("t")]
 
         missing_tactics = []
-        for technique in technique_tags:
-            technique_upper = technique.upper()
+        if technique_tags:
+            mapping = _mitre_attack.mitre_attack_techniques_tactics_mapping
+            for technique in technique_tags:
+                technique_upper = technique.upper()
 
-            # Check if the technique exists in mapping before accessing it
-            if technique_upper in mitre_attack_techniques_tactics_mapping:
-                required_tactics = mitre_attack_techniques_tactics_mapping[technique_upper]
-                missing_tactics.extend(
-                    [tactic for tactic in required_tactics if tactic not in tactic_tags]
-                )
-
-        if missing_tactics:
-            for missing_tactic in set(missing_tactics):
-                # Add safety check to ensure technique exists before accessing mapping
-                techniques = [
-                    technique
-                    for technique in technique_tags
-                    if technique.upper() in mitre_attack_techniques_tactics_mapping
-                    and missing_tactic in mitre_attack_techniques_tactics_mapping[technique.upper()]
-                ]
-                issues.append(
-                    SigmahqTagsTechniquesWithoutTacticsIssue(
-                        [rule],
-                        techniques=["attack." + t for t in techniques],
-                        missing_tactic="attack." + missing_tactic,
+                # Check if the technique exists in mapping before accessing it
+                if technique_upper in mapping:
+                    required_tactics = mapping[technique_upper]
+                    missing_tactics.extend(
+                        [tactic for tactic in required_tactics if tactic not in tactic_tags]
                     )
-                )
+
+            if missing_tactics:
+                for missing_tactic in set(missing_tactics):
+                    # Add safety check to ensure technique exists before accessing mapping
+                    techniques = [
+                        technique
+                        for technique in technique_tags
+                        if technique.upper() in mapping
+                        and missing_tactic in mapping[technique.upper()]
+                    ]
+                    issues.append(
+                        SigmahqTagsTechniquesWithoutTacticsIssue(
+                            [rule],
+                            techniques=["attack." + t for t in techniques],
+                            missing_tactic="attack." + missing_tactic,
+                        )
+                    )
 
         return issues
