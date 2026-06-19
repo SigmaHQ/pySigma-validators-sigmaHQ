@@ -1,6 +1,6 @@
 [project]
 name = "pySigma-validators-sigmahq"
-version = "0.20.2"
+version = "0.20.3"
 description = "pySigma SigmaHQ validators"
 license = "LGPL-2.1-only"
 readme = "README.md"
@@ -10,7 +10,7 @@ authors = [
     {name = "François Hubaut", email = "frack113@users.noreply.github.com" }
 ]
 
-maintainers =[
+maintainers = [
     {name = "François Hubaut", email = "frack113@users.noreply.github.com" },
     {name = "Christian Burkard", email = "phantinuss@users.noreply.github.com" }
 ]
@@ -29,6 +29,13 @@ repository = "https://github.com/SigmaHQ/pySigma_validators_sigmaHQ"
 packages = [
     { include = "sigma" }
 ]
+
+[tool.poetry.group.dev.dependencies]
+black = "^26.5"
+defusedxml = "^0.7"
+pytest = "^9.1"
+pytest-cov = "^7.1"
+mypy = "^2.0"
 
 [dependency-groups]
 dev = [
