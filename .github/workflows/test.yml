@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
-          cache: poetry
       - name: Install dependencies
         run: poetry install
       - name: Lint with ruff
