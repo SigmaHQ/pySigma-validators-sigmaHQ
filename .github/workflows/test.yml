@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Install ruff
-        run: pip install ruff>=0.12,<1
+        run: pip install "ruff>=0.12,<1"
       - name: Lint with ruff
         run: ruff format --check .
       - name: Run tests
