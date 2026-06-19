@@ -1,6 +1,7 @@
 # tests/sigmahq/metadata/test_sigmahq_modified_without_date_validator.py
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
+
 from sigma.validators.sigmahq.date import (
     SigmahqModifiedWithoutDateIssue,
     SigmahqModifiedWithoutDateValidator,

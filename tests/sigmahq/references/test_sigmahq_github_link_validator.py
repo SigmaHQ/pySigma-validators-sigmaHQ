@@ -1,6 +1,7 @@
 # tests/sigmahq/metadata/test_sigmahq_github_link_validator.py
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
+
 from sigma.validators.sigmahq.references import (
     SigmahqGithubLinkIssue,
     SigmahqGithubLinkValidator,

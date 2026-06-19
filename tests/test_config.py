@@ -1,9 +1,9 @@
-import pytest
-import json
 from pathlib import Path
-from unittest.mock import patch, MagicMock
-from sigma.validators.sigmahq.config import ConfigHQ, core_logsource, key_logsource
+from unittest.mock import MagicMock, patch
+
 from sigma.rule import SigmaLogSource
+
+from sigma.validators.sigmahq.config import ConfigHQ, core_logsource, key_logsource
 
 
 def test_core_logsource_function():
@@ -22,13 +22,21 @@ def test_core_logsource_function():
 def test_key_logsource_function():
     """Test the key_logsource function."""
     # Test with complete logsource dict
-    source_dict = {"product": "windows", "category": "process_creation", "service": "svchost"}
+    source_dict = {
+        "product": "windows",
+        "category": "process_creation",
+        "service": "svchost",
+    }
 
     key = key_logsource(source_dict)
     assert key == "windows_process_creation_svchost"
 
     # Test with missing fields
-    source_dict_missing = {"product": None, "category": "process_creation", "service": None}
+    source_dict_missing = {
+        "product": None,
+        "category": "process_creation",
+        "service": None,
+    }
 
     key = key_logsource(source_dict_missing)
     assert key == "none_process_creation_none"

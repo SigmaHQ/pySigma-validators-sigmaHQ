@@ -1,5 +1,6 @@
-from sigma.correlations import SigmaCorrelationRule
 from sigma.collection import SigmaCollection
+from sigma.correlations import SigmaCorrelationRule
+
 from sigma.validators.sigmahq.filename import (
     SigmahqCorrelationFilenamePrefixIssue,
     SigmahqCorrelationFilenamePrefixValidator,

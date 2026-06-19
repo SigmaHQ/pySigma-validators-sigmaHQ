@@ -1,6 +1,7 @@
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
 from sigma.types import SigmaRegularExpression
+
 from sigma.validators.sigmahq.field import (
     SigmahqFieldDuplicateValueIssue,
     SigmahqFieldDuplicateValueValidator,

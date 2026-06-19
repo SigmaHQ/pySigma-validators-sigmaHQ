@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
 
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,

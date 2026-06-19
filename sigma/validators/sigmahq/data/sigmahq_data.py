@@ -1,6 +1,6 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
+
 from sigma.rule import SigmaLogSource
-from typing import Optional
 
 file_pattern_version: str = "20251205"
 ref_sigmahq_logsource_filepattern: Dict[SigmaLogSource, str] = {
@@ -1055,7 +1055,14 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): ["CreationUtcTime", "Image", "ProcessGuid", "ProcessId", "TargetFilename", "User"],
+    ): [
+        "CreationUtcTime",
+        "Image",
+        "ProcessGuid",
+        "ProcessId",
+        "TargetFilename",
+        "User",
+    ],
     SigmaLogSource(
         category="network_connection",
         product="linux",
@@ -1477,7 +1484,14 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): ["CreationUtcTime", "Image", "ProcessGuid", "ProcessId", "TargetFilename", "User"],
+    ): [
+        "CreationUtcTime",
+        "Image",
+        "ProcessGuid",
+        "ProcessId",
+        "TargetFilename",
+        "User",
+    ],
     SigmaLogSource(
         category="process_creation",
         product="macos",
@@ -2153,7 +2167,14 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): ["Channel", "Computer", "EventID", "Provider_Name", "Security_UserID", "subjectName"],
+    ): [
+        "Channel",
+        "Computer",
+        "EventID",
+        "Provider_Name",
+        "Security_UserID",
+        "subjectName",
+    ],
     SigmaLogSource(
         category=None,
         product="windows",
@@ -2469,7 +2490,15 @@ ref_sigmahq_fieldsname: Dict[SigmaLogSource, List[str]] = {
         definition=None,
         source=None,
         custom_attributes=None,
-    ): ["Channel", "Computer", "EventID", "payload", "process", "Provider_Name", "Security_UserID"],
+    ): [
+        "Channel",
+        "Computer",
+        "EventID",
+        "payload",
+        "process",
+        "Provider_Name",
+        "Security_UserID",
+    ],
     SigmaLogSource(
         category=None,
         product="windows",

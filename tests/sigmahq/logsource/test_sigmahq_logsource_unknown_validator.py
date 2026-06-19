@@ -1,5 +1,5 @@
-from sigma.rule import SigmaRule, SigmaLogSource
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaLogSource, SigmaRule
 
 from sigma.validators.sigmahq.logsource import (
     SigmahqLogsourceUnknownIssue,

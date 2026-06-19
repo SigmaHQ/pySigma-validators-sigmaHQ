@@ -1,19 +1,18 @@
 from dataclasses import dataclass
 from typing import ClassVar, List, Set, Tuple
 
-from sigma.rule import (
-    SigmaRule,
-    SigmaDetectionItem,
-)
 from sigma.correlations import SigmaCorrelationRule
-from sigma.validators.base import (
-    SigmaValidationIssue,
-    SigmaValidationIssueSeverity,
-    SigmaDetectionItemValidator,
+from sigma.modifiers import SigmaRegularExpressionModifier
+from sigma.rule import (
     SigmaDetectionItem,
+    SigmaRule,
 )
 from sigma.types import SigmaString
-from sigma.modifiers import SigmaRegularExpressionModifier
+from sigma.validators.base import (
+    SigmaDetectionItemValidator,
+    SigmaValidationIssue,
+    SigmaValidationIssueSeverity,
+)
 
 from .config import ConfigHQ
 
@@ -123,13 +122,11 @@ class SigmahqUnsupportedRegexGroupConstructValidator(SigmaDetectionItemValidator
                 regexp_value = getattr(value, "regexp", None)
                 # Validate that regexp_value is an instance of SigmaString
                 if isinstance(regexp_value, SigmaString):
-                    found_unsupported = False
                     regex_str = str(regexp_value)  # Convert to string
 
                     for unsupported_group_construct in self.regex_list:
                         if unsupported_group_construct in regex_str:
                             unsupported_regexps.add(regex_str)
-                            found_unsupported = True
                             break  # No need to check further once an unsupported pattern is found
 
         return [

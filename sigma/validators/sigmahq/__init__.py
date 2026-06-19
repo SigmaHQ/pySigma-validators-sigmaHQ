@@ -1,8 +1,8 @@
+import re
 from importlib import import_module
+from inspect import getmembers, isabstract, isclass
 from pathlib import Path
 from pkgutil import iter_modules
-from inspect import getmembers, isabstract, isclass
-import re
 
 from sigma.validators.base import SigmaRuleValidator
 

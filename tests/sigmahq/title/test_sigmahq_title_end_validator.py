@@ -1,6 +1,10 @@
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
-from sigma.validators.sigmahq.title import SigmahqTitleEndValidator, SigmahqTitleEndIssue
+from sigma.rule import SigmaRule
+
+from sigma.validators.sigmahq.title import (
+    SigmahqTitleEndIssue,
+    SigmahqTitleEndValidator,
+)
 
 
 def test_validator_SigmahqTitleEnd():

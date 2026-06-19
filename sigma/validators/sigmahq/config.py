@@ -1,19 +1,21 @@
 import json
 from pathlib import Path
 from typing import Dict, List, Optional
+
+import requests
 from sigma.rule import SigmaLogSource
+
 from .data.sigmahq_data import (
-    taxonomy_version,
-    ref_sigmahq_logsource_filepattern,
     file_pattern_version,
     ref_sigmahq_fieldsname,
-    ref_sigmahq_redundant_field,
     ref_sigmahq_logsource_definition,
-    windows_version,
-    ref_windows_provider_name,
+    ref_sigmahq_logsource_filepattern,
+    ref_sigmahq_redundant_field,
     ref_windows_no_eventid,
+    ref_windows_provider_name,
+    taxonomy_version,
+    windows_version,
 )
-import requests
 
 
 def core_logsource(source: SigmaLogSource) -> SigmaLogSource:

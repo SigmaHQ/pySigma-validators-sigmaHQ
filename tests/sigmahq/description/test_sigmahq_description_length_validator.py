@@ -1,6 +1,7 @@
 # tests/sigmahq/test_sigmahq_description_length_validator.py
 from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule
+
 from sigma.validators.sigmahq.description import (
     SigmahqDescriptionLengthIssue,
     SigmahqDescriptionLengthValidator,

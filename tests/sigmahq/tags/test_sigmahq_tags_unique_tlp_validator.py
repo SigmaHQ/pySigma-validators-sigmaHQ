@@ -1,6 +1,7 @@
 # tests/sigmahq/test_sigmahq_tags_unique_tlp_validator.py
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
+
 from sigma.validators.sigmahq.tags import (
     SigmahqTagsUniqueTlpIssue,
     SigmahqTagsUniqueTlpValidator,

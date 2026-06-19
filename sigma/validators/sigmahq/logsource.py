@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from typing import ClassVar, List
+
 from sigma.correlations import SigmaCorrelationRule
-from sigma.rule import SigmaRule, SigmaLogSource
+from sigma.rule import SigmaLogSource, SigmaRule
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,
@@ -32,7 +33,7 @@ class SigmahqLogsourceUnknownValidator(SigmaRuleValidator):
                 product=getattr(logsource, "product", None),
                 service=getattr(logsource, "service", None),
             )
-            if not core_logsource in config.sigma_fieldsname:
+            if core_logsource not in config.sigma_fieldsname:
                 return [SigmahqLogsourceUnknownIssue([rule], logsource)]
             else:
                 return []
@@ -60,7 +61,7 @@ class SigmahqSysmonMissingEventidValidator(SigmaRuleValidator):
             find = False
             for selection in rule.detection.detections.values():
                 for item in selection.detection_items:
-                    if item.field == "EventID":
+                    if item.field == "EventID":  # type: ignore[union-attr]
                         find = True
             if find:
                 return []

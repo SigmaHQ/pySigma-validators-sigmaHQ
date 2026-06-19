@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from typing import ClassVar, List
 from datetime import datetime
+from typing import ClassVar, List
 
-from sigma.rule import SigmaRule, SigmaStatus
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule, SigmaStatus
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,

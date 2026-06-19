@@ -31,7 +31,7 @@ packages = [
 ]
 
 [tool.poetry.group.dev.dependencies]
-black = "^26.5"
+ruff = "^0.12"
 defusedxml = "^0.7"
 pytest = "^9.1"
 pytest-cov = "^7.1"
@@ -39,15 +39,44 @@ mypy = "^2.0"
 
 [dependency-groups]
 dev = [
-    "black >=26.5,<27",
+    "ruff >=0.12,<1",
     "defusedxml >=0.7,<1",
     "pytest >=9.1,<10",
     "pytest-cov >=7.1,<8",
     "mypy >=2.0,<3",
 ]
 
-[tool.black]
+[tool.ruff]
 line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I001"]
+ignore = ["E501", "W291", "W293", "W29"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**" = ["S101", "PLR2004"]
+"tools/**" = ["S101"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = false
+warn_unused_configs = false
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = false
+disallow_untyped_decorators = false
+no_implicit_optional = false
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["pytest.*"]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core"]

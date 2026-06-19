@@ -3,10 +3,9 @@
 # Date: 2025/08/03
 
 
-from sys import stderr, stdout
-from pprint import pformat
 import sys
-
+from pprint import pformat
+from sys import stderr
 
 from sigma.validators.sigmahq.config import ConfigHQ
 
@@ -15,7 +14,10 @@ def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/data/s
     config = ConfigHQ(url)
 
     if config.taxonomy_version == "0.0.0":
-        print("No sigmahq data found. Please check the URL or the local files.", file=stderr)
+        print(
+            "No sigmahq data found. Please check the URL or the local files.",
+            file=stderr,
+        )
         sys.exit(1)
 
     with open(output_path, "wt", encoding="utf-8", newline="") as file:
@@ -41,7 +43,12 @@ def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/data/s
         )
         print(
             "ref_sigmahq_logsource_definition: Dict[SigmaLogSource, Optional[str]] = "
-            + pformat(config.sigmahq_logsource_definition, indent=4, sort_dicts=False, width=200),
+            + pformat(
+                config.sigmahq_logsource_definition,
+                indent=4,
+                sort_dicts=False,
+                width=200,
+            ),
             file=file,
         )
         print(f'\nwindows_version: str = "{config.windows_version}"', file=file)

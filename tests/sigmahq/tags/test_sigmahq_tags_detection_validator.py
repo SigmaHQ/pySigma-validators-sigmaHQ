@@ -1,7 +1,8 @@
 # tests/sigmahq/test_sigmahq_tags_detection_validator.py
-from sigma.rule import SigmaRule
-from sigma.correlations import SigmaCorrelationRule
 from sigma.collection import SigmaCollection
+from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
+
 from sigma.validators.sigmahq.tags import (
     SigmahqTagsDetectionIssue,
     SigmahqTagsDetectionValidator,

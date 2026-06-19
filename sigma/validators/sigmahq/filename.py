@@ -2,9 +2,8 @@ import re
 from dataclasses import dataclass
 from typing import ClassVar, List
 
-from sigma.rule import SigmaRule, SigmaLogSource
 from sigma.correlations import SigmaCorrelationRule
-
+from sigma.rule import SigmaLogSource, SigmaRule
 from sigma.validators.base import (
     SigmaRuleValidator,
     SigmaValidationIssue,
@@ -37,7 +36,7 @@ class SigmahqFilenameConventionValidator(SigmaRuleValidator):
         filename_pattern = re.compile(r"[a-z0-9_]{10,90}\.yml")
         if rule.source is not None:
             filename = rule.source.path.name
-            if filename_pattern.match(filename) is None or not "_" in filename:
+            if filename_pattern.match(filename) is None or "_" not in filename:
                 return [SigmahqFilenameConventionIssue([rule], filename)]
         return []
 
@@ -90,7 +89,7 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
 
                 # Combined if it has separator and both correlation and logsource
                 return has_separator and has_correlation and has_logsource
-        except:
+        except Exception:
             return False
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:

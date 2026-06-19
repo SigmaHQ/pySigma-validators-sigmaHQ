@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
+
 from sigma.validators.sigmahq.status import (
     SigmahqStatusToHighIssue,
     SigmahqStatusToHighValidator,

@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
+
 from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule
 from sigma.validators.base import (
@@ -9,6 +10,7 @@ from sigma.validators.base import (
     SigmaValidationIssue,
     SigmaValidationIssueSeverity,
 )
+
 from .config import ConfigHQ
 
 config = ConfigHQ()
@@ -101,10 +103,10 @@ class SigmahqTitleCaseValidator(SigmaRuleValidator):
         for word in rule.title.split(" "):
             if (
                 word.islower()
-                and not word.lower() in self.word_list
-                and not "." in word
-                and not "/" in word
-                and not "_" in word
+                and word.lower() not in self.word_list
+                and "." not in word
+                and "/" not in word
+                and "_" not in word
                 and not word[0].isdigit()
             ):
                 wrong_casing.append(word)

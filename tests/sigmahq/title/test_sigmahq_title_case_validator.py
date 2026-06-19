@@ -1,6 +1,10 @@
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
-from sigma.validators.sigmahq.title import SigmahqTitleCaseValidator, SigmahqTitleCaseIssue
+from sigma.rule import SigmaRule
+
+from sigma.validators.sigmahq.title import (
+    SigmahqTitleCaseIssue,
+    SigmahqTitleCaseValidator,
+)
 
 
 def test_validator_SigmahqTitleCase_specialchar_valid():

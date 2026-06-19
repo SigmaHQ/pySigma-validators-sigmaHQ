@@ -15,21 +15,22 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Install Poetry
+        run: pipx install poetry
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
+          cache: poetry
       - name: Install dependencies
-        run: uv sync --group dev
-      - name: Lint with black
-        run: uv run black --check .
+        run: poetry install
+      - name: Lint with ruff
+        run: poetry run ruff format --check .
       - name: Run tests
-        run: uv run pytest --cov=sigma --cov-report term --cov-report xml:cov.xml -vv
+        run: poetry run pytest --cov=sigma --cov-report term --cov-report xml:cov.xml -vv
       - name: Store coverage for badge
         if: ${{ runner.os == 'Linux' }}
-        run: uv run python print-coverage.py >> $GITHUB_ENV
+        run: poetry run python print-coverage.py >> $GITHUB_ENV
       - name: Create coverage badge
         if: ${{ github.repository == 'SigmaHQ/pySigma-validators-sigmaHQ' && github.event_name == 'push' && runner.os == 'Linux' }}
         uses: schneegans/dynamic-badges-action@v1.7.0

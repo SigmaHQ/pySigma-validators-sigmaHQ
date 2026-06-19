@@ -23,8 +23,11 @@ class SigmahqCorrelationRulesMinimumValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
-            if rule.type in [SigmaCorrelationType.TEMPORAL, SigmaCorrelationType.TEMPORAL_ORDERED]:
-                if len(rule.rules) < 2:
+            if rule.type in [
+                SigmaCorrelationType.TEMPORAL,
+                SigmaCorrelationType.TEMPORAL_ORDERED,
+            ]:
+                if len(rule.rules) < 2:  # type: ignore[arg-type]
                     return [SigmahqCorrelationRulesMinimumIssue([rule])]
         return []
 

@@ -1,6 +1,7 @@
 # tests/sigmahq/test_sigmahq_tags_techniques_without_tactics_validator.py
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule
+
 from sigma.validators.sigmahq.tags import (
     SigmahqTagsTechniquesWithoutTacticsIssue,
     SigmahqTagsTechniquesWithoutTacticsValidator,

@@ -1,11 +1,11 @@
-from sigma.rule import SigmaRule
-from sigma.correlations import SigmaCorrelationRule
 from sigma.collection import SigmaCollection
+from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaLogSource, SigmaRule
+
 from sigma.validators.sigmahq.filename import (
     SigmahqFilenamePrefixIssue,
     SigmahqFilenamePrefixValidator,
 )
-from sigma.rule import SigmaLogSource
 
 
 def test_validator_SigmahqPrefixFilename():

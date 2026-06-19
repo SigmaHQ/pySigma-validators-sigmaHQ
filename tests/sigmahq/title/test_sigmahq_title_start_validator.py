@@ -1,7 +1,11 @@
 # tests/sigmahq/title/test_sigmahq_title_start_validator.py
-from sigma.rule import SigmaRule
 from sigma.correlations import SigmaCorrelationRule
-from sigma.validators.sigmahq.title import SigmahqTitleStartValidator, SigmahqTitleStartIssue
+from sigma.rule import SigmaRule
+
+from sigma.validators.sigmahq.title import (
+    SigmahqTitleStartIssue,
+    SigmahqTitleStartValidator,
+)
 
 
 def test_validator_SigmahqTitleStart_detect():
