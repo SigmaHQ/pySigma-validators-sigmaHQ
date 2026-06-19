@@ -31,7 +31,7 @@ packages = [
 ]
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.12"
+ruff = ">=0.12,<1"
 defusedxml = "^0.7"
 pytest = "^9.1"
 pytest-cov = "^7.1"

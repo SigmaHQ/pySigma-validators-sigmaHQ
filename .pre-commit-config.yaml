@@ -5,5 +5,3 @@ repos:
       - id: ruff
         args: [--fix]
       - id: ruff-format
-
-(End of file)
