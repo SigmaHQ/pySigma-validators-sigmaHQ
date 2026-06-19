@@ -11,21 +11,21 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v5
-      - name: Install Poetry
-        run: pipx install poetry
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
       - name: Set up Python 3.12
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Verify versioning
         run: |
-          [ "$(poetry version -s)" == "${GITHUB_REF#refs/tags/v}" ]
+          [ "$(grep '^version =' pyproject.toml | head -1 | sed "s/version *= *['\"]//g" | sed "s/['\"] *$//g")" == "${GITHUB_REF#refs/tags/v}" ]
       - name: Install dependencies
-        run: poetry install
+        run: uv sync
       - name: Run tests
-        run: poetry run pytest
+        run: uv run pytest
       - name: Build packages
-        run: poetry build
+        run: uvx build
       - name: Publish to PyPI
         if: ${{ github.event_name == 'release' }}
         uses: pypa/gh-action-pypi-publish@release/v1
