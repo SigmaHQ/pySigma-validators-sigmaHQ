@@ -36,15 +36,7 @@ defusedxml = "^0.7"
 pytest = "^9.1"
 pytest-cov = "^7.1"
 mypy = "^2.0"
-
-[dependency-groups]
-dev = [
-    "ruff >=0.12,<1",
-    "defusedxml >=0.7,<1",
-    "pytest >=9.1,<10",
-    "pytest-cov >=7.1,<8",
-    "mypy >=2.0,<3",
-]
+check-jsonschema = "^0.29"
 
 [tool.ruff]
 line-length = 100

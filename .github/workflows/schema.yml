@@ -17,16 +17,20 @@ jobs:
           - name: Checkout repository
             uses: actions/checkout@v5
 
+          - name: Install Poetry
+            run: pipx install poetry
+
           - name: Set up Python
             uses: actions/setup-python@v6
             with:
               python-version: '3.12'
+              cache: poetry
 
-          - name: Install check-jsonschema
-            run: pip install check-jsonschema
+          - name: Install dependencies
+            run: poetry install --no-interaction
 
           - name: Validate JSON files
             run: |
-                check-jsonschema --schemafile ./json-schema/schema_sigmahq_taxonomy.json ./tools/sigmahq_taxonomy.json  
-                check-jsonschema --schemafile ./json-schema/schema_sigmahq_filename.json ./tools/sigmahq_filename.json 
-                check-jsonschema --schemafile ./json-schema/schema_sigmahq_windows_validator.json ./tools/sigmahq_windows_validator.json
+                poetry run check-jsonschema --schemafile ./json-schema/schema_sigmahq_taxonomy.json ./tools/sigmahq_taxonomy.json
+                poetry run check-jsonschema --schemafile ./json-schema/schema_sigmahq_filename.json ./tools/sigmahq_filename.json
+                poetry run check-jsonschema --schemafile ./json-schema/schema_sigmahq_windows_validator.json ./tools/sigmahq_windows_validator.json
