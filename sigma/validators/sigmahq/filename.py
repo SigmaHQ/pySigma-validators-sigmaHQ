@@ -124,9 +124,8 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                 logsource = SigmaLogSource(
                     category=None, product=rule.logsource.product, service=None
                 )
-                if (
-                    logsource in config.sigmahq_logsource_filepattern
-                    and not filename.startswith(config.sigmahq_logsource_filepattern[logsource])
+                if logsource in config.sigmahq_logsource_filepattern and not filename.startswith(
+                    config.sigmahq_logsource_filepattern[logsource]
                 ):
                     return [
                         SigmahqFilenamePrefixIssue(

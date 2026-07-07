@@ -90,11 +90,9 @@ logsource that doesn't require it."""
 
 @dataclass
 class SigmahqUnsupportedRegexGroupConstructIssue(SigmaValidationIssue):
-    description: ClassVar[str] = (
-        "Rule uses an unsupported regular expression group construct. \
+    description: ClassVar[str] = "Rule uses an unsupported regular expression group construct. \
 Construct such as positive and negative lookahead, positive and negative \
 lookbehind as well as atomic groups are currently unsupported."
-    )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
     unsupported_regexp: str
 
