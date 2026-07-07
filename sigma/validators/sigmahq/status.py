@@ -30,13 +30,15 @@ class SigmahqStatusExistenceValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqStatusIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule uses a status field with either Deprecated or Unsupported values, and it is not located in the appropriate folder."
+        "Rule uses a status field with either Deprecated or Unsupported values, \
+and it is not located in the appropriate folder."
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
 
 
 class SigmahqStatusValidator(SigmaRuleValidator):
-    """Checks if a rule uses a status field with the value Deprecated or Unsupported, and its not located in the appropriate folder."""
+    """Checks if a rule uses a status field with the value Deprecated or Unsupported, \
+and its not located in the appropriate folder."""
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if rule.status and rule.status.name in ["DEPRECATED", "UNSUPPORTED"]:

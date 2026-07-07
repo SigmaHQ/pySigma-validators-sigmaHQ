@@ -147,7 +147,8 @@ def test_validator_SigmahqInvalidHashKvValidator_valid_sha256():
         product: windows
     detection:
         sel:
-            Hashes|contains: 'SHA256=4fae81eb7018069e75a087c38af783df4fae81eb7018069e75a087c38af783df'
+            Hashes|contains: \
+'SHA256=4fae81eb7018069e75a087c38af783df4fae81eb7018069e75a087c38af783df'
         condition: sel
     """
     )

@@ -14,7 +14,8 @@ from sigma.validators.base import (
 @dataclass
 class SigmahqOfthemConditionIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule uses the ' of them' keyword in the condition with only one selection in the detection section"
+        "Rule uses the ' of them' keyword in the condition with only one \
+selection in the detection section"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
 
@@ -44,7 +45,8 @@ class SigmahqOfthemConditionValidator(SigmaRuleValidator):
 @dataclass
 class SigmahqOfselectionConditionIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
-        "Rule uses the 'All/X of ' format in the condition with only one selection in the detection section"
+        "Rule uses the 'All/X of ' format in the condition with only one \
+selection in the detection section"
     )
     severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
     selection: str

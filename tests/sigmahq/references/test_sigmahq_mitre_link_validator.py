@@ -73,7 +73,8 @@ correlation:
 
 
 def test_validator_mitre_link_with_references_correlation():
-    """Test that the validator correctly identifies a Sigma correlation rule with MITRE references."""
+    """Test that the validator correctly identifies a Sigma correlation rule \
+with MITRE references."""
     validator = SigmahqMitreLinkValidator()
     correlation_rule = SigmaCorrelationRule.from_yaml(
         """

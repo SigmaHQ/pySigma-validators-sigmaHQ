@@ -29,7 +29,8 @@ def test_validator_SigmahqTitleLength_invalid():
     validator = SigmahqTitleLengthValidator()
     detection_rule = SigmaRule.from_yaml(
         """
-title: This is a very long title that exceeds the maximum allowed length of one hundred and twenty characters which should trigger an error
+title: This is a very long title that exceeds the maximum allowed length \
+of one hundred and twenty characters which should trigger an error
 status: test
 logsource:
     category: test
@@ -86,7 +87,8 @@ def test_validator_SigmahqTitleLength_correlation_invalid():
     validator = SigmahqTitleLengthValidator()
     correlation_rule = SigmaCorrelationRule.from_yaml(
         """
-title: This is a very long correlation title that exceeds the maximum allowed length of one hundred and twenty characters which should trigger an error
+title: This is a very long correlation title that exceeds the maximum allowed \
+length of one hundred and twenty characters which should trigger an error
 id: 0e95725d-7320-415d-80f7-004da920fc11
 correlation:
     type: event_count

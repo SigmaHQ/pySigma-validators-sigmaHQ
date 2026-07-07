@@ -8,7 +8,8 @@ from sigma.validators.base import SigmaRuleValidator
 
 
 def validator_classname_to_identifier(name: str) -> str:
-    """Convert a validator class name (e.g. NameOfSomeCheckValidator) to an identifier (e.g. name_of_some_check)."""
+    """Convert a validator class name (e.g. NameOfSomeCheckValidator) \
+to an identifier (e.g. name_of_some_check)."""
     return re.sub("([A-Z]+)", "_\\1", name.replace("Validator", ""))[1:].lower()
 
 

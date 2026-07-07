@@ -58,7 +58,8 @@ def test_validator_SigmahqCorrelationFilename_combined_valid():
 
 
 def test_validator_SigmahqDetectionFilename():
-    """Test that detection files without correlation_ prefix pass validation (detection rules should not be validated by this validator)"""
+    """Test that detection files without correlation_ prefix pass validation \
+(detection rules should not be validated by this validator)"""
     validator = SigmahqCorrelationFilenamePrefixValidator()
     sigma_collection = SigmaCollection.load_ruleset(
         [

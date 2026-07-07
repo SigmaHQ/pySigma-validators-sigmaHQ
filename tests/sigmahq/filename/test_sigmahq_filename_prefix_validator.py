@@ -84,5 +84,6 @@ def test_validator_SigmahqFilename_with_sigma_correlation_rule():
         - field2
     """
     )
-    # This should return empty list because the validator only validates SigmaRule, not SigmaCorrelationRule
+    # This should return empty list because the validator only validates
+    # SigmaRule, not SigmaCorrelationRule
     assert validator.validate(correlation_rule) == []

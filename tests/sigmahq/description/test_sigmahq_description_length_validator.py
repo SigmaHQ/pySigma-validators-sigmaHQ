@@ -50,7 +50,8 @@ def test_validator_SigmahqDescriptionLength_valid_detection_rule():
     detection_rule = SigmaRule.from_yaml(
         """
     title: Test
-    description: This is a valid description that meets the minimum length requirement for detection rules
+    description: This is a valid description that meets the minimum length \
+requirement for detection rules
     logsource:
         category: test
     detection:
