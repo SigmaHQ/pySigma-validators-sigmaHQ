@@ -44,7 +44,7 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I001"]
-ignore = ["E501", "W291", "W293", "W29"]
+ignore = ["E501", "W291", "W293"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
