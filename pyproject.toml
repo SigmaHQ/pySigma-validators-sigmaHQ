@@ -43,20 +43,22 @@ line-length = 100
 target-version = "py310"
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I001"]
-# ALL WARNINGS FIXED - No ignores needed for W291 and W293
+select = ["E", "F", "W", "I001", "S", "PLR"]
 
 [tool.ruff.lint.per-file-ignores]
-# F401: Unused import (normal in __init__.py to expose API)
+# F401: Import not used (intentional in __init__.py to expose public API)
 "__init__.py" = ["F401"]
 
-# TODO: Re-evaluate these ignores as code quality improves.
-# S101: Use of assert (acceptable in tests)
-# PLR2004: Magic value (acceptable in some test cases)
-"tests/**" = ["S101", "PLR2004"]
+# S101: assert is acceptable in tests
+# PLR2004: Magic values (e.g., 2) sometimes make more sense than introducing a constant for a one-off comparison
+# S108: /tmp usage is acceptable in test fixtures
+"tests/**" = ["S101", "PLR2004", "S108"]
 
-# S101: Use of assert (acceptable in tools)
+# S101: assert is acceptable in tools
 "tools/**" = ["S101"]
+
+# PLR0912: Too many branches - complex validation logic in field validators
+"sigma/validators/sigmahq/field.py" = ["PLR0912"]
 
 [tool.ruff.format]
 quote-style = "double"

@@ -27,7 +27,7 @@ class SigmahqCorrelationRulesMinimumValidator(SigmaRuleValidator):
                 SigmaCorrelationType.TEMPORAL,
                 SigmaCorrelationType.TEMPORAL_ORDERED,
             ]:
-                if len(rule.rules) < 2:  # type: ignore[arg-type]
+                if len(rule.rules) < 2:  # type: ignore[arg-type]  # noqa: PLR2004
                     return [SigmahqCorrelationRulesMinimumIssue([rule])]
         return []
 

@@ -44,7 +44,7 @@ class SigmahqSpaceFieldNameValidator(SigmaDetectionItemValidator):
             return []
         return super().validate(rule)
 
-    def validate_detection_item(
+    def validate_detection_item(  # noqa: PLR0912
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
         if detection_item.field and " " in detection_item.field:
@@ -214,7 +214,7 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
     ) -> List[SigmaValidationIssue]:
-        if SigmaAllModifier in detection_item.modifiers and len(detection_item.value) < 2:
+        if SigmaAllModifier in detection_item.modifiers and len(detection_item.value) < 2:  # noqa: PLR2004
             if detection_item.field is not None:
                 return [SigmahqInvalidAllModifierIssue([self.rule], detection_item.field)]
             else:

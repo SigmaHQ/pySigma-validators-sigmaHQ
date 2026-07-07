@@ -82,7 +82,7 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
                             for selection_name in detection.detections:
                                 if re.match(name, selection_name):
                                     selection_count += 1
-                            if selection_count < 2:
+                            if selection_count < 2:  # noqa: PLR2004
                                 return [SigmahqOfselectionConditionIssue([rule], name)]
         return []
 

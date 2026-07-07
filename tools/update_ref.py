@@ -65,7 +65,7 @@ def write_sigmahq_data_py(url: str, output_path="sigma/validators/sigmahq/data/s
 
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) < 2:  # noqa: PLR2004
         print("Usage: python update_ref.py <url>", file=stderr)
         sys.exit(1)
     file_url = sys.argv[1]

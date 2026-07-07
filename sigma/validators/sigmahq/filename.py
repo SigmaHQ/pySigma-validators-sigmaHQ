@@ -119,22 +119,21 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
                             config.sigmahq_logsource_filepattern[logsource],
                         )
                     ]
-            else:
-                # check only product but must exist
-                if rule.logsource.product:
-                    logsource = SigmaLogSource(
-                        category=None, product=rule.logsource.product, service=None
-                    )
-                    if (
-                        logsource in config.sigmahq_logsource_filepattern
-                        and not filename.startswith(config.sigmahq_logsource_filepattern[logsource])
-                    ):
-                        return [
-                            SigmahqFilenamePrefixIssue(
-                                [rule],
-                                filename,
-                                rule.logsource,
-                                config.sigmahq_logsource_filepattern[logsource],
-                            )
-                        ]
+            # check only product but must exist
+            elif rule.logsource.product:
+                logsource = SigmaLogSource(
+                    category=None, product=rule.logsource.product, service=None
+                )
+                if (
+                    logsource in config.sigmahq_logsource_filepattern
+                    and not filename.startswith(config.sigmahq_logsource_filepattern[logsource])
+                ):
+                    return [
+                        SigmahqFilenamePrefixIssue(
+                            [rule],
+                            filename,
+                            rule.logsource,
+                            config.sigmahq_logsource_filepattern[logsource],
+                        )
+                    ]
         return []
