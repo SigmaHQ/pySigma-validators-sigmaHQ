@@ -44,9 +44,7 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I001"]
-# W291: Trailing whitespace on blank line
-# W293: Blank line contains whitespace
-ignore = ["W291", "W293"]
+# ALL WARNINGS FIXED - No ignores needed for W291 and W293
 
 [tool.ruff.lint.per-file-ignores]
 # F401: Unused import (normal in __init__.py to expose API)

@@ -20,7 +20,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue():
         product: windows
     detection:
         sel:
-            CommandLine|all: 
+            CommandLine|all:
               - 'one'
               - 'two'
               - 'three'
@@ -45,7 +45,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_base64():
         product: windows
     detection:
         sel:
-            CommandLine|base64: 
+            CommandLine|base64:
               - 'one'
               - 'two'
               - 'three'
@@ -68,7 +68,7 @@ def test_validator_SigmahqFieldDuplicateValueIssue_re():
         product: windows
     detection:
         sel:
-            CommandLine|re: 
+            CommandLine|re:
               - 'test.*Test'
               - 'test.*test'
         condition: sel

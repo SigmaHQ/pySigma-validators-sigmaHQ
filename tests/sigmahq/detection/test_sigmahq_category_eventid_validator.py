@@ -75,7 +75,7 @@ logsource:
 detection:
     sel:
         field: path\\*something
-        EventID: 
+        EventID:
             - 4103
             - 4104
     condition: sel
