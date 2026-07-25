@@ -106,3 +106,13 @@ class SigmahqDataLoader(ABC):
         if self._cache is not None:
             self._cache.close()
             self._cache = None
+
+
+def make_module_api(loader_cls: type) -> dict:
+    loader = loader_cls()
+    return {
+        "__getattr__": lambda name: loader.get_attr(name, loader_cls.__module__),
+        "clear_cache": loader.clear_cache,
+        "set_url": loader.set_url,
+        "set_cache_dir": loader.set_cache_dir,
+    }

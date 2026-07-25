@@ -2,7 +2,7 @@ from typing import Any, Dict
 
 from sigma.rule import SigmaLogSource
 
-from .base import SigmahqDataLoader
+from .base import SigmahqDataLoader, make_module_api
 
 
 class _TaxonomyLoader(SigmahqDataLoader):
@@ -44,20 +44,4 @@ class _TaxonomyLoader(SigmahqDataLoader):
         }
 
 
-_loader = _TaxonomyLoader()
-
-
-def __getattr__(name: str) -> Any:
-    return _loader.get_attr(name, __name__)
-
-
-def clear_cache() -> None:
-    _loader.clear_cache()
-
-
-def set_url(url: str) -> None:
-    _loader.set_url(url)
-
-
-def set_cache_dir(cache_dir: str) -> None:
-    _loader.set_cache_dir(cache_dir)
+globals().update(make_module_api(_TaxonomyLoader))
