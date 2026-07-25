@@ -11,6 +11,20 @@ import diskcache
 _DEFAULT_CACHE_DIR = Path.home() / ".cache" / "pysigma" / "sigmahq"
 
 
+class _JSONDisk(diskcache.Disk):
+    def store(self, value, read, key=None):
+        try:
+            data = json.dumps(value, ensure_ascii=False).encode("utf-8")
+            return len(data), 1, None, data
+        except (TypeError, ValueError):
+            return super().store(value, read, key=key)
+
+    def fetch(self, mode, filename, value, expire):
+        if mode == 1:
+            return json.loads(value.decode("utf-8"))
+        return super().fetch(mode, filename, value, expire)
+
+
 class SigmahqDataLoader(ABC):
     _default_url: str
     _cache_prefix: str
@@ -29,7 +43,7 @@ class SigmahqDataLoader(ABC):
                 else _DEFAULT_CACHE_DIR
             )
             cache_dir.mkdir(parents=True, exist_ok=True)
-            self._cache = diskcache.Cache(str(cache_dir))
+            self._cache = diskcache.Cache(str(cache_dir), disk=_JSONDisk)
         return self._cache
 
     def _fetch_json(self, url: str) -> Dict[str, Any]:
