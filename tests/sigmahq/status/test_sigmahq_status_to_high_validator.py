@@ -1,12 +1,13 @@
 from datetime import date, timedelta
+
 import pytest
-from sigma.rule import SigmaRule, SigmaStatus
 from sigma.correlations import SigmaCorrelationRule
+from sigma.rule import SigmaRule, SigmaStatus
+
 from sigma.validators.sigmahq.status import (
     SigmahqStatusToHighIssue,
     SigmahqStatusToHighValidator,
 )
-
 
 TEST_PARAMS = [
     (60, 15, 1, SigmaStatus.STABLE, False, True),

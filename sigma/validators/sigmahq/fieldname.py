@@ -1,6 +1,6 @@
+import re
 from dataclasses import dataclass
 from typing import ClassVar, List, Tuple
-import re
 
 from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule

@@ -22,9 +22,7 @@ class _FilenameLoader(SigmahqDataLoader):
                 if "logsource" not in info or "prefix" not in info:
                     continue
                 logsource = SigmaLogSource.from_dict(info["logsource"])
-                logsource_key = (
-                    f"{logsource.product}_{logsource.category}_{logsource.service}"
-                )
+                logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
                 pattern[logsource_key] = info["prefix"]
 
         return {

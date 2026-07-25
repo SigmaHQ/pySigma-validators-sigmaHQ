@@ -38,9 +38,7 @@ class SigmahqDataLoader(ABC):
     def _get_cache(self) -> diskcache.Cache:
         if self._cache is None:
             cache_dir = (
-                self._custom_cache_dir
-                if self._custom_cache_dir is not None
-                else _DEFAULT_CACHE_DIR
+                self._custom_cache_dir if self._custom_cache_dir is not None else _DEFAULT_CACHE_DIR
             )
             cache_dir.mkdir(parents=True, exist_ok=True)
             self._cache = diskcache.Cache(str(cache_dir), disk=_JSONDisk)

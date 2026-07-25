@@ -22,9 +22,7 @@ class _TaxonomyLoader(SigmahqDataLoader):
         if "taxonomy" in json_data:
             for info in json_data["taxonomy"].values():
                 logsource = SigmaLogSource.from_dict(info["logsource"])
-                logsource_key = (
-                    f"{logsource.product}_{logsource.category}_{logsource.service}"
-                )
+                logsource_key = f"{logsource.product}_{logsource.category}_{logsource.service}"
                 field_info = info.get("field", {})
                 fieldsname[logsource_key] = sorted(
                     field_info.get("native", []) + field_info.get("custom", []),
@@ -32,9 +30,7 @@ class _TaxonomyLoader(SigmahqDataLoader):
                 )
                 redundant_fields[logsource_key] = field_info.get("redundant", [])
                 if "definition" in info["logsource"]:
-                    logsource_definition[logsource_key] = info["logsource"].get(
-                        "definition"
-                    )
+                    logsource_definition[logsource_key] = info["logsource"].get("definition")
 
         return {
             "sigmahq_taxonomy_version": version,

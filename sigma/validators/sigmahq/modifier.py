@@ -2,24 +2,23 @@ from dataclasses import dataclass
 from typing import ClassVar, List
 
 from sigma.correlations import SigmaCorrelationRule
-from sigma.rule import SigmaRule
-from sigma.validators.base import (
-    SigmaValidationIssue,
-    SigmaValidationIssueSeverity,
-    SigmaDetectionItemValidator,
-    SigmaDetectionItem,
-)
-
 from sigma.modifiers import (
     SigmaAllModifier,
     SigmaBase64Modifier,
     SigmaBase64OffsetModifier,
+    SigmaCaseSensitiveModifier,
     SigmaRegularExpressionDotAllFlagModifier,
     SigmaRegularExpressionFlagModifier,
     SigmaRegularExpressionIgnoreCaseFlagModifier,
     SigmaRegularExpressionModifier,
     SigmaRegularExpressionMultilineFlagModifier,
-    SigmaCaseSensitiveModifier,
+)
+from sigma.rule import SigmaRule
+from sigma.validators.base import (
+    SigmaDetectionItem,
+    SigmaDetectionItemValidator,
+    SigmaValidationIssue,
+    SigmaValidationIssueSeverity,
 )
 
 
