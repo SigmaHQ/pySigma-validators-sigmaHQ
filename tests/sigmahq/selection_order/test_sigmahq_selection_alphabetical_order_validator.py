@@ -43,7 +43,7 @@ test_cases = [
             "author": "Test",
             "date": "2024-01-01",
         },
-        ["*zombie.exe*", "*cmd.exe*", "*powershell.exe*"],
+        ["*zombie.exe", "*cmd.exe", "*powershell.exe"],
     ),
     (
         "Two items not in order - issue",
@@ -63,7 +63,7 @@ test_cases = [
             "author": "Test",
             "date": "2024-01-01",
         },
-        ["*z.exe*", "*a.exe*"],
+        ["*z.exe", "*a.exe"],
     ),
     (
         "Single item - no issue",
@@ -106,7 +106,7 @@ test_cases = [
             "author": "Test",
             "date": "2024-01-01",
         },
-        ["*zombie*", "*cmd*", "*powershell*"],
+        ["*zombie", "*cmd", "*powershell"],
     ),
 ]
 
