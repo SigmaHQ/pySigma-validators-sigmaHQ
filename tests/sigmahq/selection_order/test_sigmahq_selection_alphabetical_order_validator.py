@@ -13,10 +13,8 @@ test_cases = [
             "status": "experimental",
             "logsource": {"product": "windows", "category": "process_creation"},
             "detection": {
-                "selection": {
-                    "Image|endswith": ["cmd.exe", "powershell.exe", "pwsh.exe"]
-                },
-                "condition": "selection"
+                "selection": {"Image|endswith": ["cmd.exe", "powershell.exe", "pwsh.exe"]},
+                "condition": "selection",
             },
             "level": "medium",
             "falsepositives": ["Unknown"],
@@ -33,10 +31,8 @@ test_cases = [
             "status": "experimental",
             "logsource": {"product": "windows", "category": "process_creation"},
             "detection": {
-                "selection": {
-                    "Image|endswith": ["zombie.exe", "cmd.exe", "powershell.exe"]
-                },
-                "condition": "selection"
+                "selection": {"Image|endswith": ["zombie.exe", "cmd.exe", "powershell.exe"]},
+                "condition": "selection",
             },
             "level": "medium",
             "falsepositives": ["Unknown"],
@@ -53,10 +49,8 @@ test_cases = [
             "status": "experimental",
             "logsource": {"product": "windows", "category": "process_creation"},
             "detection": {
-                "selection": {
-                    "Image|endswith": ["z.exe", "a.exe"]
-                },
-                "condition": "selection"
+                "selection": {"Image|endswith": ["z.exe", "a.exe"]},
+                "condition": "selection",
             },
             "level": "medium",
             "falsepositives": ["Unknown"],
@@ -72,12 +66,7 @@ test_cases = [
             "description": "Detects test",
             "status": "experimental",
             "logsource": {"product": "windows", "category": "process_creation"},
-            "detection": {
-                "selection": {
-                    "Image|endswith": "cmd.exe"
-                },
-                "condition": "selection"
-            },
+            "detection": {"selection": {"Image|endswith": "cmd.exe"}, "condition": "selection"},
             "level": "medium",
             "falsepositives": ["Unknown"],
             "author": "Test",
@@ -93,13 +82,9 @@ test_cases = [
             "status": "experimental",
             "logsource": {"product": "windows", "category": "process_creation"},
             "detection": {
-                "selection1": {
-                    "Image|endswith": ["a.exe", "b.exe", "c.exe"]
-                },
-                "selection2": {
-                    "Image|contains": ["zombie", "cmd", "powershell"]
-                },
-                "condition": "1 of selection*"
+                "selection1": {"Image|endswith": ["a.exe", "b.exe", "c.exe"]},
+                "selection2": {"Image|contains": ["zombie", "cmd", "powershell"]},
+                "condition": "1 of selection*",
             },
             "level": "medium",
             "falsepositives": ["Unknown"],
