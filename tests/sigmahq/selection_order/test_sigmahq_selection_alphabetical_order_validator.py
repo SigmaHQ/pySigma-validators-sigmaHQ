@@ -106,7 +106,7 @@ test_cases = [
             "author": "Test",
             "date": "2024-01-01",
         },
-        ["*zombie", "*cmd", "*powershell"],
+        ["*zombie*", "*cmd*", "*powershell*"],
     ),
 ]
 
