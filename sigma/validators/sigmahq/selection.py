@@ -40,7 +40,5 @@ class SigmahqSelectionSingleValueValidator(SigmaRuleValidator):
         for sel_name, detection in rule.detection.detections.items():
             for item in _iter_detection_items(detection):
                 if item.field is not None and len(item.value) == 1:
-                    issues.append(
-                        SigmahqSelectionSingleValueIssue([rule], sel_name, item.field)
-                    )
+                    issues.append(SigmahqSelectionSingleValueIssue([rule], sel_name, item.field))
         return issues
