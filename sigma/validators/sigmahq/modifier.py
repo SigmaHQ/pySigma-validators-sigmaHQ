@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import ClassVar, List
+from typing import ClassVar, List, Tuple
 
 from sigma.correlations import SigmaCorrelationRule
 from sigma.modifiers import (
@@ -21,6 +21,8 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
+MIN_ALL_MODIFIER_VALUES = 2
+
 
 @dataclass
 class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):
@@ -33,7 +35,7 @@ class SigmahqFieldDuplicateValueIssue(SigmaValidationIssue):
 class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
     """Check unique values in field lists."""
 
-    CaseSensitiveModifierList = [
+    CaseSensitiveModifierList: ClassVar[Tuple[type, ...]] = (
         SigmaBase64Modifier,
         SigmaBase64OffsetModifier,
         SigmaRegularExpressionDotAllFlagModifier,
@@ -42,7 +44,7 @@ class SigmahqFieldDuplicateValueValidator(SigmaDetectionItemValidator):
         SigmaRegularExpressionModifier,
         SigmaRegularExpressionMultilineFlagModifier,
         SigmaCaseSensitiveModifier,
-    ]
+    )
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if not isinstance(rule, SigmaRule):
@@ -100,7 +102,7 @@ class SigmahqInvalidAllModifierValidator(SigmaDetectionItemValidator):
     ) -> List[SigmaValidationIssue]:
         if (
             SigmaAllModifier in detection_item.modifiers
-            and len(detection_item.value) < 2
+            and len(detection_item.value) < MIN_ALL_MODIFIER_VALUES
             and detection_item.field is not None
         ):
             return [SigmahqInvalidAllModifierIssue([self.rule], detection_item.field)]

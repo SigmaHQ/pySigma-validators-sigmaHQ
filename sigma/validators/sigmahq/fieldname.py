@@ -1,6 +1,6 @@
 import re
 from dataclasses import dataclass
-from typing import ClassVar, List, Tuple
+from typing import ClassVar, Dict, List, Optional, Tuple
 
 from sigma.correlations import SigmaCorrelationRule
 from sigma.rule import SigmaRule
@@ -49,7 +49,10 @@ class SigmahqFieldnameCastIssue(SigmaValidationIssue):
 class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
     """Check field name have a cast error."""
 
+    fields: Tuple[str, ...] = ()
+
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        self.fields = ()
         if not isinstance(rule, SigmaRule):
             return []
 
@@ -60,7 +63,7 @@ class SigmahqFieldnameCastValidator(SigmaDetectionItemValidator):
             logsource_key in data_taxonomy.sigmahq_taxonomy_fieldsname
             and len(data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]) > 0
         ):
-            self.fields = data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]
+            self.fields = tuple(data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key])
             return super().validate(rule)
 
         return []
@@ -88,7 +91,10 @@ class SigmahqInvalidFieldnameIssue(SigmaValidationIssue):
 class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
     """Check field name do not exist in the logsource."""
 
+    fields: Tuple[str, ...] = ()
+
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        self.fields = ()
         if not isinstance(rule, SigmaRule):
             return []
 
@@ -99,7 +105,7 @@ class SigmahqInvalidFieldnameValidator(SigmaDetectionItemValidator):
             logsource_key in data_taxonomy.sigmahq_taxonomy_fieldsname
             and len(data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]) > 0
         ):
-            self.fields = data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key]
+            self.fields = tuple(data_taxonomy.sigmahq_taxonomy_fieldsname[logsource_key])
             return super().validate(rule)
 
         return []
@@ -158,11 +164,29 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
 
     hash_field: Tuple[str, ...] = ("Hashes", "Hash")
     hash_key: Tuple[str, ...] = ("MD5", "SHA1", "SHA256", "IMPHASH")
+    hash_regex: ClassVar[Dict[str, str]] = {
+        "MD5": r"^[a-fA-F0-9]{32}$",
+        "SHA1": r"^[a-fA-F0-9]{40}$",
+        "SHA256": r"^[a-fA-F0-9]{64}$",
+        "IMPHASH": r"^[a-fA-F0-9]{32}$",
+    }
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if not isinstance(rule, SigmaRule):
             return []
         return super().validate(rule)
+
+    def _hash_error(self, s_value: str) -> Optional[str]:
+        """Return the invalid part of a Hash_Type=Hash_Value search, None if valid."""
+        try:
+            hash_name, hash_data = s_value.split("=")
+        except ValueError:
+            return s_value
+        if hash_name not in self.hash_key:
+            return hash_name
+        if re.search(self.hash_regex[hash_name], hash_data) is None:
+            return hash_data
+        return None
 
     def validate_detection_item(
         self, detection_item: SigmaDetectionItem
@@ -174,27 +198,9 @@ class SigmahqInvalidHashKvValidator(SigmaDetectionItemValidator):
                 if isinstance(v, SigmaString):
                     for s_value in v.s:
                         if isinstance(s_value, str):
-                            try:
-                                hash_name, hash_data = s_value.split("=")
-                                if hash_name in self.hash_key:
-                                    hash_regex = r"^[a-fA-F0-9]{32}$"
-
-                                    match hash_name:
-                                        case "MD5":
-                                            hash_regex = r"^[a-fA-F0-9]{32}$"
-                                        case "SHA1":
-                                            hash_regex = r"^[a-fA-F0-9]{40}$"
-                                        case "SHA256":
-                                            hash_regex = r"^[a-fA-F0-9]{64}$"
-                                        case "IMPHASH":
-                                            hash_regex = r"^[a-fA-F0-9]{32}$"
-
-                                    if re.search(hash_regex, hash_data) is None:
-                                        errors.append(hash_data)
-                                else:
-                                    errors.append(hash_name)
-                            except ValueError:
-                                errors.append(s_value)
+                            error = self._hash_error(s_value)
+                            if error is not None:
+                                errors.append(error)
                 else:
                     errors.append(v)
 
@@ -211,7 +217,10 @@ class SigmahqRedundantFieldIssue(SigmaValidationIssue):
 class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
     """Check if a field name is already covered by the logsource."""
 
+    fields: Tuple[str, ...] = ()
+
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        self.fields = ()
         if not isinstance(rule, SigmaRule):
             return []
 
@@ -222,7 +231,7 @@ class SigmahqRedundantFieldValidator(SigmaDetectionItemValidator):
             logsource_key in data_taxonomy.sigmahq_taxonomy_redundant_fields
             and len(data_taxonomy.sigmahq_taxonomy_redundant_fields[logsource_key]) > 0
         ):
-            self.fields = data_taxonomy.sigmahq_taxonomy_redundant_fields[logsource_key]
+            self.fields = tuple(data_taxonomy.sigmahq_taxonomy_redundant_fields[logsource_key])
             return super().validate(rule)
         return []
 

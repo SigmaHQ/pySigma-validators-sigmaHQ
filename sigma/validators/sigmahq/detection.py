@@ -64,7 +64,10 @@ class SigmahqCategoryWindowsProviderNameValidator(SigmaDetectionItemValidator):
     """Checks if a rule uses a Provider_Name field with a windows category \
 logsource that doesn't require it."""
 
+    list_provider: Tuple[str, ...] = ()
+
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        self.list_provider = ()
         # Only validate SigmaRule (detection rules), not correlation rules
         if not isinstance(rule, SigmaRule):
             return []
@@ -73,9 +76,9 @@ logsource that doesn't require it."""
             return []
 
         if rule.logsource.category in data_windows_provider.sigmahq_provider_name:
-            self.list_provider = data_windows_provider.sigmahq_provider_name[
-                rule.logsource.category
-            ]
+            self.list_provider = tuple(
+                data_windows_provider.sigmahq_provider_name[rule.logsource.category]
+            )
             return super().validate(rule)
 
         return []

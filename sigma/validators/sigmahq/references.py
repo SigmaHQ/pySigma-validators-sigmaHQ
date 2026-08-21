@@ -10,6 +10,9 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
+_GITHUB_FILE_LINK_RE = re.compile(r"https://github.com/.*\.\w{1,3}\Z")
+_GITHUB_PERMALINK_SHA_RE = re.compile(r".*/[0-9a-z]{40}/.*")
+
 
 @dataclass
 class SigmahqGithubLinkIssue(SigmaValidationIssue):
@@ -27,8 +30,8 @@ class SigmahqGithubLinkValidator(SigmaRuleValidator):
         result: List[SigmaValidationIssue] = []
         if rule.references is not None:
             for link in rule.references:
-                if re.match(r"https://github.com/.*\.\w{1,3}$", link) is not None:
-                    if re.match(r".*/[0-9a-z]{40}/.*", link) is None:
+                if _GITHUB_FILE_LINK_RE.match(link) is not None:
+                    if _GITHUB_PERMALINK_SHA_RE.match(link) is None:
                         result.append(SigmahqGithubLinkIssue([rule], link))
         return result
 

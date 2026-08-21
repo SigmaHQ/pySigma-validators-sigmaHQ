@@ -29,7 +29,7 @@ detection:
 
 
 def test_validator_SigmahqInvalidAllModifierIssue_correlation_rule():
-    """Test that the validator works correctly with SigmaCorrelationRule (should not detect issues)"""
+    """Test that the validator works correctly with SigmaCorrelationRule (no issues)"""
     validator = SigmahqInvalidAllModifierValidator()
     correlation_rule = SigmaCorrelationRule.from_yaml(
         """
