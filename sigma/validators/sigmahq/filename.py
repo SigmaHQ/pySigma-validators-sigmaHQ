@@ -78,16 +78,21 @@ class SigmahqFilenamePrefixValidator(SigmaRuleValidator):
             return False
 
         try:
+            has_separator = False
+            has_correlation = False
+            has_logsource = False
             with open(rule.source.path, "r", encoding="utf-8") as f:
-                content = f.read()
-                # Check if file contains both correlation and detection/logsource sections
-                has_separator = "\n---\n" in content or content.startswith("---\n")
-                has_correlation = "correlation:" in content
-                has_logsource = "logsource:" in content
-
-                # Combined if it has separator and both correlation and logsource
-                return has_separator and has_correlation and has_logsource
-        except Exception:
+                for line in f:
+                    if line.rstrip("\r\n") == "---":
+                        has_separator = True
+                    if "correlation:" in line:
+                        has_correlation = True
+                    if "logsource:" in line:
+                        has_logsource = True
+                    if has_separator and has_correlation and has_logsource:
+                        break
+            return has_separator and has_correlation and has_logsource
+        except (OSError, UnicodeDecodeError):
             return False
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:

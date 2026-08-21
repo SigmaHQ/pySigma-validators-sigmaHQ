@@ -1,5 +1,6 @@
 import http.client
 import json
+import warnings
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, Optional, cast
@@ -47,9 +48,20 @@ class SigmahqDataLoader(ABC):
     def _fetch_json(self, url: str) -> Dict[str, Any]:
         try:
             if not url.startswith(("http://", "https://")):
-                with open(url, "r", encoding="utf-8") as f:
+                path = Path(url)
+                if not path.is_file():
+                    raise FileNotFoundError(f"Data file not found: {url}")
+                with path.open("r", encoding="utf-8") as f:
                     return json.load(f)
             else:
+                if url.startswith("http://"):
+                    warnings.warn(
+                        f"Unencrypted HTTP URL used for data loading: {url}. "
+                        "Prefer HTTPS to avoid tampered validation data.",
+                        stacklevel=3,
+                    )
+                # noqa: S310 - http/https are the only accepted schemes; URLs come from
+                # trusted application configuration (set_url), not untrusted input.
                 with urlopen(url, timeout=30) as response:  # noqa: S310
                     return json.load(response)
         except (
