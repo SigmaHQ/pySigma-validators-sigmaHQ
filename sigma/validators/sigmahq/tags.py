@@ -1,7 +1,7 @@
 # sigma/validators/sigmahq/tags.py
 
 from dataclasses import dataclass
-from typing import ClassVar, List, Tuple
+from typing import ClassVar, Dict, List, Set, Tuple
 
 import sigma.data.mitre_attack as _mitre_attack
 from sigma.correlations import SigmaCorrelationRule
@@ -116,36 +116,33 @@ class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
             for tag in attack_tags
             if tag.name.startswith("t") and any(c.isdigit() for c in tag.name)
         ]
-        tactic_tags = [tag.name for tag in attack_tags if not tag.name.startswith("t")]
+        tactic_tags = {tag.name for tag in attack_tags if not tag.name.startswith("t")}
 
-        missing_tactics = []
         if technique_tags:
             mapping = _mitre_attack.mitre_attack_techniques_tactics_mapping
+            # Single pass: collect the missing tactics of each known technique
+            technique_to_missing: Dict[str, Set[str]] = {}
             for technique in technique_tags:
-                technique_upper = technique.upper()
+                required_tactics = mapping.get(technique.upper())
+                if required_tactics:
+                    missing = {tactic for tactic in required_tactics if tactic not in tactic_tags}
+                    if missing:
+                        technique_to_missing[technique] = missing
 
-                # Check if the technique exists in mapping before accessing it
-                if technique_upper in mapping:
-                    required_tactics = mapping[technique_upper]
-                    missing_tactics.extend(
-                        [tactic for tactic in required_tactics if tactic not in tactic_tags]
+            for missing_tactic in sorted(
+                {t for missing in technique_to_missing.values() for t in missing}
+            ):
+                techniques = [
+                    technique
+                    for technique, missing in technique_to_missing.items()
+                    if missing_tactic in missing
+                ]
+                issues.append(
+                    SigmahqTagsTechniquesWithoutTacticsIssue(
+                        [rule],
+                        techniques=["attack." + t for t in techniques],
+                        missing_tactic="attack." + missing_tactic,
                     )
-
-            if missing_tactics:
-                for missing_tactic in set(missing_tactics):
-                    # Add safety check to ensure technique exists before accessing mapping
-                    techniques = [
-                        technique
-                        for technique in technique_tags
-                        if technique.upper() in mapping
-                        and missing_tactic in mapping[technique.upper()]
-                    ]
-                    issues.append(
-                        SigmahqTagsTechniquesWithoutTacticsIssue(
-                            [rule],
-                            techniques=["attack." + t for t in techniques],
-                            missing_tactic="attack." + missing_tactic,
-                        )
-                    )
+                )
 
         return issues

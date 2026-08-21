@@ -9,6 +9,18 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
+MIN_CORRELATION_RULES = 2
+
+_TEMPORAL_TYPES = frozenset({SigmaCorrelationType.TEMPORAL, SigmaCorrelationType.TEMPORAL_ORDERED})
+_GROUP_BY_REQUIRED_TYPES = frozenset(
+    {
+        SigmaCorrelationType.EVENT_COUNT,
+        SigmaCorrelationType.VALUE_COUNT,
+        SigmaCorrelationType.TEMPORAL,
+        SigmaCorrelationType.TEMPORAL_ORDERED,
+    }
+)
+
 
 @dataclass
 class SigmahqCorrelationRulesMinimumIssue(SigmaValidationIssue):
@@ -23,11 +35,8 @@ class SigmahqCorrelationRulesMinimumValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
-            if rule.type in [
-                SigmaCorrelationType.TEMPORAL,
-                SigmaCorrelationType.TEMPORAL_ORDERED,
-            ]:
-                if len(rule.rules) < 2:  # type: ignore[arg-type]  # noqa: PLR2004
+            if rule.type in _TEMPORAL_TYPES:
+                if len(rule.rules) < MIN_CORRELATION_RULES:  # type: ignore[arg-type]
                     return [SigmahqCorrelationRulesMinimumIssue([rule])]
         return []
 
@@ -45,12 +54,7 @@ class SigmahqCorrelationGroupByExistenceValidator(SigmaRuleValidator):
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaCorrelationRule):
-            if rule.type in [
-                SigmaCorrelationType.EVENT_COUNT,
-                SigmaCorrelationType.VALUE_COUNT,
-                SigmaCorrelationType.TEMPORAL,
-                SigmaCorrelationType.TEMPORAL_ORDERED,
-            ]:
+            if rule.type in _GROUP_BY_REQUIRED_TYPES:
                 if rule.group_by is None or len(rule.group_by) == 0:
                     return [SigmahqCorrelationGroupByExistenceIssue([rule])]
         return []

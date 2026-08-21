@@ -9,6 +9,9 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
+_ALLOWED_CUSTOM_ATTRIBUTES = frozenset({"regression_tests_path", "simulation"})
+_ALLOWED_CUSTOM_ATTRIBUTES_CORRELATION = _ALLOWED_CUSTOM_ATTRIBUTES | {"correlation"}
+
 
 @dataclass
 class SigmahqFieldsExistenceIssue(SigmaValidationIssue):
@@ -37,20 +40,17 @@ class SigmahqUnknownFieldValidator(SigmaRuleValidator):
     """Checks if a rule uses an unknown field."""
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
-        if len(rule.custom_attributes) > 0:
-            custom_keys = list(rule.custom_attributes.keys())
-            allowed_fields = {"regression_tests_path", "simulation"}
-
+        if rule.custom_attributes:
             # For correlation rules, the 'correlation' field is standard, not custom
-            if isinstance(rule, SigmaCorrelationRule):
-                allowed_fields.add("correlation")
+            allowed_fields = (
+                _ALLOWED_CUSTOM_ATTRIBUTES_CORRELATION
+                if isinstance(rule, SigmaCorrelationRule)
+                else _ALLOWED_CUSTOM_ATTRIBUTES
+            )
 
             # Find any custom attributes that are not in the allowed list
-            unknown_fields = [key for key in custom_keys if key not in allowed_fields]
+            unknown_fields = [key for key in rule.custom_attributes if key not in allowed_fields]
 
             if unknown_fields:
                 return [SigmahqUnknownFieldIssue([rule], unknown_fields)]
-            else:
-                return []
-        else:
-            return []
+        return []
