@@ -1,6 +1,6 @@
 [project]
 name = "pySigma-validators-sigmahq"
-version = "0.21.0"
+version = "0.21.1"
 description = "pySigma SigmaHQ validators"
 license = "LGPL-2.1-only"
 readme = "README.md"
@@ -54,8 +54,8 @@ ignore = ["PLR2004"]
 
 # S101: assert is acceptable in tests
 # S108: /tmp usage is acceptable in test fixtures
-# PLR0913: Many-argument functions are common in parametrized tests
-"tests/**" = ["S101", "S108", "PLR0913"]
+# PLR0913/PLR0917: Many-argument functions are common in parametrized tests
+"tests/**" = ["S101", "S108", "PLR0913", "PLR0917"]
 
 # S101: assert is acceptable in tools
 "tools/**" = ["S101"]
