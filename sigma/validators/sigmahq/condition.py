@@ -10,6 +10,8 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
+MIN_X_OF_SELECTIONS = 2
+
 
 @dataclass
 class SigmahqOfthemConditionIssue(SigmaValidationIssue):
@@ -78,7 +80,7 @@ class SigmahqOfselectionConditionValidator(SigmaRuleValidator):
                             for selection_name in detection.detections:
                                 if re.match(name, selection_name):
                                     selection_count += 1
-                            if selection_count < 2:  # noqa: PLR2004
+                            if selection_count < MIN_X_OF_SELECTIONS:
                                 return [SigmahqOfselectionConditionIssue([rule], name)]
         return []
 

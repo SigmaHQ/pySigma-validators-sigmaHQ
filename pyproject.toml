@@ -45,21 +45,20 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I001", "S", "PLR"]
+# PLR2004: magic values in one-off comparisons are often clearer than a named constant
+ignore = ["PLR2004"]
 
 [tool.ruff.lint.per-file-ignores]
 # F401: Import not used (intentional in __init__.py to expose public API)
 "__init__.py" = ["F401"]
 
 # S101: assert is acceptable in tests
-# PLR2004: Magic values (e.g., 2) sometimes make more sense than introducing a constant for a one-off comparison
 # S108: /tmp usage is acceptable in test fixtures
-"tests/**" = ["S101", "PLR2004", "S108"]
+# PLR0913: Many-argument functions are common in parametrized tests
+"tests/**" = ["S101", "S108", "PLR0913"]
 
 # S101: assert is acceptable in tools
 "tools/**" = ["S101"]
-
-# PLR0912: Too many branches - complex validation logic in field validators
-"sigma/validators/sigmahq/fieldname.py" = ["PLR0912"]
 
 [tool.ruff.format]
 quote-style = "double"
