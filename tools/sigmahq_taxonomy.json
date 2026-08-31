@@ -1,6 +1,6 @@
 {
     "title": "Sigma taxonomy",
-    "version": "20251205",
+    "version": "20260831",
     "taxonomy": {
         "aws_none_cloudtrail": {
             "logsource": {
@@ -184,6 +184,20 @@
                 "redundant": []
             }
         },
+        "fortigate_none_event": {
+            "logsource": {
+                "product": "fortigate",
+                "category": null,
+                "service": "event",
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": [],
+                "custom": [],
+                "redundant": []
+            }
+        },
         "fortios_none_sslvpnd": {
             "logsource": {
                 "product": "fortios",
@@ -217,6 +231,20 @@
                 "product": "gcp",
                 "category": null,
                 "service": "google_workspace.admin",
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": [],
+                "custom": [],
+                "redundant": []
+            }
+        },
+        "gcp_none_google_workspace.login": {
+            "logsource": {
+                "product": "gcp",
+                "category": null,
+                "service": "google_workspace.login",
                 "definition": null
             },
             "description": null,
@@ -2384,6 +2412,20 @@
                     "UserName",
                     "UserNameLength"
                 ],
+                "custom": [],
+                "redundant": []
+            }
+        },
+        "windows_none_smbserver-connectivity": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "smbserver-connectivity",
+                "definition": null
+            },
+            "description": null,
+            "field": {
+                "native": [],
                 "custom": [],
                 "redundant": []
             }
