@@ -128,6 +128,33 @@
             },
             "prefix": "lnx_"
         },
+        "linux_file_access_none": {
+            "logsource": {
+                "product": "linux",
+                "category": "file_access",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_access_lnx_"
+        },
+        "linux_file_change_none": {
+            "logsource": {
+                "product": "linux",
+                "category": "file_change",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_change_lnx_"
+        },
+        "linux_file_delete_none": {
+            "logsource": {
+                "product": "linux",
+                "category": "file_delete",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "file_delete_lnx_"
+        },
         "linux_file_event_none": {
             "logsource": {
                 "product": "linux",
@@ -870,6 +897,15 @@
             "logsource": {
                 "product": "windows",
                 "category": "ps_classic_start",
+                "service": null,
+                "definition": null
+            },
+            "prefix": "posh_pc_"
+        },
+        "windows_ps_classic_script_none": {
+            "logsource": {
+                "product": "windows",
+                "category": "ps_classic_script",
                 "service": null,
                 "definition": null
             },
