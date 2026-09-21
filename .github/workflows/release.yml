@@ -10,11 +10,11 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@v7
       - name: Install Poetry
         run: pipx install poetry
       - name: Set up Python 3.14
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        uses: actions/setup-python@v7
         with:
           python-version: '3.14'
       - name: Verify versioning
@@ -28,4 +28,4 @@ jobs:
         run: poetry build
       - name: Publish to PyPI
         if: ${{ github.event_name == 'release' }}
-        uses: pypa/gh-action-pypi-publish@a892a5a61159132606e93a2fa6f4358831b04d26 # v1.14.2
+        uses: pypa/gh-action-pypi-publish@v1.14.2
