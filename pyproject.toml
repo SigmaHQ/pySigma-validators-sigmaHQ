@@ -1,6 +1,6 @@
 [project]
 name = "pySigma-validators-sigmahq"
-version = "0.21.1"
+version = "0.21.2"
 description = "pySigma SigmaHQ validators"
 license = "LGPL-2.1-only"
 readme = "README.md"
@@ -18,9 +18,8 @@ maintainers = [
 keywords = [ "pySigma", "SigmaHQ", "validators"]
 
 dependencies = [
-    "pysigma >=1.3",
-    "diskcache >=5.6",
-    "requests >=2.34"
+    "pysigma >=1.5",
+    "diskcache >=5.6"
 ]
 
 [project.urls]
@@ -37,7 +36,7 @@ defusedxml = "^0.7"
 pytest = "^9.1"
 pytest-cov = "^7.1"
 mypy = "^2.0"
-check-jsonschema = "^0.37"
+check-jsonschema = "^0.38"
 
 [tool.ruff]
 line-length = 100

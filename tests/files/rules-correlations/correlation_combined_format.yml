@@ -1,5 +1,5 @@
 title: Test Detection Rule in Combined File
-id: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+id: aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa
 status: test
 description: This is a test detection rule in a combined format file
 author: Test Author
@@ -16,7 +16,7 @@ falsepositives:
     - Unknown
 ---
 title: Test Correlation Rule in Combined File
-id: bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb
+id: bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb
 status: test
 description: This is a test correlation rule in a combined format file
 author: Test Author
@@ -25,7 +25,7 @@ level: high
 correlation:
     type: event_count
     rules:
-        - aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+        - aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa
     group-by:
         - Computer
     timespan: 5m
