@@ -17,7 +17,8 @@ class SigmahqIdentifierExistenceIssue(SigmaValidationIssue):
 
 
 class SigmahqIdentifierExistenceValidator(SigmaRuleValidator):
-    """Checks if a SigmaRule is missing the id field (mandatory for rules, optional for correlation rules)."""
+    """Checks if a SigmaRule is missing the id field (mandatory for rules, \
+optional for correlation rules)."""
 
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         if isinstance(rule, SigmaRule) and rule.id is None:
