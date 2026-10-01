@@ -1,0 +1,7 @@
+Tactic,Technique #,Technique Name,Test #,Test Name,Test GUID,Executor Name
+execution,T1059.001,Command and Scripting Interpreter: PowerShell,1,PowerShell Execute a Script,11111111-1111-4111-8111-111111111111,powershell
+execution,T1059.001,Command and Scripting Interpreter: PowerShell,2,PowerShell Download,22222222-2222-4222-8222-222222222222,powershell
+defense-evasion,T1112,Modify Registry,1,chattr - Remove immutable file attribute,33333333-3333-4333-8333-333333333333,command_prompt
+defense-evasion,T1112,Modify Registry,2,Ursnif Malware Registry Key Creation,44444444-4444-4444-8444-444444444444,command_prompt
+persistence,T1112,Modify Registry,1,chattr - Remove immutable file attribute,33333333-3333-4333-8333-333333333333,command_prompt
+stealth,T1562.001,Impair Defenses,1,Disable Windows Event Logging,55555555-5555-4555-8555-555555555555,command_prompt
