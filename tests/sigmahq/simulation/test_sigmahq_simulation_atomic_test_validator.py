@@ -5,7 +5,9 @@ from sigma.validators.sigmahq.simulation import (
     SigmahqSimulationAtomicTestExistsValidator,
     SigmahqSimulationAtomicTestNameIssue,
     SigmahqSimulationAtomicTestNameValidator,
+    SigmahqSimulationAtomicTestTechniqueValidator,
     SigmahqSimulationUnknownAtomicTestIssue,
+    SigmahqSimulationValidator,
 )
 
 KNOWN_GUID = "11111111-1111-4111-8111-111111111111"
@@ -183,3 +185,50 @@ def test_validator_atomic_test_name_silent_when_index_unreachable(unreachable_in
     rule = create_rule(entry(name="'Wholly Different Test'"))
     with pytest.warns(UserWarning, match="index unavailable"):
         assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []
+
+
+@pytest.mark.parametrize(
+    "guid",
+    [
+        "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",  # version 1
+        "886313e1-3b8a-5372-9b90-0c9aee199e5d",  # version 5
+    ],
+)
+def test_validator_atomic_test_exists_uuid_must_be_v4(guid):
+    """Every GUID of the index is a v4 UUID, so another version cannot resolve."""
+    rule = create_rule(entry(guid=f"'{guid}'"))
+    assert [type(i).__name__ for i in SigmahqSimulationValidator().validate(rule)] == [
+        "SigmahqSimulationInvalidAtomicGuidIssue"
+    ]
+    exists = SigmahqSimulationAtomicTestExistsValidator().validate(rule)
+    assert [type(i).__name__ for i in exists] == ["SigmahqSimulationUnknownAtomicTestIssue"]
+
+
+def test_validator_atomic_test_technique_matches():
+    assert SigmahqSimulationAtomicTestTechniqueValidator().validate(create_rule(entry())) == []
+
+
+def test_validator_atomic_test_technique_parent_accepted():
+    """A rule may spell the parent technique where the index spells a sub-technique."""
+    rule = create_rule(entry())
+    rule.custom_attributes["simulation"][0]["technique"] = "T1059"
+    assert SigmahqSimulationAtomicTestTechniqueValidator().validate(rule) == []
+
+
+def test_validator_atomic_test_technique_divergent():
+    rule = create_rule(entry())
+    rule.custom_attributes["simulation"][0]["technique"] = "T1112"
+    issues = SigmahqSimulationAtomicTestTechniqueValidator().validate(rule)
+    assert len(issues) == 1
+    assert (issues[0].technique, issues[0].expected_technique) == ("T1112", "T1059.001")
+
+
+def test_validator_atomic_test_technique_unknown_guid_is_skipped():
+    rule = create_rule(entry(guid=UNKNOWN_GUID))
+    assert SigmahqSimulationAtomicTestTechniqueValidator().validate(rule) == []
+
+
+def test_validator_atomic_test_technique_silent_when_index_unreachable(unreachable_index):
+    rule = create_rule(entry())
+    with pytest.warns(UserWarning, match="index unavailable"):
+        assert SigmahqSimulationAtomicTestTechniqueValidator().validate(rule) == []

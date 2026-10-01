@@ -159,14 +159,18 @@ class SigmahqSimulationValidator(SigmaRuleValidator):
 
     @staticmethod
     def _is_uuid(value: Any) -> bool:
-        """A UUID is accepted as a string with or without dashes; other types are not."""
+        """Accept a UUIDv4 string, with or without dashes; other types are not.
+
+        Every GUID published in the Atomic Red Team index is a version 4 UUID,
+        so any other version cannot resolve to a test.
+        """
         if not isinstance(value, str):
             return False
         try:
-            UUID(value)
+            parsed = UUID(value)
         except ValueError:
             return False
-        return True
+        return parsed.version == 4
 
 
 @dataclass
@@ -178,8 +182,8 @@ class SigmahqSimulationUnknownAtomicTestIssue(SigmaValidationIssue):
     atomic_guid: str
 
 
-def _known_test_names() -> Dict[str, str] | None:
-    """Return the Atomic Red Team GUID to name mapping, or None if unavailable.
+def _known_tests() -> Dict[str, Dict[str, str]] | None:
+    """Return the Atomic Red Team GUID to test mapping, or None if unavailable.
 
     The index lives outside this repository, so it can be unreachable because of
     a network outage, a rate limit or an upstream move. Validators depending on
@@ -187,7 +191,7 @@ def _known_test_names() -> Dict[str, str] | None:
     every rule of the repository is worse than a skipped cross-check.
     """
     try:
-        return data_atomic_red_team.sigmahq_atomic_red_team_test_name_by_guid
+        return data_atomic_red_team.sigmahq_atomic_red_team_test_by_guid
     except RuntimeError as e:
         warnings.warn(
             f"Atomic Red Team index unavailable, simulation cross-checks skipped: {e}",
@@ -204,7 +208,7 @@ class SigmahqSimulationAtomicTestExistsValidator(SigmaRuleValidator):
         if simulation is None:
             return []
 
-        known = _known_test_names()
+        known = _known_tests()
         if known is None:
             return []
 
@@ -213,6 +217,58 @@ class SigmahqSimulationAtomicTestExistsValidator(SigmaRuleValidator):
             guid = entry.get("atomic_guid")
             if isinstance(guid, str) and guid not in known:
                 issues.append(SigmahqSimulationUnknownAtomicTestIssue([rule], atomic_guid=guid))
+        return issues
+
+
+@dataclass
+class SigmahqSimulationAtomicTestTechniqueIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "simulation technique does not match the technique of the atomic test "
+        "referenced by atomic_guid"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+    technique: str
+    expected_technique: str
+
+
+class SigmahqSimulationAtomicTestTechniqueValidator(SigmaRuleValidator):
+    """Checks that technique matches the test the atomic_guid points to.
+
+    A GUID identifies exactly one test in the index, and every one of the 1878
+    published GUIDs carries a single technique, so the comparison is
+    unambiguous.
+
+    The technique is still compared with a lenient format: a rule may spell the
+    parent technique T1059 where the index spells the sub-technique T1059.001,
+    which is the same test and must not be reported.
+    """
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        simulation = _simulation_entries(rule)
+        if simulation is None:
+            return []
+
+        known = _known_tests()
+        if known is None:
+            return []
+
+        issues: List[SigmaValidationIssue] = []
+        for entry in simulation:
+            guid = entry.get("atomic_guid")
+            technique = entry.get("technique")
+            if not isinstance(guid, str) or guid not in known:
+                continue
+            if not isinstance(technique, str) or not technique.strip():
+                continue
+
+            expected_technique = known[guid]["technique"]
+            if _techniques_match(technique, expected_technique):
+                continue
+            issues.append(
+                SigmahqSimulationAtomicTestTechniqueIssue(
+                    [rule], technique=technique, expected_technique=expected_technique
+                )
+            )
         return issues
 
 
@@ -230,12 +286,8 @@ class SigmahqSimulationAtomicTestNameIssue(SigmaValidationIssue):
 class SigmahqSimulationAtomicTestNameValidator(SigmaRuleValidator):
     """Checks that name matches the test the atomic_guid points to.
 
-    The technique is deliberately not compared with the index: Atomic Red Team
-    master renumbered several techniques (T1562.001 became T1685), and the
-    references of a rule may legitimately keep the older identifier.
-
-    Names that only differ by case or punctuation are accepted, since several
-    existing rules spell a test slightly differently than the index does.
+    Names that only differ by case or punctuation are accepted, since a rule
+    may legitimately spell a test slightly differently than the index does.
     """
 
     name_similarity_threshold: float = _NAME_SIMILARITY_THRESHOLD
@@ -245,7 +297,7 @@ class SigmahqSimulationAtomicTestNameValidator(SigmaRuleValidator):
         if simulation is None:
             return []
 
-        known = _known_test_names()
+        known = _known_tests()
         if known is None:
             return []
 
@@ -258,7 +310,7 @@ class SigmahqSimulationAtomicTestNameValidator(SigmaRuleValidator):
             if not isinstance(name, str) or not name.strip():
                 continue
 
-            expected_name = known[guid]
+            expected_name = known[guid]["name"]
             if _names_match(name, expected_name, self.name_similarity_threshold):
                 continue
             issues.append(
@@ -295,3 +347,16 @@ def _names_match(name: str, expected_name: str, threshold: float) -> bool:
     if normalized == normalized_expected:
         return True
     return SequenceMatcher(None, normalized, normalized_expected).ratio() >= threshold
+
+
+def _techniques_match(technique: str, expected_technique: str) -> bool:
+    """Compare a technique with the one of the index, tolerating the parent form.
+
+    A rule that spells the parent technique T1059 against an index entry of
+    T1059.001 describes the same test, so only a real divergence is reported.
+    """
+    normalized = technique.strip().upper()
+    normalized_expected = expected_technique.strip().upper()
+    if normalized == normalized_expected:
+        return True
+    return normalized == normalized_expected.split(".")[0]

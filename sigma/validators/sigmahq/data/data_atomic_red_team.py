@@ -18,20 +18,27 @@ class _AtomicRedTeamLoader(SigmahqDataLoader):
         return self._fetch_text(url)
 
     def _parse(self, content: Any) -> Dict[str, Any]:
-        """Map every atomic GUID to its test name.
+        """Map every atomic GUID to its technique and test name.
 
         The index lists a test once per tactic, so a GUID can appear several
-        times. Those repetitions always agree on the name, hence the first
-        occurrence wins and the mapping stays unambiguous. The published index
-        has 2371 rows for 1878 distinct GUIDs, all valid UUIDv4.
+        times. Those repetitions always agree on both the technique and the
+        name, hence the first occurrence wins and the mapping stays
+        unambiguous: of the 2371 published rows, 1878 are distinct GUIDs and
+        none carries two techniques or two names.
         """
-        index: Dict[str, str] = {}
+        index: Dict[str, Dict[str, str]] = {}
         for row in csv.DictReader(io.StringIO(content)):
             guid = (row.get("Test GUID") or "").strip()
             if not guid:
                 continue
-            index.setdefault(guid, (row.get("Test Name") or "").strip())
-        return {"sigmahq_atomic_red_team_test_name_by_guid": index}
+            index.setdefault(
+                guid,
+                {
+                    "technique": (row.get("Technique #") or "").strip(),
+                    "name": (row.get("Test Name") or "").strip(),
+                },
+            )
+        return {"sigmahq_atomic_red_team_test_by_guid": index}
 
 
 globals().update(make_module_api(_AtomicRedTeamLoader))
