@@ -45,36 +45,38 @@ class SigmahqDataLoader(ABC):
             self._cache = diskcache.Cache(str(cache_dir), disk=_JSONDisk)
         return self._cache
 
-    def _fetch_json(self, url: str) -> Dict[str, Any]:
+    def _fetch_text(self, url: str) -> str:
+        """Fetch a remote or local URL and return its content as text.
+
+        http:// is accepted but warns, since the data drives validation
+        decisions and must not be tampered with in transit.
+        """
         try:
             if not url.startswith(("http://", "https://")):
                 path = Path(url)
                 if not path.is_file():
                     raise FileNotFoundError(f"Data file not found: {url}")
-                with path.open("r", encoding="utf-8") as f:
-                    return json.load(f)
-            else:
-                if url.startswith("http://"):
-                    warnings.warn(
-                        f"Unencrypted HTTP URL used for data loading: {url}. "
-                        "Prefer HTTPS to avoid tampered validation data.",
-                        stacklevel=3,
-                    )
-                # noqa: S310 - http/https are the only accepted schemes; URLs come from
-                # trusted application configuration (set_url), not untrusted input.
-                with urlopen(url, timeout=30) as response:  # noqa: S310
-                    return json.load(response)
-        except (
-            URLError,
-            json.JSONDecodeError,
-            OSError,
-            IOError,
-            http.client.HTTPException,
-        ) as e:
+                return path.read_text(encoding="utf-8")
+
+            if url.startswith("http://"):
+                warnings.warn(
+                    f"Unencrypted HTTP URL used for data loading: {url}. "
+                    "Prefer HTTPS to avoid tampered validation data.",
+                    stacklevel=3,
+                )
+            # noqa: S310 - http/https are the only accepted schemes; URLs come from
+            # trusted application configuration (set_url), not untrusted input.
+            with urlopen(url, timeout=30) as response:  # noqa: S310
+                return response.read().decode("utf-8")
+        except (URLError, OSError, http.client.HTTPException) as e:
             raise RuntimeError(f"Failed to load data: {e}") from e
 
     @abstractmethod
-    def _parse(self, json_data: Dict[str, Any]) -> Dict[str, Any]: ...
+    def _parse(self, content: Any) -> Dict[str, Any]: ...
+
+    def _load_content(self, url: str) -> Any:
+        """Return the raw content to parse. Override for a non-JSON document."""
+        return json.loads(self._fetch_text(url))
 
     def _load_cached(self) -> Dict[str, Any]:
         cache = self._get_cache()
@@ -85,8 +87,10 @@ class SigmahqDataLoader(ABC):
             return cast(Dict[str, Any], cached_data)
 
         url = self._custom_url if self._custom_url is not None else self._default_url
-        json_data = self._fetch_json(url)
-        result = self._parse(json_data)
+        try:
+            result = self._parse(self._load_content(url))
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            raise RuntimeError(f"Failed to load data: {e}") from e
 
         cache.set(cache_key, result)
         return result
