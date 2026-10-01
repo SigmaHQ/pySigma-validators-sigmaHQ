@@ -1,5 +1,6 @@
 import re
 from dataclasses import dataclass
+from difflib import SequenceMatcher
 from typing import Any, ClassVar, Dict, List
 from uuid import UUID
 
@@ -11,10 +12,15 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
+from sigma.validators.sigmahq.data import data_atomic_red_team
+
 _SIM_TYPE_EXPECTED = "atomic-red-team"
 _SIM_TECH_RE = re.compile(r"^T\d{4}(\.\d{3})?$")
 _REQUIRED_KEYS = {"type", "name", "technique", "atomic_guid"}
 _ALLOWED_KEYS = _REQUIRED_KEYS
+# Two test names that differ only by case or punctuation are treated as the same
+# name, so only a real divergence between the rule and the index is reported.
+_NAME_SIMILARITY_THRESHOLD = 0.8
 
 
 @dataclass
@@ -160,3 +166,109 @@ class SigmahqSimulationValidator(SigmaRuleValidator):
         except ValueError:
             return False
         return True
+
+
+@dataclass
+class SigmahqSimulationUnknownAtomicTestIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "simulation references an atomic_guid that does not exist in the Atomic Red Team index"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    atomic_guid: str
+
+
+class SigmahqSimulationAtomicTestExistsValidator(SigmaRuleValidator):
+    """Checks that every atomic_guid is present in the Atomic Red Team index."""
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        simulation = _simulation_entries(rule)
+        if simulation is None:
+            return []
+
+        known = data_atomic_red_team.sigmahq_atomic_red_team_test_name_by_guid
+
+        issues: List[SigmaValidationIssue] = []
+        for entry in simulation:
+            guid = entry.get("atomic_guid")
+            if isinstance(guid, str) and guid not in known:
+                issues.append(SigmahqSimulationUnknownAtomicTestIssue([rule], atomic_guid=guid))
+        return issues
+
+
+@dataclass
+class SigmahqSimulationAtomicTestNameIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "simulation name does not match the name of the atomic test referenced by atomic_guid"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
+    name: str
+    expected_name: str
+
+
+@dataclass(frozen=True)
+class SigmahqSimulationAtomicTestNameValidator(SigmaRuleValidator):
+    """Checks that name matches the test the atomic_guid points to.
+
+    The technique is deliberately not compared with the index: Atomic Red Team
+    master renumbered several techniques (T1562.001 became T1685), and the
+    references of a rule may legitimately keep the older identifier.
+
+    Names that only differ by case or punctuation are accepted, since several
+    existing rules spell a test slightly differently than the index does.
+    """
+
+    name_similarity_threshold: float = _NAME_SIMILARITY_THRESHOLD
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        simulation = _simulation_entries(rule)
+        if simulation is None:
+            return []
+
+        known = data_atomic_red_team.sigmahq_atomic_red_team_test_name_by_guid
+
+        issues: List[SigmaValidationIssue] = []
+        for entry in simulation:
+            guid = entry.get("atomic_guid")
+            name = entry.get("name")
+            if not isinstance(guid, str) or guid not in known:
+                continue
+            if not isinstance(name, str) or not name.strip():
+                continue
+
+            expected_name = known[guid]
+            if _names_match(name, expected_name, self.name_similarity_threshold):
+                continue
+            issues.append(
+                SigmahqSimulationAtomicTestNameIssue([rule], name=name, expected_name=expected_name)
+            )
+        return issues
+
+
+def _simulation_entries(rule: SigmaRule | SigmaCorrelationRule) -> List[Dict[str, Any]] | None:
+    """Return the well formed entries of the simulation field, or None if unusable.
+
+    Entries are filtered so that the validators relying on the Atomic Red Team
+    index only inspect dict entries with a string GUID, and never duplicate the
+    structural findings of SigmahqSimulationValidator.
+    """
+    if not rule.custom_attributes:
+        return None
+
+    simulation = rule.custom_attributes.get("simulation")
+    if not isinstance(simulation, list):
+        return None
+
+    return [
+        entry
+        for entry in simulation
+        if isinstance(entry, dict) and isinstance(entry.get("atomic_guid"), str)
+    ]
+
+
+def _names_match(name: str, expected_name: str, threshold: float) -> bool:
+    """Compare two test names, ignoring case and surrounding whitespace."""
+    normalized = name.strip().casefold()
+    normalized_expected = expected_name.strip().casefold()
+    if normalized == normalized_expected:
+        return True
+    return SequenceMatcher(None, normalized, normalized_expected).ratio() >= threshold
