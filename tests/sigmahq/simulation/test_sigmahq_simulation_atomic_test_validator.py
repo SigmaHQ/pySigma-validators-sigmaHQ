@@ -157,3 +157,29 @@ def test_validator_atomic_test_name_reports_every_divergent_entry():
     issues = SigmahqSimulationAtomicTestNameValidator().validate(rule)
     assert [i.name for i in issues] == ["First Wrong Name", "Second Wrong Name"]
     assert all(i.expected_name == KNOWN_NAME for i in issues)
+
+
+@pytest.fixture
+def unreachable_index(monkeypatch):
+    """Make the Atomic Red Team index unreachable, as during a network outage."""
+
+    def raise_unreachable(self):
+        raise RuntimeError("Failed to load data: <urlopen error timed out>")
+
+    monkeypatch.setattr(
+        "sigma.validators.sigmahq.data.data_atomic_red_team._AtomicRedTeamLoader._load_cached",
+        raise_unreachable,
+    )
+
+
+def test_validator_atomic_test_exists_silent_when_index_unreachable(unreachable_index):
+    """An unreachable index must not fail every rule, and must be reported."""
+    rule = create_rule(entry(guid=UNKNOWN_GUID))
+    with pytest.warns(UserWarning, match="index unavailable"):
+        assert SigmahqSimulationAtomicTestExistsValidator().validate(rule) == []
+
+
+def test_validator_atomic_test_name_silent_when_index_unreachable(unreachable_index):
+    rule = create_rule(entry(name="'Wholly Different Test'"))
+    with pytest.warns(UserWarning, match="index unavailable"):
+        assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []

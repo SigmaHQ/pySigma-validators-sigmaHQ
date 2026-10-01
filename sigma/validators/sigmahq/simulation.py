@@ -1,4 +1,5 @@
 import re
+import warnings
 from dataclasses import dataclass
 from difflib import SequenceMatcher
 from typing import Any, ClassVar, Dict, List
@@ -177,6 +178,24 @@ class SigmahqSimulationUnknownAtomicTestIssue(SigmaValidationIssue):
     atomic_guid: str
 
 
+def _known_test_names() -> Dict[str, str] | None:
+    """Return the Atomic Red Team GUID to name mapping, or None if unavailable.
+
+    The index lives outside this repository, so it can be unreachable because of
+    a network outage, a rate limit or an upstream move. Validators depending on
+    it must then stay silent instead of failing every rule: a false positive on
+    every rule of the repository is worse than a skipped cross-check.
+    """
+    try:
+        return data_atomic_red_team.sigmahq_atomic_red_team_test_name_by_guid
+    except RuntimeError as e:
+        warnings.warn(
+            f"Atomic Red Team index unavailable, simulation cross-checks skipped: {e}",
+            stacklevel=2,
+        )
+        return None
+
+
 class SigmahqSimulationAtomicTestExistsValidator(SigmaRuleValidator):
     """Checks that every atomic_guid is present in the Atomic Red Team index."""
 
@@ -185,7 +204,9 @@ class SigmahqSimulationAtomicTestExistsValidator(SigmaRuleValidator):
         if simulation is None:
             return []
 
-        known = data_atomic_red_team.sigmahq_atomic_red_team_test_name_by_guid
+        known = _known_test_names()
+        if known is None:
+            return []
 
         issues: List[SigmaValidationIssue] = []
         for entry in simulation:
@@ -224,7 +245,9 @@ class SigmahqSimulationAtomicTestNameValidator(SigmaRuleValidator):
         if simulation is None:
             return []
 
-        known = data_atomic_red_team.sigmahq_atomic_red_team_test_name_by_guid
+        known = _known_test_names()
+        if known is None:
+            return []
 
         issues: List[SigmaValidationIssue] = []
         for entry in simulation:

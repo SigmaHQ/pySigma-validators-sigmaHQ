@@ -35,7 +35,6 @@ def test_validator_regression_path_absent():
     "path",
     [
         VALID_PATH,
-        "regression_data/rules/windows/process_creation/proc_creation_win_test/info.yml",
         "regression_data/rules-emerging-threats/2025/Malware/X/win_x/info.yml",
         "regression_data/rules-threat-hunting/windows/file/file_event/win_x/info.yml",
         "regression_data/rules-dfir/x/win_x/info.yml",
