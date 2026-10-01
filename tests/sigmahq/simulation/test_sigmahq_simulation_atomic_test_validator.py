@@ -2,6 +2,7 @@ import pytest
 from sigma.rule import SigmaRule
 
 from sigma.validators.sigmahq.simulation import (
+    SigmahqSimulationAtomicReferenceValidator,
     SigmahqSimulationAtomicTestExistsValidator,
     SigmahqSimulationAtomicTestNameIssue,
     SigmahqSimulationAtomicTestNameValidator,
@@ -34,11 +35,11 @@ simulation:
     )
 
 
-def entry(guid: str = KNOWN_GUID, name: str = KNOWN_NAME) -> str:
+def entry(guid: str = KNOWN_GUID, name: str = KNOWN_NAME, technique: str = "T1059.001") -> str:
     return (
         "    - type: atomic-red-team\n"
         f"      name: {name}\n"
-        "      technique: T1059.001\n"
+        f"      technique: {technique}\n"
         f"      atomic_guid: {guid}\n"
     )
 
@@ -232,3 +233,81 @@ def test_validator_atomic_test_technique_silent_when_index_unreachable(unreachab
     rule = create_rule(entry())
     with pytest.warns(UserWarning, match="index unavailable"):
         assert SigmahqSimulationAtomicTestTechniqueValidator().validate(rule) == []
+
+
+_ART_SHA = "f339e7da7d05f6057fdfcdd3742bfcf365fee2a9"
+
+
+def art_reference(technique: str) -> str:
+    return (
+        "https://github.com/redcanaryco/atomic-red-team/blob/"
+        f"{_ART_SHA}/atomics/{technique}/{technique}.md"
+    )
+
+
+def create_rule_with_reference(entries: str, *references: str) -> SigmaRule:
+    return SigmaRule.from_yaml(
+        f"""title: Test Rule
+status: test
+date: 2024-01-01
+references:
+{chr(10).join(f"    - {link}" for link in references)}
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    sel:
+        candle|exists: true
+    condition: sel
+simulation:
+{entries}"""
+    )
+
+
+def test_validator_atomic_reference_matches():
+    rule = create_rule_with_reference(entry(), art_reference("T1059.001"))
+    assert SigmahqSimulationAtomicReferenceValidator().validate(rule) == []
+
+
+def test_validator_atomic_reference_parent_technique_accepted():
+    """The reference may carry the sub-technique while the rule spells the parent."""
+    rule = create_rule_with_reference(entry(technique="T1059"), art_reference("T1059.001"))
+    assert SigmahqSimulationAtomicReferenceValidator().validate(rule) == []
+
+
+def test_validator_atomic_reference_points_to_another_test():
+    rule = create_rule_with_reference(entry(), art_reference("T1112"))
+    issues = SigmahqSimulationAtomicReferenceValidator().validate(rule)
+    assert len(issues) == 1
+    assert (issues[0].technique, issues[0].expected_technique) == ("T1059.001", "T1059.001")
+    assert issues[0].link == art_reference("T1112")
+
+
+def test_validator_atomic_reference_missing():
+    rule = create_rule_with_reference(entry())
+    issues = SigmahqSimulationAtomicReferenceValidator().validate(rule)
+    assert [type(i).__name__ for i in issues] == ["SigmahqSimulationAtomicReferenceIssue"]
+    assert issues[0].atomic_guid == KNOWN_GUID
+
+
+def test_validator_atomic_reference_non_atomic_link_only():
+    rule = create_rule_with_reference(entry(), "https://attack.mitre.org/techniques/T1027")
+    issues = SigmahqSimulationAtomicReferenceValidator().validate(rule)
+    assert [type(i).__name__ for i in issues] == ["SigmahqSimulationAtomicReferenceIssue"]
+
+
+def test_validator_atomic_reference_absent_simulation():
+    rule = SigmaRule.from_yaml(
+        """title: Test Rule
+status: test
+date: 2024-01-01
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    sel:
+        candle|exists: true
+    condition: sel
+"""
+    )
+    assert SigmahqSimulationAtomicReferenceValidator().validate(rule) == []

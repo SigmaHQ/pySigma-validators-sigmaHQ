@@ -220,6 +220,104 @@ class SigmahqSimulationAtomicTestExistsValidator(SigmaRuleValidator):
         return issues
 
 
+_ART_REFERENCE_RE = re.compile(
+    r"redcanaryco/atomic-red-team/(?:blob|tree)/[0-9a-f]{40}/atomics/(T\d{4}(?:\.\d{3})?)/"
+)
+
+
+def _index_technique(guid: str) -> str | None:
+    """Return the technique the index gives to a GUID, or None if unavailable."""
+    known = _known_tests()
+    if known is None or guid not in known:
+        return None
+    return known[guid]["technique"]
+
+
+@dataclass
+class SigmahqSimulationAtomicReferenceIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "simulation atomic_guid is not documented by any Atomic Red Team reference of the rule"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+    atomic_guid: str
+
+
+@dataclass
+class SigmahqSimulationAtomicReferenceTechniqueIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "Atomic Red Team reference of the rule does not point to the technique of the "
+        "atomic test referenced by atomic_guid"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.MEDIUM
+    link: str
+    technique: str
+    expected_technique: str
+
+
+class SigmahqSimulationAtomicReferenceValidator(SigmaRuleValidator):
+    """Checks that an Atomic Red Team reference documents the simulated test.
+
+    A simulation claims that a rule was validated against one specific atomic
+    test, so the rule must link that test. The reference is expected to be a
+    permalink of the form
+    https://github.com/redcanaryco/atomic-red-team/blob/<sha>/atomics/T1027.001/T1027.001.md
+    whose path carries the technique of the test.
+
+    Both the technique of the simulation and the technique of the index are
+    accepted against that path, so only a genuine divergence is reported.
+    """
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        simulation = _simulation_entries(rule)
+        if simulation is None:
+            return []
+
+        links = [
+            link
+            for link in (rule.references or [])
+            if isinstance(link, str) and "redcanaryco/atomic-red-team" in link
+        ]
+        if not links:
+            return [
+                SigmahqSimulationAtomicReferenceIssue([rule], atomic_guid=entry["atomic_guid"])
+                for entry in simulation
+            ]
+
+        referenced_techniques = set()
+        for link in links:
+            match = _ART_REFERENCE_RE.search(link)
+            if match is not None:
+                referenced_techniques.add(match.group(1))
+
+        issues: List[SigmaValidationIssue] = []
+        for entry in simulation:
+            guid = entry["atomic_guid"]
+            technique = entry.get("technique")
+            if not isinstance(technique, str) or not technique.strip():
+                continue
+
+            expected_technique = _index_technique(guid)
+            candidates = [technique]
+            if expected_technique is not None:
+                candidates.append(expected_technique)
+            if any(
+                _techniques_match(referenced, candidate)
+                for referenced in referenced_techniques
+                for candidate in candidates
+            ):
+                continue
+
+            issues.append(
+                SigmahqSimulationAtomicReferenceTechniqueIssue(
+                    [rule],
+                    link=sorted(links)[0],
+                    technique=technique,
+                    expected_technique=expected_technique or technique,
+                )
+            )
+        return issues
+
+
 @dataclass
 class SigmahqSimulationAtomicTestTechniqueIssue(SigmaValidationIssue):
     description: ClassVar[str] = (
