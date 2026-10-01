@@ -201,12 +201,17 @@ def test_validator_simulation_atomic_guid_unquoted_is_an_int_and_rejected():
     ]
 
 
-def test_validator_simulation_atomic_guid_without_dashes_quoted_is_accepted():
+def test_validator_simulation_atomic_guid_without_dashes_rejected():
+    """An undashed GUID can never resolve to an index entry and is rejected."""
     rule = create_rule(
         "simulation:\n    - type: atomic-red-team\n      name: Some Atomic\n"
         "      technique: T1059.001\n      atomic_guid: '5f9113d5ed7547edba23ea3573d05810'\n"
     )
-    assert SigmahqSimulationValidator().validate(rule) == []
+    assert SigmahqSimulationValidator().validate(rule) == [
+        SigmahqSimulationInvalidAtomicGuidIssue(
+            [rule], atomic_guid="5f9113d5ed7547edba23ea3573d05810"
+        )
+    ]
 
 
 def test_validator_simulation_collects_all_issues_across_entries():

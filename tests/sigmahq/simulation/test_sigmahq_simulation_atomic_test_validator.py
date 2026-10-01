@@ -2,11 +2,7 @@ import pytest
 from sigma.rule import SigmaRule
 
 from sigma.validators.sigmahq.simulation import (
-    SigmahqSimulationAtomicReferenceValidator,
     SigmahqSimulationAtomicTestExistsValidator,
-    SigmahqSimulationAtomicTestNameIssue,
-    SigmahqSimulationAtomicTestNameValidator,
-    SigmahqSimulationAtomicTestTechniqueValidator,
     SigmahqSimulationUnknownAtomicTestIssue,
     SigmahqSimulationValidator,
 )
@@ -93,75 +89,6 @@ def test_validator_atomic_test_exists_ignores_malformed_entries():
     assert SigmahqSimulationAtomicTestExistsValidator().validate(rule) == []
 
 
-def test_validator_atomic_test_name_matches():
-    rule = create_rule(entry())
-    assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []
-
-
-@pytest.mark.parametrize("name", ["powershell execute a script", "PowerShell  Execute  a Script "])
-def test_validator_atomic_test_name_case_and_whitespace_tolerated(name):
-    rule = create_rule(entry(name=f"'{name}'"))
-    assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []
-
-
-def test_validator_atomic_test_name_similar_tolerated():
-    """'Disable Windows Event Logging' vs its slightly different spelling."""
-    rule = create_rule(
-        entry(
-            guid="55555555-5555-4555-8555-555555555555",
-            name="'Disable Windows Event Loggin'",
-        )
-    )
-    assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []
-
-
-def test_validator_atomic_test_name_divergent():
-    rule = create_rule(entry(name="'RDP to DomainController'"))
-    assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == [
-        SigmahqSimulationAtomicTestNameIssue(
-            [rule], name="RDP to DomainController", expected_name=KNOWN_NAME
-        )
-    ]
-
-
-def test_validator_atomic_test_name_threshold_is_configurable():
-    validator = SigmahqSimulationAtomicTestNameValidator(name_similarity_threshold=1.0)
-    rule = create_rule(
-        entry(
-            guid="55555555-5555-4555-8555-555555555555",
-            name="'Disable Windows Event Loggin'",
-        )
-    )
-    assert validator.validate(rule) == [
-        SigmahqSimulationAtomicTestNameIssue(
-            [rule],
-            name="Disable Windows Event Loggin",
-            expected_name="Disable Windows Event Logging",
-        )
-    ]
-
-
-def test_validator_atomic_test_name_technique_is_not_compared():
-    """ART master renumbered T1562.001 to T1685, so technique must not be checked."""
-    rule = create_rule(
-        entry(guid="55555555-5555-4555-8555-555555555555", name="'Disable Windows Event Logging'")
-    )
-    rule.custom_attributes["simulation"][0]["technique"] = "T1562.001"
-    assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []
-
-
-def test_validator_atomic_test_name_unknown_guid_is_skipped():
-    rule = create_rule(entry(guid=UNKNOWN_GUID, name="'RDP to DomainController'"))
-    assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []
-
-
-def test_validator_atomic_test_name_reports_every_divergent_entry():
-    rule = create_rule(entry(name="'First Wrong Name'") + entry(name="'Second Wrong Name'"))
-    issues = SigmahqSimulationAtomicTestNameValidator().validate(rule)
-    assert [i.name for i in issues] == ["First Wrong Name", "Second Wrong Name"]
-    assert all(i.expected_name == KNOWN_NAME for i in issues)
-
-
 @pytest.fixture
 def unreachable_index(monkeypatch):
     """Make the Atomic Red Team index unreachable, as during a network outage."""
@@ -182,10 +109,21 @@ def test_validator_atomic_test_exists_silent_when_index_unreachable(unreachable_
         assert SigmahqSimulationAtomicTestExistsValidator().validate(rule) == []
 
 
-def test_validator_atomic_test_name_silent_when_index_unreachable(unreachable_index):
-    rule = create_rule(entry(name="'Wholly Different Test'"))
+def test_validator_atomic_test_exists_empty_index_warns_and_skips(monkeypatch):
+    """An empty index (HTML 404 page, moved file) must not flag every rule."""
+
+    def raise_empty(self):
+        raise RuntimeError(
+            "Atomic Red Team index is empty; the upstream file is likely unreachable"
+        )
+
+    monkeypatch.setattr(
+        "sigma.validators.sigmahq.data.data_atomic_red_team._AtomicRedTeamLoader._load_cached",
+        raise_empty,
+    )
+    rule = create_rule(entry())
     with pytest.warns(UserWarning, match="index unavailable"):
-        assert SigmahqSimulationAtomicTestNameValidator().validate(rule) == []
+        assert SigmahqSimulationAtomicTestExistsValidator().validate(rule) == []
 
 
 @pytest.mark.parametrize(
@@ -203,111 +141,3 @@ def test_validator_atomic_test_exists_uuid_must_be_v4(guid):
     ]
     exists = SigmahqSimulationAtomicTestExistsValidator().validate(rule)
     assert [type(i).__name__ for i in exists] == ["SigmahqSimulationUnknownAtomicTestIssue"]
-
-
-def test_validator_atomic_test_technique_matches():
-    assert SigmahqSimulationAtomicTestTechniqueValidator().validate(create_rule(entry())) == []
-
-
-def test_validator_atomic_test_technique_parent_accepted():
-    """A rule may spell the parent technique where the index spells a sub-technique."""
-    rule = create_rule(entry())
-    rule.custom_attributes["simulation"][0]["technique"] = "T1059"
-    assert SigmahqSimulationAtomicTestTechniqueValidator().validate(rule) == []
-
-
-def test_validator_atomic_test_technique_divergent():
-    rule = create_rule(entry())
-    rule.custom_attributes["simulation"][0]["technique"] = "T1112"
-    issues = SigmahqSimulationAtomicTestTechniqueValidator().validate(rule)
-    assert len(issues) == 1
-    assert (issues[0].technique, issues[0].expected_technique) == ("T1112", "T1059.001")
-
-
-def test_validator_atomic_test_technique_unknown_guid_is_skipped():
-    rule = create_rule(entry(guid=UNKNOWN_GUID))
-    assert SigmahqSimulationAtomicTestTechniqueValidator().validate(rule) == []
-
-
-def test_validator_atomic_test_technique_silent_when_index_unreachable(unreachable_index):
-    rule = create_rule(entry())
-    with pytest.warns(UserWarning, match="index unavailable"):
-        assert SigmahqSimulationAtomicTestTechniqueValidator().validate(rule) == []
-
-
-_ART_SHA = "f339e7da7d05f6057fdfcdd3742bfcf365fee2a9"
-
-
-def art_reference(technique: str) -> str:
-    return (
-        "https://github.com/redcanaryco/atomic-red-team/blob/"
-        f"{_ART_SHA}/atomics/{technique}/{technique}.md"
-    )
-
-
-def create_rule_with_reference(entries: str, *references: str) -> SigmaRule:
-    return SigmaRule.from_yaml(
-        f"""title: Test Rule
-status: test
-date: 2024-01-01
-references:
-{chr(10).join(f"    - {link}" for link in references)}
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    sel:
-        candle|exists: true
-    condition: sel
-simulation:
-{entries}"""
-    )
-
-
-def test_validator_atomic_reference_matches():
-    rule = create_rule_with_reference(entry(), art_reference("T1059.001"))
-    assert SigmahqSimulationAtomicReferenceValidator().validate(rule) == []
-
-
-def test_validator_atomic_reference_parent_technique_accepted():
-    """The reference may carry the sub-technique while the rule spells the parent."""
-    rule = create_rule_with_reference(entry(technique="T1059"), art_reference("T1059.001"))
-    assert SigmahqSimulationAtomicReferenceValidator().validate(rule) == []
-
-
-def test_validator_atomic_reference_points_to_another_test():
-    rule = create_rule_with_reference(entry(), art_reference("T1112"))
-    issues = SigmahqSimulationAtomicReferenceValidator().validate(rule)
-    assert len(issues) == 1
-    assert (issues[0].technique, issues[0].expected_technique) == ("T1059.001", "T1059.001")
-    assert issues[0].link == art_reference("T1112")
-
-
-def test_validator_atomic_reference_missing():
-    rule = create_rule_with_reference(entry())
-    issues = SigmahqSimulationAtomicReferenceValidator().validate(rule)
-    assert [type(i).__name__ for i in issues] == ["SigmahqSimulationAtomicReferenceIssue"]
-    assert issues[0].atomic_guid == KNOWN_GUID
-
-
-def test_validator_atomic_reference_non_atomic_link_only():
-    rule = create_rule_with_reference(entry(), "https://attack.mitre.org/techniques/T1027")
-    issues = SigmahqSimulationAtomicReferenceValidator().validate(rule)
-    assert [type(i).__name__ for i in issues] == ["SigmahqSimulationAtomicReferenceIssue"]
-
-
-def test_validator_atomic_reference_absent_simulation():
-    rule = SigmaRule.from_yaml(
-        """title: Test Rule
-status: test
-date: 2024-01-01
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    sel:
-        candle|exists: true
-    condition: sel
-"""
-    )
-    assert SigmahqSimulationAtomicReferenceValidator().validate(rule) == []

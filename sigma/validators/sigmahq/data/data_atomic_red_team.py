@@ -38,6 +38,11 @@ class _AtomicRedTeamLoader(SigmahqDataLoader):
                     "name": (row.get("Test Name") or "").strip(),
                 },
             )
+        if not index:
+            raise RuntimeError(
+                "Atomic Red Team index is empty; the upstream file is likely "
+                "unreachable, moved or returned an error page"
+            )
         return {"sigmahq_atomic_red_team_test_by_guid": index}
 
 
