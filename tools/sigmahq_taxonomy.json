@@ -2,6 +2,20 @@
     "title": "Sigma taxonomy",
     "version": "20260831",
     "taxonomy": {
+        "windows_none_adfs": {
+            "logsource": {
+                "product": "windows",
+                "category": null,
+                "service": "adfs",
+                "definition": null
+            },
+            "description": "Active Directory Federation Services (AD FS) operational and tracing event logs (AD FS/Admin, AD FS Tracing/Debug)",
+            "field": {
+                "native": [],
+                "custom": [],
+                "redundant": []
+            }
+        },
         "aws_none_cloudtrail": {
             "logsource": {
                 "product": "aws",
