@@ -1,10 +1,10 @@
 [project]
 name = "pySigma-validators-sigmahq"
-version = "0.21.2"
+version = "0.30.0"
 description = "pySigma SigmaHQ validators"
 license = "LGPL-2.1-only"
 readme = "README.md"
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.11,<4.0"
 
 authors = [
     {name = "François Hubaut", email = "frack113@users.noreply.github.com" }
@@ -18,8 +18,8 @@ maintainers = [
 keywords = [ "pySigma", "SigmaHQ", "validators"]
 
 dependencies = [
-    "pysigma >=1.5",
-    "diskcache >=5.6"
+    "pysigma >=2.0.0,<3.0.0",
+    "diskcache-community >=5.8.1,<6.0.0"
 ]
 
 [project.urls]
@@ -40,7 +40,7 @@ check-jsonschema = "^0.38"
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I001", "S", "PLR"]
@@ -64,7 +64,7 @@ quote-style = "double"
 indent-style = "space"
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 warn_return_any = false
 warn_unused_configs = false
 disallow_untyped_defs = false

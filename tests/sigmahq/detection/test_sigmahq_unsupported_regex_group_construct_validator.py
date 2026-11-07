@@ -1,4 +1,5 @@
 from sigma.correlations import SigmaCorrelationRule
+from sigma.policy.profiles import TrustedPolicy
 from sigma.rule import SigmaRule
 
 from sigma.validators.sigmahq.detection import (
@@ -20,7 +21,8 @@ detection:
     sel:
         field|re: 'A(?=B)'
     condition: sel
-"""
+""",
+        policy=TrustedPolicy,
     )
     assert validator.validate(detection_rule) == [
         SigmahqUnsupportedRegexGroupConstructIssue([detection_rule], "A(?=B)")
@@ -58,7 +60,8 @@ detection:
     sel:
         field|re: 'A(?<!B)'
     condition: sel
-"""
+""",
+        policy=TrustedPolicy,
     )
     assert validator.validate(detection_rule) == [
         SigmahqUnsupportedRegexGroupConstructIssue([detection_rule], "A(?<!B)")
@@ -78,7 +81,8 @@ detection:
     sel:
         field|re: 'A(?!B)'
     condition: sel
-"""
+""",
+        policy=TrustedPolicy,
     )
     assert validator.validate(detection_rule) == [
         SigmahqUnsupportedRegexGroupConstructIssue([detection_rule], "A(?!B)")
@@ -98,7 +102,8 @@ detection:
     sel:
         field|re: 'A(?<=B)'
     condition: sel
-"""
+""",
+        policy=TrustedPolicy,
     )
     assert validator.validate(detection_rule) == [
         SigmahqUnsupportedRegexGroupConstructIssue([detection_rule], "A(?<=B)")
@@ -118,7 +123,8 @@ detection:
     sel:
         field|re: '(?P<name>\\w+)(?=\\s+\\w+)'
     condition: sel
-"""
+""",
+        policy=TrustedPolicy,
     )
     assert validator.validate(detection_rule) == [
         SigmahqUnsupportedRegexGroupConstructIssue([detection_rule], "(?P<name>\\w+)(?=\\s+\\w+)")
