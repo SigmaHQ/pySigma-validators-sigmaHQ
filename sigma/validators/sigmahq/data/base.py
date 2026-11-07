@@ -7,7 +7,7 @@ from typing import Any, Dict, Optional, cast
 from urllib.error import URLError
 from urllib.request import urlopen
 
-import diskcache
+import diskcache_community as diskcache
 
 _DEFAULT_CACHE_DIR = Path.home() / ".cache" / "pysigma" / "sigmahq"
 
