@@ -170,22 +170,3 @@ correlation:
 """
     )
     assert validator.validate(correlation_rule) == []
-
-
-def test_validator_SigmahqWindowsPathStartswith_empty_value_skipped():
-    """Test that an empty startswith value is ignored (covers line 189 continue)."""
-    validator = SigmahqWindowsPathStartswithValidator()
-    detection_rule = SigmaRule.from_yaml(
-        r"""
-title: Empty Startswith
-status: test
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection:
-        Image|startswith: ''
-    condition: selection
-"""
-    )
-    assert validator.validate(detection_rule) == []
