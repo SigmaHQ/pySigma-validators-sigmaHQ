@@ -13,15 +13,17 @@ from sigma.validators.base import (
     SigmaValidationIssueSeverity,
 )
 
-PATH_FIELDS: Tuple[str, ...] = (
-    "Image",
-    "ParentImage",
-    "ImageLoaded",
-    "TargetFilename",
-    "SourceImage",
-    "TargetImage",
+PATH_FIELDS: frozenset[str] = frozenset(
+    (
+        "Image",
+        "ParentImage",
+        "ImageLoaded",
+        "TargetFilename",
+        "SourceImage",
+        "TargetImage",
+    )
 )
-COMMAND_LINE_FIELDS: Tuple[str, ...] = ("CommandLine", "ParentCommandLine")
+COMMAND_LINE_FIELDS: frozenset[str] = frozenset(("CommandLine", "ParentCommandLine"))
 PSEUDO_PROCESS_NAMES = frozenset(
     (
         "system",
