@@ -237,3 +237,41 @@ class SigmahqWindowsCommandLineWhitespaceValidator(SigmaDetectionItemValidator):
             if (plain_value := _plain_value(value)) is not None
             and plain_value != plain_value.strip()
         ]
+
+
+ORIGINAL_FILENAME_FIELD = "OriginalFileName"
+
+
+@dataclass
+class SigmahqWindowsOriginalFileNamePathIssue(SigmaValidationIssue):
+    description: ClassVar[str] = (
+        "OriginalFileName is a bare filename and must not contain a path separator"
+    )
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.HIGH
+    field: str
+    value: str
+
+
+class SigmahqWindowsOriginalFileNamePathValidator(SigmaDetectionItemValidator):
+    """Check that OriginalFileName values do not contain a path separator."""
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        # Only validate SigmaRule (detection rules), not correlation rules.
+        if not isinstance(rule, SigmaRule):
+            return []
+        if not _is_windows_rule(rule):
+            return []
+        return super().validate(rule)
+
+    def validate_detection_item(
+        self, detection_item: SigmaDetectionItem
+    ) -> List[SigmaValidationIssue]:
+        if detection_item.field != ORIGINAL_FILENAME_FIELD:
+            return []
+
+        return [
+            SigmahqWindowsOriginalFileNamePathIssue([self.rule], detection_item.field, plain_value)
+            for value in _original_values(detection_item)
+            if (plain_value := _plain_value(value)) is not None
+            and any(sep in plain_value for sep in PATH_SEPARATORS)
+        ]
