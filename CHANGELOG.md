@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2026-11-07 - v0.30.1
+
+- Add Windows path validators (`sigma/validators/sigmahq/windows.py`):
+  - `SigmahqWindowsPathNotAbsoluteValidator`: exact match on a path field
+    with a value that is not an absolute path
+  - `SigmahqWindowsPathFolderValidator`: exact match on a path field with
+    a value ending in a path separator
+  - `SigmahqWindowsPathStartswithValidator`: `|startswith` on a path field
+    with a value that cannot start a path
+  - `SigmahqWindowsCommandLineWhitespaceValidator`: exact match on
+    `CommandLine`/`ParentCommandLine` with leading/trailing whitespace
+  - `SigmahqWindowsOriginalFileNamePathValidator`: `OriginalFileName`
+    value containing a path separator
+
 ## 2026-11-07 - v0.30.0
 
 - **Breaking:** require pySigma 2.x (`pysigma >=2.0.0,<3.0.0`)
