@@ -1,0 +1,26 @@
+name: "Feature Request"
+description: Propose a new validator or a new feature
+labels:
+  - enhancement
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of the feature
+      placeholder: What would you like to be added, and how should it behave?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Motivation / Context
+      description: Why is this feature useful? Which problem does it solve?
+      placeholder: |
+        e.g. the sigma repo would benefit from an additional check on ...
+  - type: textarea
+    attributes:
+      label: Example Rule
+      description: A Sigma rule example illustrating the need, if applicable
+      placeholder: |
+        name: Example Rule
+        logsource:
+          category: process_creation

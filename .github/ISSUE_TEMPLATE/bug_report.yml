@@ -1,0 +1,44 @@
+name: "Bug Report"
+description: Report a bug in the validators (false positive, false negative, crash)
+labels:
+  - bug
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug
+      placeholder: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: pySigma-validators-sigmaHQ version
+      description: The version of the validator package in use
+      placeholder: "x.y.z"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: pySigma version
+      description: The version of pySigma in use
+      placeholder: "x.y.z"
+  - type: textarea
+    attributes:
+      label: Example Rule
+      description: The Sigma rule that triggers the issue (paste the rule YAML, or link to a rule file)
+      placeholder: |
+        name: Example Rule
+        logsource:
+          category: process_creation
+        detection:
+          selection:
+            Image: C:\Windows\System32\cmd.exe
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Logs / Traceback
+      description: Error output or traceback, if any
+      placeholder: |
+        Traceback (most recent call last):
+          ...
