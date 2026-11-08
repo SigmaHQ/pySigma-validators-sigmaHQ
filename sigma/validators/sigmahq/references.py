@@ -55,3 +55,21 @@ class SigmahqMitreLinkValidator(SigmaRuleValidator):
                 if link.startswith("https://attack.mitre.org/"):
                     result.append(SigmahqMitreLinkIssue([rule], link))
         return result
+
+
+@dataclass
+class SigmahqReferencesAlphabeticalOrderIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "References are not in alphabetical order"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
+    references: List[str]
+
+
+class SigmahqReferencesAlphabeticalOrderValidator(SigmaRuleValidator):
+    """Checks if rule references are sorted alphabetically."""
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        references = list(rule.references or [])
+        normalized = [reference.casefold() for reference in references]
+        if normalized != sorted(normalized):
+            return [SigmahqReferencesAlphabeticalOrderIssue([rule], references)]
+        return []

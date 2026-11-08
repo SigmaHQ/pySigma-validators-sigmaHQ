@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2026-11-08 - v0.30.1
+
+- Add `SigmahqReferencesAlphabeticalOrderValidator` in
+  `sigma/validators/sigmahq/references.py` to check that `references` are sorted
+  alphabetically (case-insensitive)
+- Add `SigmahqTagsAlphabeticalOrderValidator` in
+  `sigma/validators/sigmahq/tags.py` to check that `tags` are sorted by
+  namespace, then name (case-insensitive, two-level alphabetical order)
+- Test/CI: bundle a complete local MITRE ATT&CK Enterprise STIX JSON in `tools/`
+  and configure tests to load it via `sigma.data.mitre_attack.set_url()`, making
+  CI independent of MITRE data downloads and 504 errors
+
 ## 2026-11-07 - v0.30.0
 
 - **Breaking:** require pySigma 2.x (`pysigma >=2.0.0,<3.0.0`)
