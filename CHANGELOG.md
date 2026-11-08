@@ -8,6 +8,9 @@
 - Add `SigmahqTagsAlphabeticalOrderValidator` in
   `sigma/validators/sigmahq/tags.py` to check that `tags` are sorted by
   namespace, then name (case-insensitive, two-level alphabetical order)
+- Test/CI: bundle a complete local MITRE ATT&CK Enterprise STIX JSON in `tools/`
+  and configure tests to load it via `sigma.data.mitre_attack.set_url()`, making
+  CI independent of MITRE data downloads and 504 errors
 
 ## 2026-11-07 - v0.30.0
 
