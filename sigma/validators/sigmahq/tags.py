@@ -161,9 +161,7 @@ class SigmahqTagsAlphabeticalOrderValidator(SigmaRuleValidator):
     def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
         tags = list(rule.tags or [])
         tag_names = [str(tag) for tag in tags]
-        normalized = [
-            (str(tag.namespace).casefold(), str(tag.name).casefold()) for tag in tags
-        ]
+        normalized = [(str(tag.namespace).casefold(), str(tag.name).casefold()) for tag in tags]
         if normalized != sorted(normalized):
             return [SigmahqTagsAlphabeticalOrderIssue([rule], tag_names)]
         return []
