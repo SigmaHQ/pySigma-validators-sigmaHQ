@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2026-11-08 - v0.30.1
+
+- Add `SigmahqReferencesAlphabeticalOrderValidator` in
+  `sigma/validators/sigmahq/references.py` to check that `references` are sorted
+  alphabetically (case-insensitive)
+- Add `SigmahqTagsAlphabeticalOrderValidator` in
+  `sigma/validators/sigmahq/tags.py` to check that `tags` are sorted by
+  namespace, then name (case-insensitive, two-level alphabetical order)
+
 ## 2026-11-07 - v0.30.0
 
 - **Breaking:** require pySigma 2.x (`pysigma >=2.0.0,<3.0.0`)
