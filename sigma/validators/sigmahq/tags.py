@@ -146,3 +146,24 @@ class SigmahqTagsTechniquesWithoutTacticsValidator(SigmaRuleValidator):
                 )
 
         return issues
+
+
+@dataclass
+class SigmahqTagsAlphabeticalOrderIssue(SigmaValidationIssue):
+    description: ClassVar[str] = "Tags are not sorted by namespace, then name"
+    severity: ClassVar[SigmaValidationIssueSeverity] = SigmaValidationIssueSeverity.LOW
+    tags: List[str]
+
+
+class SigmahqTagsAlphabeticalOrderValidator(SigmaRuleValidator):
+    """Checks if tags are sorted by namespace, then name alphabetically."""
+
+    def validate(self, rule: SigmaRule | SigmaCorrelationRule) -> List[SigmaValidationIssue]:
+        tags = list(rule.tags or [])
+        tag_names = [str(tag) for tag in tags]
+        normalized = [
+            (str(tag.namespace).casefold(), str(tag.name).casefold()) for tag in tags
+        ]
+        if normalized != sorted(normalized):
+            return [SigmahqTagsAlphabeticalOrderIssue([rule], tag_names)]
+        return []
