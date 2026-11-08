@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 2026-11-08 - v0.30.1
+
+- Add `SigmahqRelatedIdExistenceValidator` in
+  `sigma/validators/sigmahq/related.py` (issue `SigmahqRelatedIdExistenceIssue`,
+  `MEDIUM`) to check that `related.id` references exist in the known SigmaHQ
+  corpus. The index is corpus-aware: it can be configured via `known_ids`,
+  `index_path`, or `corpus_paths`; when unconfigured it auto-discovers the
+  SigmaHQ repository from `rule.source.path` and indexes `rules*`, `deprecated`,
+  and `unsupported` (including `deprecated/deprecated.json`). The check is
+  skipped with a one-time warning when no index can be resolved, to avoid false
+  positives outside a corpus context.
+- Robustness: index `id:` scanning accepts optional quotes and trailing inline
+  comments on the `id:` line.
+
 ## 2026-11-07 - v0.30.0
 
 - **Breaking:** require pySigma 2.x (`pysigma >=2.0.0,<3.0.0`)
